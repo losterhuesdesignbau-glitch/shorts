@@ -205,6 +205,9 @@ const ANIMALS = {
   bear: { c: '#8a5a33', c2: '#c99b6d', ears: 'round', tail: 'stub', snout: 1, s: 1.35 },
   sheep: { c: '#f5f5f5', c2: '#3b3b3b', ears: 'flop', tail: 'stub', snout: 0, wool: 1, s: 1.05 },
   cow: { c: '#ffffff', c2: '#f7b6c2', ears: 'flop', tail: 'tuft', snout: 2, spots: '#2b2b2b', s: 1.4 },
+  guineapig: { guinea: 1, c: '#b5652b', c2: '#ffffff', c3: '#3b2a1a', s: 0.62 },
+  guineapig2: { guinea: 1, c: '#f0a04b', c2: '#ffffff', c3: '#f0a04b', s: 0.58 },
+  guineapig3: { guinea: 1, c: '#2b2b2b', c2: '#ffffff', c3: '#d9a066', s: 0.6 },
   penguin: { biped: 'penguin', s: 1 }, frog: { biped: 'frog', s: 1 }, chicken: { biped: 'chicken', s: 0.8 },
 };
 const ANC = {};
@@ -213,7 +216,24 @@ function animalGeo(type) {
   const A = ANIMALS[type] || ANIMALS.dog, parts = [];
   const part = (kind, p, build, o = {}) => { const mb = new MB(); build(mb); parts.push({ kind, p, g: GL.geo(mb), ...o }); };
   const T = (mb, x, y, z, f) => { mb.push(M4.T(x, y, z)); f(); mb.pop(); };
-  if (!A.biped) {
+  if (A.guinea) {
+    const c = A.c, c2 = A.c2, c3 = A.c3 || c;
+    part('body', [0, 0, 0], mb => {
+      T(mb, 0, 0.95, -0.1, () => mb.rbox(2.0, 1.55, 2.7, 0.7, c));
+      T(mb, 0.3, 1.22, -0.55, () => mb.rbox(1.5, 1.12, 1.45, 0.5, c2));
+      T(mb, -0.45, 1.12, 0.35, () => mb.rbox(1.2, 1.26, 1.25, 0.5, c3));
+      T(mb, 0, 0.5, 0.25, () => mb.rbox(1.55, 0.55, 1.9, 0.27, '#fff3e0'));
+    });
+    part('head', [0, 1.0, 1.15], mb => {
+      T(mb, 0, 0.32, 0.25, () => {
+        mb.rbox(1.55, 1.3, 1.15, 0.5, c2 === '#ffffff' ? c : c2, { uv: true });
+        T(mb, 0, -0.3, 0.55, () => mb.rbox(0.72, 0.42, 0.22, 0.15, '#fff3e0'));
+        T(mb, 0, -0.14, 0.68, () => mb.sphere(0.11, 1, '#e88a9a', { sx: 1.3 }));
+        for (const s of [-1, 1]) T(mb, s * 0.62, 0.62, -0.18, () => mb.sphere(0.25, 1, shade(c, 0.75), { sz: 0.45 }));
+      });
+    }, { face: 'animal' });
+    for (const [x, z, ph] of [[0.6, 0.85, 0], [-0.6, 0.85, 1], [0.6, -0.95, 1], [-0.6, -0.95, 0]]) part('leg', [x, 0.32, z], mb => T(mb, 0, -0.16, 0.05, () => mb.rbox(0.42, 0.32, 0.52, 0.12, '#f2c2b0')), { ph });
+  } else if (!A.biped) {
     const c = A.c, c2 = A.c2;
     part('body', [0, 1.75, 0], mb => { mb.rbox(1.7, 1.35, 2.8, 0.42, c); T(mb, 0, -0.25, 0.3, () => mb.rbox(1.2, 0.9, 1.9, 0.35, c2)); if (A.wool) { const R = rng(5); for (let i = 0; i < 14; i++) T(mb, (R() - .5) * 1.3, 0.35 + R() * .3, (R() - .5) * 2.2, () => mb.sphere(0.55, 1, '#fafafa')); } if (A.spots) { T(mb, 0.55, 0.3, 0.4, () => mb.rbox(0.7, 0.75, 0.9, 0.2, A.spots)); T(mb, -0.6, 0.1, -0.7, () => mb.rbox(0.6, 0.7, 0.8, 0.2, A.spots)); } });
     part('head', [0, 2.35, 1.35], mb => {
@@ -269,7 +289,7 @@ function animalItems(items, type, S, P, t) {
     if (pt.face) it.tex = faceTex(P.mood || 'happy', P.closed, P.open, pt.face);
     items.push(it);
   }
-  return { root, head: headM, handR: headM, handL: headM, top: M4.xp(root, [0, A.biped ? 4.0 : 4.4, A.biped ? 0 : 1.4]) };
+  return { root, head: headM, handR: headM, handL: headM, top: M4.xp(root, A.guinea ? [0, 2.5, 0.9] : [0, A.biped ? 4.0 : 4.4, A.biped ? 0 : 1.4]) };
 }
 
 // ---------- Requisiten ----------
@@ -344,6 +364,14 @@ const PROPS = {
   ghostfloors: o => { const n = o.floors || 3, w = o.w || 14, d = o.d || 12, fh = 3.4; return { parts: [
     { g: cgeo('ghost|' + n + '|' + w, mb => { mb.push(M4.T(0, n * fh / 2, 0)); mb.box(w - 0.4, n * fh, d - 0.4, '#2b2140'); mb.pop(); mb.push(M4.T(0, n * fh + 0.3, 0)); mb.box(w + 0.2, 0.6, d + 0.2, '#1c1530'); mb.pop(); const cols = Math.floor(w / 2.6); for (let f = 0; f < n; f++) for (let c = 0; c < cols; c++) { if (f === n - 1 && c === Math.floor(cols / 2)) continue; mb.push(M4.T(-w / 2 + (c + 0.5) * w / cols, f * fh + 1.8, d / 2 - 0.15)); mb.box(1.5, 1.7, 0.1, '#120d1f'); mb.pop(); } }) },
     { g: cgeo('ghostwin|' + n + '|' + w, mb => { const cols = Math.floor(w / 2.6); mb.push(M4.T(-w / 2 + (Math.floor(cols / 2) + 0.5) * w / cols, (n - 1) * fh + 1.8, d / 2 - 0.15)); mb.box(1.5, 1.7, 0.1, o.glow || '#ff2a2a'); mb.pop(); }), e: 1 }] }; },
+  pen: o => { const w = o.w || 7, d = o.d || 5, wood = o.color || '#c08552'; return { parts: [{ g: cgeo('pen|' + w + '|' + d + '|' + wood, mb => {
+    mb.push(M4.T(0, 0.06, 0)); mb.box(w, 0.12, d, '#e9d27a'); mb.pop();
+    const R = rng(7); for (let i = 0; i < 26; i++) { mb.push(M4.chain(M4.T((R() - 0.5) * (w - 0.6), 0.14, (R() - 0.5) * (d - 0.6)), M4.RY(R() * 3))); mb.box(0.7, 0.04, 0.06, '#d4b24c'); mb.pop(); }
+    for (const [x, z, lw, ld] of [[0, -d / 2, w, 0.16], [0, d / 2, w, 0.16], [-w / 2, 0, 0.16, d], [w / 2, 0, 0.16, d]]) for (const y of [0.35, 0.8]) { mb.push(M4.T(x, y, z)); mb.box(lw, 0.22, ld, wood); mb.pop(); }
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) { mb.push(M4.T(sx * w / 2, 0.5, sz * d / 2)); mb.box(0.24, 1.0, 0.24, shade(wood, 0.8)); mb.pop(); }
+    if (o.hut !== false) { mb.push(M4.T(-w / 2 + 1.1, 0, -d / 2 + 1.0)); mb.push(M4.T(0, 0.55, 0)); mb.box(1.6, 1.1, 1.4, '#a0622d'); mb.pop(); mb.push(M4.T(0, 1.1, 0)); mb.prism(1.9, 0.7, 1.7, '#7a4a22'); mb.pop(); mb.push(M4.T(0, 0.42, 0.71)); mb.box(0.7, 0.75, 0.04, '#3b2412'); mb.pop(); mb.pop(); }
+    mb.push(M4.T(w / 2 - 1.0, 0.2, d / 2 - 0.9)); mb.cyl(0.45, 0.4, 0.25, 12, '#4f8ef7'); mb.pop();
+  }) }] }; },
   bigtext: o => ({ parts: [{ g: cgeo('bigtext|' + (o.w || 6) + '|' + (o.h || 2), mb => { mb.push(M4.T(0, (o.h || 2) / 2, 0)); mb.box(o.w || 6, o.h || 2, 0.1, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ffd23f', fg: o.fg || '#1d1712', border: o.border === undefined ? '#1d1712' : o.border, tw: 512, th: Math.round(512 * (o.h || 2) / (o.w || 6)) }) }] }),
 };
 

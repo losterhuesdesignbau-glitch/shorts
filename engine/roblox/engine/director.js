@@ -106,6 +106,7 @@ function apose(act, t, k, A, type) {
   if (act === 'hop' || act === 'jump' || act === 'cheer') { P.y = Math.abs(s(t * 6.5 + A.ph)) * (act === 'jump' ? 2.2 : 1.0); P.flap = 60 * Math.abs(s(t * 13)); }
   if (act === 'sit') { P.rx = -16; P.y = -0.3; }
   if (act === 'sleep' || act === 'lie') { P.y = -0.6; P.hx = 18; P.leg = 0; P.wag = 0; }
+  if (act === 'float') { P.y = 0.4 + t * 1.5; P.rz = 6 * s(t * 2.2 + A.ph); P.leg = 12 * s(t * 3); P.wag = 0; }
   if (act === 'spin') P.spin = t * 600;
   if (act === 'talk' || act === 'nod') P.hx = 10 * s(t * 8);
   if (act === 'look') P.hy = 40 * s(t * 1.8);
