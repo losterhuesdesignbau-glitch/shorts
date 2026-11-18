@@ -1,0 +1,1705 @@
+{
+ "title": "Die Gähn-Regel",
+ "music": "happy",
+ "cast": {
+  "eli": {
+   "look": "boy",
+   "shirt": "#2f6fe0",
+   "logo": "star"
+  },
+  "opa": {
+   "look": "grandpa"
+  },
+  "klein": {
+   "look": "woman",
+   "hair": "bun",
+   "hairColor": "#5a3418",
+   "glasses": true,
+   "shirt": "#2a9d8f"
+  },
+  "baker": {
+   "look": "chef"
+  },
+  "r1": {
+   "look": "man",
+   "shirt": "#e63946",
+   "logo": "bolt",
+   "logoBg": "#ffffff",
+   "logoColor": "#e63946"
+  },
+  "mama": {
+   "look": "mom"
+  },
+  "fahrer": {
+   "look": "man",
+   "hair": "cap",
+   "shirt": "#264653",
+   "mustache": true
+  },
+  "polizist": {
+   "look": "cop"
+  }
+ },
+ "shots": [
+  {
+   "say": "In dieser Stadt gibt es nur eine Regel:",
+   "set": "street",
+   "cam": {
+    "type": "aerial",
+    "ang": 25
+   },
+   "actors": [
+    {
+     "id": "a1",
+     "at": [
+      -12,
+      -1
+     ],
+     "to": [
+      -2,
+      -1
+     ]
+    },
+    {
+     "id": "a2",
+     "at": [
+      10,
+      1
+     ],
+     "to": [
+      2,
+      1
+     ]
+    },
+    {
+     "id": "a3",
+     "at": [
+      -6,
+      2.4
+     ],
+     "to": [
+      6,
+      2.4
+     ]
+    },
+    {
+     "id": "eli",
+     "at": [
+      3,
+      -2
+     ],
+     "do": "wave"
+    }
+   ],
+   "crowd": {
+    "n": 6,
+    "area": [
+     -14,
+     -3,
+     14,
+     2
+    ]
+   }
+  },
+  {
+   "say": "*Niemand* darf gähnen.",
+   "set": "house",
+   "props": [
+    {
+     "type": "sign",
+     "text": "NICHT\nGÄHNEN!",
+     "at": [
+      3.5,
+      4
+     ],
+     "ry": -12,
+     "fg": "#d63031"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     6.2,
+     4.2,
+     11.5
+    ],
+    "eye2": [
+     5.0,
+     3.9,
+     9.0
+    ],
+    "look": [
+     3.5,
+     3.4,
+     4
+    ],
+    "look2": [
+     3.5,
+     3.4,
+     4
+    ]
+   }
+  },
+  {
+   "say": "Nicht zu Hause,",
+   "set": "house",
+   "actors": [
+    {
+     "id": "mama",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "no",
+     "mood": "angry",
+     "face": "cam"
+    }
+   ],
+   "cam": "medium:mama"
+  },
+  {
+   "say": "nicht im Bus,",
+   "set": "street",
+   "props": [
+    {
+     "type": "bus",
+     "at": [
+      0,
+      -2.6
+     ],
+     "ry": 90
+    }
+   ],
+   "actors": [
+    {
+     "id": "n6",
+     "at": [
+      2.0,
+      1.8
+     ],
+     "do": "no",
+     "mood": "angry",
+     "face": "cam"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     2.6,
+     4.2,
+     12.5
+    ],
+    "look": [
+     0.6,
+     2.8,
+     -1.0
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "say": "nicht mal im *Bett.*",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#ffe3b3",
+    "blanket": "#e76f51",
+    "poster": "BROT"
+   },
+   "actors": [
+    {
+     "id": "opa",
+     "at": [
+      -6.6,
+      -2.0
+     ],
+     "y": 1.55,
+     "do": "lie",
+     "face": 0,
+     "emote": "😬",
+     "mood": "scared"
+    }
+   ],
+   "props": [
+    {
+     "type": "blanket",
+     "at": [
+      -6.6,
+      2.42,
+      -3.7
+     ],
+     "color": "#e76f51"
+    },
+    {
+     "type": "alarm",
+     "at": [
+      -3.0,
+      -6.6
+     ],
+     "ry": -35,
+     "time": "05:00"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -1.4,
+     6.4,
+     -1.6
+    ],
+    "eye2": [
+     -2.0,
+     6.0,
+     -2.4
+    ],
+    "look": [
+     -6.6,
+     2.0,
+     -6.0
+    ]
+   }
+  },
+  {
+   "say": "Denn wenn jemand gähnt,",
+   "set": "street",
+   "actors": [
+    {
+     "id": "opa",
+     "at": [
+      2,
+      0
+     ],
+     "do": "yawn"
+    }
+   ],
+   "cam": "close:opa"
+  },
+  {
+   "say": "wird es *sofort* Nacht.",
+   "set": "street",
+   "time": "day",
+   "timeTo": "night",
+   "timeAt": [
+    0.1,
+    0.4
+   ],
+   "actors": [
+    {
+     "id": "opa",
+     "at": [
+      1.2,
+      0
+     ],
+     "mood": "surprised"
+    },
+    {
+     "id": "n1",
+     "at": [
+      -1.8,
+      1.2
+     ],
+     "mood": "surprised",
+     "face": "cam"
+    },
+    {
+     "id": "n2",
+     "at": [
+      3.6,
+      -1.2
+     ],
+     "mood": "shock",
+     "face": "cam"
+    },
+    {
+     "id": "n3",
+     "at": [
+      -4.2,
+      -0.6
+     ],
+     "mood": "surprised",
+     "face": "cam"
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.1
+    }
+   ],
+   "cam": {
+    "type": "group",
+    "ang": -25
+   }
+  },
+  {
+   "say": "Egal ob morgens,",
+   "set": "street",
+   "time": "morning",
+   "timeTo": "night",
+   "timeAt": [
+    0.55,
+    0.85
+   ],
+   "actors": [
+    {
+     "id": "r1",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": [
+      [
+       "walk",
+       0,
+       0.45
+      ],
+      [
+       "yawn",
+       0.45,
+       1
+      ]
+     ],
+     "hold": {
+      "type": "cup"
+     },
+     "face": "cam"
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.55
+    }
+   ],
+   "cam": "medium:r1"
+  },
+  {
+   "say": "mittags oder mitten beim *Frühstück.*",
+   "set": "backyard",
+   "time": "day",
+   "timeTo": "night",
+   "timeAt": [
+    0.6,
+    0.85
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      0,
+      0
+     ]
+    },
+    {
+     "type": "cup",
+     "at": [
+      -0.6,
+      1.6,
+      0.2
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      0.7,
+      1.6,
+      -0.2
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mama",
+     "at": [
+      -1.9,
+      0.6
+     ],
+     "face": 60,
+     "do": "talk"
+    },
+    {
+     "id": "klein2",
+     "at": [
+      1.7,
+      0.6
+     ],
+     "face": -60,
+     "do": [
+      [
+       "idle",
+       0,
+       0.5
+      ],
+      [
+       "yawn",
+       0.5,
+       1
+      ]
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.6
+    }
+   ],
+   "cam": {
+    "type": "group",
+    "ang": 10
+   }
+  },
+  {
+   "say": "Der Bäcker verschläft,",
+   "set": "room",
+   "time": "night",
+   "setOpts": {
+    "color": "#ffe3b3",
+    "blanket": "#e76f51",
+    "poster": "BROT"
+   },
+   "actors": [
+    {
+     "id": "baker",
+     "at": [
+      -6.6,
+      -2.0
+     ],
+     "y": 1.55,
+     "do": "lie",
+     "face": 0,
+     "emote": "zzz"
+    }
+   ],
+   "props": [
+    {
+     "type": "blanket",
+     "at": [
+      -6.6,
+      2.42,
+      -3.7
+     ],
+     "color": "#e76f51"
+    },
+    {
+     "type": "alarm",
+     "at": [
+      -3.0,
+      -6.6
+     ],
+     "ry": -35,
+     "time": "05:00"
+    }
+   ],
+   "sfx": [
+    [
+     "snore",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -1.4,
+     6.4,
+     -1.6
+    ],
+    "eye2": [
+     -2.0,
+     6.0,
+     -2.4
+    ],
+    "look": [
+     -6.6,
+     2.0,
+     -6.0
+    ]
+   }
+  },
+  {
+   "say": "und alle kommen zu spät.",
+   "set": "street",
+   "time": "night",
+   "actors": [
+    {
+     "id": "r1",
+     "at": [
+      -14,
+      1
+     ],
+     "to": [
+      8,
+      1
+     ],
+     "do": "run",
+     "mood": "scared",
+     "emote": "⏰"
+    },
+    {
+     "id": "n4",
+     "at": [
+      -19,
+      2.6
+     ],
+     "to": [
+      3,
+      2.6
+     ],
+     "do": "run",
+     "mood": "scared"
+    },
+    {
+     "id": "n5",
+     "at": [
+      -23,
+      -0.6
+     ],
+     "to": [
+      -1,
+      -0.6
+     ],
+     "do": "run",
+     "mood": "scared"
+    }
+   ],
+   "cam": {
+    "type": "side",
+    "target": "r1",
+    "ang": -75,
+    "dist": 13
+   }
+  },
+  {
+   "say": "Der Busfahrer schläft",
+   "set": "street",
+   "props": [
+    {
+     "type": "bus",
+     "at": [
+      0,
+      -2.6
+     ],
+     "ry": 90
+    }
+   ],
+   "actors": [
+    {
+     "id": "fahrer",
+     "at": [
+      1.2,
+      1.6
+     ],
+     "mood": "sleep",
+     "emote": "zzz",
+     "face": "cam"
+    }
+   ],
+   "sfx": [
+    [
+     "snore",
+     0.1
+    ]
+   ],
+   "cam": "close:fahrer"
+  },
+  {
+   "say": "an der Haltestelle ein.",
+   "set": "street",
+   "props": [
+    {
+     "type": "bus",
+     "at": [
+      0,
+      -2.6
+     ],
+     "ry": 90
+    },
+    {
+     "type": "sign",
+     "text": "HALTE-\nSTELLE",
+     "at": [
+      4.4,
+      0.2
+     ],
+     "s": 0.6
+    }
+   ],
+   "actors": [
+    {
+     "id": "fahrer",
+     "at": [
+      -1.6,
+      1.4
+     ],
+     "mood": "sleep",
+     "emote": "zzz"
+    },
+    {
+     "id": "n7",
+     "at": [
+      1.2,
+      1.9
+     ],
+     "do": "angry",
+     "mood": "angry",
+     "face": -30
+    },
+    {
+     "id": "n8",
+     "at": [
+      2.9,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.8,
+     5.0,
+     15.0
+    ],
+    "look": [
+     0.8,
+     2.6,
+     -0.5
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "say": "Deshalb verteilt die Polizei *Strafzettel.*",
+   "set": "street",
+   "actors": [
+    {
+     "id": "polizist",
+     "at": [
+      -1.2,
+      0.5
+     ],
+     "do": "point",
+     "face": 70,
+     "mood": "angry"
+    },
+    {
+     "id": "opa",
+     "at": [
+      1.8,
+      0.5
+     ],
+     "face": -70,
+     "mood": "shock"
+    }
+   ],
+   "pops": [
+    {
+     "text": "🚨",
+     "x": 0.5,
+     "y": 0.22,
+     "t": 0.15,
+     "size": 150
+    }
+   ],
+   "cam": {
+    "type": "group",
+    "ang": 5
+   }
+  },
+  {
+   "say": "*20 €* pro Gähner!",
+   "speak": "Zwanzig Euro pro Gähner!",
+   "set": "house",
+   "props": [
+    {
+     "type": "sign",
+     "text": "GÄHNEN\n= 20 €",
+     "at": [
+      3.5,
+      4
+     ],
+     "ry": -12,
+     "fg": "#d63031"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     6.2,
+     4.2,
+     11.5
+    ],
+    "eye2": [
+     5.0,
+     3.9,
+     9.0
+    ],
+    "look": [
+     3.5,
+     3.4,
+     4
+    ],
+    "look2": [
+     3.5,
+     3.4,
+     4
+    ]
+   },
+   "sfx": [
+    [
+     "coin",
+     0.35
+    ]
+   ]
+  },
+  {
+   "say": "Opa hat schon *300 €* bezahlt.",
+   "speak": "Opa hat schon dreihundert Euro bezahlt.",
+   "set": "street",
+   "actors": [
+    {
+     "id": "opa",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "cry",
+     "mood": "cry",
+     "face": "cam"
+    }
+   ],
+   "fx": [
+    {
+     "type": "coins",
+     "t": 0.3
+    }
+   ],
+   "pops": [
+    {
+     "text": "-300 €",
+     "x": 0.5,
+     "y": 0.25,
+     "t": 0.45,
+     "color": "#ff4d4d",
+     "size": 160,
+     "sfx": "boom"
+    }
+   ],
+   "cam": "close:opa"
+  },
+  {
+   "say": "Aber Eli hat einen Plan.",
+   "set": "house",
+   "setOpts": {
+    "name": "ELI"
+   },
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "smug",
+     "emote": "💡"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.25
+    ]
+   ],
+   "cam": "close:eli"
+  },
+  {
+   "say": "Heute ist die große *Mathe-Prüfung.*",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "actors": [
+    {
+     "id": "klein",
+     "at": [
+      -3.4,
+      -6.2
+     ],
+     "face": 15,
+     "do": "talk"
+    },
+    {
+     "id": "eli",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180
+    },
+    {
+     "id": "s1",
+     "at": [
+      0,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180
+    },
+    {
+     "id": "s2",
+     "at": [
+      6.2,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180
+    },
+    {
+     "id": "s3",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     2.2,
+     9.4,
+     14.0
+    ],
+    "look": [
+     -0.8,
+     3.0,
+     -5.0
+    ],
+    "fov": 50
+   }
+  },
+  {
+   "say": "Und Eli hat *nichts* gelernt.",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      3.1,
+      4.0
+     ],
+     "face": 180,
+     "mood": "confused",
+     "emote": "😅"
+    }
+   ],
+   "cam": "close:eli"
+  },
+  {
+   "say": "Gar nichts.",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      3.1,
+      4.0
+     ],
+     "face": 180,
+     "do": "shrug",
+     "mood": "grin"
+    }
+   ],
+   "cam": "medium:eli"
+  },
+  {
+   "say": "Aufgabe eins: *17 × 23*",
+   "speak": "Aufgabe eins: siebzehn mal dreiundzwanzig.",
+   "set": "classroom",
+   "setOpts": {
+    "board": "17 × 23\n= ?",
+    "time": "08:00"
+   },
+   "actors": [
+    {
+     "id": "klein",
+     "at": [
+      -3.4,
+      -6.2
+     ],
+     "face": 15,
+     "do": "pointup",
+     "mood": "smug"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     6.5,
+     9.0
+    ],
+    "look": [
+     0,
+     5.0,
+     -9.65
+    ],
+    "fov": 55
+   }
+  },
+  {
+   "say": "Eli gähnt so laut er kann…",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      3.1,
+      4.0
+     ],
+     "face": 180,
+     "do": "yawn"
+    }
+   ],
+   "cam": "close:eli"
+  },
+  {
+   "say": "…und es wird Nacht!",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "day",
+   "timeTo": "night",
+   "timeAt": [
+    0.08,
+    0.35
+   ],
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      3.1,
+      4.0
+     ],
+     "face": 180,
+     "mood": "grin"
+    },
+    {
+     "id": "klein",
+     "at": [
+      7.5,
+      -6
+     ],
+     "face": -30,
+     "mood": "surprised"
+    },
+    {
+     "id": "s1",
+     "at": [
+      -6.2,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "surprised"
+    },
+    {
+     "id": "s2",
+     "at": [
+      6.2,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "surprised"
+    },
+    {
+     "id": "s3",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "shock"
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.08
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     8.4,
+     -9.2
+    ],
+    "look": [
+     2.6,
+     3.0,
+     4.0
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "say": "Keine Prüfung!",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      2.2,
+      3.2
+     ],
+     "face": 180,
+     "do": "cheer"
+    },
+    {
+     "id": "s1",
+     "at": [
+      -2.2,
+      2.2
+     ],
+     "face": 180,
+     "do": "cheer"
+    },
+    {
+     "id": "s2",
+     "at": [
+      0.4,
+      0.6
+     ],
+     "face": 190,
+     "do": "cheer"
+    },
+    {
+     "id": "s3",
+     "at": [
+      -0.6,
+      5.0
+     ],
+     "face": 170,
+     "do": "cheer"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "at": [
+      0,
+      0,
+      2
+     ],
+     "t": 0.05
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.6,
+     8.6,
+     -9.2
+    ],
+    "look": [
+     0.2,
+     3.0,
+     3.0
+    ],
+    "fov": 58
+   }
+  },
+  {
+   "say": "Alle jubeln.",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      2.2,
+      3.2
+     ],
+     "face": 180,
+     "do": "dance",
+     "mood": "laugh"
+    },
+    {
+     "id": "s1",
+     "at": [
+      -2.2,
+      2.2
+     ],
+     "face": 180,
+     "do": "dance",
+     "mood": "happy"
+    },
+    {
+     "id": "s2",
+     "at": [
+      0.4,
+      0.6
+     ],
+     "face": 190,
+     "do": "jump",
+     "mood": "laugh"
+    },
+    {
+     "id": "s3",
+     "at": [
+      -0.6,
+      5.0
+     ],
+     "face": 170,
+     "do": "dance",
+     "mood": "grin"
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -4.5,
+     6.5,
+     -8.5
+    ],
+    "look": [
+     0.5,
+     2.6,
+     3.0
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "say": "Doch Frau Klein lächelt nur…",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "actors": [
+    {
+     "id": "klein",
+     "at": [
+      0,
+      -6
+     ],
+     "mood": "smug"
+    }
+   ],
+   "cam": "close:klein"
+  },
+  {
+   "say": "…und holt ihre Taschenlampe raus.",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "actors": [
+    {
+     "id": "klein",
+     "at": [
+      0,
+      -6
+     ],
+     "do": "point",
+     "mood": "evil",
+     "hold": {
+      "type": "flashlight",
+      "dir": "arm"
+     }
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.3
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "klein",
+    "ang": -55,
+    "dist": 12
+   }
+  },
+  {
+   "say": "Die Prüfung dauert jetzt *doppelt* so lang.",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      3.1,
+      4.0
+     ],
+     "face": 180,
+     "do": "cry"
+    }
+   ],
+   "pops": [
+    {
+     "text": "x2",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.45,
+     "color": "#ff4d4d",
+     "size": 220,
+     "dur": 1.6,
+     "sfx": "boom"
+    }
+   ],
+   "cam": "close:eli"
+  },
+  {
+   "say": "Eli gibt nicht auf.",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      3.1,
+      4.0
+     ],
+     "face": 180,
+     "do": "nod",
+     "mood": "angry"
+    }
+   ],
+   "cam": "low:eli",
+   "pause": 0.3
+  },
+  {
+   "say": "Er gähnt *noch* lauter…",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      3.1,
+      4.0
+     ],
+     "face": 180,
+     "do": "yawn"
+    }
+   ],
+   "fx": [
+    {
+     "type": "zoom",
+     "t": 0.35
+    },
+    {
+     "type": "shake",
+     "t": 0.5
+    }
+   ],
+   "cam": "close:eli"
+  },
+  {
+   "say": "…doch wer nachts gähnt,",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "actors": [
+    {
+     "id": "klein",
+     "at": [
+      0,
+      -6
+     ],
+     "mood": "shock",
+     "hold": {
+      "type": "flashlight",
+      "dir": "arm"
+     },
+     "do": "point"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "klein",
+    "ang": -55,
+    "dist": 12
+   }
+  },
+  {
+   "say": "macht es *wieder Tag.*",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "time": "night",
+   "timeTo": "day",
+   "timeAt": [
+    0.08,
+    0.35
+   ],
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      3.1,
+      4.0
+     ],
+     "face": 180,
+     "mood": "grin"
+    },
+    {
+     "id": "klein",
+     "at": [
+      7.5,
+      -6
+     ],
+     "face": -30,
+     "mood": "surprised"
+    },
+    {
+     "id": "s1",
+     "at": [
+      -6.2,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "surprised"
+    },
+    {
+     "id": "s2",
+     "at": [
+      6.2,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "surprised"
+    },
+    {
+     "id": "s3",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "shock"
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.08
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     8.4,
+     -9.2
+    ],
+    "look": [
+     2.6,
+     3.0,
+     4.0
+    ],
+    "fov": 52
+   }
+  },
+  {
+   "say": "Die Sonne geht auf,",
+   "set": "street",
+   "time": "night",
+   "timeTo": "morning",
+   "timeAt": [
+    0.05,
+    0.9
+   ],
+   "cam": {
+    "type": "aerial",
+    "ang": -30
+   },
+   "crowd": {
+    "n": 4,
+    "area": [
+     -12,
+     -3,
+     12,
+     2
+    ]
+   },
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "und die Prüfung beginnt von *vorne.*",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG\nNOCHMAL!",
+    "time": "06:00"
+   },
+   "actors": [
+    {
+     "id": "klein",
+     "at": [
+      -3.4,
+      -6.2
+     ],
+     "face": 15,
+     "do": "talk"
+    },
+    {
+     "id": "eli",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "cry"
+    },
+    {
+     "id": "s1",
+     "at": [
+      0,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180
+    },
+    {
+     "id": "s2",
+     "at": [
+      6.2,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180
+    },
+    {
+     "id": "s3",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     2.2,
+     9.4,
+     14.0
+    ],
+    "look": [
+     -0.8,
+     3.0,
+     -5.0
+    ],
+    "fov": 50
+   },
+   "pops": [
+    {
+     "text": "↺",
+     "x": 0.5,
+     "y": 0.24,
+     "t": 0.5,
+     "size": 200,
+     "color": "#ff4d4d"
+    }
+   ]
+  },
+  {
+   "say": "Frau Klein grinst:",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "actors": [
+    {
+     "id": "klein",
+     "at": [
+      0,
+      -6
+     ],
+     "mood": "evil",
+     "hold": {
+      "type": "flashlight",
+      "dir": "arm"
+     }
+    }
+   ],
+   "cam": "close:klein"
+  },
+  {
+   "say": "„Nächstes Mal lernst du einfach.“",
+   "set": "classroom",
+   "setOpts": {
+    "board": "MATHE-\nPRÜFUNG",
+    "time": "08:00"
+   },
+   "actors": [
+    {
+     "id": "klein",
+     "at": [
+      0,
+      -6
+     ],
+     "do": "talk",
+     "mood": "wink",
+     "face": "cam"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "klein",
+    "ang": 30,
+    "dist": 10
+   }
+  },
+  {
+   "say": "Welche Regel hat *deine* Stadt?",
+   "set": "street",
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "wave"
+    },
+    {
+     "id": "opa",
+     "at": [
+      -3.2,
+      -1.2
+     ],
+     "do": "wave"
+    },
+    {
+     "id": "klein",
+     "at": [
+      3.2,
+      -0.8
+     ],
+     "do": "wave"
+    }
+   ],
+   "crowd": {
+    "n": 5,
+    "area": [
+     -9,
+     -3.6,
+     9,
+     -2.4
+    ],
+    "do": "wave"
+   },
+   "pops": [
+    {
+     "text": "❓",
+     "x": 0.5,
+     "y": 0.25,
+     "t": 0.55,
+     "size": 170
+    }
+   ],
+   "cam": {
+    "type": "group",
+    "ang": 8
+   }
+  },
+  {
+   "say": "Schreib's in die Kommentare!",
+   "set": "street",
+   "actors": [
+    {
+     "id": "eli",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": "cam"
+    }
+   ],
+   "pops": [
+    {
+     "text": "💬",
+     "x": 0.5,
+     "y": 0.24,
+     "t": 0.3,
+     "size": 170
+    }
+   ],
+   "cam": "close:eli"
+  }
+ ]
+}
