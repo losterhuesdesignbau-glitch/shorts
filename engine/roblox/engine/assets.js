@@ -122,6 +122,35 @@ function panelTex(lit = []) {
     }
   });
 }
+function chatTex(o = {}) {
+  const key = 'chat|' + JSON.stringify([o.name, o.sub, o.msgs, o.typing, o.lock, o.notif, o.nameColor, o.stamp, o.time, o.avatar]);
+  return ctex(key, 360, 720, x => {
+    x.fillStyle = '#0d0d12'; x.fillRect(0, 0, 360, 720);
+    x.fillStyle = '#ffffff'; x.font = `bold 18px ${FONT}`; x.textAlign = 'left'; x.textBaseline = 'middle'; x.fillText(o.time || '03:00', 22, 22);
+    x.textAlign = 'right'; x.fillText('▮▮▮  ▰', 338, 22);
+    const wrap = (t, maxW, font) => { x.font = font; const words = String(t).split(' '); const lines = []; let cur = ''; for (const w of words) { const tt = cur ? cur + ' ' + w : w; if (x.measureText(tt).width > maxW && cur) { lines.push(cur); cur = w; } else cur = tt; } if (cur) lines.push(cur); return lines; };
+    if (o.lock) {
+      x.textAlign = 'center'; x.fillStyle = '#ffffff'; x.font = `bold 92px ${FONT}`; x.fillText(o.time || '03:00', 180, 170);
+      x.font = `bold 20px ${FONT}`; x.fillStyle = '#b8b8c8'; x.fillText(o.date || 'Thursday', 180, 235);
+      if (o.notif) { rrect(x, 18, 300, 324, 118, 22); x.fillStyle = 'rgba(255,255,255,0.16)'; x.fill(); x.textAlign = 'left'; x.fillStyle = '#ffffff'; x.font = `bold 21px ${FONT}`; x.fillText(o.notif[0], 40, 334); const ls = wrap(o.notif[1], 280, `22px ${FONT}`); x.fillStyle = '#e8e8f0'; ls.slice(0, 2).forEach((l, i) => x.fillText(l, 40, 370 + i * 28)); }
+      return;
+    }
+    x.fillStyle = '#1b1b24'; x.fillRect(0, 44, 360, 92);
+    x.fillStyle = '#4fc3f7'; x.font = `bold 34px ${FONT}`; x.textAlign = 'left'; x.fillText('‹', 16, 90);
+    x.beginPath(); x.arc(70, 90, 26, 0, Math.PI * 2); x.fillStyle = '#5a5a6a'; x.fill(); x.fillStyle = '#ffffff'; x.font = `bold 26px ${FONT}`; x.textAlign = 'center'; x.fillText(o.avatar || '?', 70, 91);
+    x.textAlign = 'left'; x.fillStyle = o.nameColor || '#ffffff'; x.font = `bold 24px ${FONT}`; x.fillText(o.name || 'Unknown', 108, 80); x.fillStyle = '#9a9aae'; x.font = `17px ${FONT}`; x.fillText(o.sub || '', 108, 107);
+    let y = 160; const F = `24px ${FONT}`;
+    for (const [side, t] of (o.msgs || [])) {
+      const ls = wrap(t, 220, F), h = ls.length * 30 + 22, w = Math.max(...ls.map(l => x.measureText(l).width)) + 30, me = side === 'me';
+      const bx = me ? 342 - w : 18; rrect(x, bx, y, w, h, 20); x.fillStyle = me ? '#2f7cf6' : '#34343e'; x.fill();
+      x.fillStyle = '#ffffff'; x.font = F; x.textAlign = 'left'; ls.forEach((l, i) => x.fillText(l, bx + 15, y + 26 + i * 30)); y += h + 14;
+    }
+    if (o.typing) { rrect(x, 18, y, 86, 46, 20); x.fillStyle = '#34343e'; x.fill(); x.fillStyle = '#c8c8d4'; for (let i = 0; i < 3; i++) { x.beginPath(); x.arc(40 + i * 21, y + 23, 6, 0, Math.PI * 2); x.fill(); } y += 60; }
+    if (o.stamp) { x.fillStyle = o.stampColor || '#ff5a5a'; x.font = `bold 18px ${FONT}`; x.textAlign = 'center'; x.fillText(o.stamp, 180, y + 6); }
+    x.fillStyle = '#1b1b24'; x.fillRect(0, 650, 360, 70); rrect(x, 16, 664, 280, 42, 21); x.fillStyle = '#2a2a36'; x.fill(); x.fillStyle = '#6a6a7e'; x.font = `18px ${FONT}`; x.textAlign = 'left'; x.fillText('Message', 34, 686);
+    x.beginPath(); x.arc(326, 685, 21, 0, Math.PI * 2); x.fillStyle = '#2f7cf6'; x.fill();
+  });
+}
 function clockTex(time = '12:00', o = {}) {
   return ctex(`clock|${time}|${o.digital ? 1 : 0}`, 256, 256, x => {
     if (o.digital) { x.fillStyle = '#111'; x.fillRect(0, 0, 256, 256); x.fillStyle = '#ff3b3b'; const s = fitFont(x, [time], 220, 120, 110); x.font = `bold ${s}px ${FONT}`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(time, 128, 132); return; }
@@ -372,6 +401,7 @@ const PROPS = {
     if (o.hut !== false) { mb.push(M4.T(-w / 2 + 1.1, 0, -d / 2 + 1.0)); mb.push(M4.T(0, 0.55, 0)); mb.box(1.6, 1.1, 1.4, '#a0622d'); mb.pop(); mb.push(M4.T(0, 1.1, 0)); mb.prism(1.9, 0.7, 1.7, '#7a4a22'); mb.pop(); mb.push(M4.T(0, 0.42, 0.71)); mb.box(0.7, 0.75, 0.04, '#3b2412'); mb.pop(); mb.pop(); }
     mb.push(M4.T(w / 2 - 1.0, 0.2, d / 2 - 0.9)); mb.cyl(0.45, 0.4, 0.25, 12, '#4f8ef7'); mb.pop();
   }) }] }; },
+  smartphone: o => ({ parts: [{ g: cgeo('smartphonebody', mb => { mb.push(M4.T(0, 2.2, 0)); mb.rbox(2.25, 4.45, 0.22, 0.25, '#111114'); mb.pop(); }) }, { g: cgeo('smartphonescreen', mb => { mb.push(M4.T(0, 2.2, 0.115)); mb.box(2.0, 4.0, 0.01, '#ffffff', { uv: true }); mb.pop(); }), tex: chatTex(o), e: o.e ?? 0.95 }] }),
   bigtext: o => ({ parts: [{ g: cgeo('bigtext|' + (o.w || 6) + '|' + (o.h || 2), mb => { mb.push(M4.T(0, (o.h || 2) / 2, 0)); mb.box(o.w || 6, o.h || 2, 0.1, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ffd23f', fg: o.fg || '#1d1712', border: o.border === undefined ? '#1d1712' : o.border, tw: 512, th: Math.round(512 * (o.h || 2) / (o.w || 6)) }) }] }),
 };
 
