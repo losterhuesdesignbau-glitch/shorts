@@ -67,6 +67,7 @@ async function route(req, env) {
   if (path === '/health') return json({ ok: true, at: nowIso() });
   if (path === '/privacy' || path === '/datenschutz') return htmlPage('Datenschutz – viralflow', PRIVACY);
   if (path === '/about') return htmlPage('viralflow', ABOUT);
+  if (path === '/terms') return htmlPage('Nutzungsbedingungen – viralflow', TERMS);
 
   if (path === '/api/login' && method === 'POST') {
     const { password } = await req.json().catch(() => ({}));
@@ -365,3 +366,8 @@ const PRIVACY = `<h1>Datenschutzerklärung / Privacy Policy</h1>
 <h2>Speicherort und Löschung</h2><p>Daten liegen bei Cloudflare (Datenbank, Dateispeicher). Videodateien werden nach der Veröffentlichung nach einstellbarer Frist gelöscht. Verbindungen können im Dashboard getrennt werden; dabei werden die gespeicherten Tokens gelöscht.</p>
 <h2>Kontakt</h2><p>Betreiber: Lukas, über das GitHub-Konto losterhuesdesignbau-glitch.</p>
 <hr><p><b>English summary:</b> viralflow is a private tool used only by its operator to publish his own videos to his own YouTube, Instagram and TikTok accounts via official OAuth APIs. It stores encrypted access tokens and account IDs only for uploading; no passwords, no third-party data, nothing is sold or shared. Access can be revoked at any time via the platforms or by disconnecting in the dashboard.</p>`;
+const TERMS = `<h1>Nutzungsbedingungen / Terms of Service</h1><p>Stand: 19.11.2026</p>
+<p>viralflow ist ein privates Werkzeug des Betreibers zur Veröffentlichung eigener, selbst produzierter Videos auf den eigenen Kanälen bei YouTube, Instagram und TikTok. Es gibt keine öffentliche Registrierung und keine weiteren Nutzer.</p>
+<p>Alle Inhalte werden ausschließlich über die offiziellen Schnittstellen der Plattformen und unter Einhaltung deren Nutzungsbedingungen veröffentlicht. Der Betreiber ist für die veröffentlichten Inhalte selbst verantwortlich. Der Zugriff kann jederzeit über die jeweilige Plattform widerrufen werden.</p>
+<p><a href="/privacy">Datenschutz / Privacy Policy</a></p><hr>
+<p><b>English:</b> viralflow is a private tool used solely by its operator to publish his own videos to his own YouTube, Instagram and TikTok accounts through the platforms' official APIs, in compliance with their terms. There is no public sign-up and no other users.</p>`;
