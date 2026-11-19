@@ -1,0 +1,1211 @@
+{
+ "title": "The Last Train",
+ "music": "mystery",
+ "cast": {
+  "leo": {
+   "look": "boy",
+   "hair": "messy",
+   "hairColor": "#2b1b12",
+   "shirt": "#3d5a80",
+   "hoodie": "#3d5a80",
+   "backpack": "#e63946",
+   "logo": ""
+  },
+  "cond": {
+   "look": "man",
+   "hair": "cap",
+   "hairColor": "#111111",
+   "hatColor": "#1b1b1b",
+   "shirt": "#1b1b1b",
+   "jacket": "#22223b",
+   "tie": "#9d0208",
+   "mustache": true,
+   "logo": ""
+  },
+  "p1": {
+   "look": "woman",
+   "hair": "bun",
+   "hairColor": "#6c757d",
+   "shirt": "#495057",
+   "logo": ""
+  },
+  "p2": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#6c757d",
+   "shirt": "#343a40",
+   "logo": ""
+  },
+  "p3": {
+   "look": "grandpa",
+   "shirt": "#343a40",
+   "logo": ""
+  }
+ },
+ "shots": [
+  {
+   "say": "This station",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "sign",
+     "text": "STATION\nCLOSED 1974",
+     "at": [
+      3.0,
+      -0.8
+     ],
+     "ry": -12,
+     "fg": "#d63031"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.5,
+     4.0,
+     11
+    ],
+    "eye2": [
+     1.8,
+     3.9,
+     10
+    ],
+    "look": [
+     2.6,
+     3.0,
+     -0.8
+    ]
+   }
+  },
+  {
+   "say": "closed in *1974.*",
+   "speak": "closed in nineteen seventy-four.",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "sign",
+     "text": "STATION\nCLOSED 1974",
+     "at": [
+      3.0,
+      -0.8
+     ],
+     "ry": -12,
+     "fg": "#d63031"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     2.6,
+     3.6,
+     6
+    ],
+    "look": [
+     2.9,
+     3.2,
+     -0.8
+    ]
+   }
+  },
+  {
+   "say": "But every night at *3:33,*",
+   "speak": "But every night at three thirty-three,",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      0,
+      -1
+     ],
+     "s": 1.8
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.6
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.6,
+     7
+    ],
+    "look": [
+     0,
+     2.6,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "a train still *stops* here.",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "bus",
+     "at": [
+      0,
+      -2.6
+     ],
+     "ry": 90,
+     "color": "#2b2d42"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     3,
+     5.0,
+     16
+    ],
+    "look": [
+     0,
+     2.4,
+     -2.6
+    ]
+   }
+  },
+  {
+   "say": "Leo missed the last bus.",
+   "set": "street",
+   "time": "night",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "facepalm",
+     "face": 0,
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "leo",
+    "ang": 12
+   }
+  },
+  {
+   "say": "So he waited on the old platform.",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "sign",
+     "text": "STATION\nCLOSED 1974",
+     "at": [
+      3.0,
+      -0.8
+     ],
+     "ry": -12,
+     "fg": "#d63031"
+    }
+   ],
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      1.2
+     ],
+     "do": "idle",
+     "face": 20,
+     "mood": "neutral",
+     "idle": "pockets"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.2,
+     11
+    ],
+    "look": [
+     0.6,
+     2.8,
+     0
+    ]
+   }
+  },
+  {
+   "say": "The clock hit *3:33.*",
+   "speak": "The clock hit three thirty-three.",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      0,
+      -1
+     ],
+     "s": 1.8
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.5,
+     "color": "#9d0208",
+     "dur": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.45
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     5.5
+    ],
+    "look": [
+     0,
+     2.8,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "The lights *flickered.*",
+   "set": "street",
+   "time": "night",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "face": 0,
+     "mood": "scared"
+    }
+   ],
+   "fx": [
+    {
+     "type": "dark",
+     "t": 0.2,
+     "dur": 0.2,
+     "amp": 0.7
+    },
+    {
+     "type": "flash",
+     "t": 0.5,
+     "dur": 0.15
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "leo",
+    "ang": -8
+   }
+  },
+  {
+   "say": "And a train rolled in.",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "bus",
+     "at": [
+      0,
+      -2.6
+     ],
+     "ry": 90,
+     "color": "#2b2d42"
+    }
+   ],
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      4.5,
+      2.2
+     ],
+     "do": "idle",
+     "face": 240,
+     "mood": "shock"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -2,
+     5.0,
+     16
+    ],
+    "look": [
+     1,
+     2.4,
+     -1.5
+    ]
+   }
+  },
+  {
+   "say": "*No* driver.",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "bus",
+     "at": [
+      0,
+      -2.6
+     ],
+     "ry": 90,
+     "color": "#2b2d42"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -3.2,
+     3.6,
+     2.5
+    ],
+    "look": [
+     -3.2,
+     2.8,
+     -2.6
+    ]
+   }
+  },
+  {
+   "say": "*No* sound.",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "bus",
+     "at": [
+      0,
+      -2.6
+     ],
+     "ry": 90,
+     "color": "#2b2d42"
+    }
+   ],
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      2.8,
+      2.4
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "scared"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.0,
+     4.2,
+     12
+    ],
+    "look": [
+     1,
+     2.6,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "The doors opened.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.6,
+     4.6,
+     7
+    ],
+    "eye2": [
+     0.4,
+     4.4,
+     4
+    ],
+    "look": [
+     0,
+     3.2,
+     -30
+    ]
+   }
+  },
+  {
+   "say": "Every seat was *taken.*",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "p1",
+     "at": [
+      -1.5,
+      -2
+     ],
+     "do": "idle",
+     "face": 90,
+     "mood": "neutral"
+    },
+    {
+     "id": "p2",
+     "at": [
+      1.5,
+      -4
+     ],
+     "do": "idle",
+     "face": -90,
+     "mood": "neutral"
+    },
+    {
+     "id": "p3",
+     "at": [
+      -1.5,
+      -6
+     ],
+     "do": "idle",
+     "face": 90,
+     "mood": "neutral"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     5
+    ],
+    "look": [
+     0,
+     3.2,
+     -20
+    ]
+   }
+  },
+  {
+   "say": "But *nobody* moved.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "p1",
+     "at": [
+      0,
+      -1.5
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "neutral"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "p1",
+    "ang": 0
+   }
+  },
+  {
+   "say": "A conductor held out his hand.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "cond",
+     "at": [
+      0,
+      0
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "neutral"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "cond",
+    "ang": 8
+   }
+  },
+  {
+   "say": "*Ticket,* please.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "cond",
+     "at": [
+      0,
+      0
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0
+    ]
+   ],
+   "cam": {
+    "type": "close",
+    "target": "cond",
+    "ang": -6
+   }
+  },
+  {
+   "say": "Leo didn't have one.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "shrug",
+     "face": 0,
+     "mood": "scared"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "leo",
+    "ang": 10
+   }
+  },
+  {
+   "say": "The conductor smiled,",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "cond",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "evil"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "cond",
+    "ang": 0
+   }
+  },
+  {
+   "say": "and pointed at Leo's pocket.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "cond",
+     "at": [
+      1.4,
+      0
+     ],
+     "do": "point",
+     "face": -60,
+     "mood": "evil"
+    },
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.4
+     ],
+     "do": "look",
+     "face": 50,
+     "mood": "scared"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     8
+    ],
+    "look": [
+     0,
+     3.0,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Inside was an old *ticket.*",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "TICKET\nONE WAY",
+     "at": [
+      0,
+      0
+     ],
+     "pop": 0.2,
+     "fg": "#9d0208"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.8,
+     8
+    ],
+    "look": [
+     0,
+     3.0,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Dated *1974.*",
+   "speak": "Dated nineteen seventy-four.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "NOV 19\n1974",
+     "at": [
+      0,
+      0
+     ],
+     "fg": "#9d0208"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.8,
+     8
+    ],
+    "look": [
+     0,
+     3.0,
+     0
+    ]
+   }
+  },
+  {
+   "say": "With *Leo's name* on it.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "1974",
+    "doorOpen": 1
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "PASSENGER:\nLEO",
+     "at": [
+      0,
+      0
+     ],
+     "fg": "#9d0208"
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.3,
+     "dur": 0.3
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.8,
+     8
+    ],
+    "look": [
+     0,
+     3.0,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Leo *ran.*",
+   "set": "street",
+   "time": "night",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -4,
+      2
+     ],
+     "to": [
+      6,
+      3
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "run",
+     "mood": "scared"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4,
+     13
+    ],
+    "look": [
+     0,
+     2.4,
+     2
+    ]
+   }
+  },
+  {
+   "say": "He didn't look back.",
+   "set": "street",
+   "time": "night",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      2
+     ],
+     "to": [
+      0,
+      12
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "run",
+     "mood": "scared"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     -4
+    ],
+    "look": [
+     0,
+     2.4,
+     6
+    ]
+   }
+  },
+  {
+   "say": "The next morning,",
+   "set": "street",
+   "time": "night",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "leo",
+    "ang": -12
+   }
+  },
+  {
+   "say": "he checked the old newspapers.",
+   "set": "room",
+   "time": "day",
+   "props": [
+    {
+     "type": "tv",
+     "text": "ARCHIVE\n1974",
+     "bg": "#495057",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25
+    }
+   ],
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "face": 180,
+     "mood": "think"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.5,
+     3.6,
+     8
+    ],
+    "look": [
+     0,
+     1.6,
+     -5
+    ]
+   }
+  },
+  {
+   "say": "In 1974, the last train left",
+   "speak": "In nineteen seventy-four, the last train left",
+   "set": "room",
+   "time": "day",
+   "props": [
+    {
+     "type": "tv",
+     "text": "LAST TRAIN\nLEAVES",
+     "bg": "#495057",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     3.2,
+     7.8
+    ],
+    "look": [
+     0,
+     0.7,
+     -5.6
+    ]
+   }
+  },
+  {
+   "say": "with *one* empty seat.",
+   "set": "room",
+   "time": "day",
+   "props": [
+    {
+     "type": "tv",
+     "text": "1 EMPTY\nSEAT",
+     "bg": "#9d0208",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.3,
+     3.0,
+     6.6
+    ],
+    "look": [
+     0,
+     0.7,
+     -5.6
+    ]
+   }
+  },
+  {
+   "say": "Reserved for a passenger",
+   "set": "room",
+   "time": "day",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "scared"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "leo",
+    "ang": 10
+   }
+  },
+  {
+   "say": "named *Leo.*",
+   "set": "room",
+   "time": "night",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "shock"
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.2,
+     "color": "#9d0208",
+     "dur": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "close",
+    "target": "leo",
+    "ang": 0
+   }
+  },
+  {
+   "say": "Would *you* get on that train?",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "bus",
+     "at": [
+      0,
+      -2.6
+     ],
+     "ry": 90,
+     "color": "#2b2d42"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     4,
+     3.8,
+     11
+    ],
+    "look": [
+     0,
+     2.4,
+     -2
+    ]
+   }
+  },
+  {
+   "say": "Yes or no?",
+   "set": "street",
+   "time": "night",
+   "actors": [
+    {
+     "id": "cond",
+     "at": [
+      0,
+      0
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "evil"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "cond",
+    "ang": 0
+   }
+  },
+  {
+   "say": "Because this station...",
+   "set": "street",
+   "time": "night",
+   "props": [
+    {
+     "type": "sign",
+     "text": "STATION\nCLOSED 1974",
+     "at": [
+      3.0,
+      -0.8
+     ],
+     "ry": -12,
+     "fg": "#d63031"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.5,
+     4.0,
+     11
+    ],
+    "eye2": [
+     1.8,
+     3.9,
+     10
+    ],
+    "look": [
+     2.6,
+     3.0,
+     -0.8
+    ]
+   }
+  }
+ ],
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "THIS STATION\nCLOSED IN 1974",
+  "series": "DARK STORIES #1",
+  "cta": "YES or NO? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "The Train That Stops at a Closed Station 🚆👻",
+  "description": "Every night at 3:33, a train stops at a station that closed in 1974… Would YOU get on? 👇",
+  "hashtags": [
+   "darkstories",
+   "creepy",
+   "scarystory",
+   "mystery"
+  ],
+  "language": "en"
+ }
+}
