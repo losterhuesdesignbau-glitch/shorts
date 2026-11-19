@@ -9,7 +9,7 @@ class SB {
   sign(text, w, h, o = {}, local = M4.I()) { const mb = new MB(); mb.box(w, h, o.depth || 0.2, '#ffffff', { uv: true }); this.tx.push({ g: GL.geo(mb), m: M4.mul(this.mb.m, local), tex: signTex(text, { ...o, tw: o.tw || 512, th: o.th || Math.max(64, Math.round(512 * h / w)) }), e: o.e || 0 }); }
   texq(tex, w, h, local, e = 0) { const mb = new MB(); mb.tquad(w, h); this.tx.push({ g: GL.geo(mb), m: M4.mul(this.mb.m, local), tex, e }); }
   water(build, a = 0.85, c = null) { const mb = new MB(); mb.S = [this.mb.m.slice()]; build(mb); this.items.push({ g: GL.geo(mb), a, e: 0.06, sh: false, water: 1 }); }
-  prop(type, x, z, ry = 0, o = {}) { propItems(this.items, type, o, M4.mul(this.mb.m, M4.chain(M4.T(x, o.y || 0, z), M4.RY(ry * DEG), M4.S(o.s || 1)))); }
+  prop(type, x, z, ry = 0, o = {}) { const m = M4.mul(this.mb.m, M4.chain(M4.T(x, o.y || 0, z), M4.RY(ry * DEG), M4.S(o.s || 1))); propItems(this.items, type, o, m); const sf = surfOf(type, o); if (sf) (this.surf = this.surf || []).push({ x: m[12], z: m[14], ry: ry * DEG, ...sf }); }
 }
 const P_ = (mb, x, y, z, f) => { mb.push(M4.T(x, y, z)); f(); mb.pop(); };
 function groundPlane(mb, c = '#7ccf4a', size = 360) { P_(mb, 0, -0.1, 0, () => mb.box(size, 0.2, size, c)); }
@@ -321,7 +321,7 @@ const SETC = {};
 function getSet(name, o = {}) {
   const key = name + '|' + JSON.stringify(o); if (SETC[key]) return SETC[key];
   const S = new SB(); (SETS[name] || SETS.street)(S, o);
-  const out = { bg: S.bg, wide: S.wide, indoor: S.indoor, bounds: S.bounds, items: [] };
+  const out = { bg: S.bg, wide: S.wide, indoor: S.indoor, bounds: S.bounds, items: [], surf: S.surf || [] };
   const add = (mb, extra) => { if (mb.a.length) out.items.push({ g: GL.geo(mb), ...extra }); };
   add(S.mb, { grain: 0.16 }); add(S.fol, { sway: 1, spec: 0.08, rim: 0.12 }); add(S.ns, { sh: false, kind: 'ns', grain: 0.05 }); add(S.win, { kind: 'win' }); add(S.lamp, { kind: 'lamp' }); add(S.glow, { e: 1, sh: false, kind: 'glow' }); add(S.skywin, { kind: 'sky', sh: false });
   out.items.push(...S.tx, ...S.items);

@@ -246,7 +246,7 @@ function shirtTex(cfg) {
 function avatarGeo(cfg) {
   const k = JSON.stringify(cfg); if (AVC[k] !== undefined) return AVC[k];
   const g = {}, sk = cfg.skin, sh = cfg.shirt, sleeve = cfg.jacket || cfg.sleeveColor || sh;
-  const hand = (mb, y) => { T_(mb, 0, y, 0, () => mb.rbox(0.84, 0.48, 0.84, 0.18, sk)); T_(mb, 0, y + 0.02, 0.36, () => mb.rbox(0.28, 0.3, 0.2, 0.1, shade(sk, 0.97))); };
+  const hand = (mb, y) => { T_(mb, 0, y + 0.04, 0, () => mb.rbox(0.84, 0.4, 0.84, 0.16, sk)); for (let i = 0; i < 4; i++) T_(mb, -0.3 + i * 0.2, y - 0.2, 0.04, () => mb.rbox(0.18, 0.24, 0.62, 0.08, i % 2 ? shade(sk, 0.96) : sk)); T_(mb, 0, y + 0.02, 0.38, () => mb.rbox(0.26, 0.32, 0.2, 0.1, shade(sk, 0.95))); };
   g.head = cgeo('head2|' + sk, mb => mb.rbox(1.32, 1.32, 1.32, 0.38, sk, { uv: true }));
   // Torso + Accessoires am Oberkörper
   g.torso = cgeo('torso2|' + JSON.stringify([sh, cfg.belt, cfg.tie, cfg.bowtie, cfg.chain, cfg.backpack, cfg.scarf, cfg.jacket, cfg.vest, cfg.hoodie, cfg.apron, cfg.badge, cfg.sash, cfg.collar, cfg.buttons]), mb => {
@@ -255,16 +255,15 @@ function avatarGeo(cfg) {
     if (cfg.collar !== false && !cfg.hoodie) T_(mb, 0, 0.97, 0.1, () => mb.rbox(0.9, 0.1, 0.62, 0.05, shade(sh, 0.88)));
     if (cfg.buttons) for (let i = 0; i < 4; i++) T_(mb, 0, 0.7 - i * 0.45, 0.51, () => mb.sphere(0.06, 0, shade(sh, 0.7)));
     if (cfg.belt) { T_(mb, 0, -0.86, 0, () => mb.rbox(2.05, 0.22, 1.05, 0.05, cfg.belt)); T_(mb, 0, -0.86, 0.53, () => mb.box(0.32, 0.2, 0.04, GOLD)); }
-    if (cfg.jacket || cfg.vest) { const c = cfg.jacket || cfg.vest, d = shade(c, 0.85); T_(mb, 0, 0, -0.53, () => mb.box(2.1, 2.06, 0.1, c)); for (const s of [-1, 1]) { T_(mb, s * 1.03, 0, 0, () => mb.box(0.1, 2.06, 1.1, c)); T_(mb, s * 0.68, 0, 0.53, () => mb.box(0.72, 2.06, 0.08, c)); mb.push(M4.chain(M4.T(s * 0.42, 0.62, 0.58), M4.RZ(s * 0.35))); mb.box(0.24, 0.8, 0.05, d); mb.pop(); } if (cfg.jacket) T_(mb, 0, 1.0, -0.35, () => mb.rbox(1.4, 0.24, 0.45, 0.08, d)); }
-    if (cfg.hoodie) { const c = cfg.hoodie === true ? shade(sh, 0.92) : cfg.hoodie; T_(mb, 0, 1.12, -0.38, () => mb.rbox(1.5, 0.6, 0.62, 0.25, c)); T_(mb, 0, -0.35, 0.52, () => mb.rbox(1.2, 0.55, 0.08, 0.06, shade(c, 0.9))); for (const s of [-1, 1]) T_(mb, s * 0.22, 0.55, 0.53, () => mb.box(0.06, 0.6, 0.04, '#f2f2f2')); }
-    if (cfg.tie) { const c = cfg.tie === true ? '#c0392b' : cfg.tie; T_(mb, 0, 0.84, 0.54, () => mb.box(0.3, 0.22, 0.08, shade(c, 0.85))); T_(mb, 0, 0.25, 0.53, () => mb.box(0.28, 1.0, 0.06, c)); TR_(mb, M4.chain(M4.T(0, -0.25, 0.53), M4.RZ(Math.PI / 4)), () => mb.box(0.2, 0.2, 0.06, c)); }
+    if (cfg.jacket || cfg.vest) { const c = cfg.jacket || cfg.vest, d = shade(c, 0.85); T_(mb, 0, 0, -0.53, () => mb.box(2.1, 2.06, 0.1, c)); for (const s of [-1, 1]) { T_(mb, s * 1.03, 0, 0, () => mb.box(0.1, 2.06, 1.1, c)); T_(mb, s * 0.68, 0.72, 0.53, () => mb.box(0.72, 0.62, 0.08, c)); } if (cfg.jacket) T_(mb, 0, 1.0, -0.35, () => mb.rbox(1.4, 0.24, 0.45, 0.08, d)); }
+    if (cfg.hoodie) { const c = cfg.hoodie === true ? shade(sh, 0.92) : cfg.hoodie; T_(mb, 0, 1.12, -0.38, () => mb.rbox(1.5, 0.6, 0.62, 0.25, c)); T_(mb, 0, -0.35, 0.52, () => mb.rbox(1.2, 0.55, 0.08, 0.06, shade(c, 0.9))); }
     if (cfg.bowtie) { const c = cfg.bowtie === true ? '#c0392b' : cfg.bowtie; for (const s of [-1, 1]) TR_(mb, M4.chain(M4.T(s * 0.2, 0.86, 0.56), M4.RZ(s * 0.3)), () => mb.rbox(0.32, 0.26, 0.1, 0.08, c)); T_(mb, 0, 0.86, 0.6, () => mb.rbox(0.13, 0.15, 0.1, 0.04, shade(c, 0.8))); }
     if (cfg.chain) { const c = cfg.chain === true ? GOLD : cfg.chain; for (let i = 0; i <= 14; i++) { const t = i / 7 - 1; T_(mb, 0.5 * t, 0.98 - 0.5 * (1 - t * t), 0.53, () => mb.sphere(0.05, 0, c)); } T_(mb, 0, 0.4, 0.55, () => { mb.push(M4.RX(Math.PI / 2)); mb.cyl(0.16, 0.16, 0.05, 12, c); mb.pop(); }); }
     if (cfg.apron) { const c = cfg.apron === true ? '#ffffff' : cfg.apron; T_(mb, 0, -0.15, 0.53, () => mb.box(1.5, 1.8, 0.04, c)); T_(mb, 0, -0.45, 0.56, () => mb.box(0.7, 0.4, 0.02, shade(c, 0.92))); for (const s of [-1, 1]) T_(mb, s * 0.55, 0.85, 0.3, () => mb.box(0.1, 0.1, 0.5, c)); }
     if (cfg.sash) TR_(mb, M4.chain(M4.T(0, 0.05, 0), M4.RZ(-0.75)), () => mb.box(2.8, 0.36, 1.07, cfg.sash === true ? '#e63946' : cfg.sash));
     if (cfg.badge) T_(mb, -0.55, 0.45, 0.53, () => { mb.push(M4.RX(Math.PI / 2)); mb.cyl(0.2, 0.2, 0.05, 6, GOLD); mb.pop(); });
-    if (cfg.scarf) { const c = cfg.scarf === true ? '#e63946' : cfg.scarf; T_(mb, 0, 0.98, 0, () => mb.rbox(1.7, 0.36, 1.18, 0.16, c)); TR_(mb, M4.chain(M4.T(0.45, 0.35, 0.58), M4.RZ(0.08)), () => { mb.rbox(0.42, 1.0, 0.12, 0.05, c); T_(mb, 0, -0.42, 0, () => mb.box(0.44, 0.1, 0.13, shade(c, 0.75))); }); }
-    if (cfg.backpack) { const c = cfg.backpack === true ? '#e63946' : cfg.backpack; T_(mb, 0, 0.05, -0.88, () => mb.rbox(1.55, 1.65, 0.75, 0.22, c)); T_(mb, 0, -0.35, -1.27, () => mb.rbox(1.05, 0.62, 0.2, 0.1, shade(c, 0.85))); T_(mb, 0, 0.82, -0.88, () => mb.rbox(0.5, 0.14, 0.3, 0.06, shade(c, 0.7))); for (const s of [-1, 1]) { T_(mb, s * 0.55, 1.02, -0.05, () => mb.box(0.24, 0.08, 1.12, shade(c, 0.75))); T_(mb, s * 0.55, 0.32, 0.525, () => mb.box(0.24, 1.35, 0.05, shade(c, 0.75))); } }
+    if (cfg.scarf) { const c = cfg.scarf === true ? '#e63946' : cfg.scarf; T_(mb, 0, 0.98, 0, () => mb.rbox(1.7, 0.36, 1.18, 0.16, c)); }
+    if (cfg.backpack) { const c = cfg.backpack === true ? '#e63946' : cfg.backpack; for (const s of [-1, 1]) { T_(mb, s * 0.55, 1.02, -0.05, () => mb.box(0.24, 0.08, 1.12, shade(c, 0.75))); T_(mb, s * 0.55, 0.32, 0.525, () => mb.box(0.24, 1.35, 0.05, shade(c, 0.75))); } }
   });
   g.tex = shirtTex(cfg);
   // Arme: Oberarm (Schulter) + Unterarm (Ellbogen bei y=-0.95)
@@ -292,7 +291,7 @@ function avatarGeo(cfg) {
     T_(mb, 0, -0.93, 0.08, () => mb.rbox(1.06, 0.12, 1.2, 0.05, cfg.sole || '#f2f2f2'));
     if (!cfg.boots) T_(mb, 0, -0.56, 0.42, () => mb.box(0.4, 0.04, 0.3, '#ffffff'));
   });
-  if (cfg.skirt) g.skirt = cgeo(`skirt|${cfg.skirt}`, mb => { mb.push(M4.T(0, 1.55, 0)); mb.cyl(1.35, 1.02, 0.9, 12, cfg.skirt, { flat: false }); mb.pop(); });
+  if (cfg.skirt) g.skirt = cgeo(`skirt2|${cfg.skirt}`, mb => { mb.push(M4.T(0, -1.1, 0)); mb.cyl(1.38, 1.04, 1.1, 14, cfg.skirt, { flat: false }); mb.pop(); T_(mb, 0, -1.08, 0, () => mb.cyl(1.4, 1.4, 0.08, 14, shade(cfg.skirt, 0.8), { flat: false })); });
   const hk = 'hair2|' + JSON.stringify([cfg.hair, cfg.hairColor, cfg.hat, cfg.hatColor, cfg.glasses, cfg.shades, cfg.beard, cfg.mustache, cfg.headphones, cfg.bow, cfg.flower, cfg.earrings, cfg.headband, cfg.eyepatch, cfg.hatLogo, cfg.glassesColor, cfg.scar]);
   g.hair = cgeo(hk, mb => hairGeo(mb, cfg));
   // bewegliche Teile (Sekundärbewegung)
@@ -301,6 +300,18 @@ function avatarGeo(cfg) {
   if (cfg.cape) { const c = cfg.cape === true ? '#c1121f' : cfg.cape; g.cape = cgeo('cape|' + c, mb => { const cc = col(c), ci = shade(c, 0.7); const A = [-1.05, 0, 0], B = [1.05, 0, 0], C = [1.5, -3.3, 0], D = [-1.5, -3.3, 0]; mb.quad(D, C, B, A, cc); mb.quad(A, B, C, D, ci); T_(mb, 0, 0.05, 0.05, () => mb.rbox(2.2, 0.22, 0.3, 0.1, shade(c, 0.85))); for (const s of [-1, 1]) T_(mb, s * 0.85, 0.02, 0.55, () => mb.sphere(0.13, 1, GOLD)); }); }
   if (cfg.wings) { const c = cfg.wings === true ? '#ffffff' : cfg.wings; g.wing = cgeo('wing|' + c, mb => { for (let i = 0; i < 4; i++) T_(mb, 0.45 + i * 0.35, 0.3 - i * 0.28, 0, () => mb.rbox(0.5, 1.4 - i * 0.22, 0.12, 0.06, shade(c, 1 - i * 0.04))); }); }
   if (cfg.hat === 'halo') g.halo = cgeo('halo', mb => { for (let i = 0; i < 20; i++) { const a = i / 20 * 6.28; T_(mb, Math.sin(a) * 0.7, 1.15, Math.cos(a) * 0.7, () => { mb.push(M4.RY(a)); mb.box(0.25, 0.1, 0.12, '#fff3a0'); mb.pop(); }); } });
+  // Körper-Details: Hals, Becken, Schulter-/Ellbogen-/Kniekappen (schließen Lücken bei gebeugten Gelenken)
+  g.neck = cgeo('neck|' + sk, mb => T_(mb, 0, 0.1, 0, () => mb.cyl(0.42, 0.46, 0.32, 12, shade(sk, 0.93), { flat: false })));
+  g.pelvis = cgeo('pelvis|' + cfg.pants, mb => T_(mb, 0, 2.0, 0, () => mb.rbox(1.98, 0.42, 0.98, 0.14, cfg.pants)));
+  g.cap = cgeo('scap|' + (noS ? sk : sleeve), mb => mb.sphere(0.5, 2, noS ? sk : sleeve));
+  g.elbow = cgeo('elb|' + ((noS || shortS) ? sk : sleeve), mb => mb.sphere(0.45, 1, (noS || shortS) ? sk : sleeve));
+  g.knee = cgeo('knee|' + (shorts ? sk : cfg.pants), mb => mb.sphere(0.48, 1, shorts ? sk : cfg.pants));
+  // Kleidung mit Physik (hängt an Drehpunkten, wird von der Stoff-Simulation bewegt)
+  if (cfg.tie) { const c = cfg.tie === true ? '#c0392b' : cfg.tie; g.tie = cgeo('tie|' + c, mb => { T_(mb, 0, 0.0, 0.01, () => mb.box(0.3, 0.22, 0.08, shade(c, 0.85))); T_(mb, 0, -0.55, 0, () => mb.box(0.28, 1.0, 0.06, c)); TR_(mb, M4.chain(M4.T(0, -1.05, 0), M4.RZ(Math.PI / 4)), () => mb.box(0.2, 0.2, 0.06, c)); }); }
+  if (cfg.jacket || cfg.vest) { const c = cfg.jacket || cfg.vest, d = shade(c, 0.85); g.jflap = cgeo('jflap|' + c, mb => { T_(mb, 0, -0.68, 0, () => mb.box(0.72, 1.36, 0.08, c)); TR_(mb, M4.chain(M4.T(-0.22, -0.12, 0.05), M4.RZ(0.35)), () => mb.box(0.24, 0.8, 0.05, d)); for (let i = 0; i < 2; i++) T_(mb, -0.25, -0.55 - i * 0.45, 0.05, () => mb.sphere(0.06, 0, shade(c, 0.6))); }); }
+  if (cfg.scarf) { const c = cfg.scarf === true ? '#e63946' : cfg.scarf; g.scarfT = cgeo('scarft|' + c, mb => { T_(mb, 0, -0.5, 0, () => mb.rbox(0.42, 1.0, 0.12, 0.05, c)); T_(mb, 0, -0.95, 0, () => mb.box(0.44, 0.1, 0.13, shade(c, 0.75))); for (let i = 0; i < 3; i++) T_(mb, -0.14 + i * 0.14, -1.08, 0, () => mb.box(0.06, 0.18, 0.06, shade(c, 0.8))); }); }
+  if (cfg.hoodie) g.string = cgeo('hstr', mb => { T_(mb, 0, -0.3, 0, () => mb.box(0.06, 0.6, 0.04, '#f2f2f2')); T_(mb, 0, -0.62, 0, () => mb.sphere(0.06, 0, '#d0d0d0')); });
+  if (cfg.backpack) { const c = cfg.backpack === true ? '#e63946' : cfg.backpack; g.pack = cgeo('pack|' + c, mb => { T_(mb, 0, -0.85, -0.38, () => mb.rbox(1.55, 1.65, 0.75, 0.22, c)); T_(mb, 0, -1.25, -0.77, () => mb.rbox(1.05, 0.62, 0.2, 0.1, shade(c, 0.85))); T_(mb, 0, -0.08, -0.38, () => mb.rbox(0.5, 0.14, 0.3, 0.06, shade(c, 0.7))); for (const s of [-1, 1]) T_(mb, s * 0.55, -0.85, -0.02, () => mb.box(0.12, 1.4, 0.1, shade(c, 0.75))); }); }
   return (AVC[k] = g);
 }
 // P: Pose in Grad (Gelenke: a*=Schulter, e*=Ellbogen, l*=Hüfte, k*=Knie); S: Zustand {x,y,z,face(rad),scale, sec}
@@ -320,11 +331,23 @@ function avatarItems(items, cfg, S, P) {
   const add = (gg, m, o = {}) => items.push({ g: gg, m, sh, ...chr, ...o });
   add(g.torso, torso, { tex: g.tex }); add(g.uarm, armL); add(g.uarm, armR); add(g.larmL, foreL); add(g.larmR, foreR);
   add(g.thigh, legL); add(g.thigh, legR); add(g.shin, shinL); add(g.shin, shinR); add(g.head, head, { tex: ft }); add(g.hair, head);
-  if (g.skirt) add(g.skirt, root);
-  const sec = S.sec || {};   // Sekundärbewegung: {swing (vorwärts/rückwärts), side, flap}
-  if (g.tail) add(g.tail, M4.chain(head, M4.T(0, 0.35, -0.82), M4.RX((18 + (sec.swing || 0) * 0.9) * DEG), M4.RZ((sec.side || 0) * DEG)));
-  if (g.ptail) for (const s of [-1, 1]) add(g.ptail, M4.chain(head, M4.T(s * 0.82, 0.25, -0.2), M4.RZ((s * 28 + (sec.side || 0) * 0.8 + s * Math.abs(sec.swing || 0) * 0.3) * DEG), M4.RX((sec.swing || 0) * 0.5 * DEG)));
-  if (g.cape) add(g.cape, M4.chain(torso, M4.T(0, 0.95, -0.56), M4.RX((6 + (sec.swing || 0) * 1.4) * DEG), M4.RZ((sec.side || 0) * 0.5 * DEG)), { sh });
+  add(g.neck, M4.chain(torso, M4.T(0, 1.0, 0), M4.RY((P.hy || 0) * 0.5 * DEG), M4.RX((P.hx || 0) * 0.5 * DEG)));
+  add(g.pelvis, M4.chain(root, M4.T(0, 0, 0), M4.RY((P.tw || 0) * -0.3 * DEG)), {});
+  add(g.cap, M4.chain(armL, M4.T(0, -0.25, 0))); add(g.cap, M4.chain(armR, M4.T(0, -0.25, 0)));
+  if ((P.eL || 0) > 20) add(g.elbow, M4.chain(armL, M4.T(0, -0.95, 0))); if ((P.eR || 0) > 20) add(g.elbow, M4.chain(armR, M4.T(0, -0.95, 0)));
+  if ((P.kL || 0) > 20) add(g.knee, M4.chain(legL, M4.T(0, -1.0, 0))); if ((P.kR || 0) > 20) add(g.knee, M4.chain(legR, M4.T(0, -1.0, 0)));
+  // Stoff-Physik: sec.<teil> = [vor/zurück, seitlich] in Grad (positiv = Spitze nach hinten / nach links)
+  const sec = S.sec || {}, sw = sec.swing || 0, sd = sec.side || 0, D_ = (k, dx, dz) => sec[k] || [dx, dz];
+  const cp = D_('cape', 6 + sw * 1.4, sd * 0.5), tl2 = D_('tail', 18 + sw * 0.9, sd), pg = D_('pig', sw * 0.5, sd * 0.8), ti = D_('tie', -sw * 0.15, sd * 0.4), jf = D_('jacket', -sw * 0.2, 0), sf = D_('scarf', -sw * 0.2, sd * 0.4), st_ = D_('strings', -sw * 0.2, sd * 0.4), pk = D_('pack', sw * 0.12, sd * 0.2), sk_ = D_('skirt', sw * 0.2, sd * 0.3);
+  if (g.skirt) { const fl = 1 + Math.min(0.18, Math.abs((P.lLx || 0) - (P.lRx || 0)) / 300); add(g.skirt, M4.chain(root, M4.T(0, 2.05, 0), M4.RX(sk_[0] * 0.4 * DEG), M4.RZ(-sk_[1] * 0.4 * DEG), M4.S(fl, 1, fl))); }
+  if (g.tail) add(g.tail, M4.chain(head, M4.T(0, 0.35, -0.82), M4.RX(Math.max(-8, tl2[0]) * DEG), M4.RZ(-tl2[1] * DEG)));
+  if (g.ptail) for (const s of [-1, 1]) add(g.ptail, M4.chain(head, M4.T(s * 0.82, 0.25, -0.2), M4.RZ((s * 22 - pg[1] * 0.8) * DEG), M4.RX(Math.max(-15, pg[0]) * DEG)));
+  if (g.cape) add(g.cape, M4.chain(torso, M4.T(0, 0.95, -0.56), M4.RX(Math.max(-2, cp[0]) * DEG), M4.RZ(-cp[1] * 0.5 * DEG)), { sh });
+  if (g.tie) add(g.tie, M4.chain(torso, M4.T(0, 0.82, 0.56), M4.RX(Math.min(4, ti[0]) * DEG), M4.RZ(-ti[1] * DEG)));
+  if (g.jflap) for (const s of [-1, 1]) add(g.jflap, M4.chain(torso, M4.T(s * 0.68, 0.4, 0.54), M4.RX(Math.min(3, jf[0] * (s > 0 ? 1 : 0.85)) * DEG), M4.RZ(-jf[1] * 0.3 * DEG), M4.S(s, 1, 1)));
+  if (g.scarfT) add(g.scarfT, M4.chain(torso, M4.T(0.45, 0.88, 0.6), M4.RZ(0.08), M4.RX(Math.min(4, sf[0]) * DEG), M4.RZ(-sf[1] * DEG)));
+  if (g.string) for (const s of [-1, 1]) add(g.string, M4.chain(torso, M4.T(s * 0.22, 0.86, 0.54), M4.RX(Math.min(4, st_[0]) * DEG), M4.RZ(-st_[1] * DEG)));
+  if (g.pack) add(g.pack, M4.chain(torso, M4.T(0, 0.92 + (sec.packY || 0), -0.5), M4.RX(Math.max(-3, pk[0]) * DEG), M4.RZ(-pk[1] * DEG)));
   if (g.wing) for (const s of [-1, 1]) add(g.wing, M4.chain(torso, M4.T(s * 0.3, 0.45, -0.6), M4.RY((s > 0 ? -1 : 1) * (25 + (sec.flap || 0)) * DEG + (s > 0 ? 0 : Math.PI))));
   if (g.halo) items.push({ g: g.halo, m: head, e: 1, sh: false });
   const handR = M4.mul(foreR, M4.T(0, -1.0, 0)), handL = M4.mul(foreL, M4.T(0, -1.0, 0));
@@ -602,6 +625,15 @@ function setPalm(mb, x, z, s = 1) {
 }
 function setPoolRim(mb, w, d) { for (const [x, z, sx, sz] of [[0, d / 2 + 0.4, w + 1.6, 0.8], [0, -d / 2 - 0.4, w + 1.6, 0.8], [w / 2 + 0.4, 0, 0.8, d], [-w / 2 - 0.4, 0, 0.8, d]]) { mb.push(M4.T(x, 0.3, z)); mb.box(sx, 0.6, sz, '#f1f1f1'); mb.pop(); } mb.push(M4.T(0, 0.05, 0)); mb.box(w, 0.1, d, '#1f8fd6'); mb.pop(); }
 
+// Stellflächen von Möbeln (für automatisches Abstellen von Gegenständen)
+function surfOf(type, o = {}) {
+  const sc = o.s || 1, S = { table: [o.w || 4, o.d || 2.6, 2.43], desk: [3.2, 2.0, 2.43], bed: [3.6, 6.2, 1.62], chair: [1.8, 1.8, 1.12], bench: [4.4, 1.0, 1.1], box: [2, 2, 2.0], lounger: [1.8, 3.6, 0.85], trash: [1.6, 1.6, 2.12] }[type];
+  return S ? { w: S[0] * sc, d: S[1] * sc, top: S[2] * sc, occ: ({ chair: 3.05, bench: 2.5, bed: 2.6, lounger: 1.6 }[type] || S[2]) * sc, type } : null;
+}
+const SMALLP = { coin: 1, coins: 1, apple: 1, banana: 1, carrot: 1, ball: 1, gift: 1, cake: 1, pizza: 1, burger: 1, icecream: 1, phone: 1, book: 1, cup: 1, trophy: 1, crown: 1, star: 1, alarm: 1, clock: 1, bell: 1, flashlight: 1, controller: 1, console: 1 };
+const NOJIT = { sign: 1, board: 1, banner: 1, number: 1, bigtext: 1, door: 1, fence: 1, tv: 1, car: 1, bus: 1, bed: 1, pool: 1, flag: 1, blanket: 1, table: 1, desk: 1, lamp: 1, star: 1, balloon: 1 };
+const SEATP = { chair: 1, bench: 1, bed: 1, lounger: 1, table: 1, desk: 1, pool: 1, blanket: 1, car: 1, bus: 1, door: 1, fence: 1, banner: 1, bigtext: 1 };
+const PROPR = { gift: 1.0, cake: 1.1, pizza: 1.0, box: 1.5, chair: 1.3, table: 2.2, desk: 1.8, bench: 2.3, trash: 1.0, cone: 0.7, mailbox: 0.8, campfire: 1.3, sandcastle: 2.2, tree: 2.2, pine: 1.8, bush: 1.4, rock: 1.3, umbrella: 0.6, sign: 0.9, lamp: 0.6, tv: 2.2, trophy: 0.8, flag: 0.5, ball: 0.7 };
 const SWAYP = { tree: 1, pine: 1, palm: 1, bush: 1, flower: 1 };
 function propItems(items, type, o, M) {
   const f = PROPS[type]; if (!f) return;

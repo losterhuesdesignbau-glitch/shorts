@@ -97,7 +97,7 @@ function pose(act, t, k, A) {
     case 'hop': { const j = jumpArc(((t + ph * 0.1) / 0.5) % 1, 1.1); P.y = j.y; P.kL = P.kR = j.k; P.lLx = P.lRx = -j.k * 0.45; P.sq = j.sq; P.aLz = 30 + 20 * j.air; P.aRz = -P.aLz; P.eL = P.eR = 30; P.lift = Math.max(0, j.y); break; }
     case 'point': idle(0.5); P.aRx = -88; P.aRz = -4; P.eR = 4; P.hy = 0; break;
     case 'pointup': idle(0.5); P.aRx = -170; P.aRz = -10; P.eR = 5; P.hx = -12; break;
-    case 'talk': idle(0.7); P.aRx = -22 - 14 * s(t * 3.1 + ph); P.aRz = -10; P.eR = 45 + 25 * s(t * 2.3 + 1); P.aLx = -12 - 8 * s(t * 2.3); P.eL = 30 + 18 * s(t * 2.7 + 2); P.hx = 3 * s(t * 6.5) + 2; P.hz = 3 * s(t * 2.1); break;
+    case 'talk': { idle(0.7); const G = gestureP(t, ph, sd), beat = Math.max(0, s(t * 7.3 + ph)) ** 2; Object.assign(P, G); P.eR = (P.eR || 0) + 10 * beat; P.eL = (P.eL || 0) + 7 * beat; P.aRx = (P.aRx || 0) - 4 * beat; P.hx += 3 * beat + 2; P.hz = 3 * s(t * 2.1); P.tb += 0.02 * beat; break; }
     case 'dance': { const b = s(t * 8 + ph), c = Math.abs(b); P.rz = 7 * b; P.y = c * 0.3 - 0.2; P.kL = P.kR = 20 + 20 * c; P.lLx = P.lRx = -10 * c; P.aLz = 70 + 35 * s(t * 8); P.aRz = -70 + 35 * s(t * 8); P.eL = P.eR = 70 + 20 * b; P.aLy = 60; P.aRy = -60; P.lLz = 10 * Math.max(0, b); P.lRz = 10 * Math.min(0, b); P.hz = -6 * b; P.tw = 10 * s(t * 4 + ph); break; }
     case 'sit': idle(0); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = 88; P.kR = 88; P.aLx = -28; P.aRx = -28; P.eL = 40; P.eR = 40; P.rz = 0; break;
     case 'sitdesk': idle(0); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = 85; P.kR = 85; P.aLx = -42; P.aRx = -42; P.eL = 52; P.eR = 52; P.aLz = -6; P.aRz = 6; P.hx = 8 + 2 * s(t * 1.3 + ph); P.rz = 0; break;
@@ -138,7 +138,7 @@ function pose(act, t, k, A) {
     case 'chop': { idle(0.4); const k = Math.max(0, s(t * 18 + ph)); P.aRx = -60 - 32 * k; P.eR = 12 + 10 * k; P.aRz = 10; P.aLx = -62; P.eL = 14; P.aLz = -24; P.hx = 22; P.tb = 0.02 * k; break; }
     case 'shred': { idle(0.4); const k = (t * 2.6 + ph) % 1; P.aRx = -100 + 40 * k; P.eR = 10; P.aRz = 18; P.aLx = -82; P.eL = 14; P.aLz = -10; P.hx = 20; break; }
     case 'slice': { idle(0.4); const k = s(t * 9 + ph); P.aRx = -64 + 6 * k; P.eR = 12; P.aRz = 14 + 7 * k; P.aLx = -62; P.eL = 14; P.aLz = -18; P.hx = 22; break; }
-    default: idle();
+    default: { idle(); const iv = IDLES[A.idleStyle || 0]; if (iv && act === 'idle') Object.assign(P, iv); }
   }
   return P;
 }
@@ -157,6 +157,86 @@ function apose(act, t, k, A, type) {
   if (act === 'scared') P.dx = 0.07 * s(t * 60);
   if (act === 'dance') { P.rz = 10 * s(t * 8); P.y = Math.abs(s(t * 8)) * 0.4; P.flap = 50 + 30 * s(t * 8); }
   return P;
+}
+
+// ---------- Animation 6: Überblendung, Gesten, Blicke, Stoff-Physik ----------
+function blendP(A, B, w) {
+  if (w >= 1) return B; if (w <= 0) return A;
+  const o = { ...B };
+  for (const k of new Set([...Object.keys(A), ...Object.keys(B)])) { const a = A[k], b = B[k]; if (typeof a === 'number' || typeof b === 'number') o[k] = lerp(typeof a === 'number' ? a : 0, typeof b === 'number' ? b : 0, w); }
+  return o;
+}
+// vorheriges Segment einer timed-Liste: [wert, startzeit des aktuellen Segments in u]
+function prevSeg(v, u, def) {
+  if (!Array.isArray(v)) return null; let cur = null;
+  for (const e of v) { const [a, s0 = 0, t = 1] = e; if (u >= s0 && u < t) cur = { a, s: s0 }; }
+  if (!cur) { let last = null; for (const e of v) { const [a, s0 = 0, t = 1] = e; if (t <= u && (!last || t > last.t)) last = { a, t }; } return last ? { prev: last.a, cur: def, t0: last.t } : null; }
+  let prev = def, bt = -1; for (const e of v) { const [a, s0 = 0, t = 1] = e; if (t <= cur.s + 1e-6 && t > bt) { bt = t; prev = Math.abs(t - cur.s) < 1e-3 ? a : def; } }
+  return { prev, cur: cur.a, t0: cur.s };
+}
+// Redegesten-Bibliothek (rechter Arm R, linker Arm L gespiegelt)
+const GEST = [
+  { aRx: -35, aRz: -8, aRy: -30, eR: 70, aLx: -35, aLz: 8, aLy: 30, eL: 70 },               // erklären mit beiden Händen
+  { aRx: -30, aRz: -20, aRy: -40, eR: 45, aLx: -30, aLz: 20, aLy: 40, eL: 45 },             // offene Handflächen
+  { aRx: -75, aRz: -5, eR: 15, aLx: -8, aLz: 6, eL: 18 },                                    // nach vorn zeigen
+  { aRx: -35, aRz: 35, aRy: 90, eR: 60, aLx: -6, aLz: 6, eL: 16 },                           // Hand auf die Brust
+  { aLx: -40, aLz: 10, eL: 100, aRx: -10, aRz: -8, eR: 25 },                                 // eine Hand oben (aufzählen)
+  { aLz: 18, aRz: -18, aLx: -15, aRx: -15, eL: 80, eR: 80, aLy: 55, aRy: -55 },              // kleines Achselzucken
+  { aRx: -40, aRz: -5, eR: 75, aLz: -20, aLy: 30, eL: 30 },                                  // erklären, andere Hand in der Tasche
+];
+function gestureP(t, ph, sd) {
+  const segL = 1.35 + (sd % 5) * 0.12, k = (t + ph) / segL, i = Math.floor(k), f = k - i;
+  const g0 = GEST[hash('g' + sd + '|' + i) % GEST.length], g1 = GEST[hash('g' + sd + '|' + (i + 1)) % GEST.length];
+  return blendP(g0, g1, smooth((f - 0.72) / 0.28));
+}
+const IDLES = [null, { aRz: 30, aRx: 0, aRy: -75, eR: 50, aLz: -30, aLy: 75, eL: 50 }, { aRz: 20, aRx: 0, aRy: -30, eR: 30, aLz: -20, aLy: 30, eL: 30 }, { aRz: 20, aRx: 0, aRy: -30, eR: 30 }];
+function talkingAt(s, u) { const tk = s.a.talk; if (tk === true) return true; if (Array.isArray(tk)) return tk.some(w => u >= w[0] && u < w[1]); const [ac] = timed(s.a.do, u, 'idle'); const [md] = timed(s.a.mood, u, 'happy'); return ac === 'talk' || md === 'talk'; }
+// Blick-Ziel: explizit (look), sonst der gerade Sprechende, sonst (als Sprecher) die Kamera
+function lookRel(s, list, map, cam, u) {
+  const a = s.a; let T = null;
+  let lk = a.look; if (Array.isArray(lk)) lk = timed(lk, u, null)[0];
+  if (lk === 'cam') T = cam.eye; else if (lk === false || lk === 'none') return null; else if (typeof lk === 'string' && map[lk]) { const o = map[lk]; T = [o.x, o.y + o.h * 0.85, o.z]; }
+  else if (Array.isArray(lk)) T = pt3(lk, 3);
+  if (!T) { const me = talkingAt(s, u); if (!me) { const sp = list.find(o => o !== s && !o.a.npcCrowd && talkingAt(o, u)); if (sp) T = [sp.x, sp.y + sp.h * 0.85, sp.z]; } else if (s.a.face !== undefined || list.length === 1) T = cam.eye; }
+  if (!T) return null;
+  let yaw = Math.atan2(T[0] - s.x, T[2] - s.z) - s.face; yaw = ((yaw + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
+  const dist = Math.hypot(T[0] - s.x, T[2] - s.z), pitch = Math.atan2(T[1] - (s.y + s.h * 0.85), dist);
+  if (Math.abs(yaw) > 2.2) return null;                            // Ziel hinter dem Rücken: nicht den Kopf verdrehen
+  return { yaw: clamp(yaw / DEG, -65, 65), pitch: clamp(pitch / DEG, -30, 30) };
+}
+// ---- Stoff-/Haar-Physik: gedämpfte Pendel, angetrieben von Beschleunigung, Fahrtwind, Schwerkraft (Neigung), Wind ----
+const CLOTHP = { cape: [4.2, 0.32, 1, 7], tail: [6.5, 0.22, 1, 4], pig: [7.5, 0.25, 1, 3], pack: [9, 0.45, 1, 0.8], skirt: [9, 0.4, 1, 1.5], tie: [9.5, 0.28, -1, 1.2], jacket: [10, 0.35, -1, 1.5], scarf: [8, 0.3, -1, 1.2], strings: [12, 0.25, -1, 0.8] };
+const CLOTH = {};
+function clothSim(s, si, sh, tl, D, map) {
+  const key = si + '|' + s.id, c = s.cfg; if (c.animal) return null;
+  const need = c.cape || c.hair === 'ponytail' || c.hair === 'pigtails' || c.tie || c.jacket || c.vest || c.scarf || c.hoodie || c.backpack || c.skirt; if (!need) return null;
+  const idx = (sh.actors || []).indexOf(s.a);
+  const smp = t => { const st = actorState(s.a, Math.max(0, t), D, idx < 0 ? 0 : idx, sh); st.face = faceOf(st, map, null, clamp(t / D, 0, 1)); const P = pose(st.act, t, st.k, st); return { x: st.x, z: st.z, y: st.y + (P.y || 0) * st.scale, f: st.face, lean: (P.rx || 0) + (P.bx || 0), rz: P.rz || 0 }; };
+  const h = 1 / 120; let S = CLOTH[key];
+  if (!S || tl < S.t - 1e-6 || tl - S.t > 0.6) {
+    const t0 = Math.max(-1.0, tl - 1.2), a = smp(t0 - h), b = smp(t0);
+    S = CLOTH[key] = { t: t0, p: b, v: [(b.x - a.x) / h, (b.y - a.y) / h, (b.z - a.z) / h], fv: 0, st: {} };
+    for (const k in CLOTHP) S.st[k] = [0, 0, 0, 0];
+  }
+  while (S.t < tl - 1e-6) {
+    const dt = Math.min(h, tl - S.t), t = S.t + dt, p = smp(t), v = [(p.x - S.p.x) / dt, (p.y - S.p.y) / dt, (p.z - S.p.z) / dt], acc = [(v[0] - S.v[0]) / dt, (v[1] - S.v[1]) / dt, (v[2] - S.v[2]) / dt];
+    let df = p.f - S.p.f; df = ((df + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI; const om = df / dt;
+    const fw = [Math.sin(p.f), Math.cos(p.f)], rt = [fw[1], -fw[0]];
+    const aF = clamp(acc[0] * fw[0] + acc[2] * fw[1], -60, 60), aS = clamp(acc[0] * rt[0] + acc[2] * rt[1], -60, 60), vF = v[0] * fw[0] + v[2] * fw[1], vY = clamp(v[1], -20, 20);
+    const wind = 3 * n1(t * 0.6, 3) + 1.5 * Math.sin(t * 2.3 + s.ph);
+    for (const k in CLOTHP) {
+      const [w, z, side, kv] = CLOTHP[k], X = S.st[k];
+      const eqX = -p.lean + side * clamp(vF * kv, -10, 70) + side * clamp(-vY * 2.2, -15, 40) + (side > 0 ? wind : wind * 0.3);
+      const eqZ = -p.rz + clamp(om * vF * 1.2, -25, 25) + wind * 0.5;
+      X[1] += (-w * w * (X[0] - eqX) - 2 * z * w * X[1] + aF * 5.5 * (side > 0 ? 1 : 0.6) / 1) * dt; X[0] += X[1] * dt;
+      X[3] += (-w * w * (X[2] - eqZ) - 2 * z * w * X[3] - aS * 4.5) * dt; X[2] += X[3] * dt;
+      X[0] = clamp(X[0], -60, 85); X[2] = clamp(X[2], -45, 45);
+    }
+    S.packY = clamp(-(acc[1]) * 0.002, -0.08, 0.08);
+    S.t = t; S.p = p; S.v = v;
+  }
+  const o = { packY: S.packY || 0 }; for (const k in CLOTHP) o[k] = [S.st[k][0] + (k === 'cape' ? 6 : k === 'tail' ? 18 : 0), S.st[k][2]];
+  return o;
 }
 
 // ---------- Figuren-Zustand ----------
@@ -180,16 +260,18 @@ function actorState(a, tl, D, idx, sh) {
   st.x = pa.pts[0][0]; st.z = pa.pts[0][2]; st.moving = false; st.dir = null; st.cyc = 0; st.speed = 0;
   if (pa.pts.length > 1 && pa.tot > 0.01) {
     const [t0, t1] = a.move || [0, 1]; st.moving = u > t0 && u < t1; st.t0 = t0 * D; st.t1 = t1 * D;
-    const d = pathDist(a, u, pa.tot), p = polyAt(pa.pts, pa.L, d); st.x = p[0]; st.z = p[1]; st.cyc = d / 4.2 * Math.PI * 2 + st.ph; st.d = d;
+    const d = pathDist(a, u, pa.tot), p = polyAt(pa.pts, pa.L, d); st.x = p[0]; st.z = p[1]; st.d = d;
     // geglättete Laufrichtung (Kurven werden weich durchlaufen)
     const pA = polyAt(pa.pts, pa.L, Math.max(0, d - 0.9)), pB = polyAt(pa.pts, pa.L, Math.min(pa.tot, d + 0.9)); st.dir = [pB[0] - pA[0], pB[1] - pA[1]];
     const dt = 0.05, d2 = pathDist(a, clamp((tl - dt) / D, 0, 1), pa.tot); st.speed = (d - d2) / dt;
     const f0 = polyAt(pa.pts, pa.L, Math.min(1, pa.tot)), fe = polyAt(pa.pts, pa.L, Math.max(0, pa.tot - 1));
     st.dir0 = [f0[0] - pa.pts[0][0], f0[1] - pa.pts[0][2]]; const last = pa.pts[pa.pts.length - 1]; st.dir1 = [last[0] - fe[0], last[2] - fe[1]];
   }
-  if (!st.moving) st.cyc = tl * Math.PI * 2 * 1.7 + st.ph;
   let [act, k] = timed(a.do, u, 'idle');
-  if (st.moving && !MOVERS[act]) act = st.speed > 9 ? 'run' : 'walk';
+  if (st.moving && !MOVERS[act]) act = st.speed > 8 ? 'run' : 'walk';
+  if (st.d !== undefined) st.cyc = st.d / (act === 'run' ? 6.4 : act === 'sneak' ? 3.4 : 4.2) * Math.PI * 2 + st.ph;
+  if (!st.moving) st.cyc = (st.cyc || 0) + 0;
+  st.idleStyle = a.idle !== undefined ? ({ relaxed: 0, hips: 1, pockets: 2, pocket: 3 }[a.idle] ?? 0) : (cfg.animal ? 0 : [0, 0, 0, 1, 2, 3, 0, 2][hash(id) % 8]);
   st.act = act; st.k = k; st.rel = a.throw ? (a.throw.at ?? 0.5) : 0.5;
   if (act === 'throw' && Array.isArray(a.do)) { const e = a.do.find(e => e[0] === 'throw'); if (e) st.rel = clamp(((a.throw ? a.throw.at : 0.5) - (e[1] ?? 0)) / Math.max(0.01, (e[2] ?? 1) - (e[1] ?? 0)), 0.05, 0.95); }
   const [md] = timed(a.mood, u, DEFMOOD[act] || 'happy'); st.mood = md;
@@ -218,24 +300,35 @@ function faceOf(st, map, cam, u) {
 // ---------- Kamera ----------
 const DEFANG = [16, -20, 26, -12, 8, -26, 20, -8];
 function parseCam(c, sh) { if (!c) { const a = (sh.actors || []).find(x => x.id); c = a ? 'medium:' + a.id : 'wide'; } if (typeof c === 'string') { const [type, rest] = c.split(':'); c = { type }; if (rest) { const [x, y] = rest.split('>'); c.target = x; if (y) c.target2 = y; } } return c; }
+// weich nachgeführter Fokus: Mittel über die letzten ~0,5 s (Kamera "zieht" nach statt starr zu kleben)
+function smoothFocus(A, tl, D, sh) {
+  if (!A || !A.path || A.path.pts.length < 2) return null;
+  const idx = Math.max(0, (sh.actors || []).indexOf(A.a)); let x = 0, z = 0, sx = 0, cx = 0, W = 0;
+  for (let i = 0; i < 6; i++) { const t = tl - i * 0.1, w = 1 - i * 0.13, st = actorState(A.a, Math.max(0, t), D, idx, sh); st.face = faceOf(st, {}, null, clamp(t / D, 0, 1)); x += st.x * w; z += st.z * w; sx += Math.sin(st.face) * w; cx += Math.cos(st.face) * w; W += w; }
+  return { x: x / W, z: z / W, face: Math.atan2(sx, cx) };
+}
+const CAMOFF = {};
+const ease = u => u * u * u * (u * (u * 6 - 15) + 10);
 function camera(sh, si, tl, D, set, map) {
-  const c = parseCam(sh.cam, sh), u = clamp(tl / D, 0, 1), zoom = c.zoom ?? 0.1, push = c.pull ? 1 + zoom * u : 1 - zoom * u;
+  const c = parseCam(sh.cam, sh), u = clamp(tl / D, 0, 1), ue = ease(u), zoom = c.zoom ?? 0.1, push = c.pull ? 1 + zoom * ue : 1 - zoom * ue;
   const A = c.target ? map[c.target] : null, B = c.target2 ? map[c.target2] : null;
-  const f = A ? [A.x, A.y + (A.seat || 0), A.z] : pt3(c.at), fs = A ? (A.cfg.animal ? Math.max(A.h / 5.4, 0.95) : A.h / 5.4) : 1, face = A ? A.face : 0, hy = A ? A.y + (A.seat || 0) + A.h * 0.86 : 3;
-  let ang = face + (c.ang ?? DEFANG[si % DEFANG.length]) * DEG, eye, look, fov = 45;
-  const around = (dist, ey, ly, a = ang) => { eye = [f[0] + Math.sin(a) * dist, f[1] + ey, f[2] + Math.cos(a) * dist]; look = [f[0], f[1] + ly, f[2]]; };
+  const SF = c.lock ? null : smoothFocus(A, tl, D, sh), f = A ? [SF ? SF.x : A.x, A.y + (A.seat || 0), SF ? SF.z : A.z] : pt3(c.at), fs = A ? (A.cfg.animal ? Math.max(A.h / 5.4, 0.95) : A.h / 5.4) : 1, face = A ? (SF ? SF.face : A.face) : 0, hy = A ? A.y + (A.seat || 0) + A.h * 0.86 : 3;
+  let ang, eye, look, fov;
+  let DM = 1;
+  const shoot = (off, dm = 1) => { DM = dm; ang = face + ((c.ang ?? DEFANG[si % DEFANG.length]) + off + (c.arc ?? (si % 2 ? 5 : -5)) * (ue - 0.5)) * DEG; fov = 45; eye = look = null;
+  const around = (dist, ey, ly, a = ang + 0) => { dist *= DM; eye = [f[0] + Math.sin(a) * dist, f[1] + ey, f[2] + Math.cos(a) * dist]; look = [f[0], f[1] + ly, f[2]]; };
   switch (c.type) {
-    case 'close': around((c.dist || 6.2) * fs * push, hy - f[1] - 0.15 * fs, hy - f[1] - 0.95 * fs); fov = 42; break;
+    case 'close': around((c.dist || 7.0) * fs * push, hy - f[1] - 0.15 * fs, hy - f[1] - 0.95 * fs); fov = 37.5; break;
     case 'medium': around((c.dist || 10.5) * fs * push, 3.9 * fs, 3.0 * fs); break;
     case 'full': around((c.dist || 14) * push, 4.8 * fs, 2.7 * fs); break;
     case 'low': around((c.dist || 6.5) * fs * push, 0.9, A ? A.h * 0.75 : 3); fov = 52; break;
     case 'high': around((c.dist || 7) * fs * push, (A ? A.h : 5) + 8, 1.6); fov = 50; break;
-    case 'side': around((c.dist || 9) * fs * push, 3.9 * fs, 3.0 * fs, face + (c.ang ?? 90) * DEG); break;
+    case 'side': around((c.dist || 9) * fs * push, 3.9 * fs, 3.0 * fs, face + ((c.ang ?? 90) + off) * DEG); break;
     case 'back': case 'follow': { const a2 = face + Math.PI + (c.ang ?? 12) * DEG, d = (c.dist || 9) * push; eye = [f[0] + Math.sin(a2) * d, f[1] + 6, f[2] + Math.cos(a2) * d]; look = [f[0] + Math.sin(face) * 6, f[1] + 3, f[2] + Math.cos(face) * 6]; break; }
     case 'ots': { const T = B || { x: f[0] + Math.sin(face) * 8, z: f[2] + Math.cos(face) * 8, y: 0, h: 5.4 }; const dx = T.x - f[0], dz = T.z - f[2], L = Math.hypot(dx, dz) || 1, nx = dx / L, nz = dz / L; const side = c.side ?? 1; eye = [f[0] - nx * 3.4 * fs + nz * 1.8 * side, f[1] + 5.6 * fs, f[2] - nz * 3.4 * fs - nx * 1.8 * side]; look = [T.x, T.y + T.h * 0.8, T.z]; break; }
-    case 'orbit': { const a2 = face + ((c.ang ?? -40) + (c.sweep ?? 80) * u) * DEG; around((c.dist || 11) * fs, 4.6 * fs, 3 * fs, a2); break; }
-    case 'aerial': { const a2 = ((c.ang ?? 20) + 14 * u) * DEG, Rr = (c.dist || 40) * push; eye = [f[0] + Math.sin(a2) * Rr, f[1] + (c.h || 34) * push, f[2] + Math.cos(a2) * Rr]; look = [f[0], f[1], f[2] - 4]; fov = 50; break; }
-    case 'dolly': { const dx = c.dx ?? 9, d = c.dist ?? 15, off = lerp(-dx, dx, u) * (c.dir === -1 ? -1 : 1); eye = [f[0] + off, f[1] + (c.h ?? 5), f[2] + d]; look = [f[0] + off * 0.6, f[1] + 3, f[2]]; fov = 48; break; }
+    case 'orbit': { const a2 = face + ((c.ang ?? -40) + off + (c.sweep ?? 80) * ue) * DEG; around((c.dist || 11) * fs, 4.6 * fs, 3 * fs, a2); break; }
+    case 'aerial': { const a2 = ((c.ang ?? 20) + 14 * ue) * DEG, Rr = (c.dist || 40) * push; eye = [f[0] + Math.sin(a2) * Rr, f[1] + (c.h || 34) * push, f[2] + Math.cos(a2) * Rr]; look = [f[0], f[1], f[2] - 4]; fov = 50; break; }
+    case 'dolly': { const dx = c.dx ?? 9, d = c.dist ?? 15, off = lerp(-dx, dx, ue) * (c.dir === -1 ? -1 : 1); eye = [f[0] + off, f[1] + (c.h ?? 5), f[2] + d]; look = [f[0] + off * 0.6, f[1] + 3, f[2]]; fov = 48; break; }
     case 'top': eye = [f[0], f[1] + (c.h || 26) * push, f[2] + 0.6]; look = [f[0], f[1], f[2]]; fov = 50; break;
     case 'pov': { const fw = [Math.sin(face), Math.cos(face)]; eye = [f[0] + fw[0] * 0.8, f[1] + A.h * 0.85, f[2] + fw[1] * 0.8]; look = [f[0] + fw[0] * 12, f[1] + A.h * 0.6, f[2] + fw[1] * 12]; fov = 55; break; }
     case 'group': case 'two': {
@@ -245,10 +338,34 @@ function camera(sh, si, tl, D, set, map) {
       fov = c.fov || 46; const hf = Math.atan(Math.tan(fov / 2 * DEG) * R.W / R.H); const d = clamp((ext + 2.2) / Math.tan(hf), 9, 70) * push;
       eye = [cx + Math.sin(a2) * d, 3.2 + d * 0.12, cz + Math.cos(a2) * d]; look = [cx, mh * 0.5, cz]; break;
     }
-    case 'free': { const uu = c.move ? Math.max(0, Math.min(1, (u - c.move[0]) / Math.max(1e-3, c.move[1] - c.move[0]))) : u; eye = c.eye2 ? V3.lerp(c.eye, c.eye2, smooth(uu)) : c.eye; look = c.look2 ? V3.lerp(c.look, c.look2, smooth(uu)) : c.look; break; }
+    case 'push': { const d = lerp(c.from ?? 13, c.to ?? 6.6, ease(u)) * fs, hh = lerp(3.9, hy - f[1] - 0.15, ease(u)), lh = lerp(3.0, hy - f[1] - 0.95, ease(u)); around(d, hh, lh); fov = lerp(45, 38, ease(u)); break; }
+    case 'crane': { const e2 = ease(u), up = c.down ? 1 - e2 : e2; around((c.dist || 11) * fs, lerp(set.indoor ? 3.2 : 1.2, c.h ?? 11, up), lerp(3.6 * fs, 1.8 * fs, up)); fov = 46; break; }
+    case 'reveal': { const e2 = ease(clamp((u - 0.08) / 0.84, 0, 1)), d = lerp(4.6, c.dist ?? 22, e2) * fs; around(d, lerp(hy - f[1], 7, e2), lerp(hy - f[1] - 0.3, 2.8, e2)); fov = lerp(40, 48, e2); break; }
+    case 'arc': { const a2 = face + ((c.ang ?? -60) + off + (c.sweep ?? 120) * ease(u)) * DEG; around((c.dist || 10) * fs, 4.2 * fs, 3.0 * fs, a2); break; }
+    case 'track': { const wv = set.wide.eye, sA = Math.sin(face + 75 * DEG) * (wv[0] - f[0]) + Math.cos(face + 75 * DEG) * (wv[2] - f[2]), sd2 = c.side ?? (sA >= 0 ? 1 : -1), a2 = face + (sd2 * (c.ang ?? 75) + off) * DEG, d = (c.dist || 14) * fs; eye = [f[0] + Math.sin(a2) * d, f[1] + 4.6 * fs, f[2] + Math.cos(a2) * d]; look = [f[0] + Math.sin(face) * 1.2, f[1] + 2.8 * fs, f[2] + Math.cos(face) * 1.2]; fov = 44; break; }
+    case 'free': { const ee = c.move ? ease(clamp((u - c.move[0]) / Math.max(1e-3, c.move[1] - c.move[0]), 0, 1)) : ue; eye = c.eye2 ? V3.lerp(c.eye, c.eye2, ee) : c.eye; look = c.look2 ? V3.lerp(c.look, c.look2, ee) : c.look; break; }
     case 'wide': default: { const dx = (c.drift ?? 3) * (u - 0.5) * (si % 2 ? 1 : -1); eye = [set.wide.eye[0] + dx, set.wide.eye[1], set.wide.eye[2] * push + (1 - push) * set.wide.look[2]]; look = [set.wide.look[0] + dx * 0.5, set.wide.look[1], set.wide.look[2]]; fov = 50; }
   }
+  };
+  // Verdeckung vermeiden: andere Figuren und Möbel zwischen Kamera und Ziel -> Winkel ausweichen
+  const AROUND = { close: 1, medium: 1, full: 1, low: 1, side: 1, orbit: 1, arc: 1, push: 1, crane: 1, reveal: 1, track: 1 };
+  const occl = () => { if (!A) return 0; const tgt = [A.x, A.y + (A.seat || 0) + A.h * 0.7, A.z]; let k = 0;
+    for (const o of Object.values(map)) { if (o === A || o.a.npcCrowd) continue; for (const yy of [0.3, 0.6, 0.9]) { const [d, t] = segDist([o.x, o.y + o.h * yy, o.z], eye, tgt); if (t > 0.04 && t < 0.97 && d < 2.4 * o.scale) k += 2; } }
+    for (const sf of [...(set.surf || []), ...(map.__surf || [])]) { for (let i = 0; i < 12; i++) { const p = V3.lerp(eye, tgt, i / 12); if (p[1] > (sf.occ || sf.top) + 0.5) continue; const pad = i === 0 ? 1.4 : 0; const dx = p[0] - sf.x, dz = p[2] - sf.z, cc = Math.cos(sf.ry || 0), ss = Math.sin(sf.ry || 0), lx = cc * dx - ss * dz, lz = ss * dx + cc * dz; if (Math.abs(lx) < sf.w / 2 + pad && Math.abs(lz) < sf.d / 2 + pad) { k += 1; break; } } }
+    if (set.bounds) { const [x0, x1, z0, z1] = set.bounds, m = 2.2; if (eye[0] < x0 + m || eye[0] > x1 - m || eye[2] < z0 + m || eye[2] > z1 - m) k += 3; }
+    return k; };
+  shoot(0);
+  if (A && AROUND[c.type] && c.ang === undefined && !c.fixed) {
+    let off = CAMOFF[si];
+    if (off === undefined) { let best = [occl(), [0, 1]]; if (best[0] > 0) { outer: for (const dm of [1, 0.78, 0.62]) for (const o of [0, 25, -25, 45, -45, 65, -65, 90, -90]) { if (dm === 1 && o === 0) continue; shoot(o, dm); const k = occl() + (dm < 1 ? 0.5 : 0); if (k < best[0]) best = [k, [o, dm]]; if (k <= 0.5) break outer; } } off = CAMOFF[si] = best[1]; }
+    shoot(off[0], off[1]);
+  }
   if (c.fov) fov = c.fov;
+  // Vorlauf-Raum: bei Bewegung schaut die Kamera etwas in Laufrichtung
+  if (A && A.moving && c.type !== 'pov' && c.type !== 'free') { const L = clamp((A.speed || 0) * 0.35, 0, 2.2); look = [look[0] + Math.sin(face) * L, look[1], look[2] + Math.cos(face) * L]; }
+  // Handkamera-"Atmen": sehr leichtes, langsames Schweben (abschaltbar mit "steady": true)
+  if (!c.steady && c.type !== 'free' && !(sh.camSteady)) { const dd = V3.len(V3.sub(eye, look)), amp = clamp(dd * 0.006, 0.02, 0.16) * (c.handheld ?? 1), tg2 = (sh.tg0 || 0) + tl, q = k => n1(tg2 * 0.45 + k * 7.3, 11 + k) * 0.7 + n1(tg2 * 1.1 + k * 3.1, 23 + k) * 0.3;
+    eye = [eye[0] + q(1) * amp, eye[1] + q(2) * amp * 0.7, eye[2] + q(3) * amp]; look = [look[0] + q(4) * amp * 0.5, look[1] + q(5) * amp * 0.4, look[2] + q(6) * amp * 0.5]; }
   if (set.bounds) { const [x0, x1, z0, z1, ym] = set.bounds; eye = [clamp(eye[0], x0, x1), clamp(eye[1], 0.5, ym), clamp(eye[2], z0, z1)]; }
   let shake = c.shake || 0;
   for (const fx of sh.fx || []) { if (fx.type === 'shake') { const t0 = (fx.t || 0) * D, d = fx.dur || 0.5; if (tl >= t0 && tl < t0 + d) shake = Math.max(shake, (fx.amp || 0.4) * (1 - (tl - t0) / d)); } if (fx.type === 'zoom') { const t0 = (fx.t || 0) * D, d = fx.dur || 0.6; if (tl >= t0) fov *= 1 - (fx.amp || 0.3) * Math.max(0, 1 - (tl - t0) / d) * smooth((tl - t0) / 0.08); } }
@@ -315,9 +432,37 @@ function fxItems(items, sh, tl, D, map) {
     }
   }
 }
-function propState(items, p, tl, D, map, u) {
-  let pos = pt3(p.at), s = p.s || p.scale || 1, ry = (p.ry || 0) * DEG + (p.spin ? tl * p.spin * DEG : 0), rx = 0;
-  let sq = 0; if (p.pop !== undefined) { const k = (tl - p.pop * D) / 0.3; if (k < 0) return; s *= backOut(k); sq = jiggle(tl - p.pop * D - 0.2, 0.16); }
+// ---------- Natürliche Platzierung von Gegenständen ----------
+// kleine Dinge landen auf Tischen/Möbeln, nichts steckt in Figuren oder ineinander, leichte Zufallsdrehung, Kontaktschatten
+const LAYC = {};
+function surfTop(x, z, surfs) { let top = 0; for (const f of surfs) { const dx = x - f.x, dz = z - f.z, c = Math.cos(f.ry || 0), s = Math.sin(f.ry || 0), lx = c * dx - s * dz, lz = s * dx + c * dz; if (Math.abs(lx) < f.w / 2 - 0.15 && Math.abs(lz) < f.d / 2 - 0.15) top = Math.max(top, f.top); } return top; }
+// Eigene Requisiten aus dem Shorts-Chat: genau dort lassen, wo sie gesetzt sind (kein Wegschieben/Zufallsdrehen)
+const FIXP = { cutboard: 1, tray: 1, cabbage: 1, shreds: 1, radish: 1, meat: 1, meatslice: 1, helper: 1, nest: 1, pebble: 1, piano: 1, keys: 1, stool: 1, panel: 1, display: 1, tower: 1, ghostfloors: 1, controller: 1, console: 1, pen: 1, smartphone: 1 };
+function propLayout(sh, si, set) {
+  const key = si + '|' + (sh.set || ''); if (LAYC[key]) return LAYC[key];
+  const props = sh.props || [], surfs = [...(set.surf || [])];
+  props.forEach(p => { const sf = surfOf(p.type, p); if (sf && !p.fly && !p.on) { const q = pt3(p.at); surfs.push({ x: q[0], z: q[2], ry: (p.ry || 0) * DEG, ...sf, top: sf.top + q[1] }); } });
+  const obs = []; for (const a of sh.actors || []) { const pa = pathOf(a); for (const q of pa.pts) obs.push(q); for (let i = 1; i < pa.pts.length; i++) for (let k = 1; k < 4; k++) obs.push(V3.lerp(pa.pts[i - 1], pa.pts[i], k / 4)); }
+  const L = props.map((p, i) => {
+    const q = pt3(p.at), small = SMALLP[p.type], r = (PROPR[p.type] ?? (small ? 0.6 : 1.2)) * (p.s || p.scale || 1);
+    const free = !p.fly && !p.on && !p.head && p.natural !== false && !FIXP[p.type];
+    let y = q[1]; if (free && p.at && p.at.length === 2 && small && p.y === undefined) y = surfTop(q[0], q[2], surfs);
+    const jit = (p.ry === undefined && !NOJIT[p.type] && !FIXP[p.type] && p.natural !== false) ? ((hash(p.type + '|' + i + '|' + si) % 1000) / 1000 - 0.5) * (small ? 50 : 18) * DEG : 0;
+    return { x: q[0], y, z: q[2], r, jit, push: free && !SEATP[p.type] && p.pin !== true, small };
+  });
+  // Abstoßen: von Figuren-Positionen/Wegen und voneinander (wenige Relaxations-Schritte, max. 3 Einheiten)
+  for (let it = 0; it < 6; it++) for (let i = 0; i < L.length; i++) {
+    const A = L[i]; if (!A.push) continue; const q0 = pt3(props[i].at);
+    if (A.y < 0.3) for (const o of obs) { const dx = A.x - o[0], dz = A.z - o[2], d = Math.hypot(dx, dz), m = A.r + 1.35; if (d < m) { const n = d > 1e-3 ? [dx / d, dz / d] : [1, 0]; A.x += n[0] * (m - d); A.z += n[1] * (m - d); } }
+    for (let j = 0; j < L.length; j++) { if (j === i) continue; const B = L[j]; if (Math.abs(B.y - A.y) > 1) continue; const dx = A.x - B.x, dz = A.z - B.z, d = Math.hypot(dx, dz), m = (A.r + B.r) * 0.8; if (d < m) { const n = d > 1e-3 ? [dx / d, dz / d] : [Math.cos(i), Math.sin(i)], k = B.push ? 0.5 : 1; A.x += n[0] * (m - d) * k; A.z += n[1] * (m - d) * k; } }
+    const ox = A.x - q0[0], oz = A.z - q0[2], od = Math.hypot(ox, oz); if (od > 3) { A.x = q0[0] + ox / od * 3; A.z = q0[2] + oz / od * 3; }
+  }
+  return (LAYC[key] = L);
+}
+function propState(items, p, tl, D, map, u, L) {
+  let pos = L ? [L.x, L.y, L.z] : pt3(p.at), s = p.s || p.scale || 1, ry = (p.ry || 0) * DEG + (L ? L.jit : 0) + (p.spin ? tl * p.spin * DEG : 0), rx = 0;
+  if (p.drop !== undefined) { const t0 = p.drop * D, dt = tl - t0; if (dt < 0) return; const H = p.dropH ?? 5, r = ballistic([0, H, 0], [0, 0, 0], 32, dt, { rest: ROUND[p.type] ? 0.5 : 0.28 }); pos = [pos[0], pos[1] + r.p[1], pos[2]]; if (r.b) var dropSq = jiggle(dt - Math.sqrt(2 * H / 32), 0.22); }
+  let sq = typeof dropSq === 'number' ? dropSq : 0; if (p.pop !== undefined) { const k = (tl - p.pop * D) / 0.3; if (k < 0) return; s *= backOut(k); sq = jiggle(tl - p.pop * D - 0.2, 0.16); }
   if (p.hide !== undefined) { const k = (tl - p.hide * D) / 0.2; if (k > 1) return; if (k > 0) s *= 1 - k; }
   if (p.bob) pos[1] += Math.sin(tl * 3) * p.bob;
   if (p.fly) {
@@ -332,6 +477,7 @@ function propState(items, p, tl, D, map, u) {
   let sv = [s, s, s];
   if (p.grow) { const [a, b, f, t] = p.grow, k0 = clamp((u - a) / Math.max(0.01, b - a), 0, 1), k = k0 * k0 * (3 - 2 * k0), F = Array.isArray(f) ? f : [f, f, f], T = Array.isArray(t) ? t : [t, t, t]; sv = sv.map((v, i) => v * (F[i] + (T[i] - F[i]) * k)); }
   if (p.jig) { pos = [pos[0] + Math.sin(tl * 37) * p.jig, pos[1] + Math.abs(Math.sin(tl * 23)) * p.jig, pos[2]]; }
+  if (L && (L.small || PROPR[p.type]) && !p.on && p.blob !== false && !NOJIT[p.type]) { const gy = L.y, air = Math.max(0, pos[1] - gy), r = L.r * 1.05 * (L.small ? 1.3 : 1) / (1 + air * 0.3); items.push({ g: cgeo('blobq', mb => { mb.push(M4.RX(-Math.PI / 2)); mb.tquad(2, 2, '#000000'); mb.pop(); }), m: M4.chain(M4.T(pos[0], gy + 0.035, pos[2]), M4.S(r, 1, r)), tex: blobTex(), ta: 1, a: 0.32 / (1 + air * 0.4), e: 1, sh: false, recv: false, zb: 50 }); }
   propItems(items, p.type, p, M4.chain(M4.T(pos[0], pos[1], pos[2]), M4.RY(ry), M4.RX(rx + (p.rx || 0) * DEG), M4.RZ((p.rz || 0) * DEG), M4.S(sv[0] * (1 + sq * 0.5), sv[1] * (1 - sq), sv[2] * (1 + sq * 0.5))));
 }
 
@@ -444,15 +590,27 @@ function renderShot(sh, si, tl) {
   for (const it of set.items) items.push({ ...it, ...tintFor(it.kind) });
   if (!window._nolife) lifeItems(items, sh, si, set, tg, E, cam);
   for (const s of list) {
-    const P = s.cfg.animal ? apose(s.act, tl, s.k, s, s.cfg.animal) : pose(s.act, tl, s.k, s);
+    let P = s.cfg.animal ? apose(s.act, tl, s.k, s, s.cfg.animal) : pose(s.act, tl, s.k, s);
+    if (!s.cfg.animal) {
+      // weiche Übergänge zwischen Aktionen (0,3 s) und beim Loslaufen/Anhalten
+      const ps = prevSeg(s.a.do, u, 'idle');
+      if (ps && ps.prev !== ps.cur && ps.t0 > 0) { const w = smooth((tl - ps.t0 * D) / 0.32); if (w < 1) P = blendP(pose(ps.prev, tl, 1, s), P, w); }
+      if (s.t0 !== undefined && MOVERS[s.act] && !MOVERS[timed(s.a.do, u, 'idle')[0]]) { const w = Math.min(smooth((tl - s.t0) / 0.35), smooth((s.t1 - tl) / 0.3)); if (w < 1) { const Pi = pose('idle', tl, 0, s); P = blendP(Pi, P, w); } }
+      if (s.t1 !== undefined && !s.moving && tl > s.t1 && tl - s.t1 < 0.35) P = blendP(pose('walk', tl, 0, { ...s, cyc: s.cyc }), P, smooth((tl - s.t1) / 0.35));
+      // Kopf + Augen zum Gesprächspartner / zur Kamera (mit leichter Verzögerung)
+      if (s.act !== 'sleep' && s.act !== 'lie' && s.act !== 'fall' && s.act !== 'faint' && s.act !== 'spin') {
+        let yw = 0, pt = 0, n = 0; for (const dtl of [0, 0.12, 0.25]) { const r = lookRel(s, list, map, cam, clamp((tl - dtl) / D, 0, 1)); if (r) { yw += r.yaw; pt += r.pitch; } n++; }
+        yw /= n; pt /= n; if (Math.abs(yw) > 0.5 || Math.abs(pt) > 0.5) { P.hy = (P.hy || 0) * 0.35 + yw * 0.62; P.tw = (P.tw || 0) + yw * 0.18; P.hx = (P.hx || 0) - pt * 0.5; if (Math.abs(yw) > 14) P.gx = Math.sign(yw) * (yw > 0 ? 1 : 1); }
+      }
+    }
     const blink = ((tg + s.ph) % 3.4) < 0.12 || ((tg + s.ph * 3) % 7.3) < 0.1;
     P.mood = s.mood; P.closed = blink;
     const tk = s.a.talk, talking = s.act === 'talk' || s.mood === 'talk' || tk === true || (Array.isArray(tk) && tk.some(w => u >= w[0] && u < w[1]));
     if (talking) { const v = Math.sin(tl * 15 + s.ph) + 0.5 * Math.sin(tl * 23) + 0.35 * Math.sin(tl * 6.3 + 1); P.open = v > 1.0 ? 2 : v > 0.1 ? 1 : 0; }
     s.lift = (P.lift || 0) * s.scale;
     // Sekundärbewegung (Haare, Umhang, Flügel) aus Tempo, Sprung und Wind
-    const Pp = s.cfg.animal ? null : pose(s.act, tl - 0.06, s.k, s), vy = Pp ? (P.y - Pp.y) / 0.06 : 0, sp = Math.abs(s.speed || 0);
-    const sec = { swing: clamp(sp * 4.5, 0, 55) + clamp(-vy * 7, -25, 45) + 5 * Math.sin(tl * 1.9 + s.ph) * (1 - clamp(sp / 4, 0, 1)) + (s.moving ? 7 * Math.sin(s.cyc * 2) * clamp(sp / 4, 0, 1) : 0), side: 6 * Math.sin(tl * 1.3 + s.ph) + (P.rz || 0) * 1.5 + (s.moving ? 6 * Math.sin(s.cyc) : 0), flap: 10 + 8 * Math.sin(tl * 3 + s.ph) + (s.lift > 0.2 ? 25 * Math.sin(tl * 14) : 0) };
+    const sec = clothSim(s, si, sh, tl, D, map) || { swing: 5 * Math.sin(tl * 1.9 + s.ph), side: 4 * Math.sin(tl * 1.3 + s.ph) };
+    sec.flap = 10 + 8 * Math.sin(tl * 3 + s.ph) + (s.lift > 0.2 ? 25 * Math.sin(tl * 14) : 0);
     const S = { x: s.x, y: s.y, z: s.z, face: s.face, scale: s.scale, sh: s.sh, sec };
     s.rig = s.cfg.animal ? animalItems(items, s.cfg.animal, S, P, tl) : avatarItems(items, s.cfg, S, P);
     const hold = s.a.hold, th = s.a.throw;
@@ -479,7 +637,7 @@ function renderShot(sh, si, tl) {
       }
     }
   }
-  for (const p of sh.props || []) propState(items, p, tl, D, map, u);
+  const LAY = propLayout(sh, si, set); (sh.props || []).forEach((p, i) => propState(items, p, tl, D, map, u, LAY[i]));
   fxItems(items, sh, tl, D, map);
   for (const s of list) blobShadow(items, s);
   GL.render(items, cam, E);

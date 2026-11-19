@@ -23,7 +23,7 @@ python studio.py episode.json --stills                     # Kontaktbogen (ein B
 python studio.py episode.json --frames "3:0.5,7:0.2"       # Einzelbilder (Shot:Anteil)
 python studio.py episode.json --only 4                     # Shot 4 neu, Rest aus Cache
 ```
-Rendern: ca. 0,6 s pro Frame (60 s Video ≈ 18–20 min). `--rs 0.6` = schneller, etwas weicher.
+Rendern: ca. 0,7 s pro Frame (60 s Video ≈ 21–25 min). `--rs 0.6` = schneller, etwas weicher.
 
 ## Episode-Format (Kurzreferenz)
 ```json
@@ -55,7 +55,18 @@ Rendern: ca. 0,6 s pro Frame (60 s Video ≈ 18–20 min). `--rs 0.6` = schnelle
 Zeiten in Shots (`t`, `move`, `pop` …) sind **Anteile** des Shots (0–1), damit sie mit jedem Voiceover-Timing passen.
 Koordinaten: Bühne um (0,0), Kamera standardmäßig bei +z; `face: 0` = Richtung Kamera.
 
-## Version 5 – was neu ist
+## Version 6 – was neu ist
+- **Natürlichere Animation:** Aktionen gehen weich ineinander über (0,3 s) statt zu springen; Anlaufen und Abbremsen werden eingeblendet; Rennen hat längere Schritte (kein Rutschen).
+- **Blicke:** Wer nicht spricht, dreht Kopf, Augen und Oberkörper zur sprechenden Figur; Sprecher schauen in die Kamera. Eigenes Ziel per `"look": "<id>" | "cam" | false` (auch zeitgesteuert).
+- **Gestik beim Reden (`talk`):** Bibliothek aus 7 Gesten (erklären, offene Hände, zeigen, Hand auf Brust, aufzählen, Achselzucken, Hand in Tasche), weich überblendet, mit Betonungs-Schlägen und Nicken.
+- **Stehen:** verschiedene Haltungen je Figur (locker, Hände in den Hüften, Hände in den Taschen) – fest setzbar mit `"idle": "relaxed" | "hips" | "pockets" | "pocket"`.
+- **Realistischere Körper:** Hals, Becken, Schulter-, Ellbogen- und Kniekappen (keine Lücken mehr beim Beugen), Hände mit Fingern und Daumen.
+- **Kleidungs-Physik:** Umhang, Pferdeschwanz, Zöpfe, Krawatte, Jackenschöße, Schalende, Hoodie-Bänder, Rucksack und Rock sind gedämpfte Pendel – sie reagieren auf Anlaufen/Bremsen, Fahrtwind, Drehungen, Sprünge, Körperneigung und Wind.
+- **Gegenstände natürlich platziert:** kleine Dinge (Torte, Buch, Tasse, Apfel …) landen automatisch auf Tischen/Pulten/Betten, wenn man sie dort hinstellt; nichts steckt mehr in Figuren, auf ihren Laufwegen oder ineinander (wird sanft weggeschoben, max. 3 Einheiten); leichte Zufallsdrehung; Kontaktschatten. Abschalten pro Gegenstand: `"natural": false` bzw. `"pin": true`. Neu: `"drop": 0.3` (fällt zum Zeitpunkt herunter und prallt ab, Höhe `dropH`).
+- **Kamera:** weiches Nachführen bei laufenden Figuren, alle Fahrten mit Easing, leichter Bogen-Drift, sanftes Handkamera-Atmen (`"steady": true` / `"handheld": 0.5`), Vorlauf-Raum in Laufrichtung, Nahaufnahmen mit längerer Brennweite. **Automatisches Ausweichen**, wenn eine andere Figur, Möbel oder eine Wand die Sicht verdecken würde (Winkel/Abstand werden pro Shot angepasst; `"ang"` oder `"fixed": true` schaltet das ab).
+  Neue Fahrten: `push:<id>` (ranfahren von halbnah auf nah, `from`/`to`), `crane:<id>` (Kran hoch, `down: true` = runter, `h`), `reveal:<id>` (vom Gesicht weg auf die Szene, `dist`), `arc:<id>` (Halbkreis, `sweep`), `track:<id>` (fährt seitlich mit, `side`, `dist`).
+
+## Version 5
 - **Grafik:** weiche Schatten (PCF), Glanzlichter, Randlicht an Figuren, Kontaktschatten unter Füßen, Abdunklung an Hauswänden unten, Bodenmaserung, Sonne/Mond mit Schein am Himmel, Bloom (Fenster/Laternen leuchten nachts), weichere Lichter, schärfere Gesichter (512 px).
 - **Wasser:** Teich, Pool, Springbrunnen und Meer bewegen sich und glitzern. **Wind:** Bäume, Büsche, Palmen wiegen sich.
 - **Figuren:** Ellbogen + Knie (R15-artig) → natürliches Gehen/Laufen mit Kniebeuge, Sitzen mit hängenden Beinen, Werfen mit Ausholen. Gewichtsverlagerung, Blicke, Atem im Stehen, sanftes Eindrehen beim Loslaufen und in Kurven, Sprünge mit Ausholen/Landung (Squash & Stretch), 3 Mundstufen beim Reden, Hände an Kinn/Gesicht bei think/facepalm/cry.
