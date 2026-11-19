@@ -1,0 +1,42 @@
+# ENGINE 2 in der Cloud: vom Orchestrator gestartet, lädt fällige Videos über die offiziellen APIs hoch
+name: "VIRALFLOW · Engine 2 · Publish"
+
+on:
+  repository_dispatch:
+    types: [vf-publish]
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: "Veröffentlichungs-IDs, Komma-getrennt (z. B. meinvideo-ab12cd34:youtube)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      VF_API_URL: ${{ secrets.VF_API_URL }}
+      VF_WEBHOOK_SECRET: ${{ secrets.VF_WEBHOOK_SECRET }}
+      R2_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: viralflow-videos
+      PYTHONPATH: ${{ github.workspace }}/viralflow
+      IDS: ${{ github.event_name == 'repository_dispatch' && join(github.event.client_payload.ids, ',') || inputs.ids }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: viralflow
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: viralflow/requirements-publish.txt
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q -r viralflow/requirements-publish.txt
+      - name: Veröffentlichen
+        run: python -m vf.publish --ids "$IDS"
