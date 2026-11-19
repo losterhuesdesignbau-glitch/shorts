@@ -119,3 +119,20 @@ Abkürzungen („z.B.“, „Dr.“) und englische Namen ggf. per `speak` aussch
 - **Requisiten-Animation:** `rx`, `rz` (Grad), `grow: [t0, t1, von, bis]` (Skalierung, auch [x,y,z]), `jig` (Wackeln).
 - **Posen:** piano, chop, shred, slice (+ Tier-Pose float). Gesicht: `scar`.
 - **Halten:** `hold: {type, dir: 'arm', hand: 'L'}`, `both: true` für Controller.
+
+## Viral-Werkzeuge (mehr Aufrufe)
+Episode-Feld `"viral"` – wird automatisch in die Shots eingebaut:
+```json
+"viral": { "hook": "THIS TOWN\nBANS YAWNING", "series": "WEIRD TOWNS #4", "cta": "YES or NO? 👇", "loop": true }
+```
+- `hook` – großer, wackelnder Text ab Frame 1 im ersten Shot (die ersten 2 s entscheiden). Titel erscheint erst danach.
+- `series` – Serien-Abzeichen oben in jedem Shot (Leute folgen für die nächste Folge).
+- `cta` – große Kommentar-Frage im letzten Shot.
+- `loop` – die letzten 0,4 s blenden ins erste Bild über → Video läuft nahtlos weiter (mehr Wiederholungen).
+
+**Viral-Check** (bei jedem Lauf, nur Hinweise): Hook vorhanden, kein `pause` im 1. Shot, 1. Shot ≤ 2,2 s, keine Shots > 3 s,
+Schluss mit Frage/CTA, 3–6 Hashtags, Loop an.
+
+**Skript-Regeln:** 1. Satz = Hook (Schock-Aussage oder Frage, keine Einleitung wie „Imagine…“) · alle 1–2 s neues Bild ·
+Twist erst ganz am Ende · letzter Satz führt in den ersten zurück (Loop) · Ja/Nein-Frage an die Zuschauer ·
+3–5 passende Hashtags inkl. Nischen-Tag (z. B. `weirdtowns`, `fortnitelore`).

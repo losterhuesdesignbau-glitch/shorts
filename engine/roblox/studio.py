@@ -160,6 +160,51 @@ def contact_sheet(eng, ep, path, cols=5):
         sheet.paste(im, (x, y + 30)); d.text((x + 6, y + 8), f'{si + 1}  {sh["dur"]:.1f}s  {sh.get("set", "street")}', fill=(255, 255, 255))
     sheet.save(path, quality=88)
 
+
+# ---------------- Viral-Werkzeuge (Hook, Serie, Kommentar-Frage, Loop, Check) ----------------
+def apply_viral(src):
+    """Episode-Feld "viral": {"hook": "...", "series": "Weird Town #3", "cta": "YES or NO? 👇", "loop": true}.
+    hook  = großer Text ab Frame 1 im ersten Shot (die ersten 2 Sekunden entscheiden)
+    series= kleines Serien-Abzeichen oben in jedem Shot (Leute folgen für die nächste Folge)
+    cta   = große Kommentar-Frage im letzten Shot
+    loop  = letzte 0,4 s blenden in das erste Bild über (Video läuft nahtlos weiter -> Wiederholungen)"""
+    v = src.get('viral') or {}
+    shots = src.get('shots') or []
+    if not shots or not v: return v
+    if v.get('hook'): shots[0]['hook'] = v['hook']
+    if v.get('series'):
+        for sh in shots: sh['badge'] = v['series']
+    if v.get('cta'):
+        last = shots[-1]; last.setdefault('pops', [])
+        if not any(p.get('_cta') for p in last['pops']):
+            last['pops'] = last['pops'] + [{'text': v['cta'], 'x': 0.5, 'y': 0.3, 't': 0.25, 'dur': 30, 'rise': 0, 'size': 96, 'color': '#ffe14d', '_cta': 1}]
+    return v
+
+def viral_check(src, ep, total):
+    """Kurzer Check der Viral-Regeln (nur Hinweise, bricht nie ab)."""
+    tips, shots = [], ep['shots']
+    v = src.get('viral') or {}
+    if not v.get('hook'): tips.append('kein "viral.hook" (großer Text in den ersten 2 s)')
+    if shots and shots[0].get('pause'): tips.append('erster Shot hat eine Pause – sofort mit dem Hook starten')
+    if shots and shots[0].get('dur', 0) > 2.2: tips.append(f'erster Shot {shots[0]["dur"]:.1f}s – Hook-Shot ≤ 2 s halten')
+    long_ = [i + 1 for i, sh in enumerate(shots) if sh.get('dur', 0) > 3.0]
+    if long_: tips.append(f'lange Shots (> 3 s, besser teilen): {long_[:8]}')
+    lastsay = ' '.join(sh.get('say', '') for sh in shots[-2:])
+    if '?' not in lastsay and not v.get('cta'): tips.append('Schluss ohne Frage/CTA – Kommentare anregen')
+    tags = (src.get('meta') or {}).get('hashtags') or []
+    if tags and not 3 <= len(tags) <= 6: tips.append(f'{len(tags)} Hashtags – besser 3–6 passende')
+    if not v.get('loop'): tips.append('"viral.loop" aus – Ende nicht nahtlos mit Anfang verbunden')
+    print('✓ Viral-Check: alles drin' if not tips else '⚠ Viral-Check: ' + ' · '.join(tips), flush=True)
+
+def loop_end(vid, out_vid, total, fade=0.4):
+    """Letzte `fade` Sekunden ins erste Bild überblenden (Loop)."""
+    first = str(vid) + '.first.png'
+    subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-frames:v', '1', first], check=True)
+    st = max(0.0, total - fade)
+    subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-loop', '1', '-t', f'{total:.3f}', '-i', first, '-filter_complex',
+                    f'[1:v]format=rgba,fade=in:st={st:.3f}:d={fade}:alpha=1[f];[0:v][f]overlay=shortest=1,format=yuv420p[v]',
+                    '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-r', str(30), str(out_vid)], check=True)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('episode'); ap.add_argument('-o', '--out', default=None)
@@ -173,6 +218,7 @@ def main():
     ap.add_argument('--force', action='store_true', help='auch rendern, wenn die Länge nicht passt')
     a = ap.parse_args()
     src = json.load(open(a.episode, encoding='utf-8'))
+    viral = apply_viral(src)
     use_tts = not a.voice and not a.no_tts and src.get('tts', True) is not False
     tts = {'voice': a.tts_voice, 'speed': a.tts_speed} if use_tts else None
     ep, events, voice, total, fps = compile_episode(src, a.voice, tts=tts)
@@ -186,6 +232,7 @@ def main():
         ok, msg = length_report(ep, total, L); print(msg, flush=True)
         if not ok and not (a.force or a.stimme or a.stills or a.frames):
             sys.exit('Abbruch: Länge passt nicht (Skript anpassen oder --force).')
+    viral_check(src, ep, total)
     out = Path(a.out or Path(a.episode).with_suffix('.mp4'))
     if a.stimme:
         if voice is None: sys.exit('Keine Stimme erzeugt.')
@@ -219,6 +266,8 @@ def main():
     lst.write_text(''.join(f"file '{(work / f'shot_{i + 1:03d}.mp4').resolve()}'\n" for i in range(len(ep['shots']))))
     vid = work / 'video_only.mp4'
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', str(lst), '-c', 'copy', str(vid)], check=True)
+    if viral.get('loop'):
+        lv = work / 'video_loop.mp4'; loop_end(vid, lv, total); vid = lv
     mixbuf = AU.mix(total, events, voice, src.get('music', 'happy'), not a.no_music and src.get('music', 'happy') != 'none', src.get('seed', 3))
     wav = work / 'mix.wav'; AU.write_wav(str(wav), mixbuf)
     tmp = str(out) + '.part.mp4'
