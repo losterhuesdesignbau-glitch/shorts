@@ -74,7 +74,7 @@ def publish(path, size, tok, meta, settings, pub_id, attempt):
     channel, _ = tiktok_channel()
     text = meta['tiktok']['title'][:2200]
     d, errs = gql(CREATE, {'input': {'text': text, 'channelId': channel, 'schedulingType': 'automatic', 'mode': 'shareNow',
-                                     'assets': {'videos': [{'url': url}]}}})
+                                     'assets': [{'video': {'url': url}}]}})
     res = d.get('createPost') or {}
     if 'post' not in res:
         raise PublishError(f'Buffer createPost: {res.get("message") or errs}', retryable=True)
