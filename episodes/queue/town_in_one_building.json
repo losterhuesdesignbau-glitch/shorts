@@ -1,0 +1,1558 @@
+{
+ "meta": {
+  "title": "The Town That Lives in ONE Building 🏢❄️",
+  "description": "This town in Alaska lives almost entirely in ONE building. Post office, police, store, church, hotel – all under one roof. And the only road in? A one-lane tunnel that closes every night. Could YOU live here? 👇",
+  "hashtags": [
+   "alaska",
+   "whittier",
+   "didyouknow",
+   "weirdtowns",
+   "facts",
+   "travel"
+  ],
+  "language": "en"
+ },
+ "title": "The Town in One Building",
+ "music": "chill",
+ "cast": {
+  "ava": {
+   "look": "girl",
+   "hair": "pigtails",
+   "hairColor": "#5a3825",
+   "shirt": "#e63946",
+   "jacket": "#ffb703",
+   "scarf": "#2a9d8f",
+   "backpack": "#2a9d8f",
+   "logo": ""
+  },
+  "dad": {
+   "look": "man",
+   "hair": "beanie",
+   "hatColor": "#264653",
+   "hairColor": "#3b2a1a",
+   "beard": true,
+   "shirt": "#8d99ae",
+   "jacket": "#e76f51",
+   "logo": ""
+  },
+  "cop": {
+   "look": "cop"
+  },
+  "lady": {
+   "look": "woman",
+   "hair": "bun",
+   "hairColor": "#b0b0b0",
+   "shirt": "#6a4c93",
+   "glasses": true,
+   "logo": ""
+  },
+  "tourist": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#c68642",
+   "shirt": "#ffd23f",
+   "shades": true,
+   "logo": "",
+   "backpack": "#457b9d"
+  }
+ },
+ "shots": [
+  {
+   "say": "Imagine a town",
+   "title": "A TOWN IN\nONE BUILDING",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      0,
+      -16
+     ],
+     "floors": 14,
+     "color": "#d8cfc0",
+     "lit": 0.25
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     6,
+     2.5,
+     36
+    ],
+    "eye2": [
+     5,
+     3.0,
+     31
+    ],
+    "look": [
+     0,
+     17,
+     -16
+    ]
+   }
+  },
+  {
+   "say": "where almost everyone lives in *one single building.*",
+   "title": "A TOWN IN\nONE BUILDING",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      0,
+      -16
+     ],
+     "floors": 14,
+     "color": "#d8cfc0",
+     "lit": 0.25
+    }
+   ],
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      -1.2,
+      10
+     ],
+     "do": "point",
+     "face": 160,
+     "mood": "happy"
+    },
+    {
+     "id": "dad",
+     "at": [
+      1.2,
+      10.2
+     ],
+     "do": "idle",
+     "face": 190,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     3,
+     3.2,
+     24
+    ],
+    "eye2": [
+     2,
+     9,
+     30
+    ],
+    "look": [
+     0,
+     12,
+     -10
+    ]
+   }
+  },
+  {
+   "say": "This is *Whittier,* in *Alaska.*",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      0,
+      -16
+     ],
+     "floors": 14,
+     "color": "#d8cfc0",
+     "lit": 0.25
+    }
+   ],
+   "pops": [
+    {
+     "text": "ALASKA",
+     "x": 0.5,
+     "y": 0.18,
+     "t": 0.15,
+     "size": 120,
+     "color": "#ffffff",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -10,
+     6,
+     34
+    ],
+    "eye2": [
+     -7,
+     6,
+     32
+    ],
+    "look": [
+     0,
+     14,
+     -16
+    ]
+   }
+  },
+  {
+   "say": "About *270 people* live here,",
+   "speak": "About two hundred seventy people live here,",
+   "set": "snow",
+   "time": "day",
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      -3.4,
+      0.6
+     ],
+     "do": "wave",
+     "face": 15,
+     "mood": "happy"
+    },
+    {
+     "id": "dad",
+     "at": [
+      0,
+      0.2
+     ],
+     "do": "wave",
+     "face": 0,
+     "mood": "happy"
+    },
+    {
+     "id": "cop",
+     "at": [
+      3.4,
+      0.6
+     ],
+     "do": "wave",
+     "face": -15,
+     "mood": "happy"
+    },
+    {
+     "id": "lady",
+     "at": [
+      -1.8,
+      -3.0
+     ],
+     "do": "wave",
+     "face": 5,
+     "mood": "happy"
+    },
+    {
+     "id": "tourist",
+     "at": [
+      1.8,
+      -3.0
+     ],
+     "do": "wave",
+     "face": -5,
+     "mood": "grin"
+    }
+   ],
+   "pops": [
+    {
+     "text": "270",
+     "x": 0.5,
+     "y": 0.17,
+     "t": 0.2,
+     "size": 140,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     6.4,
+     22
+    ],
+    "eye2": [
+     0,
+     6.0,
+     20
+    ],
+    "look": [
+     0,
+     2.8,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "and most of them live in *one 14-story tower.*",
+   "speak": "and most of them live in one fourteen-story tower.",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      0,
+      -16
+     ],
+     "floors": 14,
+     "color": "#d8cfc0",
+     "lit": 0.25
+    }
+   ],
+   "pops": [
+    {
+     "text": "14",
+     "x": 0.82,
+     "y": 0.18,
+     "t": 0.45,
+     "size": 150,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.47
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     5,
+     2.0,
+     34
+    ],
+    "eye2": [
+     4,
+     2.6,
+     30
+    ],
+    "look": [
+     0,
+     22,
+     -16
+    ]
+   }
+  },
+  {
+   "say": "The army built it back in *1957.*",
+   "speak": "The army built it back in nineteen fifty-seven.",
+   "set": "snow",
+   "time": "sunset",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      0,
+      -16
+     ],
+     "floors": 14,
+     "color": "#d8cfc0",
+     "lit": 0.7
+    }
+   ],
+   "pops": [
+    {
+     "text": "1957",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.3,
+     "size": 130,
+     "color": "#ffffff",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -6,
+     3,
+     30
+    ],
+    "look": [
+     0,
+     16,
+     -16
+    ]
+   }
+  },
+  {
+   "say": "Right next door, an even older army building",
+   "set": "snow",
+   "time": "sunset",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      9,
+      -18
+     ],
+     "floors": 14,
+     "color": "#d8cfc0",
+     "lit": 0.7
+    },
+    {
+     "type": "tower",
+     "at": [
+      -11,
+      -22
+     ],
+     "floors": 6,
+     "color": "#8a8f98",
+     "lit": 0,
+     "w": 20
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4,
+     40
+    ],
+    "eye2": [
+     -2,
+     4.5,
+     36
+    ],
+    "look": [
+     -3,
+     11,
+     -18
+    ]
+   }
+  },
+  {
+   "say": "has stood *empty* since *1966.*",
+   "speak": "has stood empty since nineteen sixty-six.",
+   "set": "snow",
+   "time": "night",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      -11,
+      -22
+     ],
+     "floors": 6,
+     "color": "#8a8f98",
+     "lit": 0,
+     "w": 20
+    }
+   ],
+   "pops": [
+    {
+     "text": "1966",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.3,
+     "size": 130,
+     "color": "#ffffff",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -8,
+     3,
+     16
+    ],
+    "eye2": [
+     -9,
+     3.4,
+     13
+    ],
+    "look": [
+     -11,
+     9,
+     -22
+    ]
+   }
+  },
+  {
+   "say": "And inside the *same building:*",
+   "set": "hallway",
+   "setOpts": {
+    "name": "BEGICH TOWERS",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      0.5,
+      2.0
+     ],
+     "to": [
+      0.2,
+      -6
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.6,
+     5.6,
+     7
+    ],
+    "eye2": [
+     1.2,
+     5.2,
+     5.0
+    ],
+    "look": [
+     0,
+     3.4,
+     -30
+    ]
+   }
+  },
+  {
+   "say": "the *post office,*",
+   "set": "hallway",
+   "setOpts": {
+    "name": "POST OFFICE",
+    "doorOpen": 1
+   },
+   "pops": [
+    {
+     "text": "POST OFFICE",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 110,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "actors": [
+    {
+     "id": "lady",
+     "at": [
+      -1.3,
+      -7
+     ],
+     "do": "talk",
+     "face": 20,
+     "mood": "happy",
+     "hold": "book"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     5.0,
+     7.0
+    ],
+    "eye2": [
+     1.0,
+     4.8,
+     5.6
+    ],
+    "look": [
+     0,
+     3.2,
+     -30
+    ]
+   }
+  },
+  {
+   "say": "the *police,*",
+   "set": "hallway",
+   "setOpts": {
+    "name": "POLICE",
+    "doorOpen": 1
+   },
+   "pops": [
+    {
+     "text": "POLICE",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 110,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "actors": [
+    {
+     "id": "cop",
+     "at": [
+      1.1,
+      -7
+     ],
+     "do": "salute",
+     "face": -15,
+     "mood": "grin"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     5.0,
+     7.0
+    ],
+    "eye2": [
+     1.0,
+     4.8,
+     5.6
+    ],
+    "look": [
+     0,
+     3.2,
+     -30
+    ]
+   }
+  },
+  {
+   "say": "a *grocery store,*",
+   "set": "hallway",
+   "setOpts": {
+    "name": "STORE",
+    "doorOpen": 1
+   },
+   "pops": [
+    {
+     "text": "STORE",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 110,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "actors": [
+    {
+     "id": "dad",
+     "at": [
+      -1.1,
+      -7
+     ],
+     "do": "hold",
+     "hold": "apple",
+     "face": 15,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     5.0,
+     7.0
+    ],
+    "eye2": [
+     1.0,
+     4.8,
+     5.6
+    ],
+    "look": [
+     0,
+     3.2,
+     -30
+    ]
+   }
+  },
+  {
+   "say": "a *church,*",
+   "set": "hallway",
+   "setOpts": {
+    "name": "CHURCH",
+    "doorOpen": 1
+   },
+   "pops": [
+    {
+     "text": "CHURCH",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 110,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    },
+    {
+     "text": "🔔",
+     "x": 0.5,
+     "y": 0.34,
+     "t": 0.15,
+     "size": 120
+    }
+   ],
+   "sfx": [
+    [
+     "bell",
+     0.15
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     5.0,
+     7.0
+    ],
+    "eye2": [
+     1.0,
+     4.8,
+     5.6
+    ],
+    "look": [
+     0,
+     3.2,
+     -30
+    ]
+   }
+  },
+  {
+   "say": "and even a *hotel.*",
+   "set": "hallway",
+   "setOpts": {
+    "name": "HOTEL",
+    "doorOpen": 1
+   },
+   "pops": [
+    {
+     "text": "HOTEL",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 110,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "actors": [
+    {
+     "id": "tourist",
+     "at": [
+      0.9,
+      -7
+     ],
+     "do": "carry",
+     "hold": "box",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     5.0,
+     7.0
+    ],
+    "eye2": [
+     1.0,
+     4.8,
+     5.6
+    ],
+    "look": [
+     0,
+     3.2,
+     -30
+    ]
+   }
+  },
+  {
+   "say": "Kids don't even go outside to get to *school.*",
+   "set": "classroom",
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "ava",
+    "ang": 14
+   }
+  },
+  {
+   "say": "An *underground tunnel* connects the tower to the school.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "name": "SCHOOL ➜",
+    "doorOpen": 1
+   },
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      0.4,
+      3
+     ],
+     "to": [
+      0.2,
+      -9
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "run",
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     5.2,
+     8
+    ],
+    "eye2": [
+     0.9,
+     5.0,
+     4
+    ],
+    "look": [
+     0,
+     3.2,
+     -30
+    ]
+   }
+  },
+  {
+   "say": "Even in a *snowstorm,* they never have to step outside.",
+   "set": "classroom",
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "laugh",
+     "face": 180,
+     "mood": "laugh"
+    }
+   ],
+   "pops": [
+    {
+     "text": "❄️",
+     "x": 0.22,
+     "y": 0.22,
+     "t": 0.1,
+     "size": 120
+    },
+    {
+     "text": "❄️",
+     "x": 0.78,
+     "y": 0.3,
+     "t": 0.3,
+     "size": 100
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "ava",
+    "ang": -10
+   }
+  },
+  {
+   "say": "But getting *into town* is the strangest part.",
+   "pause": 0.2,
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tunnel",
+     "at": [
+      0,
+      0,
+      -6
+     ]
+    },
+    {
+     "type": "car",
+     "at": [
+      0.6,
+      12
+     ],
+     "ry": 180
+    }
+   ],
+   "actors": [
+    {
+     "id": "dad",
+     "at": [
+      3.6,
+      12.5
+     ],
+     "do": "think",
+     "face": 200,
+     "mood": "think"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     6,
+     5.5,
+     28
+    ],
+    "eye2": [
+     5,
+     5.2,
+     25
+    ],
+    "look": [
+     0,
+     3.6,
+     0
+    ]
+   }
+  },
+  {
+   "say": "The only road in is a *tunnel,*",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tunnel",
+     "at": [
+      0,
+      0,
+      -6
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.2,
+     22
+    ],
+    "eye2": [
+     0,
+     4.0,
+     18
+    ],
+    "look": [
+     0,
+     3.6,
+     -2
+    ]
+   }
+  },
+  {
+   "say": "*2.5 miles* long, with just *one lane.*",
+   "speak": "two and a half miles long, with just one lane.",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tunnel",
+     "at": [
+      0,
+      0,
+      -6
+     ]
+    },
+    {
+     "type": "car",
+     "at": [
+      0.6,
+      10
+     ],
+     "ry": 180
+    }
+   ],
+   "pops": [
+    {
+     "text": "1 LANE",
+     "x": 0.5,
+     "y": 0.18,
+     "t": 0.5,
+     "size": 120,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     3,
+     3.6,
+     21
+    ],
+    "look": [
+     0,
+     3.4,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Cars and *trains* share it,",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tunnel",
+     "at": [
+      0,
+      0,
+      -6
+     ]
+    },
+    {
+     "type": "car",
+     "fly": {
+      "from": [
+       0.6,
+       0,
+       14
+      ],
+      "to": [
+       0.6,
+       0,
+       1
+      ],
+      "t": [
+       0,
+       0.9
+      ],
+      "arc": 0
+     },
+     "ry": 180
+    }
+   ],
+   "pops": [
+    {
+     "text": "🚗 ⇄ 🚆",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.2,
+     "size": 120,
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     5,
+     4.0,
+     24
+    ],
+    "look": [
+     0,
+     3.0,
+     2
+    ]
+   }
+  },
+  {
+   "say": "taking turns on a *strict schedule.*",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tunnel",
+     "at": [
+      0,
+      0,
+      -6
+     ]
+    },
+    {
+     "type": "clock",
+     "at": [
+      -4.6,
+      0,
+      9
+     ],
+     "s": 1.6
+    }
+   ],
+   "actors": [
+    {
+     "id": "cop",
+     "at": [
+      3.4,
+      9
+     ],
+     "do": "point",
+     "face": -60,
+     "mood": "neutral"
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.5
+    ],
+    [
+     "tick",
+     0.8
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.8,
+     22
+    ],
+    "look": [
+     0,
+     3.2,
+     3
+    ]
+   }
+  },
+  {
+   "say": "And every night at *10:30,*",
+   "speak": "And every night at ten thirty,",
+   "set": "snow",
+   "time": "night",
+   "props": [
+    {
+     "type": "tunnel",
+     "at": [
+      0,
+      0,
+      -6
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "10:30 PM",
+     "x": 0.5,
+     "y": 0.18,
+     "t": 0.15,
+     "size": 120,
+     "color": "#ff4d4d",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.3
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     20
+    ],
+    "eye2": [
+     0,
+     4.2,
+     17
+    ],
+    "look": [
+     0,
+     3.6,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "the tunnel *closes.*",
+   "set": "snow",
+   "time": "night",
+   "props": [
+    {
+     "type": "tunnel",
+     "at": [
+      0,
+      0,
+      -6
+     ]
+    },
+    {
+     "type": "cone",
+     "at": [
+      0,
+      0,
+      7
+     ]
+    },
+    {
+     "type": "cone",
+     "at": [
+      -1.8,
+      0,
+      7
+     ]
+    },
+    {
+     "type": "cone",
+     "at": [
+      1.8,
+      0,
+      7
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.18,
+     "dur": 0.3
+    }
+   ],
+   "pops": [
+    {
+     "text": "CLOSED",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.15,
+     "size": 140,
+     "color": "#ff3b30",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.16
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.0,
+     18
+    ],
+    "look": [
+     0,
+     3.0,
+     2
+    ]
+   }
+  },
+  {
+   "say": "Miss it, and you're *stuck* until morning.",
+   "set": "snow",
+   "time": "night",
+   "props": [
+    {
+     "type": "tunnel",
+     "at": [
+      0,
+      0,
+      -6
+     ]
+    },
+    {
+     "type": "cone",
+     "at": [
+      -1.8,
+      0,
+      7
+     ]
+    },
+    {
+     "type": "cone",
+     "at": [
+      1.8,
+      0,
+      7
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "dad",
+     "at": [
+      0.6,
+      10
+     ],
+     "do": "facepalm",
+     "face": 10,
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.6,
+     4.6,
+     19.5
+    ],
+    "eye2": [
+     1.3,
+     4.4,
+     18.4
+    ],
+    "look": [
+     0.4,
+     3.6,
+     8
+    ]
+   }
+  },
+  {
+   "say": "So in Whittier,",
+   "pause": 0.3,
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      0,
+      -16
+     ],
+     "floors": 14,
+     "color": "#d8cfc0",
+     "lit": 0.25
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     4,
+     3.0,
+     32
+    ],
+    "eye2": [
+     3,
+     3.5,
+     28
+    ],
+    "look": [
+     0,
+     15,
+     -16
+    ]
+   }
+  },
+  {
+   "say": "*going into town*",
+   "set": "elevator",
+   "setOpts": {
+    "open": 1
+   },
+   "props": [
+    {
+     "type": "display",
+     "text": "14",
+     "at": [
+      0,
+      7.2,
+      -4.84
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      0,
+      1.4
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     9
+    ],
+    "eye2": [
+     0,
+     4.4,
+     7.4
+    ],
+    "look": [
+     0,
+     3.6,
+     -2
+    ]
+   }
+  },
+  {
+   "say": "just means *taking the elevator.*",
+   "set": "elevator",
+   "setOpts": {
+    "lit": [
+     "1"
+    ]
+   },
+   "props": [
+    {
+     "type": "display",
+     "text": "1",
+     "at": [
+      0,
+      7.2,
+      -4.84
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      0,
+      1.4
+     ],
+     "do": "laugh",
+     "face": 0,
+     "mood": "laugh"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.45
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     5.0,
+     6.4
+    ],
+    "look": [
+     0,
+     4.6,
+     -3
+    ]
+   }
+  },
+  {
+   "say": "Could *you* live in a town under *one roof?*",
+   "set": "snow",
+   "time": "day",
+   "props": [
+    {
+     "type": "tower",
+     "at": [
+      0,
+      -16
+     ],
+     "floors": 14,
+     "color": "#d8cfc0",
+     "lit": 0.7
+    }
+   ],
+   "actors": [
+    {
+     "id": "ava",
+     "at": [
+      0,
+      8
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "pops": [
+    {
+     "text": "💬",
+     "x": 0.76,
+     "y": 0.2,
+     "t": 0.5,
+     "size": 140
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.8,
+     4.4,
+     15.5
+    ],
+    "eye2": [
+     0.6,
+     4.2,
+     14.4
+    ],
+    "look": [
+     0,
+     4.2,
+     6
+    ]
+   }
+  }
+ ],
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ }
+}
