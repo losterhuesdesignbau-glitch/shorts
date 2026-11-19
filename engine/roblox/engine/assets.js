@@ -402,6 +402,13 @@ const PROPS = {
     mb.push(M4.T(w / 2 - 1.0, 0.2, d / 2 - 0.9)); mb.cyl(0.45, 0.4, 0.25, 12, '#4f8ef7'); mb.pop();
   }) }] }; },
   smartphone: o => ({ parts: [{ g: cgeo('smartphonebody', mb => { mb.push(M4.T(0, 2.2, 0)); mb.rbox(2.25, 4.45, 0.22, 0.25, '#111114'); mb.pop(); }) }, { g: cgeo('smartphonescreen', mb => { mb.push(M4.T(0, 2.2, 0.115)); mb.box(2.0, 4.0, 0.01, '#ffffff', { uv: true }); mb.pop(); }), tex: chatTex(o), e: o.e ?? 0.95 }] }),
+  pebble: o => ({ parts: [{ g: cgeo('pebble|' + (o.color || '#8d939b'), mb => { mb.push(M4.T(0, 0.22, 0)); mb.rbox(0.62, 0.42, 0.5, 0.18, o.color || '#8d939b'); mb.pop(); mb.push(M4.T(-0.1, 0.36, 0.12)); mb.box(0.16, 0.06, 0.12, shade(o.color || '#8d939b', 1.3)); mb.pop(); }) }] }),
+  nest: o => { const n = o.n || (o.big ? 46 : 22), R0 = o.r || 1.25; return { parts: [{ g: cgeo('nest|' + n + '|' + R0 + '|' + !!o.big + '|' + !!o.egg, mb => {
+    const R = rng(n * 7 + (o.big ? 3 : 0)), cols = ['#7d838c', '#959ba3', '#6b7078', '#a3a8ae', '#858a91'];
+    for (let i = 0; i < n; i++) { const layer = o.big ? Math.floor(i / 18) : 0, a = R() * 6.283, r = R0 * (0.55 + 0.45 * R()) - layer * 0.25, sz = 0.32 + R() * 0.22;
+      mb.push(M4.chain(M4.T(Math.cos(a) * r, 0.14 + layer * 0.3, Math.sin(a) * r), M4.RY(R() * 3))); mb.rbox(sz * 1.3, sz * 0.8, sz, sz * 0.3, cols[i % cols.length]); mb.pop(); }
+    if (o.egg) { mb.push(M4.T(0, 0.4, 0)); mb.sphere(0.32, 1, '#f5f0e6', { sy: 1.3 }); mb.pop(); }
+  }) }] }; },
   bigtext: o => ({ parts: [{ g: cgeo('bigtext|' + (o.w || 6) + '|' + (o.h || 2), mb => { mb.push(M4.T(0, (o.h || 2) / 2, 0)); mb.box(o.w || 6, o.h || 2, 0.1, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ffd23f', fg: o.fg || '#1d1712', border: o.border === undefined ? '#1d1712' : o.border, tw: 512, th: Math.round(512 * (o.h || 2) / (o.w || 6)) }) }] }),
 };
 

@@ -229,6 +229,17 @@ const SETS = {
     S.sign(o.name || 'MARK', 1.9, 0.62, { bg: '#d4af37', fg: '#1d1712', border: '#6b4e00', depth: 0.06 }, M4.T(0, 4.85, ze + 0.25));
     S.wide = { eye: [0, 4.6, 5], look: [0, 3.2, -40] };
   },
+  snow(S, o) {
+    S.bg = 'beach'; const mb = S.mb;
+    P_(mb, 0, -0.05, 6, () => mb.box(300, 0.2, 64, o.ground || '#eef3f9'));
+    P_(mb, 0, -0.06, -27, () => mb.box(300, 0.2, 4, '#d6e2ee'));
+    P_(mb, 0, 0.0, -25.4, () => mb.box(300, 0.1, 0.7, '#ffffff'));
+    const R = rng(11);
+    for (let i = 0; i < 9; i++) { const x = -60 + i * 15 + R() * 6, z = -36 - R() * 30, w = 4 + R() * 7; P_(mb, x, 0.2, z, () => mb.rbox(w, 0.9, w * 0.7, 0.3, '#f7fbff')); }
+    for (const [x, z, h] of [[-26, -14, 5], [-34, -6, 7], [30, -12, 6], [40, -2, 8], [-44, 6, 6], [46, 10, 5]]) { P_(mb, x, h / 2, z, () => mb.rbox(h * 1.6, h, h * 1.3, h * 0.3, '#e6edf5')); P_(mb, x + 1, h * 0.35, z + h * 0.5, () => mb.rbox(h * 0.9, h * 0.7, 0.6, 0.2, '#9aa3ad')); }
+    for (let i = 0; i < 40; i++) { const x = (R() - 0.5) * 50, z = -20 + R() * 34; if (Math.abs(x) < 9 && z > -8 && z < 8) continue; P_(mb, x, 0.12, z, () => mb.rbox(0.4 + R() * 0.3, 0.25, 0.35, 0.1, '#8d939b')); }
+    S.wide = { eye: [0, 7, 22], look: [0, 2, -4] };
+  },
   backyard(S, o) {
     const mb = S.mb; groundPlane(mb, '#7fd34e');
     house(S, 0, -22, 0, { w: 30, h: 9, d: 10, wall: o.color || '#a8d8ea', roof: '#34495e', door: '#ffffff', doorX: -5, doorW: 3.2 });
