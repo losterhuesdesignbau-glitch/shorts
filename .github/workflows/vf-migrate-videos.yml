@@ -1,0 +1,47 @@
+# Einmalig: alte MP4s aus dem Repo-Ordner videos/ nach R2 (archive/) verschieben und aus dem Repo entfernen
+name: "VIRALFLOW · Alte Videos nach R2 verschieben"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Zum Bestätigen VERSCHIEBEN eintippen"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: inputs.confirm == 'VERSCHIEBEN'
+    runs-on: ubuntu-latest
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: viralflow-videos
+      PYTHONPATH: ${{ github.workspace }}/viralflow
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q boto3
+      - name: Hochladen und prüfen
+        run: |
+          python - <<'EOF'
+          from pathlib import Path
+          from vf.storage import Storage
+          s = Storage()
+          for f in sorted(Path('videos').glob('*.mp4')):
+              key = f'archive/{f.name}'
+              s.upload(f, key)
+              assert s.exists(key), key
+              print('OK', key)
+          EOF
+      - name: Aus dem Repo entfernen
+        run: |
+          git config user.name "viralflow-bot"
+          git config user.email "viralflow-bot@users.noreply.github.com"
+          git rm -q videos/*.mp4
+          git commit -m "VIRALFLOW: alte Videos nach R2 (archive/) verschoben [skip ci]"
+          git push

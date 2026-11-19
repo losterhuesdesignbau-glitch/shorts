@@ -1,0 +1,34 @@
+# VIRALFLOW CLOUD – Orchestrator
+# Einrichtung: siehe viralflow/README.md (Schritt 2)
+name = "viralflow"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+# Alle 5 Minuten: fällige Uploads starten, Wiederholungen, Aufräumen (Cron-Zeiten sind UTC)
+[triggers]
+crons = ["*/5 * * * *"]
+
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "viralflow"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "VIDEOS"
+bucket_name = "viralflow-videos"
+
+[vars]
+GITHUB_REPO = "losterhuesdesignbau-glitch/shorts"
+IG_GRAPH_VERSION = "v24.0"
+# PUBLIC_URL = "https://viralflow.<dein-name>.workers.dev"   # optional, sonst automatisch
+
+# Secrets (NIE hier eintragen, sondern: npx wrangler secret put NAME):
+#   DASHBOARD_PASSWORD, SESSION_SECRET, TOKEN_KEY, VF_WEBHOOK_SECRET, GITHUB_TOKEN,
+#   YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, INSTAGRAM_APP_ID, INSTAGRAM_APP_SECRET,
+#   TIKTOK_CLIENT_KEY, TIKTOK_CLIENT_SECRET, NTFY_TOPIC (optional)
