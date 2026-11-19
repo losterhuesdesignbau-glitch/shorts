@@ -85,6 +85,23 @@ async function route(req, env) {
     return json({ ok: true }, 200, { 'set-cookie': 'vf_session=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0' });
   }
 
+  // ---------- Öffentlicher, signierter Video-Link (für Buffer/TikTok): /m/<ablauf>/<signatur>/<video-id>.mp4 ----------
+  const mm = path.match(/^\/m\/(\d+)\/([0-9a-f]{64})\/([^/]+)\.mp4$/);
+  if (mm && (method === 'GET' || method === 'HEAD')) {
+    const [, exp, sig, vid] = mm;
+    if (Number(exp) < Date.now() / 1000) throw new HttpError(410, 'Link abgelaufen');
+    const want = await hmacHex(env.VF_WEBHOOK_SECRET, `media.${vid}.${exp}`);
+    if (!safeEqual(sig, want)) throw new HttpError(403, 'Ungültige Signatur');
+    const v = await env.DB.prepare('SELECT * FROM videos WHERE id = ?').bind(decodeURIComponent(vid)).first();
+    if (!v) throw new HttpError(404, 'Video unbekannt');
+    if (method === 'HEAD') {
+      const h = await env.VIDEOS.head(v.storage_key);
+      if (!h) throw new HttpError(404, 'Datei fehlt im Speicher');
+      return new Response(null, { headers: { 'content-type': 'video/mp4', 'accept-ranges': 'bytes', 'content-length': String(h.size) } });
+    }
+    return streamVideo(env, req, v);
+  }
+
   // ---------- Engine-API (HMAC) ----------
   if (path.startsWith('/api/engine/') || path === '/api/events/video-ready') {
     const body = method === 'GET' ? '' : await req.text();

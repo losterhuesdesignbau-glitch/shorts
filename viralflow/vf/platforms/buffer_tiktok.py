@@ -17,6 +17,15 @@ API = os.environ.get('BUFFER_API_URL', 'https://api.buffer.com')
 POLL_S = float(os.environ.get('BUFFER_POLL_SECONDS', '15'))
 
 
+def media_url(video_id, ttl=6 * 3600):
+    """Signierter öffentlicher Link über den Orchestrator (Buffer kann R2-Presigned-Links nicht lesen)."""
+    import hashlib
+    import hmac
+    exp = int(time.time()) + ttl
+    sig = hmac.new(os.environ['VF_WEBHOOK_SECRET'].encode(), f'media.{video_id}.{exp}'.encode(), hashlib.sha256).hexdigest()
+    return f'{os.environ["VF_API_URL"].rstrip("/")}/m/{exp}/{sig}/{video_id}.mp4'
+
+
 def enabled():
     return bool(os.environ.get('BUFFER_API_KEY'))
 

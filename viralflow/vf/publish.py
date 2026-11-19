@@ -53,7 +53,7 @@ def run(ids, api=None, storage=None, run_id=None):
             print(f'[{pid}] Upload startet ({info["duration"]:.1f}s, {info["size"] / 1e6:.1f} MB)', flush=True)
             mod = PLATFORMS[platform]
             if platform == 'tiktok' and buffer_tiktok.enabled():
-                mod, meta = buffer_tiktok, dict(meta, _media_url=storage.url(key))
+                mod, meta = buffer_tiktok, dict(meta, _media_url=buffer_tiktok.media_url(video['id']))
                 print(f'[{pid}] TikTok über Buffer', flush=True)
             res = mod.publish(path, info['size'], tok, meta, settings, pid, pub['attempts'])
             api.report(pid, status='published', run_id=run_id, **res)
