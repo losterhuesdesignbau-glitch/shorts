@@ -13,10 +13,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--ids', required=True)
     ap.add_argument('--reason', default='Abgebrochen (ersetzt durch neue Version)')
+    ap.add_argument('--requeue', action='store_true', help='stattdessen sofort neu einreihen')
     a = ap.parse_args()
     api = Orchestrator()
     run_id = f'cancel-{os.environ.get("GITHUB_RUN_ID", "local")}'
     for pid in [x.strip() for x in a.ids.split(',') if x.strip()]:
+        if a.requeue:
+            try:
+                api.call('POST', f'/api/engine/publications/{pid}/requeue', {}); print(f'[{pid}] neu eingereiht', flush=True)
+            except OrchestratorError as e:
+                print(f'[{pid}] nicht neu eingereiht: {e.message}', flush=True)
+            continue
         try:
             api.claim(pid, run_id)
         except OrchestratorError as e:

@@ -1,11 +1,15 @@
 # Geplante Veröffentlichungen abbrechen (z. B. ersetzte Videos)
-name: "VIRALFLOW · Veröffentlichungen abbrechen"
+name: "VIRALFLOW · Veröffentlichungen abbrechen / neu einreihen"
 on:
   workflow_dispatch:
     inputs:
       ids:
         description: "Veröffentlichungs-IDs, Komma-getrennt (video-id:plattform)"
         required: true
+      requeue:
+        description: "ja = sofort neu einreihen statt abbrechen"
+        required: false
+        default: "nein"
 permissions:
   contents: read
 jobs:
@@ -16,6 +20,7 @@ jobs:
       VF_WEBHOOK_SECRET: ${{ secrets.VF_WEBHOOK_SECRET }}
       PYTHONPATH: ${{ github.workspace }}/viralflow
       IDS: ${{ inputs.ids }}
+      REQUEUE: ${{ inputs.requeue }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,4 +29,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -q requests
-      - run: python -m vf.cancel --ids "$IDS"
+      - run: if [ "$REQUEUE" = "ja" ]; then python -m vf.cancel --ids "$IDS" --requeue; else python -m vf.cancel --ids "$IDS"; fi

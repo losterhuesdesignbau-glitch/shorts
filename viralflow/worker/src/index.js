@@ -180,6 +180,16 @@ async function engineApi(env, method, path, data) {
     return json({ ok: true });
   }
 
+  // Abgebrochene/fehlgeschlagene Veröffentlichung sofort neu einreihen (nie bereits veröffentlichte)
+  const rq = path.match(/^\/api\/engine\/publications\/([^/]+)\/requeue$/);
+  if (rq && method === 'POST') {
+    const id = decodeURIComponent(rq[1]), ts = nowIso();
+    const r = await env.DB.prepare("UPDATE publications SET status = 'queued', scheduled_at = ?, attempts = 0, next_attempt_at = NULL, lease_until = NULL, error = NULL, updated_at = ? WHERE id = ? AND status IN ('cancelled', 'failed') RETURNING id, video_id, platform").bind(ts, ts, id).first();
+    if (!r) throw new HttpError(409, 'Nicht neu einreihbar (unbekannt oder schon veröffentlicht/aktiv)');
+    await logEvent(env, 'REQUEUED', { video_id: r.video_id, platform: r.platform, message: 'per Engine-API neu eingereiht' });
+    await tick(env);
+    return json({ ok: true, id });
+  }
   const pm = path.match(/^\/api\/engine\/publications\/([^/]+)\/(claim|report)$/);
   if (pm && method === 'POST') {
     const id = decodeURIComponent(pm[1]);
