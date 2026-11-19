@@ -19,7 +19,7 @@ def main():
     a = ap.parse_args()
     api = Orchestrator()
     if a.list or a.platform:
-        items = api.call('POST', '/api/engine/publications/list', {}).get('items', [])
+        items = api.call('POST', '/api/engine/publications/list', {'statuses': ['queued', 'failed', 'dispatched', 'uploading', 'cancelled', 'published'] if a.list else []}).get('items', [])
         for it in items:
             print(f"{it['id']}  {it['platform']:9} {it['status']:10} {it['scheduled_at']}  {it['filename']}  {it.get('error') or ''}", flush=True)
         if a.platform and a.requeue:
