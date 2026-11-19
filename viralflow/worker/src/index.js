@@ -95,8 +95,12 @@ async function route(req, env) {
   // ---------- OAuth ----------
   const om = path.match(/^\/oauth\/(youtube|instagram|tiktok)\/(start|callback)$/);
   if (om) {
+    // Start nur mit Dashboard-Login. Der Rücksprung von Google/Meta/TikTok ist eine seitenübergreifende Weiterleitung,
+    // bei der das (SameSite=Strict) Login-Cookie nicht mitkommt – dort schützt das einmalige OAuth-State-Cookie,
+    // das nur beim eingeloggten Start gesetzt wird.
+    if (om[2] === 'callback') return oauthCallback(env, req, om[1]);
     if (!(await isLoggedIn(env, req))) return new Response(null, { status: 302, headers: { location: '/' } });
-    return om[2] === 'start' ? oauthStart(env, req, om[1]) : oauthCallback(env, req, om[1]);
+    return oauthStart(env, req, om[1]);
   }
 
   // ---------- Dashboard-API (Session) ----------
