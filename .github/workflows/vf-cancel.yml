@@ -1,0 +1,27 @@
+# Geplante Veröffentlichungen abbrechen (z. B. ersetzte Videos)
+name: "VIRALFLOW · Veröffentlichungen abbrechen"
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: "Veröffentlichungs-IDs, Komma-getrennt (video-id:plattform)"
+        required: true
+permissions:
+  contents: read
+jobs:
+  cancel:
+    runs-on: ubuntu-latest
+    env:
+      VF_API_URL: ${{ secrets.VF_API_URL }}
+      VF_WEBHOOK_SECRET: ${{ secrets.VF_WEBHOOK_SECRET }}
+      PYTHONPATH: ${{ github.workspace }}/viralflow
+      IDS: ${{ inputs.ids }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: viralflow
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - run: python -m vf.cancel --ids "$IDS"
