@@ -6,7 +6,7 @@ import { dispatchGithub } from './github.js';
 import { notify } from './notify.js';
 
 export const DEFAULT_SETTINGS = {
-  slots: ['09:00', '11:30', '14:00', '17:00', '20:00'],
+  slots: ['08:00', '14:00', '16:00', '19:00'],
   timezone: 'Europe/Berlin',
   engine1_paused: false,
   engine2_paused: false,

@@ -58,7 +58,7 @@ Die Datei ist die normale `episode.json` der Engine, optional mit Texten:
 
 Fehlt `meta`, erzeugt das System Titel, Beschreibung und Hashtags regelbasiert aus dem Skript (keine bezahlte KI).
 
-**Regeln:** 5 Termine täglich (09:00, 11:30, 14:00, 17:00, 20:00, Europe/Berlin, im Dashboard änderbar), jedes Video auf allen drei Plattformen. Ist ein Video zu spät fertig, bekommt es den nächsten freien Termin. Veröffentlichte Videos werden nie erneut veröffentlicht (eindeutige IDs, Claim-Sperre, Duplikat-Prüfung bei YouTube). Fällt eine Plattform aus, laufen die anderen weiter; Wiederholungen nach 5, 10, 20, 40 min.
+**Regeln:** 4 Termine täglich (08:00, 14:00, 16:00, 19:00, Europe/Berlin, im Dashboard oder per Workflow „Sendezeiten setzen“ änderbar), jedes Video auf allen drei Plattformen. Ist ein Video zu spät fertig, bekommt es den nächsten freien Termin. Veröffentlichte Videos werden nie erneut veröffentlicht (eindeutige IDs, Claim-Sperre, Duplikat-Prüfung bei YouTube). Fällt eine Plattform aus, laufen die anderen weiter; Wiederholungen nach 5, 10, 20, 40 min.
 
 ---
 

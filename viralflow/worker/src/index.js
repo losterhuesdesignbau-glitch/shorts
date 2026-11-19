@@ -180,6 +180,13 @@ async function engineApi(env, method, path, data) {
     return json({ ok: true });
   }
 
+  // Termine (Sendezeiten) setzen, z. B. aus GitHub Actions
+  if (path === '/api/engine/settings/slots' && method === 'POST') {
+    await saveSettings(env, { slots: data.slots });
+    const s = await getSettings(env);
+    await logEvent(env, 'SETTINGS', { message: `Sendezeiten: ${s.slots.join(', ')}` });
+    return json({ ok: true, slots: s.slots });
+  }
   // Abgebrochene/fehlgeschlagene Veröffentlichung sofort neu einreihen (nie bereits veröffentlichte)
   const rq = path.match(/^\/api\/engine\/publications\/([^/]+)\/requeue$/);
   if (rq && method === 'POST') {

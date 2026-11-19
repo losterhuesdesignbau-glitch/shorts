@@ -1,0 +1,27 @@
+# Sendezeiten (Europe/Berlin) des Orchestrators setzen
+name: "VIRALFLOW · Sendezeiten setzen"
+on:
+  workflow_dispatch:
+    inputs:
+      slots:
+        description: "Uhrzeiten, Komma-getrennt (z. B. 08:00,14:00,16:00,19:00)"
+        required: true
+permissions:
+  contents: read
+jobs:
+  set:
+    runs-on: ubuntu-latest
+    env:
+      VF_API_URL: ${{ secrets.VF_API_URL }}
+      VF_WEBHOOK_SECRET: ${{ secrets.VF_WEBHOOK_SECRET }}
+      PYTHONPATH: ${{ github.workspace }}/viralflow
+      SLOTS: ${{ inputs.slots }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: viralflow
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - run: python -m vf.settings --slots "$SLOTS"
