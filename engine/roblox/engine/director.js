@@ -534,7 +534,7 @@ function drawOverlay(sh, tl, D, map, list) {
     x.restore();
   }
   if (sh.badge) { x.save(); x.font = `bold 44px ${FONT}`; const w = x.measureText(sh.badge).width + 48; x.fillStyle = 'rgba(0,0,0,0.55)'; x.beginPath(); x.roundRect ? x.roundRect(R.W / 2 - w / 2, R.H * 0.035, w, 66, 33) : x.rect(R.W / 2 - w / 2, R.H * 0.035, w, 66); x.fill(); x.restore(); outlined(x, sh.badge, R.W / 2, R.H * 0.035 + 34, 44, '#ffe14d', '#000', 0.12); }
-  if (sh.hook && tl < (sh.hookDur || 2.2)) { const k = backOut(Math.min(1, tl / 0.22)), fade = clamp(((sh.hookDur || 2.2) - tl) / 0.25, 0, 1); x.save(); x.globalAlpha = fade; x.translate(R.W / 2, R.H * 0.34); x.scale(k, k); x.rotate(-2.5 * DEG); String(sh.hook).split('\n').forEach((l, i, arr) => outlined(x, l, 0, (i - (arr.length - 1) / 2) * 128, 116, '#ffe14d', '#000', 0.22)); x.restore(); }
+  if (sh.hook && tl < (sh.hookDur || 2.2)) { const k = backOut(Math.min(1, tl / 0.22)), fade = clamp(((sh.hookDur || 2.2) - tl) / 0.25, 0, 1); x.save(); x.globalAlpha = fade; x.translate(R.W / 2, R.H * 0.34); x.scale(k, k); x.rotate(-2.5 * DEG); const hl = String(sh.hook).split('\n'); x.font = `bold 116px ${FONT}`; const fit = Math.min(116, 116 * (R.W * 0.86) / Math.max(...hl.map(l => x.measureText(l).width))); hl.forEach((l, i, arr) => outlined(x, l, 0, (i - (arr.length - 1) / 2) * fit * 1.1, fit, '#ffe14d', '#000', 0.22)); x.restore(); }
   if (sh.title && !(sh.hook && tl < (sh.hookDur || 2.2))) { const lines = String(sh.title).split('\n'); lines.forEach((l, i) => outlined(x, l, R.W / 2, R.H * 0.14 + i * 110, 92, '#ffffff', '#000', 0.2)); }
   drawCaption(x, sh.words || [], tl);
 }
