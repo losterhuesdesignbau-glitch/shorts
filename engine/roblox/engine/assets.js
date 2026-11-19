@@ -26,60 +26,71 @@ const MOODS = {
   love: { e: 'heart', b: 'norm', m: 'smile', blush: 1 }, think: { e: 'up', b: 'think', m: 'smirk' }, evil: { e: 'half', b: 'angry', m: 'grin' },
   confused: { e: 'dot', b: 'think', m: 'wavy' }, dizzy: { e: 'x', b: 'none', m: 'wavy' },
 };
-function faceTex(mood, closed, open, kind = 'human') {
-  const M = MOODS[mood] || MOODS.happy;
-  return ctex(`face|${mood}|${closed ? 1 : 0}|${open ? 1 : 0}|${kind}`, 256, 256, (x) => {
-    const A = kind !== 'human', ink = '#1d1712';
+// o: { gx: Blickrichtung -1..1, lashes, freckles, eye: Augenfarbe }  – Textur 512px (scharf auch in Nahaufnahmen)
+function faceTex(mood, closed, open, kind = 'human', o = {}) {
+  const M = MOODS[mood] || MOODS.happy, gx = o.gx || 0, op = open === true ? 1 : (open || 0);
+  return ctex(`face|${mood}|${closed ? 1 : 0}|${op}|${kind}|${gx}|${o.lashes ? 1 : 0}|${o.freckles ? 1 : 0}|${o.eye || ''}`, 512, 512, (x) => {
+    x.scale(2, 2);
+    const A = kind !== 'human', ink = '#1d1712', eyeC = o.eye || ink;
     x.lineCap = 'round'; x.lineJoin = 'round';
     if (kind === 'penguin') { x.fillStyle = '#ffffff'; ell(x, 128, 132, 92, 86); x.fill(); }
-    const ey = A ? 112 : 108, dx = A ? 50 : 42, rx = A ? 18 : 13, ry = A ? 23 : 20;
+    const ey = A ? 112 : 106, dx = A ? 50 : 42, rx = A ? 18 : 14.5, ry = A ? 23 : 21, px = gx * 4;
     let eyes = M.e; if (closed && ['dot', 'wide', 'half', 'up', 'heart', 'wink'].includes(eyes)) eyes = 'closed';
     if (kind !== 'frog') for (const s of [-1, 1]) {
       const cx = 128 + s * dx; let e = eyes; if (e === 'wink') e = s > 0 ? 'happy' : 'dot';
-      x.strokeStyle = ink; x.fillStyle = ink; x.lineWidth = A ? 7 : 6.5;
-      if (e === 'dot' || e === 'up') { const oy = e === 'up' ? -6 : 0; ell(x, cx, ey + oy, rx, ry); x.fill(); hl(x, cx - rx * 0.3, ey + oy - ry * 0.38, A ? 7.5 : 5.5); if (A) hl(x, cx + rx * 0.35, ey + oy + ry * 0.35, 3.5); }
-      else if (e === 'wide') { x.fillStyle = '#fff'; ell(x, cx, ey, rx + 8, ry + 6); x.fill(); x.lineWidth = 5; x.stroke(); x.fillStyle = ink; ell(x, cx, ey + 2, rx * 0.6, ry * 0.55); x.fill(); hl(x, cx - 3, ey - 4, 4); }
-      else if (e === 'half') { x.save(); x.beginPath(); x.rect(cx - 40, ey - ry * 0.1, 80, 80); x.clip(); ell(x, cx, ey, rx, ry); x.fill(); x.restore(); x.lineWidth = 6; x.beginPath(); x.moveTo(cx - rx - 4, ey - ry * 0.1); x.lineTo(cx + rx + 4, ey - ry * 0.1); x.stroke(); }
-      else if (e === 'closed') { x.beginPath(); x.arc(cx, ey - 8, 15, 0.15 * Math.PI, 0.85 * Math.PI); x.stroke(); }
+      x.strokeStyle = ink; x.fillStyle = eyeC; x.lineWidth = A ? 7 : 6.5;
+      if (e === 'dot' || e === 'up') {
+        const oy = e === 'up' ? -6 : 0;
+        ell(x, cx + px, ey + oy, rx, ry); x.fill();
+        if (eyeC !== ink) { x.fillStyle = ink; ell(x, cx + px, ey + oy + 2, rx * 0.55, ry * 0.55); x.fill(); }
+        hl(x, cx + px - rx * 0.32, ey + oy - ry * 0.4, A ? 7.5 : 6); hl(x, cx + px + rx * 0.35, ey + oy + ry * 0.38, A ? 3.5 : 2.8);
+        if (o.lashes) { x.lineWidth = 4.5; x.strokeStyle = ink; x.beginPath(); x.moveTo(cx + s * rx * 0.75, ey + oy - ry * 0.7); x.lineTo(cx + s * (rx + 8), ey + oy - ry - 4); x.stroke(); }
+      }
+      else if (e === 'wide') { x.fillStyle = '#fff'; ell(x, cx, ey, rx + 8, ry + 6); x.fill(); x.lineWidth = 5; x.stroke(); x.fillStyle = eyeC; ell(x, cx + px * 1.5, ey + 2, rx * 0.6, ry * 0.55); x.fill(); hl(x, cx + px * 1.5 - 3, ey - 4, 4); }
+      else if (e === 'half') { x.save(); x.beginPath(); x.rect(cx - 40, ey - ry * 0.1, 80, 80); x.clip(); ell(x, cx + px, ey, rx, ry); x.fill(); x.restore(); hl(x, cx + px - 3, ey + 4, 3.5); x.lineWidth = 6; x.beginPath(); x.moveTo(cx - rx - 4, ey - ry * 0.1); x.quadraticCurveTo(cx, ey - ry * 0.25, cx + rx + 4, ey - ry * 0.1); x.stroke(); }
+      else if (e === 'closed') { x.beginPath(); x.arc(cx, ey - 8, 15, 0.15 * Math.PI, 0.85 * Math.PI); x.stroke(); if (o.lashes) { x.lineWidth = 4; x.beginPath(); x.moveTo(cx + s * 13, ey + 2); x.lineTo(cx + s * 21, ey + 7); x.stroke(); } }
       else if (e === 'happy') { x.beginPath(); x.arc(cx, ey + 10, 15, 1.15 * Math.PI, 1.85 * Math.PI); x.stroke(); }
       else if (e === 'heart') { x.fillStyle = '#e8253f'; heartPath(x, cx, ey, 21); x.fill(); hl(x, cx - 8, ey - 6, 4); }
       else if (e === 'x') { x.beginPath(); x.moveTo(cx - 12, ey - 12); x.lineTo(cx + 12, ey + 12); x.moveTo(cx + 12, ey - 12); x.lineTo(cx - 12, ey + 12); x.stroke(); }
     }
-    // Augenbrauen
+    // Augenbrauen (leicht gebogen)
     if (M.b !== 'none' && (!A || ['angry', 'sad', 'up'].includes(M.b)) && kind !== 'frog') {
-      const by = ey - (A ? 42 : 37); x.lineWidth = 8; x.strokeStyle = '#2a1c12';
+      const by = ey - (A ? 42 : 38); x.lineWidth = 8.5; x.strokeStyle = '#2a1c12';
       for (const s of [-1, 1]) {
-        const cx = 128 + s * dx; let i0 = 0, o0 = 0;
-        if (M.b === 'up') { i0 = -8; o0 = -8; } else if (M.b === 'sad') { i0 = -9; o0 = 4; } else if (M.b === 'angry') { i0 = 10; o0 = -5; } else if (M.b === 'think' && s > 0) { i0 = -10; o0 = -12; }
-        x.beginPath(); x.moveTo(cx - s * 15, by + i0); x.lineTo(cx + s * 15, by + o0); x.stroke();
+        const cx = 128 + s * dx; let i0 = 0, o0 = 0, arch = -4;
+        if (M.b === 'up') { i0 = -9; o0 = -7; arch = -6; } else if (M.b === 'sad') { i0 = -10; o0 = 5; arch = -1; } else if (M.b === 'angry') { i0 = 10; o0 = -5; arch = 1; } else if (M.b === 'think' && s > 0) { i0 = -10; o0 = -12; arch = -7; }
+        x.beginPath(); x.moveTo(cx - s * 15, by + i0); x.quadraticCurveTo(cx, by + (i0 + o0) / 2 + arch, cx + s * 15, by + o0); x.stroke();
       }
     }
-    // Mund
-    let m = M.m; if (open) m = (m === 'grin' || m === 'yawn') ? m : (m === 'frown' || m === 'wavy' ? 'wavyopen' : 'open');
-    const my = kind === 'frog' ? 150 : 160; x.strokeStyle = ink; x.lineWidth = 7;
-    const showMouth = kind === 'human' || kind === 'frog' || kind === 'penguin' && false;
+    // Mund (op: 0 zu, 1 halb, 2 weit)
+    let m = M.m; if (op) m = (m === 'grin' || m === 'yawn') ? m : (m === 'frown' || m === 'wavy' ? 'wavyopen' : 'open');
+    const my = kind === 'frog' ? 150 : 158; x.strokeStyle = ink; x.lineWidth = 7;
+    const showMouth = kind === 'human' || kind === 'frog';
     if (showMouth) {
       const fillM = (c = '#6b1a1a') => { x.fillStyle = c; x.fill(); };
-      if (m === 'smile') { x.beginPath(); x.arc(128, my - 22, kind === 'frog' ? 40 : 26, 0.18 * Math.PI, 0.82 * Math.PI); x.stroke(); }
-      else if (m === 'flat') { x.beginPath(); x.moveTo(110, my); x.lineTo(146, my); x.stroke(); }
-      else if (m === 'frown') { x.beginPath(); x.arc(128, my + 24, 24, 1.2 * Math.PI, 1.8 * Math.PI); x.stroke(); }
-      else if (m === 'open' || m === 'wavyopen') { ell(x, 128, my + 4, 19, 15); fillM(); ell(x, 128, my + 12, 11, 6); fillM('#ff8a8a'); x.lineWidth = 5; ell(x, 128, my + 4, 19, 15); x.stroke(); }
-      else if (m === 'grin') { x.beginPath(); x.moveTo(98, my - 10); x.quadraticCurveTo(128, my + 44, 158, my - 10); x.closePath(); fillM(); x.save(); x.clip(); x.fillStyle = '#fff'; x.fillRect(90, my - 12, 80, 11); x.restore(); x.lineWidth = 5; x.stroke(); }
+      if (m === 'smile') { x.beginPath(); x.arc(128, my - 22, kind === 'frog' ? 40 : 26, 0.2 * Math.PI, 0.8 * Math.PI); x.stroke(); }
+      else if (m === 'flat') { x.beginPath(); x.moveTo(112, my); x.quadraticCurveTo(128, my + 2, 144, my); x.stroke(); }
+      else if (m === 'frown') { x.beginPath(); x.arc(128, my + 24, 24, 1.22 * Math.PI, 1.78 * Math.PI); x.stroke(); }
+      else if (m === 'open' || m === 'wavyopen') { const w = op > 1 ? 21 : 15, h = op > 1 ? 18 : 10; ell(x, 128, my + 4, w, h); fillM(); ell(x, 128, my + 4 + h * 0.55, w * 0.58, h * 0.42); fillM('#ff8a8a'); x.lineWidth = 5; ell(x, 128, my + 4, w, h); x.stroke(); if (op > 1) { x.save(); ell(x, 128, my + 4, w, h); x.clip(); x.fillStyle = '#fff'; x.fillRect(100, my + 4 - h, 56, 6); x.restore(); } }
+      else if (m === 'grin') { x.beginPath(); x.moveTo(98, my - 10); x.quadraticCurveTo(128, my + (op ? 50 : 44), 158, my - 10); x.closePath(); fillM(); x.save(); x.clip(); x.fillStyle = '#fff'; x.fillRect(90, my - 12, 80, 11); ell(x, 128, my + 26, 16, 9); x.fillStyle = '#ff8a8a'; x.fill(); x.restore(); x.lineWidth = 5; x.stroke(); }
       else if (m === 'O') { ell(x, 128, my + 4, 10, 13); fillM(); x.lineWidth = 5; x.stroke(); }
       else if (m === 'o') { ell(x, 128, my + 2, 6, 7); fillM(); x.lineWidth = 4; x.stroke(); }
       else if (m === 'yawn') { ell(x, 128, my + 12, 19, 30); fillM(); ell(x, 128, my + 30, 11, 8); fillM('#ff8a8a'); x.lineWidth = 5; ell(x, 128, my + 12, 19, 30); x.stroke(); }
-      else if (m === 'wavy') { x.beginPath(); for (let i = 0; i <= 24; i++) { const px = 104 + i * 2, py = my + Math.sin(i / 24 * Math.PI * 3) * 5; i ? x.lineTo(px, py) : x.moveTo(px, py); } x.stroke(); }
+      else if (m === 'wavy') { x.beginPath(); for (let i = 0; i <= 24; i++) { const px2 = 104 + i * 2, py = my + Math.sin(i / 24 * Math.PI * 3) * 5; i ? x.lineTo(px2, py) : x.moveTo(px2, py); } x.stroke(); }
       else if (m === 'smirk') { x.beginPath(); x.moveTo(106, my + 2); x.quadraticCurveTo(134, my + 10, 152, my - 10); x.stroke(); }
     }
-    if (M.blush || A) { x.fillStyle = 'rgba(255,105,120,0.38)'; ell(x, 128 - dx - 20, ey + 40, 17, 10); x.fill(); ell(x, 128 + dx + 20, ey + 40, 17, 10); x.fill(); }
+    if (M.blush || A) { x.fillStyle = 'rgba(255,105,120,0.36)'; ell(x, 128 - dx - 20, ey + 40, 17, 10); x.fill(); ell(x, 128 + dx + 20, ey + 40, 17, 10); x.fill(); }
+    else if (!A) { x.fillStyle = 'rgba(255,120,120,0.12)'; ell(x, 128 - dx - 18, ey + 40, 16, 9); x.fill(); ell(x, 128 + dx + 18, ey + 40, 16, 9); x.fill(); }
+    if (o.freckles) { x.fillStyle = 'rgba(150,80,40,0.55)'; for (const s of [-1, 1]) for (const [fx, fy] of [[0, 0], [9, 5], [-8, 6], [3, 11]]) { ell(x, 128 + s * (dx + 12 + fx), ey + 30 + fy, 2.4, 2.4); x.fill(); } }
     if (M.tear) { drop(x, 128 - dx + 4, ey + 32, '#4fb0ff'); if (M.tear > 1) drop(x, 128 + dx - 4, ey + 36, '#4fb0ff'); }
     if (M.sweat) drop(x, 206, 62, '#7cc8ff', 1.5);
   });
 }
 
 // ---------- Logos / Schilder ----------
-function logoTex(logo, fg = '#ffd23f', bg = '#1d2b6b') {
-  return ctex(`logo|${logo}|${fg}|${bg}`, 256, 256, x => {
+function logoTex(logo, fg = '#ffd23f', bg = '#1d2b6b') { return ctex(`logo|${logo}|${fg}|${bg}`, 256, 256, logoTexDraw(logo, fg, bg)); }
+function logoTexDraw(logo, fg = '#ffd23f', bg = '#1d2b6b') {
+  return (x => {
     if (!logo || logo === 'none') return;
     const cx = 128, cy = 98;
     const sym = { star: 1, heart: 1, bolt: 1, smile: 1, dot: 1, flame: 1 };
@@ -163,65 +174,161 @@ function clockTex(time = '12:00', o = {}) {
   });
 }
 
-// ---------- Avatare ----------
-const AVDEF = { skin: '#f5c79a', shirt: '#2f6fe0', pants: '#22355e', shoes: '#2b2b2b', hair: 'short', hairColor: '#5a3418', logo: 'none', logoColor: '#ffd23f', logoBg: '#1d2b6b', sleeves: 'long', hat: null, hatColor: '#e74c3c', glasses: false, beard: false, scale: 1 };
+// ---------- Avatare (R15-artig: Ellbogen + Knie, Accessoires, Haar-/Umhang-Physik) ----------
+const AVDEF = { skin: '#f5c79a', shirt: '#2f6fe0', pants: '#22355e', shoes: '#2b2b2b', sole: '#f2f2f2', hair: 'short', hairColor: '#5a3418', logo: 'none', logoColor: '#ffd23f', logoBg: '#1d2b6b', sleeves: 'long', hat: null, hatColor: '#e74c3c', glasses: false, beard: false, scale: 1 };
 const AVC = {};
+const GOLD = '#f5c518';
+const T_ = (mb, x, y, z, f) => { mb.push(M4.T(x, y, z)); f(); mb.pop(); };
+const TR_ = (mb, m, f) => { mb.push(m); f(); mb.pop(); };
 function hairGeo(mb, cfg) {
-  const hc = cfg.hairColor, st = cfg.hair, P = (x, y, z) => mb.push(M4.T(x, y, z)), Q = () => mb.pop();
-  const base = () => { P(0, 0.55, 0); mb.rbox(1.46, 0.44, 1.46, 0.17, hc); Q(); P(0, 0.16, -0.58); mb.rbox(1.46, 1.0, 0.36, 0.13, hc); Q(); for (const s of [-1, 1]) { P(s * 0.63, 0.3, -0.12); mb.rbox(0.3, 0.6, 1.14, 0.1, hc); Q(); } P(0, 0.47, 0.57); mb.rbox(1.38, 0.26, 0.32, 0.1, hc); Q(); };
-  if (st === 'short' || st === 'spiky' || st === 'long' || st === 'ponytail' || st === 'bun' || st === 'pigtails') base();
-  if (st === 'spiky') { const R = rng(hash(hc) + 3); for (let i = 0; i < 7; i++) { const a = (i / 7) * Math.PI * 2, r = 0.3 + R() * 0.12; mb.push(M4.chain(M4.T(Math.sin(a) * r, 0.74, Math.cos(a) * r * 0.9 - 0.05), M4.RY(a), M4.RX((-30 + R() * 40) * DEG), M4.RZ((R() - 0.5) * 40 * DEG))); mb.rbox(0.34, 0.5, 0.34, 0.07, shade(hc, 0.9 + R() * 0.2)); mb.pop(); } P(0.25, 0.62, 0.68); mb.push(M4.RX(-35 * DEG)); mb.rbox(0.5, 0.42, 0.3, 0.06, hc); mb.pop(); Q(); }
-  if (st === 'long') { P(0, -0.38, -0.62); mb.rbox(1.5, 1.95, 0.38, 0.15, hc); Q(); for (const s of [-1, 1]) { P(s * 0.67, -0.2, -0.12); mb.rbox(0.3, 1.55, 0.95, 0.12, hc); Q(); } }
-  if (st === 'ponytail') { mb.push(M4.chain(M4.T(0, 0.05, -0.95), M4.RX(22 * DEG))); mb.rbox(0.5, 1.3, 0.5, 0.2, hc); mb.pop(); P(0, 0.42, -0.8); mb.rbox(0.3, 0.2, 0.3, 0.06, '#ff6fa8'); Q(); }
-  if (st === 'pigtails') { for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.85, 0.05, -0.3), M4.RZ(s * 25 * DEG))); mb.rbox(0.45, 1.1, 0.45, 0.2, hc); mb.pop(); } }
-  if (st === 'bun') { P(0, 0.9, -0.25); mb.sphere(0.45, 2, hc); Q(); }
+  const hc = cfg.hairColor, st = cfg.hair, P = (x, y, z) => mb.push(M4.T(x, y, z)), Q = () => mb.pop(), hd = shade(hc, 0.86), hl2 = shade(hc, 1.12);
+  const base = () => {
+    P(0, 0.55, 0); mb.rbox(1.46, 0.44, 1.46, 0.17, hc); Q(); P(0, 0.16, -0.58); mb.rbox(1.46, 1.0, 0.36, 0.13, hc); Q();
+    for (const s of [-1, 1]) { P(s * 0.63, 0.3, -0.12); mb.rbox(0.3, 0.6, 1.14, 0.1, hc); Q(); P(s * 0.66, 0.02, 0.32); mb.rbox(0.16, 0.32, 0.3, 0.06, hd); Q(); }
+    P(0, 0.47, 0.57); mb.rbox(1.38, 0.26, 0.32, 0.1, hc); Q();
+    // Strähnen vorne (Pony) – gibt der Frisur Struktur
+    for (let i = 0; i < 4; i++) { mb.push(M4.chain(M4.T(-0.45 + i * 0.3, 0.38, 0.66), M4.RZ((i - 1.5) * 0.12), M4.RX(-0.15))); mb.rbox(0.34, 0.26, 0.16, 0.07, i % 2 ? hl2 : hc); mb.pop(); }
+  };
+  if (['short', 'spiky', 'long', 'ponytail', 'bun', 'pigtails', 'bob', 'side', 'messy'].includes(st)) base();
+  if (st === 'messy') { const R = rng(hash(hc) + 9); for (let i = 0; i < 12; i++) { const a = R() * 6.28, r = 0.2 + R() * 0.4; mb.push(M4.chain(M4.T(Math.sin(a) * r, 0.72 + R() * 0.1, Math.cos(a) * r - 0.05), M4.RY(R() * 6), M4.RZ((R() - 0.5) * 1.1), M4.RX((R() - 0.5) * 1.1))); mb.rbox(0.32, 0.36, 0.32, 0.1, R() > 0.5 ? hc : hl2); mb.pop(); } }
+  if (st === 'spiky') { const R = rng(hash(hc) + 3); for (let i = 0; i < 9; i++) { const a = (i / 9) * Math.PI * 2, r = 0.28 + R() * 0.14; mb.push(M4.chain(M4.T(Math.sin(a) * r, 0.74, Math.cos(a) * r * 0.9 - 0.05), M4.RY(a), M4.RX((-30 + R() * 40) * DEG), M4.RZ((R() - 0.5) * 40 * DEG))); mb.rbox(0.34, 0.5, 0.34, 0.07, shade(hc, 0.9 + R() * 0.2)); mb.pop(); } P(0.25, 0.62, 0.68); mb.push(M4.RX(-35 * DEG)); mb.rbox(0.5, 0.42, 0.3, 0.06, hc); mb.pop(); Q(); }
+  if (st === 'side') { mb.push(M4.chain(M4.T(0.22, 0.72, 0.38), M4.RZ(-0.35), M4.RX(-0.25))); mb.rbox(1.0, 0.34, 0.7, 0.15, hl2); mb.pop(); }
+  if (st === 'long') { P(0, -0.38, -0.62); mb.rbox(1.5, 1.95, 0.38, 0.15, hc); Q(); for (const s of [-1, 1]) { P(s * 0.67, -0.2, -0.12); mb.rbox(0.3, 1.55, 0.95, 0.12, hc); Q(); P(s * 0.64, -0.85, 0.22); mb.rbox(0.28, 0.6, 0.36, 0.12, hd); Q(); } }
+  if (st === 'bob') { P(0, -0.05, -0.6); mb.rbox(1.52, 1.25, 0.4, 0.17, hc); Q(); for (const s of [-1, 1]) { P(s * 0.68, -0.05, 0.05); mb.rbox(0.32, 1.15, 1.2, 0.15, hc); Q(); } }
+  if (st === 'bun') { P(0, 0.9, -0.25); mb.sphere(0.45, 2, hc); Q(); P(0, 0.62, -0.2); mb.cyl(0.3, 0.3, 0.12, 10, '#ff6fa8'); Q(); }
   if (st === 'afro') { P(0, 0.35, -0.12); mb.sphere(1.0, 2, hc, { jit: 0.12, seed: 4 }); Q(); }
-  if (st === 'mohawk') { P(0, 0.85, -0.05); mb.rbox(0.3, 0.55, 1.45, 0.1, hc); Q(); }
-  if (st === 'cap') { P(0, 0.58, 0); mb.rbox(1.48, 0.52, 1.48, 0.24, cfg.hatColor); Q(); P(0, 0.4, 0.95); mb.box(1.3, 0.1, 0.8, cfg.hatColor); Q(); P(0, 0.05, -0.6); mb.rbox(1.42, 0.62, 0.3, 0.1, hc); Q(); }
-  if (st === 'beanie') { P(0, 0.5, 0); mb.rbox(1.5, 0.78, 1.5, 0.32, cfg.hatColor); Q(); P(0, 1.0, 0); mb.sphere(0.25, 1, '#ffffff'); Q(); }
-  const hat = cfg.hat;
-  if (hat === 'crown') { P(0, 0.66, 0); mb.cyl(0.62, 0.62, 0.35, 10, '#f5c518', { flat: true }); for (let i = 0; i < 5; i++) { const a = i / 5 * Math.PI * 2; mb.push(M4.T(Math.sin(a) * 0.55, 0.35, Math.cos(a) * 0.55)); mb.cyl(0.14, 0, 0.35, 4, '#f5c518'); mb.pop(); } Q(); }
+  if (st === 'curly') { const R = rng(21); for (let i = 0; i < 22; i++) { const a = R() * 6.28, b = R() * 1.3; P(Math.sin(a) * Math.cos(b * 0.6) * 0.66, 0.25 + Math.sin(b) * 0.45, Math.cos(a) * 0.62 - 0.08); mb.sphere(0.27 + R() * 0.1, 1, R() > 0.5 ? hc : hl2); Q(); } }
+  if (st === 'buzz') { P(0, 0.55, -0.02); mb.rbox(1.38, 0.24, 1.4, 0.1, hc); Q(); P(0, 0.2, -0.6); mb.rbox(1.38, 0.7, 0.2, 0.08, hc); Q(); }
+  if (st === 'mohawk') { for (let i = 0; i < 5; i++) { P(0, 0.85 + Math.sin(i / 4 * Math.PI) * 0.15, 0.55 - i * 0.3); mb.rbox(0.3, 0.55, 0.32, 0.1, i % 2 ? hl2 : hc); Q(); } }
+  if (st === 'cap' || cfg.hat === 'cap') { if (st === 'cap') { P(0, 0.05, -0.6); mb.rbox(1.42, 0.62, 0.3, 0.1, hc); Q(); } P(0, 0.58, 0); mb.rbox(1.48, 0.52, 1.48, 0.24, cfg.hatColor); Q(); P(0, 0.4, 0.95); mb.rbox(1.3, 0.1, 0.8, 0.04, shade(cfg.hatColor, 0.85)); Q(); P(0, 0.86, 0); mb.sphere(0.1, 1, shade(cfg.hatColor, 0.8)); Q(); if (cfg.hatLogo !== false) { P(0, 0.62, 0.75); mb.box(0.36, 0.28, 0.02, '#ffffff'); Q(); } }
+  if (st === 'beanie') { P(0, 0.5, 0); mb.rbox(1.5, 0.78, 1.5, 0.32, cfg.hatColor); Q(); P(0, 0.2, 0); mb.rbox(1.54, 0.22, 1.54, 0.1, shade(cfg.hatColor, 0.82)); Q(); P(0, 1.0, 0); mb.sphere(0.25, 1, '#ffffff'); Q(); }
+  const hat = cfg.hat, hcol = cfg.hatColor;
+  if (hat === 'crown') { P(0, 0.66, 0); mb.cyl(0.62, 0.62, 0.35, 10, GOLD, { flat: true }); for (let i = 0; i < 5; i++) { const a = i / 5 * Math.PI * 2; mb.push(M4.T(Math.sin(a) * 0.55, 0.35, Math.cos(a) * 0.55)); mb.cyl(0.14, 0, 0.35, 4, GOLD); mb.push(M4.T(0, 0.38, 0)); mb.sphere(0.07, 0, '#ffffff'); mb.pop(); mb.pop(); } for (let i = 0; i < 5; i++) { const a = (i + 0.5) / 5 * Math.PI * 2; T_(mb, Math.sin(a) * 0.63, 0.17, Math.cos(a) * 0.63, () => mb.sphere(0.08, 1, ['#e63946', '#1e88e5', '#2a9d8f'][i % 3])); } Q(); }
   if (hat === 'tophat') { P(0, 0.66, 0); mb.cyl(0.95, 0.95, 0.08, 16, '#1b1b1b', { flat: false }); mb.cyl(0.6, 0.6, 1.0, 16, '#1b1b1b', { flat: false }); mb.push(M4.T(0, 0.12, 0)); mb.cyl(0.62, 0.62, 0.18, 16, '#c0392b', { flat: false }); mb.pop(); Q(); }
-  if (hat === 'party') { P(0, 0.66, 0); mb.cyl(0.5, 0, 1.2, 12, cfg.hatColor, { stripe: '#ffd23f' }); mb.push(M4.T(0, 1.2, 0)); mb.sphere(0.16, 1, '#ffffff'); mb.pop(); Q(); }
+  if (hat === 'party') { P(0, 0.66, 0); mb.cyl(0.5, 0, 1.2, 12, hcol, { stripe: '#ffd23f' }); mb.push(M4.T(0, 1.2, 0)); mb.sphere(0.16, 1, '#ffffff'); mb.pop(); Q(); }
   if (hat === 'chef') { P(0, 0.66, 0); mb.cyl(0.6, 0.6, 0.5, 14, '#ffffff', { flat: false }); mb.push(M4.T(0, 0.75, 0)); mb.sphere(0.72, 2, '#ffffff', { sy: 0.6 }); mb.pop(); Q(); }
-  if (hat === 'helmet') { P(0, 0.2, 0); mb.sphere(0.95, 2, cfg.hatColor, { sy: 0.8 }); Q(); }
-  if (cfg.shades) { P(0, 0.06, 0.7); mb.rbox(1.3, 0.34, 0.12, 0.06, '#121212'); Q(); }
+  if (hat === 'helmet') { P(0, 0.2, 0); mb.sphere(0.95, 2, hcol, { sy: 0.8 }); Q(); P(0, 0.2, 0.6); mb.box(1.1, 0.35, 0.3, '#9fd7ff'); Q(); }
+  if (hat === 'hardhat') { P(0, 0.42, 0); mb.sphere(0.86, 2, hcol || '#ffc300', { sy: 0.62 }); mb.cyl(0.98, 0.98, 0.08, 18, hcol || '#ffc300', { flat: false }); T_(mb, 0, 0.45, 0, () => mb.box(0.18, 0.12, 1.5, shade(hcol || '#ffc300', 0.85))); Q(); }
+  if (hat === 'cowboy') { P(0, 0.62, 0); mb.cyl(1.3, 1.3, 0.07, 20, hcol, { flat: false }); for (const s of [-1, 1]) T_(mb, s * 1.05, 0.12, 0, () => { mb.push(M4.RZ(s * 0.5)); mb.box(0.5, 0.07, 1.6, hcol); mb.pop(); }); mb.cyl(0.66, 0.56, 0.8, 14, hcol, { flat: false }); T_(mb, 0, 0.08, 0, () => mb.cyl(0.67, 0.65, 0.16, 14, '#3b2a1a', { flat: false })); Q(); }
+  if (hat === 'beret') { mb.push(M4.chain(M4.T(0.12, 0.7, 0), M4.RZ(-0.25))); mb.sphere(0.88, 2, hcol, { sy: 0.32 }); T_(mb, 0, 0.28, 0, () => mb.cyl(0.05, 0.03, 0.15, 6, hcol)); mb.pop(); }
+  if (hat === 'wizard') { P(0, 0.62, 0); mb.cyl(1.25, 1.25, 0.08, 18, hcol, { flat: false }); mb.push(M4.RZ(-0.12)); mb.cyl(0.72, 0.05, 2.1, 14, hcol, { flat: false }); for (let i = 0; i < 4; i++) T_(mb, Math.sin(i * 2) * 0.4, 0.4 + i * 0.35, 0.42 - i * 0.09, () => mb.sphere(0.08, 0, '#ffd23f')); mb.pop(); Q(); }
+  if (hat === 'santa') { P(0, 0.62, 0); mb.cyl(0.78, 0.78, 0.28, 16, '#ffffff', { flat: false }); mb.push(M4.chain(M4.T(0, 0.25, 0), M4.RZ(0.5))); mb.cyl(0.66, 0.12, 1.3, 12, '#e63946', { flat: false }); T_(mb, 0, 1.35, 0, () => mb.sphere(0.2, 1, '#ffffff')); mb.pop(); Q(); }
+  if (hat === 'viking') { P(0, 0.25, 0); mb.sphere(0.9, 2, '#9aa3ad', { sy: 0.85 }); mb.cyl(0.92, 0.92, 0.15, 16, '#7a5a2a', { flat: false }); for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.75, 0.35, 0), M4.RZ(-s * 1.0))); mb.cyl(0.18, 0.02, 0.9, 8, '#fff3d6', { flat: false }); mb.pop(); } Q(); }
+  if (hat === 'grad') { P(0, 0.62, 0); mb.cyl(0.66, 0.66, 0.35, 12, '#1b1b1b', { flat: false }); T_(mb, 0, 0.4, 0, () => { mb.push(M4.RY(Math.PI / 4)); mb.box(1.7, 0.08, 1.7, '#1b1b1b'); mb.pop(); T_(mb, 0, 0.06, 0, () => mb.sphere(0.07, 0, GOLD)); T_(mb, 0.7, -0.28, 0.0, () => mb.box(0.05, 0.6, 0.05, GOLD)); }); Q(); }
+  if (hat === 'bunny') { for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.35, 0.75, -0.1), M4.RZ(-s * 0.18))); T_(mb, 0, 0.6, 0, () => { mb.rbox(0.32, 1.2, 0.16, 0.12, hcol || '#ffffff'); T_(mb, 0, 0, 0.06, () => mb.rbox(0.18, 0.95, 0.08, 0.06, '#ffb3c6')); }); mb.pop(); } }
+  if (hat === 'bandana') { P(0, 0.42, 0); mb.rbox(1.45, 0.42, 1.45, 0.18, hcol); T_(mb, 0, -0.05, -0.8, () => { mb.push(M4.RX(0.6)); mb.rbox(0.3, 0.5, 0.12, 0.05, hcol); mb.pop(); }); Q(); }
+  if (cfg.headband) { P(0, 0.36, 0); mb.rbox(1.4, 0.18, 1.4, 0.08, cfg.headband === true ? '#e63946' : cfg.headband); Q(); }
+  if (cfg.headphones) { const c = cfg.headphones === true ? '#2b2d42' : cfg.headphones; for (let i = 0; i <= 8; i++) { const a = (i / 8 - 0.5) * Math.PI; T_(mb, Math.sin(a) * 0.78, 0.15 + Math.cos(a) * 0.62, -0.05, () => mb.box(0.2, 0.2, 0.22, c)); } for (const s of [-1, 1]) T_(mb, s * 0.72, 0.0, 0, () => { mb.push(M4.RZ(Math.PI / 2)); mb.cyl(0.32, 0.32, 0.22, 14, c, { flat: false }); mb.pop(); T_(mb, s * 0.12, 0, 0, () => { mb.push(M4.RZ(Math.PI / 2)); mb.cyl(0.2, 0.2, 0.04, 12, '#e63946'); mb.pop(); }); }); }
+  if (cfg.bow) { const c = cfg.bow === true ? '#ff4f8b' : cfg.bow; P(0.35, 0.72, 0.2); for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.2, 0, 0), M4.RZ(s * 0.35))); mb.rbox(0.36, 0.3, 0.14, 0.1, c); mb.pop(); } mb.sphere(0.09, 1, shade(c, 0.85)); Q(); }
+  if (cfg.flower) { P(-0.55, 0.55, 0.35); for (let i = 0; i < 5; i++) { const a = i / 5 * 6.28; T_(mb, Math.sin(a) * 0.14, Math.cos(a) * 0.14, 0, () => mb.sphere(0.11, 0, cfg.flower === true ? '#ff7eb6' : cfg.flower)); } mb.sphere(0.08, 0, '#ffd23f'); Q(); }
+  if (cfg.earrings) for (const s of [-1, 1]) T_(mb, s * 0.68, -0.28, 0.05, () => mb.sphere(0.07, 1, cfg.earrings === true ? GOLD : cfg.earrings));
+  if (cfg.shades) { P(0, 0.08, 0.7); mb.rbox(1.3, 0.34, 0.12, 0.06, '#121212'); Q(); for (const s of [-1, 1]) T_(mb, s * 0.3, 0.14, 0.77, () => mb.box(0.22, 0.05, 0.01, '#4a5568')); }
   if (cfg.glasses) { const gc = cfg.glassesColor || '#2b2b2b'; for (const s of [-1, 1]) { const cx = s * 0.22; P(cx, 0.26, 0.69); mb.box(0.4, 0.05, 0.05, gc); Q(); P(cx, -0.05, 0.69); mb.box(0.4, 0.05, 0.05, gc); Q(); P(cx - 0.18, 0.105, 0.69); mb.box(0.05, 0.36, 0.05, gc); Q(); P(cx + 0.18, 0.105, 0.69); mb.box(0.05, 0.36, 0.05, gc); Q(); P(s * 0.62, 0.2, 0.36); mb.box(0.05, 0.05, 0.66, gc); Q(); } P(0, 0.2, 0.69); mb.box(0.1, 0.05, 0.05, gc); Q(); }
+  if (cfg.eyepatch) { P(0.22, 0.1, 0.68); mb.rbox(0.36, 0.34, 0.06, 0.08, '#111111'); Q(); mb.push(M4.chain(M4.T(0, 0.22, 0.66), M4.RZ(-0.45))); mb.box(1.5, 0.05, 0.03, '#111111'); mb.pop(); }
   if (cfg.beard) { P(0, -0.42, 0.56); mb.rbox(1.34, 0.5, 0.32, 0.14, hc); Q(); P(0, -0.08, 0.69); mb.rbox(0.64, 0.14, 0.12, 0.05, hc); Q(); }
   if (cfg.mustache) { P(0, -0.08, 0.69); mb.rbox(0.66, 0.16, 0.12, 0.05, hc); Q(); }
   if (cfg.scar) { P(0.2, -0.56, 0.705); mb.push(M4.RZ(0.9)); mb.rbox(0.05, 0.24, 0.03, 0.015, cfg.scarColor || '#e0a092'); for (const k of [-0.07, 0.0, 0.07]) { mb.push(M4.T(0, k, 0.005)); mb.box(0.13, 0.025, 0.03, cfg.scarColor || '#d4887a'); mb.pop(); } mb.pop(); Q(); }
 }
-function avatarGeo(cfg) {
-  const k = JSON.stringify(cfg); if (AVC[k]) return AVC[k];
-  const g = {};
-  g.head = cgeo('head|' + cfg.skin, mb => mb.rbox(1.32, 1.32, 1.32, 0.34, cfg.skin, { uv: true }));
-  g.torso = cgeo(`torso|${cfg.shirt}|${cfg.belt || ''}`, mb => { mb.rbox(2, 2, 1, 0.16, cfg.shirt, { uv: true }); if (cfg.belt) { mb.push(M4.T(0, -0.86, 0)); mb.box(2.04, 0.22, 1.04, cfg.belt); mb.pop(); } });
-  g.logo = logoTex(cfg.logo, cfg.logoColor, cfg.logoBg);
-  g.arm = cgeo(`arm|${cfg.shirt}|${cfg.skin}|${cfg.sleeves}`, mb => {
-    if (cfg.sleeves === 'short') { mb.push(M4.T(0, -0.32, 0)); mb.rbox(1.0, 0.78, 1.0, 0.12, cfg.shirt); mb.pop(); mb.push(M4.T(0, -1.13, 0)); mb.rbox(0.88, 1.56, 0.88, 0.15, cfg.skin); mb.pop(); }
-    else { const c = cfg.sleeves === 'skin' ? cfg.skin : cfg.shirt; mb.push(M4.T(0, -0.68, 0)); mb.rbox(0.96, 1.5, 0.96, 0.13, c); mb.pop(); mb.push(M4.T(0, -1.62, 0)); mb.rbox(0.86, 0.56, 0.86, 0.16, cfg.skin); mb.pop(); }
+function shirtTex(cfg) {
+  const pat = cfg.pattern, pc = cfg.patternColor || '#ffffff';
+  if (!pat && (!cfg.logo || cfg.logo === 'none')) return null;
+  return ctex(`shirt|${cfg.logo}|${cfg.logoColor}|${cfg.logoBg}|${pat}|${pc}|${cfg.shirt}`, 256, 256, x => {
+    if (pat) {
+      x.fillStyle = cfg.shirt; x.fillRect(0, 0, 256, 256); x.fillStyle = pc;
+      if (pat === 'stripes') for (let y = 8; y < 256; y += 40) x.fillRect(0, y, 256, 16);
+      if (pat === 'dots') for (let y = 16; y < 256; y += 38) for (let xx = (y / 38 % 2) * 19 + 12; xx < 256; xx += 38) { ell(x, xx, y, 7, 7); x.fill(); }
+      if (pat === 'plaid') { x.globalAlpha = 0.35; for (let i = 0; i < 256; i += 48) { x.fillRect(i, 0, 18, 256); x.fillRect(0, i, 256, 18); } x.globalAlpha = 1; }
+      if (pat === 'split') x.fillRect(128, 0, 128, 256);
+    }
+    if (cfg.logo && cfg.logo !== 'none') { const lt = logoTexDraw(cfg.logo, cfg.logoColor, cfg.logoBg); lt(x); }
   });
-  g.leg = cgeo(`leg|${cfg.pants}|${cfg.shoes}|${cfg.skirt ? 1 : 0}`, mb => { mb.push(M4.T(0, -0.8, 0)); mb.rbox(0.98, 1.62, 0.98, 0.1, cfg.pants); mb.pop(); mb.push(M4.T(0, -1.77, 0.07)); mb.rbox(1.02, 0.46, 1.14, 0.15, cfg.shoes); mb.pop(); });
+}
+function avatarGeo(cfg) {
+  const k = JSON.stringify(cfg); if (AVC[k] !== undefined) return AVC[k];
+  const g = {}, sk = cfg.skin, sh = cfg.shirt, sleeve = cfg.jacket || cfg.sleeveColor || sh;
+  const hand = (mb, y) => { T_(mb, 0, y, 0, () => mb.rbox(0.84, 0.48, 0.84, 0.18, sk)); T_(mb, 0, y + 0.02, 0.36, () => mb.rbox(0.28, 0.3, 0.2, 0.1, shade(sk, 0.97))); };
+  g.head = cgeo('head2|' + sk, mb => mb.rbox(1.32, 1.32, 1.32, 0.38, sk, { uv: true }));
+  // Torso + Accessoires am Oberkörper
+  g.torso = cgeo('torso2|' + JSON.stringify([sh, cfg.belt, cfg.tie, cfg.bowtie, cfg.chain, cfg.backpack, cfg.scarf, cfg.jacket, cfg.vest, cfg.hoodie, cfg.apron, cfg.badge, cfg.sash, cfg.collar, cfg.buttons]), mb => {
+    mb.rbox(2, 2, 1, 0.16, sh, { uv: true });
+    T_(mb, 0, -0.9, 0, () => mb.rbox(2.03, 0.2, 1.03, 0.08, shade(sh, 0.9)));          // Saum
+    if (cfg.collar !== false && !cfg.hoodie) T_(mb, 0, 0.97, 0.1, () => mb.rbox(0.9, 0.1, 0.62, 0.05, shade(sh, 0.88)));
+    if (cfg.buttons) for (let i = 0; i < 4; i++) T_(mb, 0, 0.7 - i * 0.45, 0.51, () => mb.sphere(0.06, 0, shade(sh, 0.7)));
+    if (cfg.belt) { T_(mb, 0, -0.86, 0, () => mb.rbox(2.05, 0.22, 1.05, 0.05, cfg.belt)); T_(mb, 0, -0.86, 0.53, () => mb.box(0.32, 0.2, 0.04, GOLD)); }
+    if (cfg.jacket || cfg.vest) { const c = cfg.jacket || cfg.vest, d = shade(c, 0.85); T_(mb, 0, 0, -0.53, () => mb.box(2.1, 2.06, 0.1, c)); for (const s of [-1, 1]) { T_(mb, s * 1.03, 0, 0, () => mb.box(0.1, 2.06, 1.1, c)); T_(mb, s * 0.68, 0, 0.53, () => mb.box(0.72, 2.06, 0.08, c)); mb.push(M4.chain(M4.T(s * 0.42, 0.62, 0.58), M4.RZ(s * 0.35))); mb.box(0.24, 0.8, 0.05, d); mb.pop(); } if (cfg.jacket) T_(mb, 0, 1.0, -0.35, () => mb.rbox(1.4, 0.24, 0.45, 0.08, d)); }
+    if (cfg.hoodie) { const c = cfg.hoodie === true ? shade(sh, 0.92) : cfg.hoodie; T_(mb, 0, 1.12, -0.38, () => mb.rbox(1.5, 0.6, 0.62, 0.25, c)); T_(mb, 0, -0.35, 0.52, () => mb.rbox(1.2, 0.55, 0.08, 0.06, shade(c, 0.9))); for (const s of [-1, 1]) T_(mb, s * 0.22, 0.55, 0.53, () => mb.box(0.06, 0.6, 0.04, '#f2f2f2')); }
+    if (cfg.tie) { const c = cfg.tie === true ? '#c0392b' : cfg.tie; T_(mb, 0, 0.84, 0.54, () => mb.box(0.3, 0.22, 0.08, shade(c, 0.85))); T_(mb, 0, 0.25, 0.53, () => mb.box(0.28, 1.0, 0.06, c)); TR_(mb, M4.chain(M4.T(0, -0.25, 0.53), M4.RZ(Math.PI / 4)), () => mb.box(0.2, 0.2, 0.06, c)); }
+    if (cfg.bowtie) { const c = cfg.bowtie === true ? '#c0392b' : cfg.bowtie; for (const s of [-1, 1]) TR_(mb, M4.chain(M4.T(s * 0.2, 0.86, 0.56), M4.RZ(s * 0.3)), () => mb.rbox(0.32, 0.26, 0.1, 0.08, c)); T_(mb, 0, 0.86, 0.6, () => mb.rbox(0.13, 0.15, 0.1, 0.04, shade(c, 0.8))); }
+    if (cfg.chain) { const c = cfg.chain === true ? GOLD : cfg.chain; for (let i = 0; i <= 14; i++) { const t = i / 7 - 1; T_(mb, 0.5 * t, 0.98 - 0.5 * (1 - t * t), 0.53, () => mb.sphere(0.05, 0, c)); } T_(mb, 0, 0.4, 0.55, () => { mb.push(M4.RX(Math.PI / 2)); mb.cyl(0.16, 0.16, 0.05, 12, c); mb.pop(); }); }
+    if (cfg.apron) { const c = cfg.apron === true ? '#ffffff' : cfg.apron; T_(mb, 0, -0.15, 0.53, () => mb.box(1.5, 1.8, 0.04, c)); T_(mb, 0, -0.45, 0.56, () => mb.box(0.7, 0.4, 0.02, shade(c, 0.92))); for (const s of [-1, 1]) T_(mb, s * 0.55, 0.85, 0.3, () => mb.box(0.1, 0.1, 0.5, c)); }
+    if (cfg.sash) TR_(mb, M4.chain(M4.T(0, 0.05, 0), M4.RZ(-0.75)), () => mb.box(2.8, 0.36, 1.07, cfg.sash === true ? '#e63946' : cfg.sash));
+    if (cfg.badge) T_(mb, -0.55, 0.45, 0.53, () => { mb.push(M4.RX(Math.PI / 2)); mb.cyl(0.2, 0.2, 0.05, 6, GOLD); mb.pop(); });
+    if (cfg.scarf) { const c = cfg.scarf === true ? '#e63946' : cfg.scarf; T_(mb, 0, 0.98, 0, () => mb.rbox(1.7, 0.36, 1.18, 0.16, c)); TR_(mb, M4.chain(M4.T(0.45, 0.35, 0.58), M4.RZ(0.08)), () => { mb.rbox(0.42, 1.0, 0.12, 0.05, c); T_(mb, 0, -0.42, 0, () => mb.box(0.44, 0.1, 0.13, shade(c, 0.75))); }); }
+    if (cfg.backpack) { const c = cfg.backpack === true ? '#e63946' : cfg.backpack; T_(mb, 0, 0.05, -0.88, () => mb.rbox(1.55, 1.65, 0.75, 0.22, c)); T_(mb, 0, -0.35, -1.27, () => mb.rbox(1.05, 0.62, 0.2, 0.1, shade(c, 0.85))); T_(mb, 0, 0.82, -0.88, () => mb.rbox(0.5, 0.14, 0.3, 0.06, shade(c, 0.7))); for (const s of [-1, 1]) { T_(mb, s * 0.55, 1.02, -0.05, () => mb.box(0.24, 0.08, 1.12, shade(c, 0.75))); T_(mb, s * 0.55, 0.32, 0.525, () => mb.box(0.24, 1.35, 0.05, shade(c, 0.75))); } }
+  });
+  g.tex = shirtTex(cfg);
+  // Arme: Oberarm (Schulter) + Unterarm (Ellbogen bei y=-0.95)
+  const shortS = cfg.sleeves === 'short' && !cfg.jacket, noS = cfg.sleeves === 'skin' || cfg.sleeves === 'none';
+  g.uarm = cgeo(`uarm|${sleeve}|${sk}|${cfg.sleeves}|${!!cfg.jacket}`, mb => {
+    if (noS) T_(mb, 0, -0.47, 0, () => mb.rbox(0.92, 1.02, 0.92, 0.14, sk));
+    else if (shortS) { T_(mb, 0, -0.3, 0, () => mb.rbox(1.0, 0.72, 1.0, 0.13, sleeve)); T_(mb, 0, -0.75, 0, () => mb.rbox(0.88, 0.5, 0.88, 0.12, sk)); }
+    else T_(mb, 0, -0.47, 0, () => mb.rbox(0.96, 1.04, 0.96, 0.13, sleeve));
+  });
+  const larm = watch => mb => {
+    if (noS || shortS) T_(mb, 0, -0.26, 0, () => mb.rbox(0.86, 0.6, 0.86, 0.12, sk));
+    else { T_(mb, 0, -0.25, 0, () => mb.rbox(0.94, 0.56, 0.94, 0.12, sleeve)); T_(mb, 0, -0.5, 0, () => mb.rbox(0.98, 0.14, 0.98, 0.05, shade(sleeve, 0.85))); }
+    hand(mb, -0.78);
+    if (watch) { T_(mb, 0, -0.52, 0, () => mb.rbox(0.92, 0.16, 0.92, 0.04, '#2b2b2b')); T_(mb, 0, -0.52, 0.47, () => mb.box(0.3, 0.26, 0.04, watch === true ? '#cfd8dc' : watch)); }
+  };
+  g.larmL = cgeo(`larm|${sleeve}|${sk}|${cfg.sleeves}|${!!cfg.jacket}|${cfg.watch || ''}`, larm(cfg.watch));
+  g.larmR = cgeo(`larm|${sleeve}|${sk}|${cfg.sleeves}|${!!cfg.jacket}|`, larm(false));
+  // Beine: Oberschenkel (Hüfte) + Unterschenkel mit Schuh (Knie bei y=-1.0)
+  const shorts = cfg.shorts;
+  g.thigh = cgeo(`thigh|${cfg.pants}|${sk}|${shorts ? 1 : 0}`, mb => { T_(mb, 0, -0.5, 0, () => mb.rbox(0.98, 1.06, 0.98, 0.1, cfg.pants)); if (shorts) T_(mb, 0, -0.98, 0, () => mb.rbox(0.9, 0.2, 0.9, 0.08, sk)); });
+  g.shin = cgeo(`shin|${cfg.pants}|${cfg.shoes}|${cfg.sole}|${sk}|${shorts ? 1 : 0}|${cfg.boots ? 1 : 0}`, mb => {
+    T_(mb, 0, -0.3, 0, () => mb.rbox(shorts ? 0.86 : 0.96, 0.64, shorts ? 0.86 : 0.96, 0.1, shorts ? sk : cfg.pants));
+    if (cfg.boots) T_(mb, 0, -0.45, 0, () => mb.rbox(1.0, 0.5, 1.0, 0.1, cfg.shoes));
+    T_(mb, 0, -0.77, 0.08, () => mb.rbox(1.02, 0.4, 1.16, 0.15, cfg.shoes));
+    T_(mb, 0, -0.93, 0.08, () => mb.rbox(1.06, 0.12, 1.2, 0.05, cfg.sole || '#f2f2f2'));
+    if (!cfg.boots) T_(mb, 0, -0.56, 0.42, () => mb.box(0.4, 0.04, 0.3, '#ffffff'));
+  });
   if (cfg.skirt) g.skirt = cgeo(`skirt|${cfg.skirt}`, mb => { mb.push(M4.T(0, 1.55, 0)); mb.cyl(1.35, 1.02, 0.9, 12, cfg.skirt, { flat: false }); mb.pop(); });
-  const hk = `hair|${cfg.hair}|${cfg.hairColor}|${cfg.hat}|${cfg.hatColor}|${cfg.glasses}|${cfg.shades}|${cfg.beard}|${cfg.mustache}|${cfg.scar}`;
+  const hk = 'hair2|' + JSON.stringify([cfg.hair, cfg.hairColor, cfg.hat, cfg.hatColor, cfg.glasses, cfg.shades, cfg.beard, cfg.mustache, cfg.headphones, cfg.bow, cfg.flower, cfg.earrings, cfg.headband, cfg.eyepatch, cfg.hatLogo, cfg.glassesColor, cfg.scar]);
   g.hair = cgeo(hk, mb => hairGeo(mb, cfg));
+  // bewegliche Teile (Sekundärbewegung)
+  if (cfg.hair === 'ponytail') g.tail = cgeo('ptail|' + cfg.hairColor, mb => { T_(mb, 0, 0, 0, () => mb.rbox(0.36, 0.26, 0.36, 0.1, '#ff6fa8')); T_(mb, 0, -0.62, -0.08, () => mb.rbox(0.5, 1.2, 0.5, 0.2, cfg.hairColor)); T_(mb, 0, -1.25, -0.1, () => mb.rbox(0.36, 0.3, 0.36, 0.14, shade(cfg.hairColor, 0.88))); });
+  if (cfg.hair === 'pigtails') g.ptail = cgeo('pig|' + cfg.hairColor, mb => { T_(mb, 0, 0, 0, () => mb.rbox(0.3, 0.24, 0.3, 0.08, '#ff6fa8')); T_(mb, 0, -0.55, 0, () => mb.rbox(0.45, 1.05, 0.45, 0.2, cfg.hairColor)); });
+  if (cfg.cape) { const c = cfg.cape === true ? '#c1121f' : cfg.cape; g.cape = cgeo('cape|' + c, mb => { const cc = col(c), ci = shade(c, 0.7); const A = [-1.05, 0, 0], B = [1.05, 0, 0], C = [1.5, -3.3, 0], D = [-1.5, -3.3, 0]; mb.quad(D, C, B, A, cc); mb.quad(A, B, C, D, ci); T_(mb, 0, 0.05, 0.05, () => mb.rbox(2.2, 0.22, 0.3, 0.1, shade(c, 0.85))); for (const s of [-1, 1]) T_(mb, s * 0.85, 0.02, 0.55, () => mb.sphere(0.13, 1, GOLD)); }); }
+  if (cfg.wings) { const c = cfg.wings === true ? '#ffffff' : cfg.wings; g.wing = cgeo('wing|' + c, mb => { for (let i = 0; i < 4; i++) T_(mb, 0.45 + i * 0.35, 0.3 - i * 0.28, 0, () => mb.rbox(0.5, 1.4 - i * 0.22, 0.12, 0.06, shade(c, 1 - i * 0.04))); }); }
+  if (cfg.hat === 'halo') g.halo = cgeo('halo', mb => { for (let i = 0; i < 20; i++) { const a = i / 20 * 6.28; T_(mb, Math.sin(a) * 0.7, 1.15, Math.cos(a) * 0.7, () => { mb.push(M4.RY(a)); mb.box(0.25, 0.1, 0.12, '#fff3a0'); mb.pop(); }); } });
   return (AVC[k] = g);
 }
-// P: Pose in Grad; S: Zustand {x,y,z,face(rad),scale}
+// P: Pose in Grad (Gelenke: a*=Schulter, e*=Ellbogen, l*=Hüfte, k*=Knie); S: Zustand {x,y,z,face(rad),scale, sec}
 function avatarItems(items, cfg, S, P) {
-  const g = avatarGeo(cfg), sc = (cfg.scale || 1) * (S.scale || 1);
-  const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0) * sc, S.z + (P.dz || 0)), M4.RY(S.face + (P.spin || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.S(sc));
-  const tb = P.tb || 0, sh = S.sh;
-  const torso = M4.chain(root, M4.T(0, 3 + tb, 0), M4.RY((P.tw || 0) * DEG));
-  const armL = M4.chain(root, M4.T(1.5, 3.88 + tb, 0), M4.RZ((P.aLz || 0) * DEG), M4.RX((P.aLx || 0) * DEG));
-  const armR = M4.chain(root, M4.T(-1.5, 3.88 + tb, 0), M4.RZ((P.aRz || 0) * DEG), M4.RX((P.aRx || 0) * DEG));
+  const g = avatarGeo(cfg), sc = (cfg.scale || 1) * (S.scale || 1), sq = P.sq || 0;
+  const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0) * sc, S.z + (P.dz || 0)), M4.RY(S.face + (P.spin || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.S(sc * (1 + sq * 0.5), sc * (1 - sq), sc * (1 + sq * 0.5)));
+  const tb = P.tb || 0, sh = S.sh, chr = { spec: 0.3, rim: 0.32, ao: 0 };
+  const torso = M4.chain(root, M4.T(0, 3 + tb, 0), M4.RY((P.tw || 0) * DEG), M4.RX((P.bx || 0) * DEG));
+  const armL = M4.chain(torso, M4.T(1.5, 0.88, 0), M4.RZ((P.aLz || 0) * DEG), M4.RX((P.aLx || 0) * DEG), M4.RY((P.aLy || 0) * DEG));
+  const armR = M4.chain(torso, M4.T(-1.5, 0.88, 0), M4.RZ((P.aRz || 0) * DEG), M4.RX((P.aRx || 0) * DEG), M4.RY((P.aRy || 0) * DEG));
+  const foreL = M4.chain(armL, M4.T(0, -0.95, 0), M4.RX(-(P.eL || 0) * DEG)), foreR = M4.chain(armR, M4.T(0, -0.95, 0), M4.RX(-(P.eR || 0) * DEG));
   const legL = M4.chain(root, M4.T(0.5, 2, 0), M4.RZ((P.lLz || 0) * DEG), M4.RX((P.lLx || 0) * DEG));
   const legR = M4.chain(root, M4.T(-0.5, 2, 0), M4.RZ((P.lRz || 0) * DEG), M4.RX((P.lRx || 0) * DEG));
-  const head = M4.chain(root, M4.T(0, 4.0 + tb, 0), M4.RY((P.hy || 0) * DEG), M4.RX((P.hx || 0) * DEG), M4.RZ((P.hz || 0) * DEG), M4.T(0, 0.7, 0));
-  const ft = faceTex(P.mood || 'happy', P.closed, P.open, 'human');
-  items.push({ g: g.torso, m: torso, tex: g.logo, sh }, { g: g.arm, m: armL, sh }, { g: g.arm, m: armR, sh }, { g: g.leg, m: legL, sh }, { g: g.leg, m: legR, sh }, { g: g.head, m: head, tex: ft, sh }, { g: g.hair, m: head, sh });
-  if (g.skirt) items.push({ g: g.skirt, m: root, sh });
-  return { root, head, armL, armR, handR: M4.mul(armR, M4.T(0, -1.95, 0)), handL: M4.mul(armL, M4.T(0, -1.95, 0)), top: M4.xp(root, [0, 5.6, 0]) };
+  const shinL = M4.chain(legL, M4.T(0, -1.0, 0), M4.RX((P.kL || 0) * DEG)), shinR = M4.chain(legR, M4.T(0, -1.0, 0), M4.RX((P.kR || 0) * DEG));
+  const head = M4.chain(torso, M4.T(0, 1.0, 0), M4.RY((P.hy || 0) * DEG), M4.RX((P.hx || 0) * DEG), M4.RZ((P.hz || 0) * DEG), M4.T(0, 0.7, 0));
+  const ft = faceTex(P.mood || 'happy', P.closed, P.open, 'human', { gx: P.gx || 0, lashes: cfg.lashes, freckles: cfg.freckles, eye: cfg.eyeColor });
+  const add = (gg, m, o = {}) => items.push({ g: gg, m, sh, ...chr, ...o });
+  add(g.torso, torso, { tex: g.tex }); add(g.uarm, armL); add(g.uarm, armR); add(g.larmL, foreL); add(g.larmR, foreR);
+  add(g.thigh, legL); add(g.thigh, legR); add(g.shin, shinL); add(g.shin, shinR); add(g.head, head, { tex: ft }); add(g.hair, head);
+  if (g.skirt) add(g.skirt, root);
+  const sec = S.sec || {};   // Sekundärbewegung: {swing (vorwärts/rückwärts), side, flap}
+  if (g.tail) add(g.tail, M4.chain(head, M4.T(0, 0.35, -0.82), M4.RX((18 + (sec.swing || 0) * 0.9) * DEG), M4.RZ((sec.side || 0) * DEG)));
+  if (g.ptail) for (const s of [-1, 1]) add(g.ptail, M4.chain(head, M4.T(s * 0.82, 0.25, -0.2), M4.RZ((s * 28 + (sec.side || 0) * 0.8 + s * Math.abs(sec.swing || 0) * 0.3) * DEG), M4.RX((sec.swing || 0) * 0.5 * DEG)));
+  if (g.cape) add(g.cape, M4.chain(torso, M4.T(0, 0.95, -0.56), M4.RX((6 + (sec.swing || 0) * 1.4) * DEG), M4.RZ((sec.side || 0) * 0.5 * DEG)), { sh });
+  if (g.wing) for (const s of [-1, 1]) add(g.wing, M4.chain(torso, M4.T(s * 0.3, 0.45, -0.6), M4.RY((s > 0 ? -1 : 1) * (25 + (sec.flap || 0)) * DEG + (s > 0 ? 0 : Math.PI))));
+  if (g.halo) items.push({ g: g.halo, m: head, e: 1, sh: false });
+  const handR = M4.mul(foreR, M4.T(0, -1.0, 0)), handL = M4.mul(foreL, M4.T(0, -1.0, 0));
+  return { root, head, torso, armL, armR, foreL, foreR, handR, handL, top: M4.xp(head, [0, 0.9, 0]) };
 }
 
 // ---------- Tiere ----------
@@ -305,7 +412,7 @@ function animalGeo(type) {
 }
 function animalItems(items, type, S, P, t) {
   const { parts, A } = animalGeo(type); const sc = (A.s || 1) * (S.scale || 1);
-  const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0), S.z), M4.RY(S.face + (P.spin || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.S(sc));
+  const sq = P.sq || 0; const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0), S.z), M4.RY(S.face + (P.spin || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.S(sc * (1 + sq * 0.5), sc * (1 - sq), sc * (1 + sq * 0.5)));
   let headM = null;
   for (const pt of parts) {
     let m; const [px, py, pz] = pt.p;
@@ -314,7 +421,7 @@ function animalItems(items, type, S, P, t) {
     else if (pt.kind === 'tail') m = M4.chain(root, M4.T(px, py + (P.tb || 0), pz), M4.RY((P.wag || 0) * DEG));
     else if (pt.kind === 'head') { m = M4.chain(root, M4.T(px, py + (P.tb || 0), pz), M4.RY((P.hy || 0) * DEG), M4.RX((P.hx || 0) * DEG), M4.RZ((P.hz || 0) * DEG)); headM = m; }
     else m = M4.chain(root, M4.T(px, py + (P.tb || 0), pz));
-    const it = { g: pt.g, m, sh: S.sh };
+    const it = { g: pt.g, m, sh: S.sh, spec: 0.25, rim: 0.3, ao: 0 };
     if (pt.face) it.tex = faceTex(P.mood || 'happy', P.closed, P.open, pt.face);
     items.push(it);
   }
@@ -375,7 +482,7 @@ const PROPS = {
   sandcastle: o => ({ parts: [{ g: cgeo('sandcastle', mb => { mb.box(3, 1, 3, '#e8c97a', { base: true }); for (const [x, z] of [[1.2, 1.2], [-1.2, 1.2], [1.2, -1.2], [-1.2, -1.2]]) { mb.push(M4.T(x, 0, z)); mb.cyl(0.5, 0.5, 2.0, 8, '#e8c97a'); mb.push(M4.T(0, 2, 0)); mb.cyl(0.55, 0, 0.7, 8, '#d9b45f'); mb.pop(); mb.pop(); } mb.push(M4.T(0, 1, 0)); mb.cyl(0.8, 0.8, 1.6, 8, '#e8c97a'); mb.pop(); }) }] }),
   palm: o => ({ parts: [{ g: cgeo('palm', mb => setPalm(mb, 0, 0, 1)) }] }),
   mailbox: o => ({ parts: [{ g: cgeo('mailbox', mb => setMailbox(mb)) }] }),
-  pool: o => ({ parts: [{ g: cgeo('poolrim|' + (o.w || 10) + '|' + (o.d || 6), mb => setPoolRim(mb, o.w || 10, o.d || 6)) }, { g: cgeo('poolwater|' + (o.w || 10) + '|' + (o.d || 6), mb => { mb.push(M4.T(0, 0.35, 0)); mb.hquad(o.w || 10, o.d || 6, '#3ec1ff'); mb.pop(); }), a: 0.82, e: 0.25, sh: false }] }),
+  pool: o => ({ parts: [{ g: cgeo('poolrim|' + (o.w || 10) + '|' + (o.d || 6), mb => setPoolRim(mb, o.w || 10, o.d || 6)) }, { g: cgeo('poolwater|' + (o.w || 10) + '|' + (o.d || 6), mb => { mb.push(M4.T(0, 0.35, 0)); mb.hquad(o.w || 10, o.d || 6, '#3ec1ff'); mb.pop(); }), a: 0.82, e: 0.1, sh: false, water: 1 }] }),
   flashlight: o => ({ parts: [{ g: cgeo('flbody', mb => { mb.cyl(0.22, 0.22, 1.0, 10, '#2b2b2b', { flat: false }); mb.push(M4.T(0, 1.0, 0)); mb.cyl(0.22, 0.34, 0.3, 10, '#555555', { flat: false }); mb.pop(); }) }, { g: cgeo('flhead', mb => { mb.push(M4.T(0, 1.31, 0)); mb.disc(0.32, 12, '#fff6b0'); mb.pop(); }), e: 1 }, { g: cgeo('flbeam', mb => { mb.push(M4.T(0, 1.33, 0)); mb.cyl(0.32, 2.3, 12, 20, '#ffe9a0', { flat: false, cap: false }); mb.pop(); }), e: 1, a: 0.32, sh: false, add: true }] }),
   blanket: o => { const w = o.w || 3.5, d = o.d || 4.2, c = o.color || '#e76f51'; return { parts: [{ g: cgeo(`blanket|${c}|${w}|${d}`, mb => { mb.rbox(w, 0.55, d, 0.25, c); mb.push(M4.T(0, 0.01, -d / 2 + 0.35)); mb.rbox(w + 0.06, 0.56, 0.62, 0.2, '#ffffff'); mb.pop(); }) }] }; },
   controller: o => ({ parts: [{ g: cgeo('controller|' + (o.color || '#2b2d42'), mb => { const c = o.color || '#2b2d42'; mb.push(M4.T(0, 0.3, 0)); mb.rbox(1.5, 0.32, 0.8, 0.14, c); for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.62, -0.02, 0.34), M4.RY(s * 0.35))); mb.rbox(0.46, 0.3, 0.8, 0.15, c); mb.pop(); } for (const s of [-1, 1]) { mb.push(M4.T(s * 0.26, 0.17, 0.12)); mb.cyl(0.13, 0.13, 0.1, 8, '#4a4e69'); mb.pop(); } mb.push(M4.T(-0.5, 0.16, -0.12)); mb.box(0.3, 0.06, 0.1, '#ced4da'); mb.box(0.1, 0.06, 0.3, '#ced4da'); mb.pop(); for (const [x, z, k] of [[0.5, -0.24, '#ffd23f'], [0.62, -0.12, '#e63946'], [0.38, -0.12, '#1e88e5'], [0.5, 0.0, '#2ecc71']]) { mb.push(M4.T(x, 0.17, z)); mb.cyl(0.06, 0.06, 0.06, 8, k); mb.pop(); } mb.pop(); }) }] }),
@@ -409,6 +516,19 @@ const PROPS = {
       mb.push(M4.chain(M4.T(Math.cos(a) * r, 0.14 + layer * 0.3, Math.sin(a) * r), M4.RY(R() * 3))); mb.rbox(sz * 1.3, sz * 0.8, sz, sz * 0.3, cols[i % cols.length]); mb.pop(); }
     if (o.egg) { mb.push(M4.T(0, 0.4, 0)); mb.sphere(0.32, 1, '#f5f0e6', { sy: 1.3 }); mb.pop(); }
   }) }] }; },
+  board: o => ({ parts: [{ g: cgeo('board|' + (o.w || 6) + '|' + (o.d || 3.6) + '|' + (o.color || '#c8955a'), mb => { const w = o.w || 6, d = o.d || 3.6, c = o.color || '#c8955a'; mb.push(M4.T(0, 0.15, 0)); mb.rbox(w, 0.3, d, 0.08, c); mb.pop(); for (let i = 0; i < 6; i++) { mb.push(M4.T(0, 0.305, -d / 2 + 0.35 + i * (d - 0.7) / 5)); mb.box(w - 0.4, 0.01, 0.03, shade(c, 0.9)); mb.pop(); } }) }] }),
+  tray: o => ({ parts: [{ g: cgeo('tray|' + (o.w || 7) + '|' + (o.d || 4.4), mb => { const w = o.w || 7, d = o.d || 4.4; mb.push(M4.T(0, 0.04, 0)); mb.box(w, 0.08, d, '#b9c0c7'); mb.pop(); for (const [x, z, lw, ld] of [[0, -d / 2, w, 0.12], [0, d / 2, w, 0.12], [-w / 2, 0, 0.12, d], [w / 2, 0, 0.12, d]]) { mb.push(M4.T(x, 0.16, z)); mb.box(lw, 0.24, ld, '#d5dbe0'); mb.pop(); } }) }] }),
+  cabbage: o => ({ parts: [{ g: cgeo('cabbage|' + (o.color || '#6a2c70'), mb => { const c = o.color || '#6a2c70'; mb.push(M4.T(0, 1.0, -0.5)); mb.sphere(1.25, 2, c, { sz: 0.55 }); mb.pop();
+    const rings = [[1.18, c], [1.02, '#efe1f0'], [0.9, '#8a3a91'], [0.76, '#f3e7f4'], [0.62, '#7a2f80'], [0.48, '#efe1f0'], [0.34, '#93449a'], [0.2, '#f6eef7']];
+    rings.forEach(([r, col], i) => { mb.push(M4.chain(M4.T(0, 1.0, 0.19 + i * 0.012), M4.RX(Math.PI / 2))); mb.cyl(r, r, 0.02, 20, col); mb.pop(); }); }) }] }),
+  shreds: o => { const n = o.n || 150, r = o.r || 1.4, c = o.color || '#7b2d8b', c2 = o.color2 || shade(c, 1.35); return { parts: [{ g: cgeo('shreds|' + n + '|' + r + '|' + c, mb => { const R = rng(n + Math.round(r * 10));
+    for (let i = 0; i < n; i++) { const a = R() * 6.283, d = Math.sqrt(R()) * r, h = (1 - d / r) * r * 0.55 * (0.6 + 0.4 * R()); mb.push(M4.chain(M4.T(Math.cos(a) * d, 0.04 + h, Math.sin(a) * d * 0.8), M4.RY(R() * 6.283), M4.RZ((R() - 0.5) * 0.5))); mb.box(0.03 + R() * 0.025, 0.025, 0.35 + R() * 0.55, i % 3 ? c : c2); mb.pop(); } }) }] }; },
+  radish: o => ({ parts: [{ g: cgeo('radish|' + (o.len || 2.4), mb => { const L = o.len || 2.4; mb.cyl(0.42, 0.38, L, 16, '#f5f2e8', { flat: false, top: '#e9f2dc' }); mb.push(M4.T(0, L, 0)); mb.cyl(0.3, 0.3, 0.05, 14, '#a8c97f'); mb.pop(); }) }] }),
+  meat: o => ({ parts: [{ g: cgeo('meatroll|' + (o.len || 3.2), mb => { const L = o.len || 3.2; mb.push(M4.chain(M4.T(L / 2, 0.95, 0), M4.RZ(Math.PI / 2))); mb.cyl(0.95, 0.95, L, 22, '#e7a3a0', { flat: false }); mb.pop();
+    for (const [r, col] of [[0.95, '#f4d7d3'], [0.8, '#e08f8c'], [0.62, '#f3d3cf'], [0.5, '#d97f7c'], [0.3, '#f0c8c3']]) { mb.push(M4.chain(M4.T(L / 2 + 0.02 + (0.95 - r) * 0.02, 0.95, 0), M4.RZ(Math.PI / 2))); mb.cyl(r, r, 0.02, 22, col); mb.pop(); } }) }] }),
+  meatslice: o => ({ parts: [{ g: cgeo('meatslice', mb => { mb.push(M4.T(0, 0.05, 0)); mb.cyl(0.95, 0.95, 0.1, 22, '#e7a3a0', { flat: false, top: '#e9a8a5' }); mb.pop(); for (const [r, col] of [[0.8, '#f4d7d3'], [0.66, '#e29895'], [0.42, '#f3d3cf']]) { mb.push(M4.T(0, 0.105, 0)); mb.cyl(r, r, 0.01, 22, col); mb.pop(); } }) }] }),
+  helper: o => ({ parts: [{ g: cgeo('kitchenhelper', mb => { mb.push(M4.T(0, -0.55, 0)); mb.rbox(0.26, 1.2, 0.3, 0.1, '#8a5a34'); mb.pop(); mb.push(M4.T(0, 0.12, 0)); mb.box(0.18, 0.2, 0.22, '#9aa1a8'); mb.pop();
+    mb.push(M4.T(0, 0.42, 0)); mb.box(1.1, 0.42, 0.06, '#d9dee3'); mb.pop(); for (let i = 0; i < 9; i++) { mb.push(M4.T(-0.48 + i * 0.12, 0.68, 0)); mb.box(0.05, 0.12, 0.05, '#c3c9cf'); mb.pop(); } mb.push(M4.T(0, 0.42, 0.035)); mb.box(0.9, 0.05, 0.01, '#7d858d'); mb.pop(); }) }] }),
   bigtext: o => ({ parts: [{ g: cgeo('bigtext|' + (o.w || 6) + '|' + (o.h || 2), mb => { mb.push(M4.T(0, (o.h || 2) / 2, 0)); mb.box(o.w || 6, o.h || 2, 0.1, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ffd23f', fg: o.fg || '#1d1712', border: o.border === undefined ? '#1d1712' : o.border, tw: 512, th: Math.round(512 * (o.h || 2) / (o.w || 6)) }) }] }),
 };
 
@@ -482,8 +602,10 @@ function setPalm(mb, x, z, s = 1) {
 }
 function setPoolRim(mb, w, d) { for (const [x, z, sx, sz] of [[0, d / 2 + 0.4, w + 1.6, 0.8], [0, -d / 2 - 0.4, w + 1.6, 0.8], [w / 2 + 0.4, 0, 0.8, d], [-w / 2 - 0.4, 0, 0.8, d]]) { mb.push(M4.T(x, 0.3, z)); mb.box(sx, 0.6, sz, '#f1f1f1'); mb.pop(); } mb.push(M4.T(0, 0.05, 0)); mb.box(w, 0.1, d, '#1f8fd6'); mb.pop(); }
 
+const SWAYP = { tree: 1, pine: 1, palm: 1, bush: 1, flower: 1 };
 function propItems(items, type, o, M) {
   const f = PROPS[type]; if (!f) return;
   const P = f(o);
-  for (const p of P.parts) items.push({ g: p.g, m: M, tex: p.tex, e: p.e !== undefined ? p.e : (o.glow || 0), a: p.a !== undefined ? p.a : o.alpha, sh: p.sh !== undefined ? p.sh : true, add: p.add, tint: o.tint ? col(o.tint) : undefined });
+  const sway = SWAYP[type] ? 1 : 0;
+  for (const p of P.parts) items.push({ g: p.g, m: M, tex: p.tex, e: p.e !== undefined ? p.e : (o.glow || 0), a: p.a !== undefined ? p.a : o.alpha, sh: p.sh !== undefined ? p.sh : true, add: p.add, tint: o.tint ? col(o.tint) : undefined, sway, water: p.water, spec: p.spec, rim: p.rim });
 }

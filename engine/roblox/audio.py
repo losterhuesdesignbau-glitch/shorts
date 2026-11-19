@@ -211,6 +211,12 @@ def sfx(name):
         for k, m in enumerate((72, 76, 79, 84)):
             y = tone(midi(m), 0.8 - k * 0.1, (1, 0.5, 0.3), 0.3); i = int(k * 0.09 * SR); out[i:i + len(y)] += y[: len(out) - i] * 0.35
         return out
+    if name == 'chop':
+        n = int(0.09 * SR); t = np.arange(n) / SR
+        return (hp(noise(0.09, 12), 1800) * env(n, 0.0005, 0.018) * 0.9 + np.sin(2 * np.pi * 140 * t) * np.exp(-t * 60) * 0.5)
+    if name == 'shred':
+        n = int(0.22 * SR); t = np.linspace(0, 1, n)
+        return bp(noise(0.22, 13), 2500, 7000) * (np.sin(np.pi * t) ** 0.6) * (0.6 + 0.4 * np.sin(2 * np.pi * 38 * t)) * 0.8
     if name == 'tick':
         return hp(noise(0.03, 10), 3000) * env(int(0.03 * SR), 0.0005, 0.006)
     if name == 'snore':

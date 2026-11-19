@@ -12,27 +12,40 @@ const ENVS = {
 function envMix(a, b, t) { const o = {}; for (const k in a) { const va = a[k], vb = b[k]; if (typeof va === 'number') o[k] = lerp(va, vb, t); else if (Array.isArray(va)) o[k] = va.map((x, i) => lerp(x, vb[i], t)); else if (typeof va === 'string' && va[0] === '#') o[k] = mixc(va, vb, t); else o[k] = t < 0.5 ? va : vb; } return o; }
 
 const LOOKS = {
-  boy: { hair: 'spiky', hairColor: '#5a3418', shirt: '#2f6fe0', logo: 'star', pants: '#22355e' },
-  girl: { hair: 'ponytail', hairColor: '#7a3e1d', shirt: '#f15bb5', logo: 'heart', logoBg: '#ffffff', logoColor: '#f15bb5', pants: '#3d405b' },
-  man: { hair: 'short', hairColor: '#2b1b12', shirt: '#2a9d8f', pants: '#2b2b2b' },
-  woman: { hair: 'long', hairColor: '#5a3418', shirt: '#9b5de5', pants: '#22355e' },
-  dad: { hair: 'short', hairColor: '#3b2a1a', shirt: '#1e88e5', pants: '#3d405b', mustache: true },
-  mom: { hair: 'bun', hairColor: '#7a3e1d', shirt: '#ef476f', pants: '#264653' },
-  grandpa: { hair: 'bald', hairColor: '#e0e0e0', shirt: '#8d6e63', pants: '#4e342e', mustache: true, scale: 0.95 },
-  grandma: { hair: 'bun', hairColor: '#d6d6d6', shirt: '#b388eb', pants: '#5c4d7d', glasses: true, scale: 0.93 },
-  teacher: { hair: 'short', hairColor: '#4a2f1b', shirt: '#ffffff', pants: '#2b2b2b', glasses: true, belt: '#3b3b3b' },
-  cop: { hair: 'cap', hatColor: '#1d3557', shirt: '#1d3557', pants: '#14213d', logo: 'star', logoColor: '#ffd23f', logoBg: '#1d3557' },
-  chef: { hair: 'short', hat: 'chef', shirt: '#ffffff', pants: '#2b2b2b' },
-  king: { hair: 'short', hairColor: '#8b5a2b', hat: 'crown', shirt: '#b5179e', pants: '#3a0ca3', beard: true },
-  kid: { hair: 'spiky', shirt: '#ffb703', scale: 0.86 },
-  mayor: { hair: 'short', hairColor: '#555555', hat: 'tophat', shirt: '#2b2d42', pants: '#2b2d42', mustache: true, logo: 'none' },
+  boy: { hair: 'spiky', hairColor: '#5a3418', shirt: '#2f6fe0', logo: 'star', pants: '#22355e', shoes: '#e63946', backpack: '#ffb703', watch: true },
+  girl: { hair: 'ponytail', hairColor: '#7a3e1d', shirt: '#f15bb5', logo: 'heart', logoBg: '#ffffff', logoColor: '#f15bb5', pants: '#3d405b', shoes: '#ffffff', sole: '#f15bb5', lashes: true, bow: '#ffd23f', earrings: true },
+  man: { hair: 'side', hairColor: '#2b1b12', shirt: '#2a9d8f', pants: '#2b2b2b', watch: true, jacket: '#264653', shoes: '#5c4033', sole: '#3b2a1a' },
+  woman: { hair: 'long', hairColor: '#5a3418', shirt: '#9b5de5', pants: '#22355e', lashes: true, earrings: true, chain: true, shoes: '#f15bb5' },
+  dad: { hair: 'short', hairColor: '#3b2a1a', shirt: '#1e88e5', pants: '#3d405b', mustache: true, pattern: 'plaid', patternColor: '#0d47a1', watch: true, shoes: '#5c4033', sole: '#3b2a1a' },
+  mom: { hair: 'bun', hairColor: '#7a3e1d', shirt: '#ef476f', pants: '#264653', lashes: true, earrings: true, apron: '#fff3d6' },
+  grandpa: { hair: 'bald', hairColor: '#e0e0e0', shirt: '#8d6e63', pants: '#4e342e', mustache: true, glasses: true, vest: '#6d4c41', buttons: true, scale: 0.95, shoes: '#3b2a1a', sole: '#2b2b2b' },
+  grandma: { hair: 'bun', hairColor: '#d6d6d6', shirt: '#b388eb', pants: '#5c4d7d', glasses: true, lashes: true, scarf: '#ef476f', chain: '#ffffff', scale: 0.93 },
+  teacher: { hair: 'short', hairColor: '#4a2f1b', shirt: '#ffffff', pants: '#2b2b2b', glasses: true, belt: '#3b3b3b', tie: '#1e6fd9', buttons: true, shoes: '#3b2a1a', sole: '#2b2b2b' },
+  cop: { hair: 'cap', hatColor: '#1d3557', shirt: '#1d3557', pants: '#14213d', badge: true, belt: '#111111', shades: true, shoes: '#111111', sole: '#111111' },
+  chef: { hair: 'short', hat: 'chef', shirt: '#ffffff', pants: '#2b2b2b', apron: '#f1f1f1', scarf: '#e63946', buttons: true },
+  king: { hair: 'short', hairColor: '#8b5a2b', hat: 'crown', shirt: '#b5179e', pants: '#3a0ca3', beard: true, cape: '#c1121f', chain: true, shoes: '#3a0ca3', sole: '#f5c518' },
+  kid: { hair: 'spiky', shirt: '#ffb703', scale: 0.86, shorts: true, backpack: '#1e88e5', freckles: true, shoes: '#1e88e5' },
+  mayor: { hair: 'short', hairColor: '#555555', hat: 'tophat', shirt: '#2b2d42', pants: '#2b2d42', mustache: true, logo: 'none', sash: '#e63946', bowtie: '#e63946', jacket: '#1b1b2f' },
+  gamer: { hair: 'messy', hairColor: '#111111', shirt: '#7209b7', logo: 'bolt', logoBg: '#3a0ca3', headphones: '#2b2d42', hoodie: true, pants: '#1b1b1b', shoes: '#4cc9f0' },
+  hero: { hair: 'short', hairColor: '#1b1b1b', shirt: '#1e40af', logo: 'bolt', logoBg: '#facc15', logoColor: '#1e40af', pants: '#1e3a8a', cape: '#dc2626', belt: '#facc15', boots: true, shoes: '#dc2626', sole: '#991b1b' },
+  wizard: { hair: 'long', hairColor: '#e0e0e0', hat: 'wizard', hatColor: '#3a0ca3', shirt: '#4c1d95', pants: '#4c1d95', beard: true, cape: '#312e81', sash: '#facc15' },
+  student: { hair: 'curly', hairColor: '#3b2a1a', shirt: '#06d6a0', pattern: 'stripes', patternColor: '#ffffff', pants: '#22355e', backpack: '#ef476f', glasses: true, shoes: '#ffffff', sole: '#ef476f' },
+  worker: { hair: 'short', hat: 'hardhat', hatColor: '#ffc300', shirt: '#ff7f11', vest: '#ffd23f', pants: '#22355e', boots: true, shoes: '#5c4033', sole: '#2b2b2b', beard: true },
+  cowboy: { hair: 'short', hairColor: '#8b5a2b', hat: 'cowboy', hatColor: '#8b5a2b', shirt: '#c0392b', pattern: 'plaid', patternColor: '#7f1d1d', pants: '#1e3a8a', belt: '#5c4033', boots: true, shoes: '#6b3e26', scarf: '#ffd23f' },
 };
 const SKINS = ['#f5c79a', '#e0a878', '#c68642', '#8d5524', '#ffdbac', '#f1c27d'];
 const SHIRTS = ['#e63946', '#1e88e5', '#2a9d8f', '#ffb703', '#9b5de5', '#f15bb5', '#00bbf9', '#fb8500', '#06d6a0', '#ef476f', '#118ab2', '#ffd166'];
 const PANTS = ['#22355e', '#2b2b2b', '#3d405b', '#264653', '#5c4033', '#1d3557'];
-const HAIRS = ['short', 'spiky', 'long', 'ponytail', 'bun', 'cap', 'afro', 'beanie', 'short', 'pigtails'];
+const HAIRS = ['short', 'spiky', 'long', 'ponytail', 'bun', 'cap', 'afro', 'beanie', 'side', 'pigtails', 'bob', 'curly', 'buzz'];
 const HAIRC = ['#2b1b12', '#5a3418', '#8b5a2b', '#d4a017', '#111111', '#b5523b'];
-function npcCfg(seed) { const r = rng(seed * 7919 + 13), pk = a => a[Math.floor(r() * a.length)]; return { ...AVDEF, skin: pk(SKINS), shirt: pk(SHIRTS), pants: pk(PANTS), hair: pk(HAIRS), hairColor: pk(HAIRC), hatColor: pk(SHIRTS), logo: r() < 0.35 ? pk(['star', 'heart', 'bolt', 'smile']) : 'none', logoColor: '#ffffff', logoBg: pk(SHIRTS), sleeves: r() < 0.3 ? 'short' : 'long' }; }
+function npcCfg(seed) { const r = rng(seed * 7919 + 13), pk = a => a[Math.floor(r() * a.length)]; return { ...AVDEF, skin: pk(SKINS), shirt: pk(SHIRTS), pants: pk(PANTS), hair: pk(HAIRS), hairColor: pk(HAIRC), hatColor: pk(SHIRTS), logo: r() < 0.35 ? pk(['star', 'heart', 'bolt', 'smile']) : 'none', logoColor: '#ffffff', logoBg: pk(SHIRTS), sleeves: r() < 0.3 ? 'short' : 'long', shoes: pk(['#2b2b2b', '#ffffff', '#e63946', '#1e88e5', '#5c4033']), ...npcAcc(r, pk) }; }
+function npcAcc(r, pk) {
+  const o = {}, c = () => pk(SHIRTS);
+  if (r() < 0.22) o.backpack = c(); if (r() < 0.15) o.glasses = true; else if (r() < 0.1) o.shades = true;
+  if (r() < 0.12) o.headphones = true; if (r() < 0.15) o.watch = true; if (r() < 0.1) o.scarf = c(); if (r() < 0.12) o.jacket = pk(PANTS);
+  if (r() < 0.1) o.hoodie = true; if (r() < 0.1) o.pattern = pk(['stripes', 'dots']); if (r() < 0.08) o.chain = true; if (r() < 0.12) o.shorts = true;
+  if (r() < 0.07) o.hat = pk(['cowboy', 'beret', 'bandana']); return o;
+}
 function cfgFor(id, a) {
   const c = (R.ep.cast && R.ep.cast[id]) || {};
   const animal = a.animal || c.animal; if (animal) return { animal, scale: a.scale || c.scale || 1 };
@@ -46,66 +59,96 @@ function timed(v, u, def) { if (v === undefined || v === null) return [def, u, 0
 function pt3(p, dy = 0) { if (!p) return [0, dy, 0]; return p.length === 3 ? [p[0], p[1], p[2]] : [p[0], dy, p[1]]; }
 
 // ---------- Posen ----------
+// glattes Rauschen (für Blicke, Gewichtsverlagerung) – deterministisch
+function n1(t, seed) { const i = Math.floor(t), f = t - i, a = rng(i * 131 + seed * 7 + 1)(), b = rng((i + 1) * 131 + seed * 7 + 1)(); return lerp(a, b, f * f * (3 - 2 * f)) * 2 - 1; }
+// Sprung mit Ausholen, Flugparabel und Landung (Squash & Stretch). p: Phase 0..1
+function jumpArc(p, H) {
+  const o = { y: 0, k: 4, c: 0, air: 0, sq: 0 };
+  if (p < 0.18) { const c = smooth(p / 0.18); o.y = -0.42 * c; o.k = 70 * c; o.c = c; o.sq = 0.1 * c; }
+  else if (p < 0.8) { const q = (p - 0.18) / 0.62; o.y = H * 4 * q * (1 - q); o.air = Math.sin(q * Math.PI); o.k = 18 + 14 * q; o.sq = -0.09 * Math.max(0, 1 - q * 3) - 0.04 * Math.max(0, q * 3 - 2); }
+  else { const l = (p - 0.8) / 0.2, c = Math.sin(l * Math.PI) * (1 - l * 0.4); o.y = -0.36 * c; o.k = 62 * c; o.c = c; o.sq = 0.13 * c; }
+  return o;
+}
 function pose(act, t, k, A) {
-  const P = { y: 0, tb: 0, aLx: 0, aLz: 5, aRx: 0, aRz: -5, lLx: 0, lRx: 0, hx: 0, hy: 0, hz: 0, rx: 0, rz: 0, spin: 0 };
-  const s = Math.sin, ph = A.ph;
-  const idle = () => { P.tb = 0.04 * s(t * 2.2 + ph); P.aLz = 5 + 2 * s(t * 2.2 + ph); P.aRz = -P.aLz; P.hx = 2 * s(t * 1.3 + ph); P.hy = 5 * s(t * 0.7 + ph); };
-  const walkC = (amp, lean) => { const q = s(A.cyc); P.lLx = amp * q; P.lRx = -amp * q; P.aLx = -amp * 0.85 * q; P.aRx = amp * 0.85 * q; P.y = Math.abs(Math.cos(A.cyc)) * 0.13 * amp / 32; P.rx = lean; P.hx = -lean * 0.5; };
+  const P = { y: 0, tb: 0, aLx: 0, aLz: 5, aRx: 0, aRz: -5, eL: 8, eR: 8, lLx: 0, lRx: 0, kL: 2, kR: 2, hx: 0, hy: 0, hz: 0, rx: 0, rz: 0, spin: 0, sq: 0, gx: 0 };
+  const s = Math.sin, ph = A.ph, sd = Math.floor(ph * 1000);
+  const idle = (calm = 1) => {
+    const w = s(t * 0.7 + ph);
+    P.tb = 0.035 * s(t * 2.0 + ph); P.rz = 1.3 * w * calm; P.kL = 3 + 6 * Math.max(0, w) * calm; P.kR = 3 + 6 * Math.max(0, -w) * calm; P.y = -0.03 * Math.abs(w) * calm;
+    P.aLz = 5 + 2 * s(t * 2.0 + ph) + 1.5 * w; P.aRz = -5 - 2 * s(t * 2.0 + ph) + 1.5 * w; P.aLx = -4 + 3 * s(t * 0.9 + ph); P.aRx = -4 + 3 * s(t * 0.8 + ph + 1);
+    P.eL = 12 + 4 * s(t * 1.1 + ph); P.eR = 12 + 4 * s(t * 1.2 + ph + 2);
+    P.hx = 2 * s(t * 1.3 + ph) + 3 * n1(t * 0.35, sd + 3); P.hy = 10 * n1(t * 0.45, sd) * calm; P.hz = -P.rz * 0.6;
+    const g = n1(t * 0.55, sd + 9); P.gx = g > 0.55 ? 1 : g < -0.55 ? -1 : 0;
+  };
+  const walkC = (amp, lean, kn, el) => {
+    const q = s(A.cyc), c = Math.cos(A.cyc), r = amp / 32;
+    P.lLx = amp * q; P.lRx = -amp * q; P.kL = 8 + kn * Math.max(0, -c) * (0.4 + 0.6 * Math.max(0, -q)); P.kR = 8 + kn * Math.max(0, c) * (0.4 + 0.6 * Math.max(0, q));
+    P.aLx = -amp * 0.8 * q; P.aRx = amp * 0.8 * q; P.eL = el + 14 * Math.max(0, -q) * r; P.eR = el + 14 * Math.max(0, q) * r; P.aLz = 6; P.aRz = -6;
+    P.y = (Math.abs(c) * 0.16 - 0.06) * r; P.rx = lean; P.tw = 7 * q * r; P.hy = -P.tw * 0.7; P.hx = -lean * 0.5 + 2 * Math.abs(c); P.rz = 2 * q * r;
+  };
   switch (act) {
-    case 'walk': walkC(32, 2); break;
-    case 'run': walkC(58, 12); P.aLz = 12; P.aRz = -12; break;
-    case 'sneak': walkC(22, 16); P.y -= 0.35; P.aLx = -55; P.aRx = -55; break;
-    case 'wave': idle(); P.aRz = -150 + 18 * s(t * 11); P.aRx = 0; P.hz = 6; break;
-    case 'wave2': idle(); P.aRz = -150 + 18 * s(t * 11); P.aLz = 150 - 18 * s(t * 11 + 1); break;
-    case 'cheer': { const j = Math.abs(s(t * 6.5 + ph)); P.y = j * 0.9; P.aLz = 155 + 12 * s(t * 13); P.aRz = -155 - 12 * s(t * 13); P.lLx = -12 * j; P.lRx = -12 * j; break; }
-    case 'jump': { const j = Math.abs(s(t * 4.6 + ph)); P.y = j * 2.6; P.aLz = 40 + 110 * j; P.aRz = -P.aLz; P.lLx = -25 * j; P.lRx = 25 * j; break; }
-    case 'point': idle(); P.aRx = -90; P.aRz = -4; break;
-    case 'pointup': idle(); P.aRx = -170; P.aRz = -10; P.hx = -12; break;
-    case 'talk': idle(); P.aRx = -28 - 16 * s(t * 3.1 + ph); P.aRz = -12; P.aLx = -10 - 8 * s(t * 2.3); P.hx = 3 * s(t * 6.5); P.hz = 3 * s(t * 2.1); break;
-    case 'dance': { const b = s(t * 8 + ph); P.rz = 7 * b; P.y = Math.abs(b) * 0.35; P.aLz = 100 + 40 * s(t * 8); P.aRz = -100 + 40 * s(t * 8); P.lLz = 12 * Math.max(0, b); P.lRz = 12 * Math.min(0, b); P.hz = -6 * b; break; }
-    case 'sit': P.y = -0.85; P.lLx = -90; P.lRx = -90; P.aLx = -35; P.aRx = -35; P.hx = 2 * s(t * 1.3 + ph); P.tb = 0.03 * s(t * 2.2 + ph); break;
-    case 'sitdesk': P.y = -0.85; P.lLx = -90; P.lRx = -90; P.aLx = -75; P.aRx = -75; P.aLz = -6; P.aRz = 6; P.hx = 6 + 2 * s(t * 1.3 + ph); break;
-    case 'sleep': case 'lie': P.y = 0.55; P.rx = -90; P.aLz = 8; P.aRz = -8; P.tb = 0.05 * s(t * 1.6); break;
-    case 'yawn': { const e = smooth(Math.min(1, k * 4)) * (1 - smooth((k - 0.8) * 5)); idle(); P.aLz = 5 + 150 * e; P.aRz = -P.aLz; P.hx = -7 * e; P.tb = 0.12 * e; break; }
-    case 'stretch': { const e = smooth(Math.min(1, k * 4)); idle(); P.aLz = 5 + 160 * e; P.aRz = -P.aLz; P.hx = -10 * e; P.y = 0.15 * e; break; }
-    case 'throw': { const r = A.rel ?? 0.5; let a; if (k < r) a = lerp(0, 75, smooth(k / r)); else a = lerp(75, -135, smooth((k - r) / 0.12)); P.aRx = a; P.aRz = -10; P.rx = k < r ? -5 : 9; P.lLx = k >= r ? -22 : 0; P.aLx = -35; break; }
-    case 'fall': { const e = easeIn(Math.min(1, k * 2.5)); P.rx = -90 * e; P.y = 0.55 * e; P.aLz = 5 + 80 * e; P.aRz = -P.aLz; P.lLx = -20 * e; break; }
-    case 'faint': { const e = easeIn(Math.min(1, k * 2.5)); P.rz = 90 * e; P.y = 1.0 * e; P.aLz = 5 + 40 * e; P.aRz = -P.aLz; break; }
-    case 'spin': P.spin = t * 720; P.aLz = 85; P.aRz = -85; P.y = 0.3 * Math.abs(s(t * 6)); break;
-    case 'scared': idle(); P.dx = 0.07 * s(t * 60); P.aLx = -130; P.aRx = -130; P.aLz = -22; P.aRz = 22; P.hx = 8; break;
-    case 'shrug': { idle(); const e = 0.5 + 0.5 * s(t * 3); P.aLz = 35 + 15 * e; P.aRz = -P.aLz; P.aLx = -40; P.aRx = -40; P.hz = 10 * e; P.tb = 0.08 * e; break; }
-    case 'clap': { idle(); const c = s(t * 18); P.aLx = -70; P.aRx = -70; P.aLz = -14 - 10 * c; P.aRz = 14 + 10 * c; break; }
-    case 'think': idle(); P.aRx = -140; P.aRz = 24; P.hz = 8; P.hx = -6; break;
-    case 'nod': idle(); P.hx = 12 * s(t * 9); break;
-    case 'no': idle(); P.hy = 24 * s(t * 9); break;
-    case 'facepalm': idle(); P.aRx = -158; P.aRz = 26; P.hx = 15; break;
-    case 'look': idle(); P.hy = 42 * s(t * 1.8); break;
-    case 'lookup': idle(); P.hx = -25; break;
-    case 'carry': idle(); P.aLx = -80; P.aRx = -80; P.aLz = -8; P.aRz = 8; break;
-    case 'hold': idle(); P.aRx = -60; break;
-    case 'piano': { const m = s(t * 13 + ph), m2 = s(t * 11 + ph + 1.7); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.aLx = -66 + 5 * m; P.aRx = -66 + 5 * m2; P.aLz = -8; P.aRz = 8; P.hx = 8 + 3 * s(t * 2.4 + ph); P.hz = 4 * s(t * 1.2 + ph); P.rz = 2.5 * s(t * 1.2 + ph); break; }
-    case 'game': { idle(); const m = s(t * 17 + ph); P.aLx = -42 + 3 * m; P.aRx = -42 - 3 * m; P.aLz = -36; P.aRz = 36; P.hx = 4; P.tb = 0.03 * Math.abs(s(t * 7 + ph)); break; }
-    case 'sitgame': { const m = s(t * 17 + ph); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.aLx = -55 + 3 * m; P.aRx = -55 - 3 * m; P.aLz = -36; P.aRz = 36; P.hx = 4 + 2 * s(t * 1.3 + ph); P.tb = 0.03 * s(t * 2.2 + ph); break; }
-    case 'laugh': idle(); P.tb = 0.08 * Math.abs(s(t * 14)); P.hx = -14 + 4 * s(t * 14); P.aLx = -40; P.aRx = -40; P.aLz = -15; P.aRz = 15; break;
-    case 'cry': idle(); P.aLx = -150; P.aRx = -150; P.aLz = -18; P.aRz = 18; P.hx = 14; P.tb = 0.04 * s(t * 12); break;
-    case 'angry': idle(); P.aLz = 25; P.aRz = -25; P.aLx = -15; P.aRx = -15; P.tb = 0.03 * s(t * 20); P.dx = 0.03 * s(t * 40); break;
-    case 'kick': { idle(); const e = s(clamp(k * 2, 0, 1) * Math.PI); P.lRx = -85 * e; P.aLx = 25 * e; P.rx = -6 * e; break; }
-    case 'punch': idle(); P.aRx = -90 * Math.max(0, s(t * 10)); P.aLx = -40; break;
-    case 'hop': P.y = Math.abs(s(t * 6 + ph)) * 1.2; P.aLz = 30; P.aRz = -30; break;
-    case 'bow': idle(); P.rx = 32 * s(clamp(k, 0, 1) * Math.PI); break;
-    case 'float': P.y = 2 + 0.4 * s(t * 2); P.aLz = 60; P.aRz = -60; P.lLx = 10; P.lRx = -10; break;
-    case 'freeze': P.aLz = 30; P.aRz = -30; P.aLx = -20; P.aRx = -20; break;
+    case 'walk': walkC(32, 3, 38, 14); break;
+    case 'run': walkC(58, 14, 85, 80); P.aLz = 12; P.aRz = -12; break;
+    case 'sneak': walkC(20, 18, 30, 60); P.y -= 0.45; P.kL += 40; P.kR += 40; P.lLx -= 25; P.lRx -= 25; P.aLx = -50; P.aRx = -50; P.aLz = -8; P.aRz = 8; break;
+    case 'wave': idle(); P.aRz = -110; P.aRy = -90; P.aRx = 0; P.eR = 75 + 28 * s(t * 11); P.hz = 6; break;
+    case 'wave2': idle(); P.aRz = -110; P.aRy = -90; P.eR = 75 + 28 * s(t * 11); P.aLz = 110; P.aLy = 90; P.eL = 75 + 28 * s(t * 11 + 1); break;
+    case 'cheer': { const j = jumpArc(((t + ph * 0.1) / 0.62) % 1, 0.9); P.y = j.y; P.kL = P.kR = j.k; P.lLx = P.lRx = -j.k * 0.45; P.sq = j.sq; P.aLz = 160 + 10 * s(t * 13); P.aRz = -160 - 10 * s(t * 13); P.eL = P.eR = 15 + 15 * s(t * 13); P.hx = -8; P.lift = Math.max(0, j.y); break; }
+    case 'jump': { const j = jumpArc(((t + ph * 0.1) / 0.95) % 1, 2.6); P.y = j.y; P.kL = P.kR = j.k; P.lLx = P.lRx = -j.k * 0.5; P.sq = j.sq; P.bx = 12 * j.c; P.aLz = 20 + 140 * j.air; P.aRz = -P.aLz; P.aLx = P.aRx = 35 * j.c; P.eL = P.eR = 15; P.hx = -6 * j.air; P.lift = Math.max(0, j.y); break; }
+    case 'hop': { const j = jumpArc(((t + ph * 0.1) / 0.5) % 1, 1.1); P.y = j.y; P.kL = P.kR = j.k; P.lLx = P.lRx = -j.k * 0.45; P.sq = j.sq; P.aLz = 30 + 20 * j.air; P.aRz = -P.aLz; P.eL = P.eR = 30; P.lift = Math.max(0, j.y); break; }
+    case 'point': idle(0.5); P.aRx = -88; P.aRz = -4; P.eR = 4; P.hy = 0; break;
+    case 'pointup': idle(0.5); P.aRx = -170; P.aRz = -10; P.eR = 5; P.hx = -12; break;
+    case 'talk': idle(0.7); P.aRx = -22 - 14 * s(t * 3.1 + ph); P.aRz = -10; P.eR = 45 + 25 * s(t * 2.3 + 1); P.aLx = -12 - 8 * s(t * 2.3); P.eL = 30 + 18 * s(t * 2.7 + 2); P.hx = 3 * s(t * 6.5) + 2; P.hz = 3 * s(t * 2.1); break;
+    case 'dance': { const b = s(t * 8 + ph), c = Math.abs(b); P.rz = 7 * b; P.y = c * 0.3 - 0.2; P.kL = P.kR = 20 + 20 * c; P.lLx = P.lRx = -10 * c; P.aLz = 70 + 35 * s(t * 8); P.aRz = -70 + 35 * s(t * 8); P.eL = P.eR = 70 + 20 * b; P.aLy = 60; P.aRy = -60; P.lLz = 10 * Math.max(0, b); P.lRz = 10 * Math.min(0, b); P.hz = -6 * b; P.tw = 10 * s(t * 4 + ph); break; }
+    case 'sit': idle(0); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = 88; P.kR = 88; P.aLx = -28; P.aRx = -28; P.eL = 40; P.eR = 40; P.rz = 0; break;
+    case 'sitdesk': idle(0); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = 85; P.kR = 85; P.aLx = -42; P.aRx = -42; P.eL = 52; P.eR = 52; P.aLz = -6; P.aRz = 6; P.hx = 8 + 2 * s(t * 1.3 + ph); P.rz = 0; break;
+    case 'sleep': case 'lie': P.y = 0.55; P.rx = -90; P.aLz = 8; P.aRz = -8; P.eL = P.eR = 15; P.kL = 12; P.kR = 4; P.tb = 0.05 * s(t * 1.6); P.hz = 8; break;
+    case 'yawn': { const e = smooth(Math.min(1, k * 4)) * (1 - smooth((k - 0.8) * 5)); idle(); P.aLz = 5 + 150 * e; P.aRz = -P.aLz; P.eL = P.eR = 12 + 35 * e; P.hx = -9 * e; P.tb = 0.12 * e; P.bx = -6 * e; break; }
+    case 'stretch': { const e = smooth(Math.min(1, k * 4)); idle(); P.aLz = 5 + 160 * e; P.aRz = -P.aLz; P.eL = P.eR = 5; P.hx = -10 * e; P.y = 0.15 * e; P.bx = -8 * e; break; }
+    case 'throw': {
+      const r = A.rel ?? 0.5; let a, el, tw;
+      if (k < r) { const w = smooth(k / r); a = lerp(0, 80, w); el = lerp(10, 70, w); tw = lerp(0, -28, w); }
+      else { const w = smooth((k - r) / 0.12); a = lerp(80, -125, w); el = lerp(70, 0, Math.min(1, w * 1.4)); tw = lerp(-28, 22, w); }
+      P.aRx = a; P.eR = el; P.aRz = -12; P.tw = tw; P.hy = -tw * 0.6; P.rx = k < r ? -6 : 10; P.lLx = k >= r ? -26 : -8; P.kR = k >= r ? 22 : 10; P.aLx = -45; P.eL = 30; break;
+    }
+    case 'fall': { const k2 = k * 2.5, e = easeIn(Math.min(1, k2)), b = k2 > 1 ? 0.45 * Math.exp(-(k2 - 1) * 5) * Math.abs(s((k2 - 1) * 11)) : 0; P.rx = -90 * e + b * 18; P.y = 0.55 * e + b; P.aLz = 5 + 80 * e; P.aRz = -P.aLz; P.lLx = -20 * e; P.kL = 25 * e; P.kR = 10 * e; P.eL = P.eR = 20; break; }
+    case 'faint': { const k2 = k * 2.5, buck = smooth(k2 / 0.35) * (1 - smooth((k2 - 0.6) / 0.4)), e = easeIn(clamp((k2 - 0.25) / 0.75, 0, 1)), b = k2 > 1 ? 0.35 * Math.exp(-(k2 - 1) * 5) * Math.abs(s((k2 - 1) * 11)) : 0; P.kL = P.kR = 45 * buck; P.y = -0.35 * buck + 1.0 * e + b; P.rz = 90 * e - b * 15; P.aLz = 5 + 40 * e; P.aRz = -P.aLz; P.eL = P.eR = 20; P.hx = 10 * buck; break; }
+    case 'spin': P.spin = t * 720; P.aLz = 85; P.aRz = -85; P.eL = P.eR = 10; P.y = 0.3 * Math.abs(s(t * 6)); break;
+    case 'scared': idle(0.3); P.dx = 0.07 * s(t * 60); P.aLx = -110; P.aRx = -110; P.eL = 70; P.eR = 70; P.aLz = -12; P.aRz = 12; P.hx = 8; P.kL = P.kR = 22; P.y = -0.15; break;
+    case 'shrug': { idle(0.5); const e = 0.5 + 0.5 * s(t * 3); P.aLz = 18 + 10 * e; P.aRz = -P.aLz; P.aLx = -15; P.aRx = -15; P.eL = P.eR = 85; P.aLy = 55; P.aRy = -55; P.hz = 10 * e; P.tb = 0.1 * e; break; }
+    case 'clap': { idle(0.5); const c = s(t * 18); P.aLx = -55; P.aRx = -55; P.eL = 45; P.eR = 45; P.aLz = -12 - 9 * c; P.aRz = 12 + 9 * c; break; }
+    case 'think': idle(0.4); P.aRx = -50; P.eR = 60; P.aRz = 50; P.aRy = 90; P.aLx = -30; P.eL = 80; P.aLz = -20; P.hz = 8; P.hx = -6; P.gx = 1; break;
+    case 'nod': idle(0.4); P.hx = 12 * s(t * 9); break;
+    case 'no': idle(0.4); P.hy = 24 * s(t * 9); break;
+    case 'facepalm': idle(0.3); P.aRx = -145; P.eR = 40; P.aRz = -30; P.aRy = 90; P.hx = 12; break;
+    case 'look': idle(0.5); P.hy = 42 * s(t * 1.8); P.gx = Math.sign(s(t * 1.8)); break;
+    case 'lookup': idle(0.5); P.hx = -25; break;
+    case 'carry': idle(0.4); P.aLx = -70; P.aRx = -70; P.eL = P.eR = 25; P.aLz = -8; P.aRz = 8; break;
+    case 'hold': idle(0.6); P.aRx = -38; P.eR = 40; break;
+    case 'game': { idle(0.4); const m = s(t * 17 + ph); P.aLx = -26 + 2 * m; P.aRx = -26 - 2 * m; P.eL = 72 + 4 * m; P.eR = 72 - 4 * m; P.aLz = -16; P.aRz = 16; P.hx = 10; P.tb = 0.03 * Math.abs(s(t * 7 + ph)); break; }
+    case 'sitgame': { idle(0); const m = s(t * 17 + ph); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = P.kR = 86; P.aLx = -30 + 2 * m; P.aRx = -30 - 2 * m; P.eL = 70 + 4 * m; P.eR = 70 - 4 * m; P.aLz = -16; P.aRz = 16; P.hx = 8 + 2 * s(t * 1.3 + ph); P.rz = 0; break; }
+    case 'laugh': idle(0.3); P.tb = 0.08 * Math.abs(s(t * 14)); P.hx = -14 + 4 * s(t * 14); P.aLx = -30; P.aRx = -30; P.eL = P.eR = 70; P.aLz = -12; P.aRz = 12; P.bx = -5 + 3 * s(t * 14); break;
+    case 'cry': idle(0.3); P.aLx = P.aRx = -100 + 4 * s(t * 9); P.eL = P.eR = 100 + 6 * s(t * 12); P.aLz = 10; P.aRz = -10; P.aLy = -45; P.aRy = 45; P.hx = 14; P.tb = 0.04 * s(t * 12); P.bx = 8; break;
+    case 'angry': idle(0.3); P.aLz = 22; P.aRz = -22; P.aLx = -12; P.aRx = -12; P.eL = P.eR = 35; P.tb = 0.03 * s(t * 20); P.dx = 0.03 * s(t * 40); P.bx = 6; break;
+    case 'kick': { idle(0.3); const w = clamp(k * 2, 0, 1), up = s(w * Math.PI); P.lRx = -85 * up; P.kR = w < 0.35 ? 90 * smooth(w / 0.35) : 90 * (1 - smooth((w - 0.35) / 0.25)); P.aLx = 25 * up; P.aRx = -30 * up; P.rx = -6 * up; P.kL = 12; break; }
+    case 'punch': { idle(0.3); const p = Math.max(0, s(t * 10)); P.aRx = -90 * p; P.eR = 95 * (1 - p) + 5; P.aLx = -40; P.eL = 100; P.tw = 15 * p; break; }
+    case 'bow': idle(0.2); P.rx = 0; P.bx = 38 * s(clamp(k, 0, 1) * Math.PI); P.aLx = P.aRx = 10; break;
+    case 'float': P.y = 2 + 0.4 * s(t * 2); P.aLz = 60 + 6 * s(t * 2); P.aRz = -P.aLz; P.lLx = 10; P.lRx = -10; P.kL = 25; P.kR = 15; P.eL = P.eR = 20; P.lift = P.y; break;
+    case 'freeze': P.aLz = 30; P.aRz = -30; P.aLx = -20; P.aRx = -20; P.eL = P.eR = 30; break;
+    case 'piano': { const m = s(t * 13 + ph), m2 = s(t * 11 + ph + 1.7); idle(0); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = P.kR = 86; P.aLx = -40 + 4 * m; P.aRx = -40 + 4 * m2; P.eL = 42 - 6 * m; P.eR = 42 - 6 * m2; P.aLz = -8; P.aRz = 8; P.hx = 8 + 3 * s(t * 2.4 + ph); P.hz = 4 * s(t * 1.2 + ph); P.rz = 2.5 * s(t * 1.2 + ph); break; }
+    case 'chop': { idle(0.4); const k = Math.max(0, s(t * 18 + ph)); P.aRx = -60 - 32 * k; P.eR = 12 + 10 * k; P.aRz = 10; P.aLx = -62; P.eL = 14; P.aLz = -24; P.hx = 22; P.tb = 0.02 * k; break; }
+    case 'shred': { idle(0.4); const k = (t * 2.6 + ph) % 1; P.aRx = -100 + 40 * k; P.eR = 10; P.aRz = 18; P.aLx = -82; P.eL = 14; P.aLz = -10; P.hx = 20; break; }
+    case 'slice': { idle(0.4); const k = s(t * 9 + ph); P.aRx = -64 + 6 * k; P.eR = 12; P.aRz = 14 + 7 * k; P.aLx = -62; P.eL = 14; P.aLz = -18; P.hx = 22; break; }
     default: idle();
   }
   return P;
 }
 function apose(act, t, k, A, type) {
   const s = Math.sin, bip = (ANIMALS[type] || {}).biped;
-  const P = { y: 0, tb: 0.05 * s(t * 2.4 + A.ph), leg: 0, wag: 25 * s(t * 8 + A.ph), hx: 3 * s(t * 1.5 + A.ph), hy: 0, hz: 0, flap: 8, rx: 0, rz: 0, spin: 0 };
-  if (A.moving || act === 'walk' || act === 'run') { const amp = act === 'run' ? 45 : 30; P.leg = amp * s(A.cyc); P.tb = Math.abs(Math.cos(A.cyc)) * 0.12; if (bip === 'penguin') { P.rz = 9 * s(A.cyc); P.flap = 25 + 12 * s(A.cyc * 2); } if (bip === 'frog') { P.y = Math.abs(s(A.cyc)) * 1.2; P.leg = 0; } }
-  if (act === 'hop' || act === 'jump' || act === 'cheer') { P.y = Math.abs(s(t * 6.5 + A.ph)) * (act === 'jump' ? 2.2 : 1.0); P.flap = 60 * Math.abs(s(t * 13)); }
+  const P = { y: 0, tb: 0.05 * s(t * 2.4 + A.ph), leg: 0, wag: 25 * s(t * 8 + A.ph), hx: 3 * s(t * 1.5 + A.ph) + 4 * n1(t * 0.4, 77), hy: 10 * n1(t * 0.35, Math.floor(A.ph * 100)), hz: 0, flap: 8, rx: 0, rz: 0, spin: 0 };
+  if (A.moving || act === 'walk' || act === 'run') { const amp = act === 'run' ? 45 : 30; P.leg = amp * s(A.cyc); P.tb = Math.abs(Math.cos(A.cyc)) * 0.12; P.hy = 0; if (bip === 'penguin') { P.rz = 9 * s(A.cyc); P.flap = 25 + 12 * s(A.cyc * 2); } if (bip === 'frog') { P.y = Math.abs(s(A.cyc)) * 1.2; P.leg = 0; } }
+  if (act === 'hop' || act === 'jump' || act === 'cheer') { const j = jumpArc(((t + A.ph * 0.1) / (act === 'jump' ? 0.9 : 0.55)) % 1, act === 'jump' ? 2.2 : 1.0); P.y = j.y; P.sq = j.sq; P.leg = -20 * j.c; P.flap = 60 * Math.abs(s(t * 13)); P.lift = Math.max(0, j.y); }
   if (act === 'sit') { P.rx = -16; P.y = -0.3; }
-  if (act === 'sleep' || act === 'lie') { P.y = -0.6; P.hx = 18; P.leg = 0; P.wag = 0; }
+  if (act === 'sleep' || act === 'lie') { P.y = -0.6; P.hx = 18; P.hy = 0; P.leg = 0; P.wag = 0; }
   if (act === 'float') { P.y = 0.4 + t * 1.5; P.rz = 6 * s(t * 2.2 + A.ph); P.leg = 12 * s(t * 3); P.wag = 0; }
   if (act === 'spin') P.spin = t * 600;
   if (act === 'talk' || act === 'nod') P.hx = 10 * s(t * 8);
@@ -118,21 +161,35 @@ function apose(act, t, k, A, type) {
 
 // ---------- Figuren-Zustand ----------
 function actorTop(cfg) { if (cfg.animal) { const A = ANIMALS[cfg.animal] || {}; return (A.biped ? 3.6 : 4.0) * (A.s || 1) * (cfg.scale || 1); } return 5.4 * (cfg.scale || 1); }
+const angLerp = (a, b, t) => { const d = ((b - a + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI; return a + d * t; };
+// Weg (Polylinie) → Position nach Strecke d
+function polyAt(pts, L, d) {
+  for (let i = 0; i < L.length; i++) { if (d <= L[i] || i === L.length - 1) { const f = L[i] ? clamp(d / L[i], 0, 1) : 1; return [lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][2], pts[i + 1][2], f)]; } d -= L[i]; }
+  return [pts[0][0], pts[0][2]];
+}
+function pathOf(a) {
+  let pts = [pt3(a.at)]; if (a.to) pts.push(pt3(a.to)); if (a.path) pts = [pts[0], ...a.path.map(p => pt3(p))];
+  const L = []; let tot = 0; for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][2] - pts[i - 1][2]); L.push(l); tot += l; }
+  return { pts, L, tot };
+}
+function pathDist(a, u, tot) { const [t0, t1] = a.move || [0, 1]; const k = clamp((u - t0) / Math.max(0.01, t1 - t0), 0, 1); const ke = a.ease === 'linear' ? k : lerp(k, smooth(k), 0.35); return ke * tot; }
 function actorState(a, tl, D, idx, sh) {
   const u = clamp(tl / D, 0, 1), id = a.id || ('_a' + idx), cfg = cfgFor(id, a);
-  const st = { id, a, cfg, ph: (hash(id) % 1000) / 1000 * 6.28, y: a.y || 0, scale: a.scale || 1, sh: a.shadow !== false };
-  let pts = [pt3(a.at)]; if (a.to) pts.push(pt3(a.to)); if (a.path) pts = [pts[0], ...a.path.map(p => pt3(p))];
-  st.x = pts[0][0]; st.z = pts[0][2]; st.moving = false; st.dir = null; st.cyc = 0;
-  if (pts.length > 1) {
-    const [t0, t1] = a.move || [0, 1]; const k = clamp((u - t0) / Math.max(0.01, t1 - t0), 0, 1); st.moving = u > t0 && u < t1;
-    const ke = a.ease === 'linear' ? k : lerp(k, smooth(k), 0.35);
-    const L = []; let tot = 0; for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][2] - pts[i - 1][2]); L.push(l); tot += l; }
-    let d = ke * tot; st.cyc = d / 4.2 * Math.PI * 2 + st.ph;
-    for (let i = 0; i < L.length; i++) { if (d <= L[i] || i === L.length - 1) { const f = L[i] ? clamp(d / L[i], 0, 1) : 1; st.x = lerp(pts[i][0], pts[i + 1][0], f); st.z = lerp(pts[i][2], pts[i + 1][2], f); st.dir = [pts[i + 1][0] - pts[i][0], pts[i + 1][2] - pts[i][2]]; break; } d -= L[i]; }
+  const st = { id, a, cfg, ph: (hash(id) % 1000) / 1000 * 6.28, y: a.y || 0, scale: a.scale || 1, sh: a.shadow !== false, D, tl };
+  const pa = pathOf(a); st.path = pa;
+  st.x = pa.pts[0][0]; st.z = pa.pts[0][2]; st.moving = false; st.dir = null; st.cyc = 0; st.speed = 0;
+  if (pa.pts.length > 1 && pa.tot > 0.01) {
+    const [t0, t1] = a.move || [0, 1]; st.moving = u > t0 && u < t1; st.t0 = t0 * D; st.t1 = t1 * D;
+    const d = pathDist(a, u, pa.tot), p = polyAt(pa.pts, pa.L, d); st.x = p[0]; st.z = p[1]; st.cyc = d / 4.2 * Math.PI * 2 + st.ph; st.d = d;
+    // geglättete Laufrichtung (Kurven werden weich durchlaufen)
+    const pA = polyAt(pa.pts, pa.L, Math.max(0, d - 0.9)), pB = polyAt(pa.pts, pa.L, Math.min(pa.tot, d + 0.9)); st.dir = [pB[0] - pA[0], pB[1] - pA[1]];
+    const dt = 0.05, d2 = pathDist(a, clamp((tl - dt) / D, 0, 1), pa.tot); st.speed = (d - d2) / dt;
+    const f0 = polyAt(pa.pts, pa.L, Math.min(1, pa.tot)), fe = polyAt(pa.pts, pa.L, Math.max(0, pa.tot - 1));
+    st.dir0 = [f0[0] - pa.pts[0][0], f0[1] - pa.pts[0][2]]; const last = pa.pts[pa.pts.length - 1]; st.dir1 = [last[0] - fe[0], last[2] - fe[1]];
   }
   if (!st.moving) st.cyc = tl * Math.PI * 2 * 1.7 + st.ph;
   let [act, k] = timed(a.do, u, 'idle');
-  if (st.moving && !MOVERS[act]) act = 'walk';
+  if (st.moving && !MOVERS[act]) act = st.speed > 9 ? 'run' : 'walk';
   st.act = act; st.k = k; st.rel = a.throw ? (a.throw.at ?? 0.5) : 0.5;
   if (act === 'throw' && Array.isArray(a.do)) { const e = a.do.find(e => e[0] === 'throw'); if (e) st.rel = clamp(((a.throw ? a.throw.at : 0.5) - (e[1] ?? 0)) / Math.max(0.01, (e[2] ?? 1) - (e[1] ?? 0)), 0.05, 0.95); }
   const [md] = timed(a.mood, u, DEFMOOD[act] || 'happy'); st.mood = md;
@@ -141,16 +198,21 @@ function actorState(a, tl, D, idx, sh) {
   const [bb] = timed(a.bubble, u, null); st.bubble = bb;
   return st;
 }
+// Blickrichtung: sanftes Eindrehen vor dem Loslaufen, weiche Kurven, sanftes Ausdrehen am Ziel
 function faceOf(st, map, cam, u) {
-  const a = st.a;
-  let f = a.face;
+  const a = st.a; let f = a.face;
   if (Array.isArray(f)) f = timed(f, u, 0)[0];
-  if (st.moving && st.dir && (st.dir[0] || st.dir[1])) return Math.atan2(st.dir[0], st.dir[1]);
-  if (typeof f === 'number') return f * DEG;
-  if (f === 'cam' && cam) return Math.atan2(cam.eye[0] - st.x, cam.eye[2] - st.z);
-  if (typeof f === 'string' && map[f]) { const o = map[f]; return Math.atan2(o.x - st.x, o.z - st.z); }
-  if (st.dir) return Math.atan2(st.dir[0], st.dir[1]);
-  return 0;
+  const ang = v => Math.atan2(v[0], v[1]);
+  let fs = null;
+  if (typeof f === 'number') fs = f * DEG;
+  else if (f === 'cam' && cam) fs = Math.atan2(cam.eye[0] - st.x, cam.eye[2] - st.z);
+  else if (f === 'cam') fs = 0;
+  else if (typeof f === 'string' && map[f]) { const o = map[f]; fs = Math.atan2(o.x - st.x, o.z - st.z); }
+  if (!st.dir) return fs ?? 0;
+  const tl = st.tl, before = fs ?? ang(st.dir0), after = fs ?? ang(st.dir1), mv = ang(st.dir);
+  const wIn = smooth((tl - (st.t0 - 0.12)) / 0.3), wOut = smooth((tl - st.t1) / 0.35);
+  if (wOut > 0) return angLerp(ang(st.dir1), after, wOut);
+  return angLerp(before, mv, wIn);
 }
 
 // ---------- Kamera ----------
@@ -194,6 +256,25 @@ function camera(sh, si, tl, D, set, map) {
   return { eye, look, fov };
 }
 
+// ---------- Physik ----------
+// Wurf/Fall mit Schwerkraft, Abprallen (Restitution) und Ausrollen – analytisch, deterministisch pro Frame
+function ballistic(p0, v0, g, t, o = {}) {
+  const rest = o.rest ?? 0.45, gy = o.ground ?? 0, fr = o.fric ?? 6; let p = p0.slice(), v = v0.slice(), tt = t, b = 0, air = 0;
+  for (let i = 0; i < 10; i++) {
+    const A = -g / 2, B = v[1], C = p[1] - gy, disc = B * B - 4 * A * C, tau = disc < 0 ? Infinity : (-B - Math.sqrt(disc)) / (2 * A);
+    if (!(tau > 1e-4) || tt <= tau) return { p: [p[0] + v[0] * tt, Math.max(gy, p[1] + v[1] * tt - g / 2 * tt * tt), p[2] + v[2] * tt], b, air: air + tt, rolling: 0, imp: 0 };
+    p = [p[0] + v[0] * tau, gy, p[2] + v[2] * tau]; tt -= tau; air += tau;
+    const vy = -(v[1] - g * tau) * rest; v = [v[0] * 0.72, vy, v[2] * 0.72]; b++;
+    if (vy < 1.4) { const sp = Math.hypot(v[0], v[2]), tr = Math.min(tt, sp / fr), d = sp * tr - fr / 2 * tr * tr, n = sp ? [v[0] / sp, v[2] / sp] : [0, 0]; return { p: [p[0] + n[0] * d, gy, p[2] + n[1] * d], b, air, rolling: d, imp: tt }; }
+  }
+  return { p, b, air, rolling: 0, imp: tt };
+}
+// Parabel von a nach b mit Scheitelhöhe arc in T Sekunden -> Startgeschwindigkeit + Schwerkraft
+function launch(a, b, arc, T) { arc = Math.max(0.05, arc); return { v: [(b[0] - a[0]) / T, (b[1] - a[1]) / T + 4 * arc / T, (b[2] - a[2]) / T], g: 8 * arc / (T * T) }; }
+// Wackeln nach Aufprall (Squash & Stretch)
+const ROUND = { ball: 1, apple: 1, coin: 1, balloon: 1 };
+function jiggle(dt, amp = 0.22) { if (dt < 0) return 0; return amp * Math.exp(-dt * 7) * Math.sin(dt * 26); }
+
 // ---------- Effekte ----------
 const CONF = ['#e63946', '#ffd23f', '#1e88e5', '#2a9d8f', '#f15bb5', '#ff7f11'];
 function fxItems(items, sh, tl, D, map) {
@@ -203,11 +284,26 @@ function fxItems(items, sh, tl, D, map) {
     const Rr = rng(hash(JSON.stringify(fx)));
     if (fx.type === 'coins') {
       const n = fx.n || 14, g = PROPS.coin({}).parts[0].g;
-      for (let i = 0; i < n; i++) { const vx = (Rr() - .5) * 9, vz = (Rr() - .5) * 9, vy = 9 + Rr() * 7, d = dt - i * 0.02; if (d < 0) continue; let y = P[1] + vy * d - 13 * d * d; if (y < 0.3) y = 0.3; items.push({ g, m: M4.chain(M4.T(P[0] + vx * Math.min(d, 1.2), y - 0.6, P[2] + vz * Math.min(d, 1.2)), M4.RY(d * 12 + i), M4.S(0.7)), e: 0.2 }); }
+      for (let i = 0; i < n; i++) {
+        const d = dt - i * 0.025; if (d < 0) continue;
+        const v = [(Rr() - .5) * 9, 9 + Rr() * 7, (Rr() - .5) * 9], r = ballistic([P[0], P[1] - 0.6, P[2]], v, 24, d, { rest: 0.38, fric: 9 });
+        const air = Math.min(d, r.air), spin = air * (10 + i), settle = r.b ? smooth((d - r.air) / 0.25) : 0;
+        items.push({ g, m: M4.chain(M4.T(r.p[0], r.p[1] + lerp(0.5, 0.08, settle), r.p[2]), M4.RY(spin * 0.3 + i), M4.RX(lerp(spin % 6.283, Math.PI / 2, settle)), M4.S(0.7), M4.T(0, -0.75, 0)), e: 0.2, spec: 0.9 });
+      }
     }
     if (fx.type === 'confetti') {
       const n = fx.n || 80;
-      for (let i = 0; i < n; i++) { const c = CONF[i % 6], g = cgeo('conf|' + c, mb => mb.box(0.35, 0.35, 0.03, c)); const x = P[0] + (Rr() - .5) * 16, z = P[2] + (Rr() - .5) * 10, y = P[1] + 9 + Rr() * 6 - dt * (2.5 + Rr() * 2); if (y < 0.05) continue; items.push({ g, m: M4.chain(M4.T(x + Math.sin(dt * 3 + i) * 0.6, y, z), M4.RX(dt * 5 + i), M4.RY(dt * 3 + i * 2)), e: 0.3, sh: false }); }
+      for (let i = 0; i < n; i++) {
+        const c = CONF[i % 6], g = cgeo('conf|' + c, mb => mb.box(0.35, 0.35, 0.03, c));
+        // Ausstoß nach oben, dann flattern mit Luftwiderstand (Endgeschwindigkeit) bis zum Boden – dort liegen bleiben
+        const x0 = P[0] + (Rr() - .5) * 3, z0 = P[2] + (Rr() - .5) * 3, vx = (Rr() - .5) * 14, vz = (Rr() - .5) * 8, vy = 8 + Rr() * 9, tau = 0.35, vt = 1.6 + Rr() * 1.2, ph = Rr() * 6.28;
+        const e = Math.exp(-dt / tau), y0 = P[1] + 6 + Rr() * 3;
+        let y = y0 + (vy + vt) * tau * (1 - e) - vt * dt;
+        const x = x0 + vx * tau * (1 - e) + Math.sin(dt * 3.2 + ph) * 0.7, z = z0 + vz * tau * (1 - e) + Math.cos(dt * 2.7 + ph) * 0.5;
+        const landed = y <= 0.03; if (landed) y = 0.03;
+        const rot = landed ? M4.chain(M4.RX(Math.PI / 2), M4.RZ(ph)) : M4.chain(M4.RX(dt * 6 + ph), M4.RY(dt * 4 + i * 2), M4.RZ(Math.sin(dt * 5 + ph)));
+        items.push({ g, m: M4.chain(M4.T(x, y, z), rot), e: 0.25, sh: false, spec: 0.4 });
+      }
     }
     if (fx.type === 'poof' && dt < 0.8) {
       const k = dt / 0.8, g = cgeo('puff', mb => mb.sphere(1, 1, '#ffffff'));
@@ -221,12 +317,22 @@ function fxItems(items, sh, tl, D, map) {
 }
 function propState(items, p, tl, D, map, u) {
   let pos = pt3(p.at), s = p.s || p.scale || 1, ry = (p.ry || 0) * DEG + (p.spin ? tl * p.spin * DEG : 0), rx = 0;
-  if (p.pop !== undefined) { const k = (tl - p.pop * D) / 0.3; if (k < 0) return; s *= backOut(k); }
+  let sq = 0; if (p.pop !== undefined) { const k = (tl - p.pop * D) / 0.3; if (k < 0) return; s *= backOut(k); sq = jiggle(tl - p.pop * D - 0.2, 0.16); }
   if (p.hide !== undefined) { const k = (tl - p.hide * D) / 0.2; if (k > 1) return; if (k > 0) s *= 1 - k; }
   if (p.bob) pos[1] += Math.sin(tl * 3) * p.bob;
-  if (p.fly) { const [a, b] = p.fly.t || [0, 1], k = clamp((u - a) / Math.max(0.01, b - a), 0, 1), from = pt3(p.fly.from || p.at), to = pt3(p.fly.to); pos = V3.lerp(from, to, k); pos[1] += (p.fly.arc ?? 4) * 4 * k * (1 - k); if (k > 0 && k < 1) rx = tl * 9; }
+  if (p.fly) {
+    const [a, b] = p.fly.t || [0, 1], T = Math.max(0.05, (b - a) * D), from = pt3(p.fly.from || p.at), to = pt3(p.fly.to), dt = tl - a * D;
+    if (dt <= 0) pos = from;
+    else { const L = launch(from, to, p.fly.arc ?? 4, T), bounce = p.fly.bounce ?? (to[1] < 0.3), rnd = ROUND[p.type], spn = p.fly.spin ?? (rnd ? 9 : 0);
+      if (dt <= T || !bounce) { const tt = Math.min(dt, T); pos = [from[0] + L.v[0] * tt, from[1] + L.v[1] * tt - L.g / 2 * tt * tt, from[2] + L.v[2] * tt]; rx = spn * tt; if (dt > T) sq = jiggle(dt - T); }
+      else { const r = ballistic(from, L.v, L.g, dt, { ground: to[1], rest: p.fly.rest ?? (rnd ? 0.45 : 0.25), fric: rnd ? 6 : 16 }); pos = r.p; rx = rnd ? spn * Math.min(r.air, dt) * (r.b ? 0 : 1) + r.rolling * 1.4 : (r.b ? 0 : spn * dt); if (r.b) sq = jiggle(dt - T, 0.25); }
+    }
+  }
   if (p.on && map[p.on]) { const A = map[p.on]; if (p.head) pos = [A.x, A.y + A.h + 0.1, A.z]; else if (A.rig) { propItems(items, p.type, p, M4.mul(A.rig.handR, M4.chain(M4.RX(Math.PI / 2), M4.S(s), M4.T(0, -0.5, 0)))); return; } }
-  propItems(items, p.type, p, M4.chain(M4.T(pos[0], pos[1], pos[2]), M4.RY(ry), M4.RX(rx), M4.S(s)));
+  let sv = [s, s, s];
+  if (p.grow) { const [a, b, f, t] = p.grow, k0 = clamp((u - a) / Math.max(0.01, b - a), 0, 1), k = k0 * k0 * (3 - 2 * k0), F = Array.isArray(f) ? f : [f, f, f], T = Array.isArray(t) ? t : [t, t, t]; sv = sv.map((v, i) => v * (F[i] + (T[i] - F[i]) * k)); }
+  if (p.jig) { pos = [pos[0] + Math.sin(tl * 37) * p.jig, pos[1] + Math.abs(Math.sin(tl * 23)) * p.jig, pos[2]]; }
+  propItems(items, p.type, p, M4.chain(M4.T(pos[0], pos[1], pos[2]), M4.RY(ry), M4.RX(rx + (p.rx || 0) * DEG), M4.RZ((p.rz || 0) * DEG), M4.S(sv[0] * (1 + sq * 0.5), sv[1] * (1 - sq), sv[2] * (1 + sq * 0.5))));
 }
 
 // ---------- 2D-Overlay ----------
@@ -285,6 +391,25 @@ function drawOverlay(sh, tl, D, map, list) {
   drawCaption(x, sh.words || [], tl);
 }
 
+// ---------- Kontaktschatten + Bloom ----------
+function blobTex() { return ctex('blob', 128, 128, x => { const g = x.createRadialGradient(64, 64, 4, 64, 64, 62); g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(0.55, 'rgba(0,0,0,0.55)'); g.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0, 0, 128, 128); }); }
+function blobShadow(items, s) {
+  if (s.sh === false || s.a.blob === false) return;
+  const air = Math.max(0, (s.lift || 0)), lying = s.act === 'lie' || s.act === 'sleep' || s.act === 'fall' || s.act === 'faint';
+  const r = (s.cfg.animal ? 2.0 : 1.75) * s.scale * (s.cfg.scale || 1) / (1 + air * 0.25) * (lying ? 1.6 : 1);
+  const g = cgeo('blobq', mb => { mb.push(M4.RX(-Math.PI / 2)); mb.tquad(2, 2, '#000000'); mb.pop(); });
+  items.push({ g, m: M4.chain(M4.T(s.x, s.y + 0.045, s.z), M4.RY(s.face || 0), M4.S(r, 1, lying ? r * 1.5 : r)), tex: blobTex(), ta: 1, a: 0.42 / (1 + air * 0.5), e: 1, sh: false, recv: false, zb: 50 });
+}
+let BC1, BX1, BC2, BX2;
+function bloom(k) {
+  if (!(k > 0.01) || window._nobloom) return;
+  const w = Math.round(R.W / 6), h = Math.round(R.H / 6);
+  if (!BC1) { BC1 = document.createElement('canvas'); BC1.width = w; BC1.height = h; BX1 = BC1.getContext('2d'); BC2 = document.createElement('canvas'); BC2.width = w; BC2.height = h; BX2 = BC2.getContext('2d'); }
+  BX1.globalCompositeOperation = 'copy'; BX1.filter = 'brightness(0.8) contrast(3.4) saturate(1.25)'; BX1.drawImage(CV, 0, 0, w, h);
+  BX2.globalCompositeOperation = 'copy'; BX2.filter = 'blur(7px)'; BX2.drawImage(BC1, 0, 0);
+  OX.save(); OX.globalCompositeOperation = 'screen'; OX.globalAlpha = clamp(k, 0, 1); OX.drawImage(BC2, 0, 0, R.W, R.H); OX.restore();
+}
+
 // ---------- Shot rendern ----------
 function renderShot(sh, si, tl) {
   const D = sh.dur, u = clamp(tl / D, 0, 1), tg = (sh.tg0 || 0) + tl;
@@ -299,9 +424,9 @@ function renderShot(sh, si, tl) {
   const map = {}; for (const s of list) map[s.id] = s;
   for (const s of list) s.face = faceOf(s, map, null, u);
   const cam = camera(sh, si, tl, D, set, map);
-  for (const s of list) if (s.a.face === 'cam' && !s.moving) s.face = faceOf(s, map, cam, u);
+  for (const s of list) if (s.a.face === 'cam') s.face = faceOf(s, map, cam, u);
   const dl = V3.len(V3.sub(cam.eye, cam.look)); cam.shadowAt = cam.look;
-  E.shR = clamp(dl * 1.1, 20, 80);
+  E.shR = clamp(dl * 1.1, 20, 80); E.time = tg;
   // Szene
   const items = [];
   const bg = getBG(set.bg);
@@ -317,32 +442,49 @@ function renderShot(sh, si, tl) {
   for (const it of bg.items) items.push({ ...it, ...tintFor(it.kind) });
   if (bg.clouds) items.push({ ...bg.clouds, m: M4.T((tg * 1.5) % 200 - 40, 0, 0), ...tintFor('cloud') });
   for (const it of set.items) items.push({ ...it, ...tintFor(it.kind) });
+  if (!window._nolife) lifeItems(items, sh, si, set, tg, E, cam);
   for (const s of list) {
     const P = s.cfg.animal ? apose(s.act, tl, s.k, s, s.cfg.animal) : pose(s.act, tl, s.k, s);
-    const blink = ((tg + s.ph) % 3.4) < 0.12;
+    const blink = ((tg + s.ph) % 3.4) < 0.12 || ((tg + s.ph * 3) % 7.3) < 0.1;
     P.mood = s.mood; P.closed = blink;
     const tk = s.a.talk, talking = s.act === 'talk' || s.mood === 'talk' || tk === true || (Array.isArray(tk) && tk.some(w => u >= w[0] && u < w[1]));
-    P.open = talking && (Math.sin(tl * 15 + s.ph) + 0.5 * Math.sin(tl * 23)) > 0.15;
-    const S = { x: s.x, y: s.y, z: s.z, face: s.face, scale: s.scale, sh: s.sh };
+    if (talking) { const v = Math.sin(tl * 15 + s.ph) + 0.5 * Math.sin(tl * 23) + 0.35 * Math.sin(tl * 6.3 + 1); P.open = v > 1.0 ? 2 : v > 0.1 ? 1 : 0; }
+    s.lift = (P.lift || 0) * s.scale;
+    // Sekundärbewegung (Haare, Umhang, Flügel) aus Tempo, Sprung und Wind
+    const Pp = s.cfg.animal ? null : pose(s.act, tl - 0.06, s.k, s), vy = Pp ? (P.y - Pp.y) / 0.06 : 0, sp = Math.abs(s.speed || 0);
+    const sec = { swing: clamp(sp * 4.5, 0, 55) + clamp(-vy * 7, -25, 45) + 5 * Math.sin(tl * 1.9 + s.ph) * (1 - clamp(sp / 4, 0, 1)) + (s.moving ? 7 * Math.sin(s.cyc * 2) * clamp(sp / 4, 0, 1) : 0), side: 6 * Math.sin(tl * 1.3 + s.ph) + (P.rz || 0) * 1.5 + (s.moving ? 6 * Math.sin(s.cyc) : 0), flap: 10 + 8 * Math.sin(tl * 3 + s.ph) + (s.lift > 0.2 ? 25 * Math.sin(tl * 14) : 0) };
+    const S = { x: s.x, y: s.y, z: s.z, face: s.face, scale: s.scale, sh: s.sh, sec };
     s.rig = s.cfg.animal ? animalItems(items, s.cfg.animal, S, P, tl) : avatarItems(items, s.cfg, S, P);
     const hold = s.a.hold, th = s.a.throw;
     if (hold) { const ho = typeof hold === 'string' ? { type: hold } : hold; if (ho.both && !s.cfg.animal) { const a = s.rig.handL, b = s.rig.handR; propItems(items, ho.type, ho, M4.chain(M4.T((a[12] + b[12]) / 2, (a[13] + b[13]) / 2 - 0.1, (a[14] + b[14]) / 2), M4.RY(s.face + Math.PI), M4.RX((ho.tilt ?? 30) * DEG), M4.S(ho.s || 0.8), M4.T(0, -0.3, 0))); } else if (s.cfg.animal) propItems(items, ho.type, ho, M4.mul(s.rig.head, M4.chain(M4.T(0, 0.1, 1.4), M4.S(ho.s || 0.6)))); else propItems(items, ho.type, ho, M4.mul(ho.hand === 'L' ? s.rig.handL : s.rig.handR, ho.dir === 'arm' ? M4.chain(M4.T(0, 0.2, 0), M4.RX(Math.PI), M4.S(ho.s || 0.8)) : M4.chain(M4.T(0, 0, 0.1), M4.RX(Math.PI / 2), M4.S(ho.s || 0.7), M4.T(0, -0.6, 0)))); }
     if (th && !s.cfg.animal) {
-      const rel = (th.at ?? 0.5), flight = th.dur ?? 0.35, o = { type: th.item || 'ball', ...th };
+      const rel = (th.at ?? 0.5), o = { type: th.item || 'ball', ...th }, sc = th.s || 0.8;
       if (u < rel) propItems(items, o.type, o, M4.mul(s.rig.handR, M4.chain(M4.RX(Math.PI / 2), M4.S(th.s || 0.7), M4.T(0, -0.6, 0))));
       else {
-        const k = clamp((u - rel) / flight, 0, 1);
-        const fw = [Math.sin(s.face), Math.cos(s.face)], from = [s.x + fw[0] * 1.2 - Math.cos(s.face) * 1.5, s.y + 6.2, s.z + fw[1] * 1.2 + Math.sin(s.face) * 1.5];
-        let to = th.to; to = typeof to === 'string' && map[to] ? [map[to].x, map[to].y + map[to].h * 0.8, map[to].z] : (to ? pt3(to, 0.5) : [s.x + fw[0] * 30, 0.5, s.z + fw[1] * 30]);
-        const pos = V3.lerp(from, to, k); pos[1] += (th.arc ?? 6) * 4 * k * (1 - k);
-        if (!(k >= 1 && th.vanish)) propItems(items, o.type, o, M4.chain(M4.T(pos[0], pos[1], pos[2]), M4.RY(s.face), M4.RX(k < 1 ? tl * 12 : 0), M4.S(th.s || 0.9)));
+        // Startpunkt = echte Handposition im Abwurfmoment
+        const tR = rel * D, sR = actorState(s.a, tR, D, 0, sh); sR.face = s.face;
+        const rigR = avatarItems([], sR.cfg, { x: sR.x, y: sR.y, z: sR.z, face: s.face, scale: sR.scale, sh: false }, pose(sR.act, tR, sR.k, sR));
+        const from = M4.xp(rigR.handR, [0, -0.3, 0]); from[1] -= 0.65 * sc;
+        const fw = [Math.sin(s.face), Math.cos(s.face)], tgtA = typeof th.to === 'string' ? map[th.to] : null;
+        const to = tgtA ? [tgtA.x, tgtA.y + tgtA.h * 0.8 - 0.65 * sc, tgtA.z] : (th.to ? pt3(th.to, 0) : [s.x + fw[0] * 30, 0, s.z + fw[1] * 30]);
+        const T = Math.max(0.12, (th.dur ?? 0.35) * D), dt = tl - tR, L = launch(from, to, th.arc ?? 6, T);
+        let pos, rx = 0, sq = 0;
+        if (dt <= T) { pos = [from[0] + L.v[0] * dt, from[1] + L.v[1] * dt - L.g / 2 * dt * dt, from[2] + L.v[2] * dt]; rx = dt * 14; }
+        else if (th.vanish) pos = null;
+        else if (tgtA && th.bonk !== false) { // prallt vom Ziel ab und fällt zu Boden
+          const v = [-L.v[0] * 0.22, 5.5, -L.v[2] * 0.22], r = ballistic(to, v, 26, dt - T, { rest: 0.42 }); pos = r.p; rx = T * 14 + (dt - T) * (r.b ? 0 : 8) + r.rolling * 1.4; if (r.b) sq = jiggle(dt - T - r.air, 0.2);
+        } else if (to[1] < 0.6 && th.bounce !== false) { const r = ballistic(from, L.v, L.g, dt, { rest: th.rest ?? 0.45 }); pos = r.p; rx = Math.min(r.air, dt) * 14 * (r.b ? 0.3 : 1) + r.rolling * 1.4; if (r.b) sq = jiggle(dt - r.air, 0.22); }
+        else pos = to;
+        if (pos) propItems(items, o.type, o, M4.chain(M4.T(pos[0], pos[1], pos[2]), M4.RY(s.face), M4.RX(rx), M4.S(sc * (1 + sq * 0.5), sc * (1 - sq), sc * (1 + sq * 0.5))));
       }
     }
   }
   for (const p of sh.props || []) propState(items, p, tl, D, map, u);
   fxItems(items, sh, tl, D, map);
+  for (const s of list) blobShadow(items, s);
   GL.render(items, cam, E);
   OX.setTransform(1, 0, 0, 1, 0, 0); OX.drawImage(CV, 0, 0, R.W, R.H);
+  bloom(sh.bloom ?? (set.indoor ? 0.16 : lerp(0.09, 0.6, E.night)));
   drawOverlay(sh, tl, D, map, list);
 }
 

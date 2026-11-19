@@ -23,7 +23,7 @@ python studio.py episode.json --stills                     # Kontaktbogen (ein B
 python studio.py episode.json --frames "3:0.5,7:0.2"       # Einzelbilder (Shot:Anteil)
 python studio.py episode.json --only 4                     # Shot 4 neu, Rest aus Cache
 ```
-Rendern: ca. 0,4 s pro Frame (30 s Video ≈ 6 min). `--rs 0.6` = schneller, etwas weicher.
+Rendern: ca. 0,6 s pro Frame (60 s Video ≈ 18–20 min). `--rs 0.6` = schneller, etwas weicher.
 
 ## Episode-Format (Kurzreferenz)
 ```json
@@ -40,9 +40,10 @@ Rendern: ca. 0,4 s pro Frame (30 s Video ≈ 6 min). `--rs 0.6` = schneller, etw
 | `set` | street, house, park, school, classroom, room, backyard, plaza, beach, field |
 | `setOpts` | `name` (Hausschild), `board` (Tafeltext), `time` (Uhr), `color`, `shops`, `marks`, `banner` |
 | `time` / `timeTo` / `timeAt` | day, morning, sunset, night – Übergang z. B. `"timeTo":"night","timeAt":[0.2,0.5]` |
-| Looks (`cast`) | boy, girl, man, woman, dad, mom, grandpa, grandma, teacher, cop, chef, king, kid, mayor – plus Felder: skin, shirt, pants, shoes, hair (short, spiky, long, ponytail, pigtails, bun, afro, mohawk, cap, beanie, bald), hairColor, hat (crown, tophat, party, chef, helmet), glasses, shades, beard, mustache, logo (star, heart, bolt, smile, flame oder Text), scale |
+| Looks (`cast`) | boy, girl, man, woman, dad, mom, grandpa, grandma, teacher, cop, chef, king, kid, mayor, **gamer, hero, wizard, student, worker, cowboy** – plus Felder: skin, shirt, pants, shoes, sole (Sohlenfarbe), hair (short, spiky, side, messy, long, bob, ponytail, pigtails, bun, afro, curly, buzz, mohawk, cap, beanie, bald), hairColor, eyeColor, hat (crown, tophat, party, chef, helmet, hardhat, cowboy, beret, wizard, santa, viking, grad, bunny, bandana, halo, cap), glasses, shades, eyepatch, beard, mustache, lashes, freckles, logo (star, heart, bolt, smile, flame oder Text), pattern (stripes, dots, plaid, split) + patternColor, sleeves (long, short, none), shorts, boots, skirt, scale |
+| Accessoires | `true` oder Farbe: backpack, scarf, tie, bowtie, chain, jacket, vest, hoodie, apron, sash, badge, belt, watch, headphones, headband, bow, flower, earrings, cape, wings, buttons, collar:false – Haare, Zöpfe, Umhang und Flügel schwingen automatisch mit (Laufen, Springen, Wind) |
 | Tiere | `"animal"`: dog, cat, fox, lion, pig, bear, sheep, cow, penguin, frog, chicken |
-| `do` | idle, walk, run, sneak, game (zocken), sitgame, wave, wave2, cheer, jump, hop, point, pointup, talk, dance, sit, sitdesk, lie, yawn, stretch, throw, fall, faint, spin, scared, shrug, clap, think, nod, no, facepalm, look, lookup, carry, hold, laugh, cry, angry, kick, punch, bow, float, freeze – auch zeitlich: `[["walk",0,0.5],["wave",0.5,1]]` |
+| `do` | (alle mit Ellbogen/Knien) idle, walk, run, sneak, game (zocken), sitgame, wave, wave2, cheer, jump, hop, point, pointup, talk, dance, sit, sitdesk, lie, yawn, stretch, throw, fall, faint, spin, scared, shrug, clap, think, nod, no, facepalm, look, lookup, carry, hold, laugh, cry, angry, kick, punch, bow, float, freeze – auch zeitlich: `[["walk",0,0.5],["wave",0.5,1]]` |
 | `mood` | happy, smile, neutral, talk, grin, laugh, surprised, shock, sad, cry, angry, sleepy, sleep, yawn, scared, cool, smug, wink, love, think, evil, confused, dizzy |
 | Figur-Extras | `face` (Grad, "cam" oder Figur-ID), `path`, `move` [t0,t1], `y`, `scale`, `emote` (Emoji oder "zzz"), `bubble` (Sprechblase), `hold` (Requisit; Controller beidhändig: `{"type":"controller","both":true}`), `throw` {item,to,at,arc}, `talk` |
 | `cam` | wide, aerial, dolly, group, close:ID, medium:ID, full:ID, low:ID, high:ID, side:ID, back:ID, orbit:ID, ots:A>B, pov:ID, top, free {eye,look,eye2,look2} – Optionen: ang, dist, zoom, pull, fov, shake |
@@ -53,6 +54,14 @@ Rendern: ca. 0,4 s pro Frame (30 s Video ≈ 6 min). `--rs 0.6` = schneller, etw
 
 Zeiten in Shots (`t`, `move`, `pop` …) sind **Anteile** des Shots (0–1), damit sie mit jedem Voiceover-Timing passen.
 Koordinaten: Bühne um (0,0), Kamera standardmäßig bei +z; `face: 0` = Richtung Kamera.
+
+## Version 5 – was neu ist
+- **Grafik:** weiche Schatten (PCF), Glanzlichter, Randlicht an Figuren, Kontaktschatten unter Füßen, Abdunklung an Hauswänden unten, Bodenmaserung, Sonne/Mond mit Schein am Himmel, Bloom (Fenster/Laternen leuchten nachts), weichere Lichter, schärfere Gesichter (512 px).
+- **Wasser:** Teich, Pool, Springbrunnen und Meer bewegen sich und glitzern. **Wind:** Bäume, Büsche, Palmen wiegen sich.
+- **Figuren:** Ellbogen + Knie (R15-artig) → natürliches Gehen/Laufen mit Kniebeuge, Sitzen mit hängenden Beinen, Werfen mit Ausholen. Gewichtsverlagerung, Blicke, Atem im Stehen, sanftes Eindrehen beim Loslaufen und in Kurven, Sprünge mit Ausholen/Landung (Squash & Stretch), 3 Mundstufen beim Reden, Hände an Kinn/Gesicht bei think/facepalm/cry.
+- **Physik:** Würfe starten an der echten Hand, fliegen auf einer Parabel, prallen vom Ziel (Kopf!) ab, hüpfen und rollen aus. Münzen springen, prallen ab und bleiben flach liegen. Konfetti flattert mit Luftwiderstand und bleibt am Boden liegen. `fly`-Requisiten landen mit Wackeln; nur runde Dinge rollen. Optionen: `throw.bonk:false`, `throw.bounce:false`, `throw.rest`, `fly.bounce`, `fly.spin`.
+- **Leben im Hintergrund** (automatisch, läuft über Schnitte weiter): Autos mit drehenden Rädern + Licht, Passanten (teils mit Hund), Jogger, spielende Kinder, Zuschauer auf der Tribüne, Leute im Gespräch, Katzen auf dem Zaun, Vogelschwärme/Möwen, Flugzeug mit Kondensstreifen, Heißluftballon, Windräder, Enten, pickende Tauben, Springbrunnen-Strahlen, Segelboote, Brandung, Schmetterlinge, Glühwürmchen (nachts), Staub im Licht (innen). Alles, was eine Hauptfigur verdecken, berühren oder groß in den Vordergrund laufen würde, wird pro Shot automatisch weggelassen.
+  Steuerung (Shot oder Episode): `"life": false` | `"calm"` | `"busy"` | `{"cars":1,"people":1,"birds":1,"extras":1}`. `"bloom": 0.3` pro Shot überschreibt die Leuchtstärke.
 
 ## Länge (Monetarisierung)
 Nach dem Timing prüft `studio.py` die Länge und schreibt z. B. `✓ Länge 64.1s` oder `⚠ … ca. 40 Wörter (~8 Shots) mehr`.
@@ -89,6 +98,13 @@ Abkürzungen („z.B.“, „Dr.“) und englische Namen ggf. per `speak` aussch
 - `studio.py` – Pipeline (Timing → Rendern pro Shot → concat → Ton)
 - `audio.py` – Timing aus Text/Voiceover, Musik- und Soundeffekt-Synthese
 - `tts.py` – Sprecherstimme (Piper): Installation, Stimmen-Download, Synthese, exaktes Wort-Timing
-- `engine/` – WebGL-Renderer (core.js), Figuren/Requisiten (assets.js), Orte (sets.js), Regie/Kamera/Untertitel (director.js)
+- `engine/` – WebGL-Renderer + Shader (core.js), Figuren/Accessoires/Requisiten (assets.js), Orte (sets.js), Hintergrund-Leben (life.js), Regie/Posen/Physik/Kamera/Untertitel (director.js)
 - `beispiele/gaehn_regel.json` – Demo-Episode (64 s, 38 Shots)
 - `beispiele/gaehn_regel_kurz.json` – alte 26-s-Fassung (`"length": false`)
+
+## Ergänzungen aus dem Shorts-Chat (in Version 5 übernommen)
+- **Sets:** elevator (open, lit, light), hallway (name, doorOpen), snow (Antarktis), kitchen (green, top, cabinet, wall; Arbeitsplatte y≈2.45).
+- **Requisiten:** controller, console, keys, piano, stool, panel, display, tower, ghostfloors, pen, smartphone (Chat-Bildschirm: name, sub, msgs, typing, lock, notif, stamp, time, avatar, nameColor), pebble, nest, board, tray, cabbage, shreds, radish, meat, meatslice, helper (Küchen-Multitool). Tier: guineapig.
+- **Requisiten-Animation:** `rx`, `rz` (Grad), `grow: [t0, t1, von, bis]` (Skalierung, auch [x,y,z]), `jig` (Wackeln).
+- **Posen:** piano, chop, shred, slice (+ Tier-Pose float). Gesicht: `scar`.
+- **Halten:** `hold: {type, dir: 'arm', hand: 'L'}`, `both: true` für Controller.

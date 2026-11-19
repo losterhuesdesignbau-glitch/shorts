@@ -159,46 +159,83 @@ class MB {
 }
 
 // ---------- Shader ----------
+// Licht: Halbkugel-Umgebung + Sonne mit weichen PCF-Schatten, Glanzlicht, Randlicht, Kontakt-Abdunklung,
+// Bodenmaserung, Wasser (bewegte Normalen + Glitzern), Wind (Bäume wiegen sich), weiche Lichter-Kompression.
 const VS = `#version 300 es
 layout(location=0) in vec3 aP;layout(location=1) in vec3 aN;layout(location=2) in vec3 aC;layout(location=3) in vec2 aT;
-uniform mat4 uM,uVP,uLVP;uniform vec3 uEye;uniform float uFogD;out vec3 vN,vC;out vec2 vT;out vec4 vL;out float vF;
-void main(){vec4 w=uM*vec4(aP,1.0);vN=mat3(uM)*aN;vC=aC;vT=aT;vL=uLVP*w;float d=length(w.xyz-uEye)/uFogD;vF=clamp(1.0-exp(-d*d),0.0,1.0);gl_Position=uVP*w;}`;
-const FS = `#version 300 es
+uniform mat4 uM,uVP,uLVP;uniform vec3 uEye;uniform float uFogD,uTime,uSway;out vec3 vN,vC,vW;out vec2 vT;out vec4 vL;out float vF;
+vec3 sway(vec3 w){float h=max(0.0,w.y-1.2);float k=uSway*h*h/(1.0+h);
+ w.x+=(sin(uTime*1.7+w.x*0.31+w.z*0.17)+0.4*sin(uTime*3.9+w.z*0.7))*0.035*k;w.z+=sin(uTime*1.3+w.x*0.23)*0.025*k;return w;}
+void main(){vec4 w=uM*vec4(aP,1.0);if(uSway>0.0)w.xyz=sway(w.xyz);vN=mat3(uM)*aN;vC=aC;vT=aT;vW=w.xyz;vL=uLVP*w;
+ float d=length(w.xyz-uEye)/uFogD;vF=clamp(1.0-exp(-d*d),0.0,1.0);gl_Position=uVP*w;}`;
+const FS_SRC = `
 precision highp float;precision highp sampler2DShadow;
-in vec3 vN,vC;in vec2 vT;in vec4 vL;in float vF;
+in vec3 vN,vC,vW;in vec2 vT;in vec4 vL;in float vF;
 uniform sampler2D uTex;uniform sampler2DShadow uSh;
-uniform vec3 uTint,uSun,uSunC,uSkyC,uGndC,uFogC;uniform float uEmi,uAlpha,uSR,uRecv,uHT;
+uniform vec3 uTint,uSun,uSunC,uSkyC,uGndC,uFogC,uEye;uniform float uEmi,uAlpha,uSR,uRecv,uHT,uTA,uTime,uSpec,uRim,uGrain,uWater,uAO,uNight;
 out vec4 o;
-float shadow(vec3 n,float d){vec3 p=vL.xyz/vL.w*0.5+0.5;if(p.x<0.0||p.x>1.0||p.y<0.0||p.y>1.0||p.z>1.0)return 1.0;
- float b=0.0006+0.0022*(1.0-d);vec2 ts=vec2(0.75/uSR);
- return texture(uSh,vec3(p.xy,p.z-b));}
-void main(){vec3 n=normalize(vN);vec4 tx=uHT>0.5?texture(uTex,vT):vec4(0.0);vec3 base=vC*uTint*(1.0-tx.a)+tx.rgb;
- float d=max(dot(n,uSun),0.0);float sh=(uRecv>0.5&&d>0.0)?shadow(n,d):1.0;
+#ifdef GRAIN
+uniform sampler2D uNz;
+#endif
+void main(){vec3 n=normalize(vN);
+ vec4 tx=uHT>0.5?texture(uTex,vT):vec4(0.0);vec3 base=uTA>0.5?vC*uTint:vC*uTint*(1.0-tx.a)+tx.rgb;
+ vec3 V=normalize(uEye-vW);
+#ifdef GRAIN
+ if(n.y>0.8){float g=texture(uNz,vW.xz*0.006).r*0.65+texture(uNz,vW.xz*0.05).g*0.35;base*=1.0+uGrain*1.4*(g-0.5);}
+#endif
+#ifdef WATER
+ {vec2 q=vW.xz;float a=uTime;
+  vec3 dn=vec3(sin(q.x*1.7+a*1.9)+0.6*sin(q.x*0.6-q.y*1.1+a*1.3)+0.4*sin(q.x*3.3+q.y*2.7-a*2.6),0.0,
+               cos(q.y*1.5-a*1.6)+0.6*cos(q.y*0.7+q.x*0.9+a*1.1)+0.4*cos(q.y*3.1-q.x*2.3+a*2.2));
+  n=normalize(n+dn*0.09);base*=0.92+0.16*(0.5+0.5*sin(q.x*0.31+q.y*0.23+a*0.6)*sin(q.y*0.37-a*0.45));}
+#endif
+ float d=max(dot(n,uSun),0.0);float sh=1.0;
+ if(uRecv>0.5&&d>0.0){vec3 p=vL.xyz/vL.w*0.5+0.5;if(p.x>0.0&&p.x<1.0&&p.y>0.0&&p.y<1.0&&p.z<1.0)sh=texture(uSh,vec3(p.xy,p.z-0.0005-0.0018*(1.0-d)));}
  vec3 hemi=mix(uGndC,uSkyC,n.y*0.5+0.5);
- vec3 c=base*(hemi+uSunC*d*sh);c=mix(c,base,uEmi);
+ float ao=(uAO>0.0&&n.y<0.6)?mix(0.72,1.0,clamp(vW.y*0.9,0.0,1.0)):1.0;
+ vec3 c=base*(hemi*ao+uSunC*d*sh);
+ vec3 H=normalize(uSun+V);float nh=max(dot(n,H),0.0);
+#ifdef WATER
+ float sp=pow(nh,140.0)*2.2*sh;
+#else
+ float n2=nh*nh;n2*=n2;n2*=n2;n2*=n2;float sp=n2*n2*uSpec*sh;
+#endif
+ c+=uSunC*sp*0.5*step(0.0,d);
+ float r=1.0-max(dot(n,V),0.0);float rim=r*r*r*uRim;c+=mix(uSkyC,vec3(1.0),0.3)*rim*(0.6+0.4*sh);
+#ifdef WATER
+ c=mix(c,uSkyC*1.25,r*r*r*r*0.55);
+#endif
+ c=mix(c,base,uEmi);
  c=mix(c,uFogC,vF);
- o=vec4(c,uAlpha);}`;
+ vec3 e=max(c-0.82,0.0);c=c-e+e/(1.0+e*5.5);float l=dot(c,vec3(0.299,0.587,0.114));c=mix(vec3(l),c,1.12);
+ o=vec4(c,uTA>0.5?uAlpha*tx.a:uAlpha);}`;
+const FS = '#version 300 es\n' + FS_SRC, FSG = '#version 300 es\n#define GRAIN\n' + FS_SRC, FSW = '#version 300 es\n#define WATER\n' + FS_SRC;
 const DVS = `#version 300 es
-layout(location=0) in vec3 aP;uniform mat4 uM,uLVP;void main(){gl_Position=uLVP*uM*vec4(aP,1.0);}`;
+layout(location=0) in vec3 aP;uniform mat4 uM,uLVP;uniform float uTime,uSway;
+void main(){vec4 w=uM*vec4(aP,1.0);if(uSway>0.0){float h=max(0.0,w.y-1.2);float k=uSway*h*h/(1.0+h);w.x+=(sin(uTime*1.7+w.x*0.31+w.z*0.17)+0.4*sin(uTime*3.9+w.z*0.7))*0.035*k;w.z+=sin(uTime*1.3+w.x*0.23)*0.025*k;}gl_Position=uLVP*w;}`;
 const DFS = `#version 300 es
 precision mediump float;out vec4 o;void main(){o=vec4(1.0);}`;
 const SVS = `#version 300 es
 out vec2 vP;void main(){vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2))*2.0-1.0;vP=p;gl_Position=vec4(p,0.999,1.0);}`;
 const SFS = `#version 300 es
-precision highp float;in vec2 vP;uniform mat4 uIVP;uniform vec3 uTop,uHor;uniform float uNight;out vec4 o;
+precision highp float;in vec2 vP;uniform mat4 uIVP;uniform vec3 uTop,uHor,uSunD,uSunC;uniform float uNight;out vec4 o;
 float h21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 void main(){vec4 a=uIVP*vec4(vP,-1.0,1.0);vec4 b=uIVP*vec4(vP,1.0,1.0);vec3 d=normalize(b.xyz/b.w-a.xyz/a.w);
  float y=d.y;vec3 c=mix(uHor,uTop,pow(clamp(y,0.0,1.0),0.55));
+ c=mix(c,uHor*1.06,exp(-max(y,0.0)*14.0)*0.5);
+ float sd=max(dot(d,normalize(uSunD)),0.0);
+ c+=uSunC*(pow(sd,8.0)*0.18+pow(sd,90.0)*0.35)*(1.0-uNight*0.6);
+ c=mix(c,mix(vec3(1.0,0.98,0.9),vec3(0.92,0.95,1.0),uNight),smoothstep(0.9993,0.9997,sd));
  if(uNight>0.01&&y>0.04){vec2 g=vec2(atan(d.z,d.x)*90.0,y*110.0);vec2 id=floor(g);float s=h21(id);
-  if(s>0.982){vec2 f=fract(g)-0.5;float m=smoothstep(0.32,0.0,length(f));c+=vec3(m*uNight*0.9);}}
+  if(s>0.982){vec2 f=fract(g)-0.5;float m=smoothstep(0.32,0.0,length(f));c+=vec3(m*uNight*0.9*(0.6+0.4*h21(id+3.1)));}}
  o=vec4(c,1.0);}`;
 
 class GLR {
   constructor(canvas) {
-    const gl = this.gl = canvas.getContext('webgl2', { antialias: true, preserveDrawingBuffer: true, alpha: false });
+    const gl = this.gl = canvas.getContext('webgl2', { antialias: !window._noaa, preserveDrawingBuffer: true, alpha: false });
     if (!gl) throw new Error('WebGL2 fehlt');
     this.W = canvas.width; this.H = canvas.height;
-    this.p = this.mk(VS, FS); this.dp = this.mk(DVS, DFS); this.sp = this.mk(SVS, SFS);
+    this.p = this.mk(VS, FS); this.pg = this.mk(VS, FSG); this.pw = this.mk(VS, FSW); this.dp = this.mk(DVS, DFS); this.sp = this.mk(SVS, SFS);
     this.SR = 2048;
     this.stex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, this.stex);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.DEPTH_COMPONENT24, this.SR, this.SR, 0, gl.DEPTH_COMPONENT, gl.UNSIGNED_INT, null);
@@ -209,6 +246,11 @@ class GLR {
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, this.stex, 0); gl.drawBuffers([gl.NONE]); gl.readBuffer(gl.NONE);
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     const c = document.createElement('canvas'); c.width = c.height = 1; this.blank = this.tex(c);
+    { const N = 256, nc = document.createElement('canvas'); nc.width = nc.height = N; const x = nc.getContext('2d'), R0 = rng(4242), id = x.createImageData(N, N);
+      const grid = (k, s) => { const g = []; for (let i = 0; i < k * k; i++) g.push(R0()); return (px, py) => { const fx = px / N * k, fy = py / N * k, ix = Math.floor(fx), iy = Math.floor(fy), tx = fx - ix, ty = fy - iy, sm = t => t * t * (3 - 2 * t), G = (a, b) => g[((b % k + k) % k) * k + ((a % k + k) % k)]; return lerp(lerp(G(ix, iy), G(ix + 1, iy), sm(tx)), lerp(G(ix, iy + 1), G(ix + 1, iy + 1), sm(tx)), sm(ty)); }; };
+      const A = grid(8), B = grid(32), C = grid(16), D = grid(64);
+      for (let py = 0; py < N; py++) for (let px = 0; px < N; px++) { const o = (py * N + px) * 4; id.data[o] = 255 * (A(px, py) * 0.7 + B(px, py) * 0.3); id.data[o + 1] = 255 * (C(px, py) * 0.6 + D(px, py) * 0.4); id.data[o + 2] = 128; id.data[o + 3] = 255; }
+      x.putImageData(id, 0, 0); this.nz = this.tex(nc); gl.bindTexture(gl.TEXTURE_2D, this.nz); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT); }
     this.evao = gl.createVertexArray(); this.I = M4.I();
   }
   mk(vs, fs) {
@@ -240,31 +282,35 @@ class GLR {
     const view = M4.look(cam.eye, cam.look, cam.up || [0, 1, 0]);
     const proj = M4.persp(cam.fov * DEG, this.W / this.H, cam.near || 0.25, cam.far || 1400);
     const VP = M4.mul(proj, view); this.VP = VP;
-    const S = env.shR || 34, sd = V3.norm(env.sun), c = cam.shadowAt || cam.look;
+    const S = env.shR || 34; const sd0 = V3.norm(env.sun), sd = sd0, c = cam.shadowAt || cam.look;
     const LV = M4.look(V3.add(c, V3.mul(sd, 140)), c, Math.abs(sd[1]) > 0.98 ? [0, 0, 1] : [0, 1, 0]);
     const LVP = M4.mul(M4.ortho(-S, S, -S, S, 1, 300), LV);
     // Schatten
     gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, null);
     gl.bindFramebuffer(gl.FRAMEBUFFER, this.sfb); gl.viewport(0, 0, this.SR, this.SR); gl.enable(gl.DEPTH_TEST); gl.depthMask(true); gl.clear(gl.DEPTH_BUFFER_BIT);
-    gl.useProgram(this.dp.p); gl.uniformMatrix4fv(this.dp.u.uLVP, false, LVP);
+    gl.useProgram(this.dp.p); gl.uniformMatrix4fv(this.dp.u.uLVP, false, LVP); gl.uniform1f(this.dp.u.uTime, env.time || 0);
     gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1.6, 3.0);
-    for (const it of items) { if (it.sh === false || (it.a !== undefined && it.a < 0.99)) continue; gl.uniformMatrix4fv(this.dp.u.uM, false, it.m || I); gl.bindVertexArray(it.g.vao); gl.drawArrays(gl.TRIANGLES, 0, it.g.n); }
+    for (const it of items) { if (it.sh === false || (it.a !== undefined && it.a < 0.99)) continue; gl.uniformMatrix4fv(this.dp.u.uM, false, it.m || I); gl.uniform1f(this.dp.u.uSway, it.sway || 0); gl.bindVertexArray(it.g.vao); gl.drawArrays(gl.TRIANGLES, 0, it.g.n); }
     gl.disable(gl.POLYGON_OFFSET_FILL);
     // Haupt
     gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, this.W, this.H);
     gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.disable(gl.DEPTH_TEST); gl.depthMask(false); gl.useProgram(this.sp.p);
-    gl.uniformMatrix4fv(this.sp.u.uIVP, false, M4.inv(VP)); gl.uniform3fv(this.sp.u.uTop, col(env.skyTop)); gl.uniform3fv(this.sp.u.uHor, col(env.skyHor)); gl.uniform1f(this.sp.u.uNight, env.night || 0);
+    gl.uniformMatrix4fv(this.sp.u.uIVP, false, M4.inv(VP)); gl.uniform3fv(this.sp.u.uTop, col(env.skyTop)); gl.uniform3fv(this.sp.u.uHor, col(env.skyHor)); gl.uniform1f(this.sp.u.uNight, env.night || 0); gl.uniform3fv(this.sp.u.uSunD, sd); gl.uniform3fv(this.sp.u.uSunC, V3.mul(col(env.sunC), env.sunI));
     gl.bindVertexArray(this.evao); gl.drawArrays(gl.TRIANGLES, 0, 3);
     gl.enable(gl.DEPTH_TEST); gl.depthMask(true);
-    const P = this.p, u = P.u; gl.useProgram(P.p);
-    gl.uniformMatrix4fv(u.uVP, false, VP); gl.uniformMatrix4fv(u.uLVP, false, LVP);
-    gl.uniform3fv(u.uSun, sd); gl.uniform3fv(u.uSunC, V3.mul(col(env.sunC), env.sunI)); gl.uniform3fv(u.uSkyC, env.ambSky); gl.uniform3fv(u.uGndC, env.ambGnd);
-    gl.uniform3fv(u.uFogC, col(env.fog)); gl.uniform1f(u.uFogD, env.fogD); gl.uniform3fv(u.uEye, cam.eye); gl.uniform1f(u.uSR, this.SR);
-    gl.uniform1i(u.uTex, 0); gl.uniform1i(u.uSh, 1);
+    for (const P of [this.p, this.pg, this.pw]) { const u = P.u; gl.useProgram(P.p);
+      gl.uniformMatrix4fv(u.uVP, false, VP); gl.uniformMatrix4fv(u.uLVP, false, LVP);
+      gl.uniform3fv(u.uSun, sd); gl.uniform3fv(u.uSunC, V3.mul(col(env.sunC), env.sunI)); gl.uniform3fv(u.uSkyC, env.ambSky); gl.uniform3fv(u.uGndC, env.ambGnd);
+      gl.uniform3fv(u.uFogC, col(env.fog)); gl.uniform1f(u.uFogD, env.fogD); gl.uniform3fv(u.uEye, cam.eye); gl.uniform1f(u.uSR, this.SR);
+      gl.uniform1i(u.uTex, 0); gl.uniform1i(u.uSh, 1); if (u.uNz) gl.uniform1i(u.uNz, 2); gl.uniform1f(u.uTime, env.time || 0); gl.uniform1f(u.uNight, env.night || 0); }
+    gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, this.nz);
     gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, this.stex);
+    let cur = null, u = null;
     const draw = it => {
-      gl.uniformMatrix4fv(u.uM, false, it.m || I); gl.uniform3fv(u.uTint, it.tint || [1, 1, 1]); gl.uniform1f(u.uEmi, it.e || 0); gl.uniform1f(u.uAlpha, it.a === undefined ? 1 : it.a); gl.uniform1f(u.uRecv, it.recv === false ? 0 : 1); gl.uniform1f(u.uHT, it.tex ? 1 : 0);
+      const P = it.water ? this.pw : (it.grain ? this.pg : this.p); if (P !== cur) { cur = P; u = P.u; gl.useProgram(P.p); }
+      gl.uniformMatrix4fv(u.uM, false, it.m || I); gl.uniform3fv(u.uTint, it.tint || [1, 1, 1]); gl.uniform1f(u.uEmi, it.e || 0); gl.uniform1f(u.uAlpha, it.a === undefined ? 1 : it.a); gl.uniform1f(u.uRecv, it.recv === false ? 0 : 1); gl.uniform1f(u.uHT, it.tex ? 1 : 0); gl.uniform1f(u.uTA, it.ta ? 1 : 0);
+      gl.uniform1f(u.uSpec, it.spec ?? 0.18); gl.uniform1f(u.uRim, it.rim ?? 0.08); gl.uniform1f(u.uGrain, it.grain || 0); gl.uniform1f(u.uWater, it.water || 0); gl.uniform1f(u.uAO, it.ao ?? 1); gl.uniform1f(u.uSway, it.sway || 0);
       gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, it.tex || this.blank);
       gl.bindVertexArray(it.g.vao); gl.drawArrays(gl.TRIANGLES, 0, it.g.n);
     };
