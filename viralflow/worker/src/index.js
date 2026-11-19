@@ -65,6 +65,8 @@ async function route(req, env) {
     });
   }
   if (path === '/health') return json({ ok: true, at: nowIso() });
+  if (path === '/privacy' || path === '/datenschutz') return htmlPage('Datenschutz – viralflow', PRIVACY);
+  if (path === '/about') return htmlPage('viralflow', ABOUT);
 
   if (path === '/api/login' && method === 'POST') {
     const { password } = await req.json().catch(() => ({}));
@@ -344,3 +346,18 @@ async function streamVideo(env, req, v) {
   if (!obj) throw new HttpError(404, 'Datei fehlt im Speicher');
   return new Response(obj.body, { headers: { 'content-type': 'video/mp4', 'accept-ranges': 'bytes', 'content-length': String(obj.size) } });
 }
+
+const PAGE_CSS = 'body{font:16px/1.6 system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 18px;background:#0e0f13;color:#e9ebf0}a{color:#a48bff}h1{font-size:24px}h2{font-size:18px;margin-top:28px}';
+function htmlPage(title, body) {
+  return new Response(`<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>${PAGE_CSS}</style></head><body>${body}</body></html>`,
+    { headers: { 'content-type': 'text/html; charset=utf-8' } });
+}
+const ABOUT = `<h1>viralflow</h1><p>viralflow ist ein privates Werkzeug, mit dem der Betreiber seine eigenen, selbst produzierten Kurzvideos automatisch auf seinen eigenen Kanälen bei YouTube, Instagram und TikTok veröffentlicht. Es gibt keine weiteren Nutzer.</p><p><a href="/privacy">Datenschutz / Privacy Policy</a></p>`;
+const PRIVACY = `<h1>Datenschutzerklärung / Privacy Policy</h1>
+<p>Stand: 19.11.2026</p>
+<h2>Zweck</h2><p>viralflow ist eine private Anwendung. Sie wird ausschließlich vom Betreiber genutzt, um eigene Videos auf den eigenen Kanälen (YouTube, Instagram, TikTok) zu veröffentlichen.</p>
+<h2>Welche Daten verarbeitet werden</h2><p>Nach der Anmeldung über die offiziellen Login-Verfahren (OAuth) von Google/YouTube, Instagram und TikTok speichert viralflow Zugriffs-Tokens, die Kanal- bzw. Konto-ID und den Kontonamen. Die Tokens werden verschlüsselt gespeichert und nur verwendet, um Videos hochzuladen und den Veröffentlichungsstatus abzufragen. Passwörter werden nicht gespeichert. Es werden keine Daten anderer Personen erhoben, nicht verkauft und nicht an Dritte weitergegeben.</p>
+<h2>YouTube API Services</h2><p>viralflow nutzt die YouTube API Services. Es gelten die <a href="https://www.youtube.com/t/terms">YouTube-Nutzungsbedingungen</a> und die <a href="https://policies.google.com/privacy">Google-Datenschutzerklärung</a>. Der Zugriff kann jederzeit unter <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> widerrufen werden.</p>
+<h2>Speicherort und Löschung</h2><p>Daten liegen bei Cloudflare (Datenbank, Dateispeicher). Videodateien werden nach der Veröffentlichung nach einstellbarer Frist gelöscht. Verbindungen können im Dashboard getrennt werden; dabei werden die gespeicherten Tokens gelöscht.</p>
+<h2>Kontakt</h2><p>Betreiber: Lukas, über das GitHub-Konto losterhuesdesignbau-glitch.</p>
+<hr><p><b>English summary:</b> viralflow is a private tool used only by its operator to publish his own videos to his own YouTube, Instagram and TikTok accounts via official OAuth APIs. It stores encrypted access tokens and account IDs only for uploading; no passwords, no third-party data, nothing is sold or shared. Access can be revoked at any time via the platforms or by disconnecting in the dashboard.</p>`;
