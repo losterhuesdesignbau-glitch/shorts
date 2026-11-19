@@ -552,6 +552,15 @@ const PROPS = {
   meatslice: o => ({ parts: [{ g: cgeo('meatslice', mb => { mb.push(M4.T(0, 0.05, 0)); mb.cyl(0.95, 0.95, 0.1, 22, '#e7a3a0', { flat: false, top: '#e9a8a5' }); mb.pop(); for (const [r, col] of [[0.8, '#f4d7d3'], [0.66, '#e29895'], [0.42, '#f3d3cf']]) { mb.push(M4.T(0, 0.105, 0)); mb.cyl(r, r, 0.01, 22, col); mb.pop(); } }) }] }),
   helper: o => ({ parts: [{ g: cgeo('kitchenhelper', mb => { mb.push(M4.T(0, -0.55, 0)); mb.rbox(0.26, 1.2, 0.3, 0.1, '#8a5a34'); mb.pop(); mb.push(M4.T(0, 0.12, 0)); mb.box(0.18, 0.2, 0.22, '#9aa1a8'); mb.pop();
     mb.push(M4.T(0, 0.42, 0)); mb.box(1.1, 0.42, 0.06, '#d9dee3'); mb.pop(); for (let i = 0; i < 9; i++) { mb.push(M4.T(-0.48 + i * 0.12, 0.68, 0)); mb.box(0.05, 0.12, 0.05, '#c3c9cf'); mb.pop(); } mb.push(M4.T(0, 0.42, 0.035)); mb.box(0.9, 0.05, 0.01, '#7d858d'); mb.pop(); }) }] }),
+  tunnel: o => ({ parts: [{ g: cgeo('tunnel2', mb => {
+    const rock = '#7d8590', con = '#c4c8ce', sn = '#f4f7fb';
+    mb.push(M4.chain(M4.T(0, 0, -8), M4.S(1.7, 1, 1))); mb.sphere(10, 2, rock); mb.pop();
+    mb.push(M4.chain(M4.T(0, 6.2, -9.2), M4.S(1.5, 0.55, 1))); mb.sphere(8.4, 2, sn); mb.pop();
+    T_(mb, -3.5, 3.4, 2.8, () => mb.box(1.3, 6.8, 1.8, con)); T_(mb, 3.5, 3.4, 2.8, () => mb.box(1.3, 6.8, 1.8, con));
+    T_(mb, 0, 7.3, 2.8, () => mb.box(8.4, 1.3, 2.0, con)); T_(mb, 0, 3.2, 2.15, () => mb.box(5.8, 6.4, 0.5, '#07090d'));
+    T_(mb, 0, 0.03, 9.0, () => mb.box(5.6, 0.06, 13, '#3a3d44'));
+    for (let i = 0; i < 5; i++) T_(mb, 0, 0.07, 4.4 + i * 2.4, () => mb.box(0.18, 0.02, 1.1, '#ffd23f'));
+  }) }] }),
   bigtext: o => ({ parts: [{ g: cgeo('bigtext|' + (o.w || 6) + '|' + (o.h || 2), mb => { mb.push(M4.T(0, (o.h || 2) / 2, 0)); mb.box(o.w || 6, o.h || 2, 0.1, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ffd23f', fg: o.fg || '#1d1712', border: o.border === undefined ? '#1d1712' : o.border, tw: 512, th: Math.round(512 * (o.h || 2) / (o.w || 6)) }) }] }),
 };
 
