@@ -561,6 +561,14 @@ const PROPS = {
     T_(mb, 0, 0.03, 9.0, () => mb.box(5.6, 0.06, 13, '#3a3d44'));
     for (let i = 0; i < 5; i++) T_(mb, 0, 0.07, 4.4 + i * 2.4, () => mb.box(0.18, 0.02, 1.1, '#ffd23f'));
   }) }] }),
+  airdrop: o => ({ parts: [{ g: cgeo('airdrop|' + (o.color || '#2a9d8f') + '|' + (o.balloon === false ? 0 : 1), mb => {
+    const c = o.color || '#2a9d8f', e = '#ffd23f';
+    T_(mb, 0, 1.1, 0, () => mb.rbox(2.2, 2.2, 2.2, 0.12, c));
+    for (const y of [0.25, 1.95]) T_(mb, 0, y, 0, () => mb.box(2.28, 0.22, 2.28, e));
+    for (const x of [-1, 1]) for (const z of [-1, 1]) T_(mb, x * 1.05, 1.1, z * 1.05, () => mb.box(0.22, 2.24, 0.22, e));
+    T_(mb, 0, 1.1, 1.13, () => mb.box(0.9, 0.9, 0.06, '#ffffff'));
+    if (o.balloon !== false) { for (const x of [-0.8, 0.8]) T_(mb, x, 2.2, 0, () => mb.cyl(0.02, 0.02, 3.2, 3, '#eeeeee')); T_(mb, 0, 6.3, 0, () => mb.sphere(1.25, 2, o.balloonColor || '#e63946', { sy: 1.15 })); }
+  }), e: 0.05 }] }),
   bigtext: o => ({ parts: [{ g: cgeo('bigtext|' + (o.w || 6) + '|' + (o.h || 2), mb => { mb.push(M4.T(0, (o.h || 2) / 2, 0)); mb.box(o.w || 6, o.h || 2, 0.1, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ffd23f', fg: o.fg || '#1d1712', border: o.border === undefined ? '#1d1712' : o.border, tw: 512, th: Math.round(512 * (o.h || 2) / (o.w || 6)) }) }] }),
 };
 

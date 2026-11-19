@@ -1,0 +1,1597 @@
+{
+ "meta": {
+  "title": "Who Sends the Supply Drops in Fortnite? 🎈",
+  "description": "Every match a crate falls from the sky – but who actually sends it? The Fortnite lore has an answer… Would YOU still open it? 👇",
+  "hashtags": [
+   "fortnite",
+   "fortnitelore",
+   "gaming",
+   "supplydrop",
+   "gamingfacts"
+  ],
+  "language": "en"
+ },
+ "title": "Who Sends the Supply Drops?",
+ "music": "mystery",
+ "cast": {
+  "max": {
+   "look": "boy",
+   "hair": "spiky",
+   "hairColor": "#2b1b12",
+   "shirt": "#3a86ff",
+   "hoodie": "#3a86ff",
+   "logo": "bolt",
+   "logoBg": "#1d2b6b",
+   "logoColor": "#ffd23f",
+   "backpack": "#ff9f1c"
+  },
+  "zoe": {
+   "look": "girl",
+   "hair": "ponytail",
+   "hairColor": "#e8b04b",
+   "shirt": "#ff006e",
+   "logo": "star",
+   "logoBg": "#ffffff",
+   "logoColor": "#ff006e"
+  },
+  "agent": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#111111",
+   "shirt": "#1b1b1b",
+   "jacket": "#1b1b1b",
+   "tie": "#7b2cbf",
+   "shades": true,
+   "logo": ""
+  },
+  "agent2": {
+   "look": "woman",
+   "hair": "bun",
+   "hairColor": "#111111",
+   "shirt": "#1b1b1b",
+   "jacket": "#1b1b1b",
+   "shades": true,
+   "logo": ""
+  }
+ },
+ "shots": [
+  {
+   "say": "Every match, a crate drops from the sky,",
+   "title": "WHO SENDS THE\nSUPPLY DROPS?",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -0.8,
+      0,
+      -2
+     ],
+     "fly": {
+      "from": [
+       -0.8,
+       26,
+       -2
+      ],
+      "to": [
+       -0.8,
+       0,
+       -2
+      ],
+      "t": [
+       0.0,
+       0.85
+      ],
+      "arc": 0
+     }
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      3.4,
+      1.4
+     ],
+     "do": "point",
+     "face": 230,
+     "mood": "surprised"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ],
+    [
+     "boom",
+     0.85
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -3.5,
+     3.4,
+     15
+    ],
+    "eye2": [
+     -3.2,
+     2.8,
+     14
+    ],
+    "look": [
+     0.5,
+     7,
+     -2
+    ],
+    "look2": [
+     0.5,
+     2.8,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "hanging from a *balloon.*",
+   "title": "WHO SENDS THE\nSUPPLY DROPS?",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -0.8,
+      0,
+      -2
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      3.0,
+      1.0
+     ],
+     "do": "cheer",
+     "face": 230,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -3,
+     4.5,
+     12
+    ],
+    "eye2": [
+     -2.6,
+     4.4,
+     11
+    ],
+    "look": [
+     0.6,
+     4.6,
+     -1.5
+    ]
+   }
+  },
+  {
+   "say": "Inside, there's always an *epic* or *legendary* weapon.",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -0.6,
+      0,
+      -1.5
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      1.8,
+      0.4
+     ],
+     "do": "open",
+     "face": 235,
+     "mood": "happy"
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.3,
+     "at": [
+      0,
+      2.4,
+      -1.5
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "EPIC",
+     "x": 0.5,
+     "y": 0.17,
+     "t": 0.3,
+     "size": 110,
+     "color": "#c77dff",
+     "rise": 0,
+     "dur": 3
+    },
+    {
+     "text": "LEGENDARY",
+     "x": 0.5,
+     "y": 0.26,
+     "t": 0.55,
+     "size": 100,
+     "color": "#ffb703",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ],
+    [
+     "tada",
+     0.55
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -3.6,
+     4.6,
+     8.5
+    ],
+    "look": [
+     0.4,
+     2.4,
+     -0.8
+    ]
+   }
+  },
+  {
+   "say": "But have you ever wondered",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      0
+     ],
+     "do": "think",
+     "face": 0,
+     "mood": "think"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "max",
+    "ang": 10
+   }
+  },
+  {
+   "say": "who actually *sends* it?",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -2.6,
+      0,
+      -3
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0.6,
+      0
+     ],
+     "do": "look",
+     "face": 30,
+     "mood": "confused",
+     "emote": "🤔"
+    }
+   ],
+   "cam": {
+    "type": "low",
+    "target": "max",
+    "ang": -12
+   }
+  },
+  {
+   "say": "For years, *nobody* knew.",
+   "set": "field",
+   "time": "sunset",
+   "setOpts": {
+    "banner": ""
+   },
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -1.4,
+      0
+     ],
+     "do": "shrug",
+     "face": 15,
+     "mood": "confused"
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.4,
+      0
+     ],
+     "do": "shrug",
+     "face": -15,
+     "mood": "confused"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     11
+    ],
+    "eye2": [
+     0,
+     4.2,
+     10
+    ],
+    "look": [
+     0,
+     2.8,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Then the *lore* gave us an answer.",
+   "set": "field",
+   "time": "sunset",
+   "setOpts": {
+    "banner": ""
+   },
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      0,
+      0
+     ],
+     "do": "pointup",
+     "face": 0,
+     "mood": "surprised"
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.3,
+     "at": "zoe"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "zoe",
+    "ang": -8
+   }
+  },
+  {
+   "say": "The island is stuck in something called *the Loop.*",
+   "set": "field",
+   "time": "night",
+   "setOpts": {
+    "banner": ""
+   },
+   "pops": [
+    {
+     "text": "🔁",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.4,
+     "size": 150,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      0
+     ],
+     "do": "spin",
+     "face": 0,
+     "mood": "dizzy"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.4
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "max",
+    "ang": 0
+   }
+  },
+  {
+   "say": "Every match is the *same battle,*",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "tv",
+     "text": "MATCH #1",
+     "bg": "#3a86ff",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25,
+     "ry": 0
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     3.2,
+     7.8
+    ],
+    "eye2": [
+     0.3,
+     3.1,
+     6.8
+    ],
+    "look": [
+     0,
+     0.7,
+     -5.6
+    ]
+   }
+  },
+  {
+   "say": "repeating again and again.",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "tv",
+     "text": "MATCH #9,999",
+     "bg": "#e63946",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25,
+     "ry": 0
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.5
+    ],
+    [
+     "tick",
+     0.8
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.2,
+     3.0,
+     6.6
+    ],
+    "eye2": [
+     0.1,
+     2.9,
+     5.6
+    ],
+    "look": [
+     0,
+     0.7,
+     -5.6
+    ]
+   }
+  },
+  {
+   "say": "And a secret organization called the *Imagined Order*",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "tv",
+     "text": "IO",
+     "bg": "#7b2cbf",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25,
+     "ry": 0
+    }
+   ],
+   "actors": [
+    {
+     "id": "agent",
+     "at": [
+      -1.4,
+      1.4
+     ],
+     "do": "idle",
+     "face": 10,
+     "mood": "evil",
+     "idle": "hips"
+    },
+    {
+     "id": "agent2",
+     "at": [
+      1.4,
+      1.4
+     ],
+     "do": "idle",
+     "face": -10,
+     "mood": "smug",
+     "idle": "pockets"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     12
+    ],
+    "eye2": [
+     0,
+     4.4,
+     10.6
+    ],
+    "look": [
+     0,
+     3.2,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "is *behind* it.",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "actors": [
+    {
+     "id": "agent",
+     "at": [
+      0,
+      1.4
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "evil"
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.3,
+     "dur": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.3
+    ]
+   ],
+   "cam": {
+    "type": "low",
+    "target": "agent",
+    "ang": 0
+   }
+  },
+  {
+   "say": "A special game mode revealed the *truth:*",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "tv",
+     "text": "TOP SECRET",
+     "bg": "#e63946",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25,
+     "ry": 0
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     3.2,
+     7.8
+    ],
+    "eye2": [
+     0.3,
+     3.1,
+     6.8
+    ],
+    "look": [
+     0,
+     0.7,
+     -5.6
+    ]
+   }
+  },
+  {
+   "say": "the Imagined Order makes the *chests,*",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "gift",
+     "at": [
+      0,
+      1.2
+     ],
+     "pop": 0.15,
+     "color": "#ffb703",
+     "s": 1.4
+    }
+   ],
+   "actors": [
+    {
+     "id": "agent",
+     "at": [
+      -2.0,
+      0.6
+     ],
+     "do": "point",
+     "face": 50,
+     "mood": "smug"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     10
+    ],
+    "look": [
+     -0.6,
+     2.4,
+     0.6
+    ]
+   }
+  },
+  {
+   "say": "the *ammo boxes,*",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "box",
+     "at": [
+      0,
+      1.2
+     ],
+     "pop": 0.1,
+     "s": 0.9
+    }
+   ],
+   "actors": [
+    {
+     "id": "agent2",
+     "at": [
+      2.0,
+      0.6
+     ],
+     "do": "point",
+     "face": -50,
+     "mood": "smug"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     10
+    ],
+    "look": [
+     0.6,
+     2.4,
+     0.6
+    ]
+   }
+  },
+  {
+   "say": "and the *supply drops.*",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      0,
+      0,
+      0.8
+     ],
+     "pop": 0.1,
+     "balloon": false
+    }
+   ],
+   "actors": [
+    {
+     "id": "agent",
+     "at": [
+      -2.4,
+      1.2
+     ],
+     "do": "cheer",
+     "face": 30,
+     "mood": "evil"
+    },
+    {
+     "id": "agent2",
+     "at": [
+      2.4,
+      1.2
+     ],
+     "do": "cheer",
+     "face": -30,
+     "mood": "evil"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.1
+    ],
+    [
+     "tada",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     5.2,
+     13
+    ],
+    "look": [
+     0,
+     3.4,
+     0.5
+    ]
+   }
+  },
+  {
+   "say": "They even have a *Supply Drop Factory.*",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -3.0,
+      0,
+      -1.6
+     ],
+     "balloon": false
+    },
+    {
+     "type": "airdrop",
+     "at": [
+      0,
+      0,
+      -2.2
+     ],
+     "balloon": false
+    },
+    {
+     "type": "airdrop",
+     "at": [
+      3.0,
+      0,
+      -1.6
+     ],
+     "balloon": false
+    },
+    {
+     "type": "airdrop",
+     "at": [
+      -1.5,
+      0,
+      1.2
+     ],
+     "balloon": false
+    },
+    {
+     "type": "airdrop",
+     "at": [
+      1.5,
+      0,
+      1.2
+     ],
+     "balloon": false
+    }
+   ],
+   "pops": [
+    {
+     "text": "FACTORY",
+     "x": 0.5,
+     "y": 0.17,
+     "t": 0.2,
+     "size": 120,
+     "color": "#c77dff",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7,
+     15
+    ],
+    "eye2": [
+     0,
+     6.6,
+     13.5
+    ],
+    "look": [
+     0,
+     3.2,
+     -0.5
+    ]
+   }
+  },
+  {
+   "say": "That's also where the *Supply Llamas* come from.",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "tv",
+     "text": "🦙",
+     "bg": "#ff006e",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25,
+     "ry": 0
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     3.2,
+     7.8
+    ],
+    "eye2": [
+     0.3,
+     3.1,
+     6.8
+    ],
+    "look": [
+     0,
+     0.7,
+     -5.6
+    ]
+   }
+  },
+  {
+   "say": "Yes, those llamas are *living piñatas*",
+   "speak": "Yes, those llamas are living pin-yah-tahs",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      0,
+      0
+     ],
+     "do": "laugh",
+     "face": 0,
+     "mood": "laugh"
+    }
+   ],
+   "pops": [
+    {
+     "text": "🪅",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.2,
+     "size": 150,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "zoe",
+    "ang": 12
+   }
+  },
+  {
+   "say": "built in that factory.",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -1.6,
+      0,
+      -0.6
+     ],
+     "balloon": false
+    },
+    {
+     "type": "airdrop",
+     "at": [
+      1.6,
+      0,
+      -0.6
+     ],
+     "balloon": false
+    }
+   ],
+   "actors": [
+    {
+     "id": "agent2",
+     "at": [
+      0,
+      1.6
+     ],
+     "do": "hammer",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "chop",
+     0.2
+    ],
+    [
+     "chop",
+     0.5
+    ],
+    [
+     "chop",
+     0.8
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "agent2",
+    "ang": -10
+   }
+  },
+  {
+   "say": "And back in *Season 9,*",
+   "speak": "And back in season nine,",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "tv",
+     "text": "SEASON 9",
+     "bg": "#ff9f1c",
+     "at": [
+      0,
+      -3
+     ],
+     "s": 1.25,
+     "ry": 0
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     3.2,
+     10.2
+    ],
+    "eye2": [
+     0.3,
+     3.1,
+     9.2
+    ],
+    "look": [
+     0,
+     0.7,
+     -3
+    ]
+   }
+  },
+  {
+   "say": "a shipping company called *Ship It*",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "pops": [
+    {
+     "text": "SHIP IT 📦",
+     "x": 0.5,
+     "y": 0.2,
+     "t": 0.15,
+     "size": 110,
+     "color": "#ff9f1c",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      0
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "surprised"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "max",
+    "ang": 14
+   }
+  },
+  {
+   "say": "even sent loot by *drone.*",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      0,
+      0,
+      -2
+     ],
+     "balloon": false,
+     "bob": 0.25,
+     "fly": {
+      "from": [
+       -14,
+       9,
+       -2
+      ],
+      "to": [
+       14,
+       9,
+       -2
+      ],
+      "t": [
+       0,
+       1
+      ],
+      "arc": 0,
+      "bounce": false
+     }
+    }
+   ],
+   "pops": [
+    {
+     "text": "🚁",
+     "x": 0.5,
+     "y": 0.24,
+     "t": 0.1,
+     "size": 140,
+     "color": "#ffd23f",
+     "rise": 0,
+     "dur": 3
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     16
+    ],
+    "look": [
+     0,
+     7,
+     -2
+    ]
+   }
+  },
+  {
+   "say": "So the next time a supply drop lands right in front of you,",
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -0.8,
+      0,
+      -1.6
+     ],
+     "fly": {
+      "from": [
+       -0.8,
+       26,
+       -1.6
+      ],
+      "to": [
+       -0.8,
+       0,
+       -1.6
+      ],
+      "t": [
+       0.0,
+       0.55
+      ],
+      "arc": 0
+     }
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      2.6,
+      1.2
+     ],
+     "do": "idle",
+     "face": 235,
+     "mood": "surprised"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.05
+    ],
+    [
+     "boom",
+     0.56
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -3.2,
+     4.4,
+     11.5
+    ],
+    "look": [
+     0.4,
+     3.0,
+     -0.8
+    ]
+   }
+  },
+  {
+   "say": "remember:",
+   "pause": 0.25,
+   "set": "field",
+   "time": "day",
+   "setOpts": {
+    "banner": ""
+   },
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "think"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "max",
+    "ang": 0
+   }
+  },
+  {
+   "say": "someone is *watching* your match.",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "props": [
+    {
+     "type": "tv",
+     "text": "👀 LIVE",
+     "bg": "#e63946",
+     "at": [
+      0,
+      -5.6
+     ],
+     "s": 1.25,
+     "ry": 0
+    }
+   ],
+   "actors": [
+    {
+     "id": "agent",
+     "at": [
+      0,
+      1.6
+     ],
+     "do": "idle",
+     "face": 180,
+     "mood": "evil"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.8,
+     4.4,
+     8.5
+    ],
+    "look": [
+     0,
+     2.2,
+     -4
+    ]
+   }
+  },
+  {
+   "say": "And they decided *you* get that loot.",
+   "set": "room",
+   "time": "day",
+   "setOpts": {
+    "color": "#2b2d42",
+    "poster": "IO",
+    "curtain": "#7b2cbf",
+    "rug": "#3c096c"
+   },
+   "actors": [
+    {
+     "id": "agent",
+     "at": [
+      0,
+      0
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "agent",
+    "ang": 8
+   }
+  },
+  {
+   "say": "Or maybe...",
+   "pause": 0.3,
+   "set": "field",
+   "time": "sunset",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -0.8,
+      0,
+      -1.2
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      2.2,
+      0.8
+     ],
+     "do": "scared",
+     "face": 235,
+     "mood": "scared"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     -3.0,
+     4.0,
+     9.5
+    ],
+    "look": [
+     0.6,
+     2.8,
+     -0.6
+    ]
+   }
+  },
+  {
+   "say": "it's a *trap.*",
+   "set": "field",
+   "time": "night",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      0,
+      0,
+      -1.2
+     ],
+     "jig": 0.08
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.2,
+     "dur": 0.4
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     2.8,
+     7.5
+    ],
+    "eye2": [
+     0,
+     2.7,
+     6.4
+    ],
+    "look": [
+     0,
+     2.0,
+     -1.2
+    ]
+   }
+  },
+  {
+   "say": "Would *you* still open it?",
+   "set": "field",
+   "time": "sunset",
+   "setOpts": {
+    "banner": ""
+   },
+   "props": [
+    {
+     "type": "airdrop",
+     "at": [
+      -2.2,
+      0,
+      -1.5
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0.8,
+      0.6
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "pops": [
+    {
+     "text": "💬",
+     "x": 0.76,
+     "y": 0.2,
+     "t": 0.45,
+     "size": 140
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "max",
+    "ang": -14
+   }
+  }
+ ],
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ }
+}
