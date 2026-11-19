@@ -52,6 +52,8 @@ def run(ids, api=None, storage=None, run_id=None):
             tok = api.token(platform)
             print(f'[{pid}] Upload startet ({info["duration"]:.1f}s, {info["size"] / 1e6:.1f} MB)', flush=True)
             mod = PLATFORMS[platform]
+            if platform == 'instagram':
+                meta = dict(meta, _media_url=buffer_tiktok.media_url(video['id']))
             if platform == 'tiktok' and buffer_tiktok.enabled():
                 mod, meta = buffer_tiktok, dict(meta, _media_url=buffer_tiktok.media_url(video['id']))
                 print(f'[{pid}] TikTok über Buffer', flush=True)

@@ -24,20 +24,24 @@ def publish(path, size, tok, meta, settings, pub_id, attempt):
         if total and d.get('quota_usage', 0) >= total:
             raise PublishError('Instagram-Tageslimit für API-Posts erreicht')
 
-    r = http('POST', f'{g}/{ig_id}/media', data={
-        'media_type': 'REELS', 'upload_type': 'resumable', 'caption': meta['instagram']['caption'][:2200],
-        'share_to_feed': 'true', 'access_token': token,
-    })
-    if r.status_code != 200:
-        raise PublishError(f'Instagram Container: {err_text(r)}', retryable=r.status_code not in (400, 401, 403))
-    cid = r.json()['id']
-
-    with open(path, 'rb') as f:
-        data = f.read()
-    r = http('POST', f'{RUPLOAD}/ig-api-upload/{ver}/{cid}', data=data, timeout=600,
-             headers={'authorization': f'OAuth {token}', 'offset': '0', 'file_size': str(size)})
-    if r.status_code != 200:
-        raise PublishError(f'Instagram Upload: {err_text(r)}')
+    base = {'media_type': 'REELS', 'caption': meta['instagram']['caption'][:2200], 'share_to_feed': 'true', 'access_token': token}
+    if meta.get('_media_url'):
+        # Instagram holt das Video selbst über den signierten Orchestrator-Link
+        r = http('POST', f'{g}/{ig_id}/media', data=dict(base, video_url=meta['_media_url']))
+        if r.status_code != 200:
+            raise PublishError(f'Instagram Container: {err_text(r)}', retryable=r.status_code not in (400, 401, 403))
+        cid = r.json()['id']
+    else:
+        r = http('POST', f'{g}/{ig_id}/media', data=dict(base, upload_type='resumable'))
+        if r.status_code != 200:
+            raise PublishError(f'Instagram Container: {err_text(r)}', retryable=r.status_code not in (400, 401, 403))
+        cid = r.json()['id']
+        with open(path, 'rb') as f:
+            data = f.read()
+        r = http('POST', f'{RUPLOAD}/ig-api-upload/{ver}/{cid}', data=data, timeout=600,
+                 headers={'authorization': f'OAuth {token}', 'offset': '0', 'file_size': str(size)})
+        if r.status_code != 200:
+            raise PublishError(f'Instagram Upload: {err_text(r)}')
 
     deadline = time.time() + 15 * 60
     while True:
