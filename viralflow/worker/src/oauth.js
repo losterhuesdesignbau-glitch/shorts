@@ -140,18 +140,30 @@ export async function oauthCallback(env, req, platform) {
 }
 
 /** Instagram-Token aus dem Meta-Dashboard ("Token generieren") übernehmen – für neue Apps ohne Instagram-Login-OAuth. */
-export async function importInstagramToken(env, accessTok) {
+export async function importInstagramToken(env, accessTok, igId) {
   if (!accessTok) throw new HttpError(400, 'Token fehlt');
-  const me = await getJson(`${IG_GRAPH(env)}/me?fields=user_id,username,account_type&access_token=${encodeURIComponent(accessTok)}`);
-  let token = { access_token: accessTok, expires_at: Date.now() + 50 * 86400000 };
-  try { token = await PROVIDERS.instagram.refresh(env, token); } catch { /* frisches Token: Verlängerung erst nach 24 h möglich */ }
-  const ts = nowIso(), name = me.username + (me.account_type ? ` (${me.account_type})` : '');
+  const ver = env.IG_GRAPH_VERSION || 'v24.0';
+  let token, id, name;
+  try {
+    // Instagram-User-Token (IGAA…): graph.instagram.com, 60 Tage, verlängerbar
+    const me = await getJson(`${IG_GRAPH(env)}/me?fields=user_id,username,account_type&access_token=${encodeURIComponent(accessTok)}`);
+    token = { access_token: accessTok, expires_at: Date.now() + 50 * 86400000 };
+    try { token = await PROVIDERS.instagram.refresh(env, token); } catch { /* frisch: erst nach 24 h verlängerbar */ }
+    id = String(me.user_id || me.id); name = me.username + (me.account_type ? ` (${me.account_type})` : '');
+  } catch (e) {
+    // Systemnutzer-Token (EAA…, Unified Login): graph.facebook.com, läuft nicht ab
+    if (!igId) throw new HttpError(400, `Token nicht als Instagram-Token lesbar und keine Konto-ID angegeben: ${e.message}`);
+    const u = await getJson(`https://graph.facebook.com/${ver}/${igId}?fields=id,username&access_token=${encodeURIComponent(accessTok)}`);
+    token = { access_token: accessTok, graph_base: 'https://graph.facebook.com', never_expires: true };
+    id = String(u.id); name = `${u.username} (Systemnutzer)`;
+  }
+  const ts = nowIso();
   await env.DB.prepare(`INSERT INTO connections(platform, account_id, account_name, token_enc, scopes, connected_at, updated_at) VALUES('instagram',?,?,?,?,?,?)
       ON CONFLICT(platform) DO UPDATE SET account_id = excluded.account_id, account_name = excluded.account_name, token_enc = excluded.token_enc,
       scopes = excluded.scopes, updated_at = excluded.updated_at`)
-    .bind(String(me.user_id || me.id), name, await encryptJson(env.TOKEN_KEY, token), PROVIDERS.instagram.scopes.join(','), ts, ts).run();
+    .bind(id, name, await encryptJson(env.TOKEN_KEY, token), 'instagram_content_publish', ts, ts).run();
   await logEvent(env, 'CONNECTED', { platform: 'instagram', message: `${name} (Token-Import)` });
-  return { ok: true, account: name, account_id: String(me.user_id || me.id) };
+  return { ok: true, account: name, account_id: id };
 }
 
 /** Gültiges Access-Token für einen Upload-Job (wird bei Bedarf erneuert). */
@@ -161,7 +173,7 @@ export async function accessToken(env, platform) {
   let tok = await decryptJson(env.TOKEN_KEY, row.token_enc);
   const p = PROVIDERS[platform];
   const margin = p.refreshBeforeMs || 10 * 60000;
-  if (!tok.expires_at || tok.expires_at - Date.now() < margin) {
+  if (!tok.never_expires && (!tok.expires_at || tok.expires_at - Date.now() < margin)) {
     try {
       tok = await p.refresh(env, tok);
       await env.DB.prepare('UPDATE connections SET token_enc = ?, updated_at = ? WHERE platform = ?').bind(await encryptJson(env.TOKEN_KEY, tok), nowIso(), platform).run();
@@ -170,5 +182,5 @@ export async function accessToken(env, platform) {
       if (!tok.expires_at || tok.expires_at < Date.now()) throw new HttpError(401, `${platform}: Anmeldung abgelaufen – im Dashboard neu verbinden`);
     }
   }
-  return { access_token: tok.access_token, account_id: row.account_id, account_name: row.account_name, graph_version: env.IG_GRAPH_VERSION || 'v24.0' };
+  return { access_token: tok.access_token, account_id: row.account_id, account_name: row.account_name, graph_version: env.IG_GRAPH_VERSION || 'v24.0', graph_base: tok.graph_base };
 }

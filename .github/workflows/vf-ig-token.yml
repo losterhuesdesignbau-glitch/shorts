@@ -2,6 +2,10 @@
 name: "VIRALFLOW · Instagram-Token übernehmen"
 on:
   workflow_dispatch:
+    inputs:
+      account_id:
+        description: "Instagram-Konto-ID (für Systemnutzer-Token)"
+        default: "17841432202896108"
 permissions:
   contents: read
 jobs:
@@ -11,6 +15,7 @@ jobs:
       VF_API_URL: ${{ secrets.VF_API_URL }}
       VF_WEBHOOK_SECRET: ${{ secrets.VF_WEBHOOK_SECRET }}
       INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_ACCOUNT_ID: ${{ inputs.account_id }}
       PYTHONPATH: ${{ github.workspace }}/viralflow
     steps:
       - uses: actions/checkout@v4

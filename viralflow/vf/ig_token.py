@@ -8,7 +8,7 @@ def main():
     tok = os.environ.get('INSTAGRAM_ACCESS_TOKEN', '').strip()
     if not tok:
         raise SystemExit('Secret INSTAGRAM_ACCESS_TOKEN fehlt')
-    r = Orchestrator().call('POST', '/api/engine/token/instagram/import', {'access_token': tok})
+    r = Orchestrator().call('POST', '/api/engine/token/instagram/import', {'access_token': tok, 'account_id': os.environ.get('INSTAGRAM_ACCOUNT_ID', '').strip() or None})
     print('Instagram verbunden:', r.get('account'), r.get('account_id'))
 
 

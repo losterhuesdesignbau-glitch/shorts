@@ -15,7 +15,7 @@ POLL_S = float(os.environ.get('IG_POLL_SECONDS', '10'))
 
 def publish(path, size, tok, meta, settings, pub_id, attempt):
     token, ig_id, ver = tok['access_token'], tok['account_id'], tok.get('graph_version', 'v24.0')
-    g = f'{GRAPH}/{ver}'
+    g = f"{tok.get('graph_base') or GRAPH}/{ver}"
 
     lim = http('GET', f'{g}/{ig_id}/content_publishing_limit', params={'fields': 'quota_usage,config', 'access_token': token})
     if lim.status_code == 200:

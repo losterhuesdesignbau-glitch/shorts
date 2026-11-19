@@ -203,7 +203,7 @@ async function engineApi(env, method, path, data) {
     if (pm[2] === 'claim') return json(await claimPublication(env, id, data.run_id || 'unknown'));
     return json(await reportPublication(env, id, data));
   }
-  if (path === '/api/engine/token/instagram/import' && method === 'POST') return json(await importInstagramToken(env, data.access_token));
+  if (path === '/api/engine/token/instagram/import' && method === 'POST') return json(await importInstagramToken(env, data.access_token, data.account_id));
   const tm = path.match(/^\/api\/engine\/token\/(youtube|instagram|tiktok)$/);
   if (tm && method === 'POST') return json(await accessToken(env, tm[1]));
 
