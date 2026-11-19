@@ -191,7 +191,7 @@ async function engineApi(env, method, path, data) {
   const rq = path.match(/^\/api\/engine\/publications\/([^/]+)\/requeue$/);
   if (rq && method === 'POST') {
     const id = decodeURIComponent(rq[1]), ts = nowIso();
-    const r = await env.DB.prepare("UPDATE publications SET status = 'queued', scheduled_at = ?, attempts = 0, next_attempt_at = NULL, lease_until = NULL, error = NULL, updated_at = ? WHERE id = ? AND status IN ('cancelled', 'failed') RETURNING id, video_id, platform").bind(ts, ts, id).first();
+    const r = await env.DB.prepare("UPDATE publications SET status = 'queued', scheduled_at = ?, attempts = 0, next_attempt_at = NULL, lease_until = NULL, error = NULL, updated_at = ? WHERE id = ? AND status IN ('cancelled', 'failed', 'queued') RETURNING id, video_id, platform").bind(ts, ts, id).first();
     if (!r) throw new HttpError(409, 'Nicht neu einreihbar (unbekannt oder schon veröffentlicht/aktiv)');
     await logEvent(env, 'REQUEUED', { video_id: r.video_id, platform: r.platform, message: 'per Engine-API neu eingereiht' });
     await tick(env);
