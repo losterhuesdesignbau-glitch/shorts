@@ -36,6 +36,12 @@ class Storage:
             shutil.copyfile(self.local / key, path); return
         self.s3.download_file(self.bucket, key, str(path))
 
+    def url(self, key, expires=6 * 3600):
+        """Zeitlich begrenzter Download-Link (z. B. für Buffer). Lokal: None."""
+        if self.local:
+            return None
+        return self.s3.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': key}, ExpiresIn=expires)
+
     def exists(self, key):
         if self.local:
             return (self.local / key).exists()

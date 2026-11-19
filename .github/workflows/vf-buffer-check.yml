@@ -1,0 +1,21 @@
+# Prüft den Buffer-Anschluss (API-Schlüssel + TikTok-Kanal), ohne etwas zu posten
+name: "VIRALFLOW · Buffer prüfen"
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      PYTHONPATH: ${{ github.workspace }}/viralflow
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: viralflow
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - run: python -m vf.platforms.buffer_tiktok --check

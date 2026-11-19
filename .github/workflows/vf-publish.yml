@@ -24,6 +24,7 @@ jobs:
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
       R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
       R2_BUCKET: viralflow-videos
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
       PYTHONPATH: ${{ github.workspace }}/viralflow
       IDS: ${{ github.event_name == 'repository_dispatch' && join(github.event.client_payload.ids, ',') || inputs.ids }}
     steps:

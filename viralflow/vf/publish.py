@@ -13,7 +13,7 @@ import traceback
 from pathlib import Path
 
 from .client import Orchestrator, OrchestratorError
-from .platforms import instagram, tiktok, youtube
+from .platforms import buffer_tiktok, instagram, tiktok, youtube
 from .platforms.base import PublishError
 from .storage import Storage
 from .validate import InvalidVideo, check
@@ -51,7 +51,11 @@ def run(ids, api=None, storage=None, run_id=None):
             path, info = files[key]
             tok = api.token(platform)
             print(f'[{pid}] Upload startet ({info["duration"]:.1f}s, {info["size"] / 1e6:.1f} MB)', flush=True)
-            res = PLATFORMS[platform].publish(path, info['size'], tok, meta, settings, pid, pub['attempts'])
+            mod = PLATFORMS[platform]
+            if platform == 'tiktok' and buffer_tiktok.enabled():
+                mod, meta = buffer_tiktok, dict(meta, _media_url=storage.url(key))
+                print(f'[{pid}] TikTok über Buffer', flush=True)
+            res = mod.publish(path, info['size'], tok, meta, settings, pid, pub['attempts'])
             api.report(pid, status='published', run_id=run_id, **res)
             print(f'[{pid}] ✓ veröffentlicht: {res.get("remote_url") or res.get("remote_id")} ({res.get("privacy")})', flush=True)
             results[pid] = 'published'
