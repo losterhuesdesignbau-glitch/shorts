@@ -1,0 +1,23 @@
+# Instagram-Token aus dem Meta-Dashboard in ViralFlow übernehmen (einmalig; Verlängerung danach automatisch)
+name: "VIRALFLOW · Instagram-Token übernehmen"
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    env:
+      VF_API_URL: ${{ secrets.VF_API_URL }}
+      VF_WEBHOOK_SECRET: ${{ secrets.VF_WEBHOOK_SECRET }}
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      PYTHONPATH: ${{ github.workspace }}/viralflow
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: viralflow
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - run: python -m vf.ig_token

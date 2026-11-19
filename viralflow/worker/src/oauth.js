@@ -139,6 +139,21 @@ export async function oauthCallback(env, req, platform) {
   return new Response(null, { status: 302, headers: { location: '/#verbindungen', 'set-cookie': 'vf_oauth=; Path=/oauth; Max-Age=0' } });
 }
 
+/** Instagram-Token aus dem Meta-Dashboard ("Token generieren") übernehmen – für neue Apps ohne Instagram-Login-OAuth. */
+export async function importInstagramToken(env, accessTok) {
+  if (!accessTok) throw new HttpError(400, 'Token fehlt');
+  const me = await getJson(`${IG_GRAPH(env)}/me?fields=user_id,username,account_type&access_token=${encodeURIComponent(accessTok)}`);
+  let token = { access_token: accessTok, expires_at: Date.now() + 50 * 86400000 };
+  try { token = await PROVIDERS.instagram.refresh(env, token); } catch { /* frisches Token: Verlängerung erst nach 24 h möglich */ }
+  const ts = nowIso(), name = me.username + (me.account_type ? ` (${me.account_type})` : '');
+  await env.DB.prepare(`INSERT INTO connections(platform, account_id, account_name, token_enc, scopes, connected_at, updated_at) VALUES('instagram',?,?,?,?,?,?)
+      ON CONFLICT(platform) DO UPDATE SET account_id = excluded.account_id, account_name = excluded.account_name, token_enc = excluded.token_enc,
+      scopes = excluded.scopes, updated_at = excluded.updated_at`)
+    .bind(String(me.user_id || me.id), name, await encryptJson(env.TOKEN_KEY, token), PROVIDERS.instagram.scopes.join(','), ts, ts).run();
+  await logEvent(env, 'CONNECTED', { platform: 'instagram', message: `${name} (Token-Import)` });
+  return { ok: true, account: name, account_id: String(me.user_id || me.id) };
+}
+
 /** Gültiges Access-Token für einen Upload-Job (wird bei Bedarf erneuert). */
 export async function accessToken(env, platform) {
   const row = await env.DB.prepare('SELECT * FROM connections WHERE platform = ?').bind(platform).first();

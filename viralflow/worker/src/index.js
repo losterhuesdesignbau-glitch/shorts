@@ -7,7 +7,7 @@ import {
   rescheduleVideo, refreshVideoStatus,
 } from './core.js';
 import { upcomingSlots, formatLocal } from './schedule.js';
-import { oauthStart, oauthCallback, accessToken } from './oauth.js';
+import { oauthStart, oauthCallback, accessToken, importInstagramToken } from './oauth.js';
 import { dispatchGithub } from './github.js';
 
 const SESSION_DAYS = 30;
@@ -203,6 +203,7 @@ async function engineApi(env, method, path, data) {
     if (pm[2] === 'claim') return json(await claimPublication(env, id, data.run_id || 'unknown'));
     return json(await reportPublication(env, id, data));
   }
+  if (path === '/api/engine/token/instagram/import' && method === 'POST') return json(await importInstagramToken(env, data.access_token));
   const tm = path.match(/^\/api\/engine\/token\/(youtube|instagram|tiktok)$/);
   if (tm && method === 'POST') return json(await accessToken(env, tm[1]));
 
