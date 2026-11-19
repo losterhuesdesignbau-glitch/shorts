@@ -11,13 +11,21 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: ffmpeg installieren (ausfallsicher)
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        continue-on-error: true
+      - name: ffmpeg prüfen / Ersatzweg
+        run: |
+          command -v ffprobe && exit 0
+          for i in 1 2 3 4; do sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && exit 0; sleep $((i * 20)); done
+          exit 1
       - run: pip install -q -r viralflow/requirements-publish.txt
       - name: Orchestrator-Tests
         working-directory: viralflow/worker
