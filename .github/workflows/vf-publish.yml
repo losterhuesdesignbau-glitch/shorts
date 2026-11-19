@@ -35,8 +35,14 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: viralflow/requirements-publish.txt
-      - run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-          pip install -q -r viralflow/requirements-publish.txt
+      - name: ffmpeg installieren (ausfallsicher)
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        continue-on-error: true
+      - name: ffmpeg prüfen / Ersatzweg
+        run: |
+          command -v ffprobe && exit 0
+          for i in 1 2 3 4; do sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && exit 0; sleep $((i * 20)); done
+          exit 1
+      - run: pip install -q -r viralflow/requirements-publish.txt
       - name: Veröffentlichen
         run: python -m vf.publish --ids "$IDS"

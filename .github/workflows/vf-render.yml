@@ -77,12 +77,21 @@ jobs:
         with:
           path: ~/.cache/block_studio
           key: voices-v1
+      - name: ffmpeg installieren (ausfallsicher)
+        if: matrix.file != '' || matrix.episode_id != ''
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        continue-on-error: true
       - name: Abhängigkeiten
         if: matrix.file != '' || matrix.episode_id != ''
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
           pip install -q -r viralflow/requirements-render.txt
-          python -m playwright install --with-deps chromium
+          for i in 1 2 3 4; do
+            ok=1
+            command -v ffprobe >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; } || ok=0
+            [ $ok = 1 ] && python -m playwright install --with-deps chromium && exit 0
+            echo "Paketserver-Problem – neuer Versuch in $((i * 30)) s"; sleep $((i * 30))
+          done
+          exit 1
       - name: Rendern + hochladen + VIDEO_READY
         id: render
         if: matrix.file != '' || matrix.episode_id != ''
