@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       ids:
-        description: "Veröffentlichungs-IDs, Komma-getrennt (video-id:plattform)"
+        description: "Veröffentlichungs-IDs, Komma-getrennt (video-id:plattform) – oder liste / plattform:instagram"
         required: true
       requeue:
         description: "ja = sofort neu einreihen statt abbrechen"
@@ -29,4 +29,11 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -q requests
-      - run: if [ "$REQUEUE" = "ja" ]; then python -m vf.cancel --ids "$IDS" --requeue; else python -m vf.cancel --ids "$IDS"; fi
+      - run: |
+          case "$IDS" in
+            liste) python -m vf.cancel --list ;;
+            plattform:*) python -m vf.cancel --platform "${IDS#plattform:}" --requeue ;;
+            *) if [ "$REQUEUE" = "ja" ]; then python -m vf.cancel --ids "$IDS" --requeue; else python -m vf.cancel --ids "$IDS"; fi ;;
+          esac
+      - if: false
+        run: if [ "$REQUEUE" = "ja" ]; then python -m vf.cancel --ids "$IDS" --requeue; else python -m vf.cancel --ids "$IDS"; fi

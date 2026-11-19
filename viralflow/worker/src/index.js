@@ -203,6 +203,12 @@ async function engineApi(env, method, path, data) {
     if (pm[2] === 'claim') return json(await claimPublication(env, id, data.run_id || 'unknown'));
     return json(await reportPublication(env, id, data));
   }
+  if (path === '/api/engine/publications/list' && method === 'POST') {
+    const st = Array.isArray(data.statuses) && data.statuses.length ? data.statuses.map(String) : ['queued', 'failed', 'dispatched'];
+    const r = await env.DB.prepare(`SELECT p.id, p.platform, p.status, p.scheduled_at, p.error, v.filename FROM publications p JOIN videos v ON v.id = p.video_id
+        WHERE p.status IN (${st.map(() => '?').join(',')}) ORDER BY p.scheduled_at`).bind(...st).all();
+    return json({ items: r.results });
+  }
   if (path === '/api/engine/token/instagram/import' && method === 'POST') return json(await importInstagramToken(env, data.access_token, data.account_id));
   const tm = path.match(/^\/api\/engine\/token\/(youtube|instagram|tiktok)$/);
   if (tm && method === 'POST') return json(await accessToken(env, tm[1]));
