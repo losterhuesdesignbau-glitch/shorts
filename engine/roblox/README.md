@@ -104,7 +104,7 @@ Abkürzungen („z.B.“, „Dr.“) und englische Namen ggf. per `speak` aussch
 
 ## Ergänzungen aus dem Shorts-Chat (in Version 5 übernommen)
 - **Sets:** elevator (open, lit, light), hallway (name, doorOpen), snow (Antarktis), kitchen (green, top, cabinet, wall; Arbeitsplatte y≈2.45).
-- **Requisiten:** controller, console, keys, piano, stool, panel, display, tower, ghostfloors, pen, smartphone (Chat-Bildschirm: name, sub, msgs, typing, lock, notif, stamp, time, avatar, nameColor), pebble, nest, board, tray, cabbage, shreds, radish, meat, meatslice, helper (Küchen-Multitool). Tier: guineapig.
+- **Requisiten:** controller, console, keys, piano, stool, panel, display, tower, ghostfloors, pen, smartphone (Chat-Bildschirm: name, sub, msgs, typing, lock, notif, stamp, time, avatar, nameColor), pebble, nest, cutboard (Schneidebrett), tray, cabbage, shreds, radish, meat, meatslice, helper (Küchen-Multitool). Tier: guineapig.
 - **Requisiten-Animation:** `rx`, `rz` (Grad), `grow: [t0, t1, von, bis]` (Skalierung, auch [x,y,z]), `jig` (Wackeln).
 - **Posen:** piano, chop, shred, slice (+ Tier-Pose float). Gesicht: `scar`.
 - **Halten:** `hold: {type, dir: 'arm', hand: 'L'}`, `both: true` für Controller.
