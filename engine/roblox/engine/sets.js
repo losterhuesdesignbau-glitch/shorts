@@ -1,8 +1,8 @@
 'use strict';
 // ============ sets.js – Orte (Bühne um den Ursprung, Kamera standardmäßig bei +z) ============
 class SB {
-  constructor() { this.mb = new MB(); this.win = new MB(); this.lamp = new MB(); this.ns = new MB(); this.glow = new MB(); this.skywin = new MB(); this.fol = new MB(); this.tx = []; this.items = []; this.bg = 'town'; this.wide = { eye: [0, 10, 26], look: [0, 3, -6] }; this.indoor = false; this.bounds = null; }
-  all() { return [this.mb, this.win, this.lamp, this.ns, this.glow, this.skywin, this.fol]; }
+  constructor() { this.mb = new MB(); this.win = new MB(); this.lamp = new MB(); this.ns = new MB(); this.glow = new MB(); this.neon = new MB(); this.skywin = new MB(); this.fol = new MB(); this.tx = []; this.items = []; this.bg = 'town'; this.wide = { eye: [0, 10, 26], look: [0, 3, -6] }; this.indoor = false; this.bounds = null; }
+  all() { return [this.mb, this.win, this.lamp, this.ns, this.glow, this.neon, this.skywin, this.fol]; }
   push(m) { for (const b of this.all()) b.push(m); return this; }
   pop() { for (const b of this.all()) b.pop(); return this; }
   at(x, y, z, ry = 0, s = 1) { return this.push(M4.chain(M4.T(x, y, z), M4.RY(ry * DEG), M4.S(s))); }
@@ -270,6 +270,38 @@ const SETS = {
     for (let x = -30; x <= 30; x += 10) setTree(S.fol, x, 26, 1, (x / 10) & 3);
     S.wide = { eye: [0, 11, 24], look: [0, 2, -4] };
   },
+  paris(S, o) {
+    // Platz bei Nacht mit leuchtendem Gitterturm im Hintergrund (Trocadéro-Stimmung)
+    S.bg = 'none'; const mb = S.mb, G = S.neon, gold = o.color || '#ffb43a', dim = shade(gold, 0.75);
+    groundPlane(mb, '#2b2724');
+    P_(mb, 0, 0.03, -10, () => mb.box(90, 0.06, 70, '#6b625a'));
+    for (let i = -11; i <= 11; i++) { P_(mb, i * 4, 0.065, -10, () => mb.box(0.1, 0.02, 70, '#4e4740')); P_(mb, 0, 0.065, -10 + i * 3.2, () => mb.box(90, 0.02, 0.1, '#4e4740')); }
+    // nasser Boden: Lichtstreifen als Spiegelung
+    for (const x of [-1.5, 0, 1.5]) P_(G, x * 0.6, 0.075, -22, () => G.box(0.5, 0.01, 22, shade(gold, 0.35)));
+    // Brüstung, Fluss-Lichter, Stadtlichter am Horizont
+    P_(mb, 0, 0.5, -45, () => mb.box(90, 1.0, 0.8, '#3e3832'));
+    for (let i = 0; i < 70; i++) { const x = -90 + i * 2.6 + ((i * 37) % 7) * 0.3, y = 0.6 + ((i * 53) % 5) * 0.5; P_(G, x, y, -70 - ((i * 13) % 9), () => G.box(0.35, 0.35, 0.1, i % 4 ? '#ffd9a0' : '#cfe3ff')); }
+    // Turm (Gitter aus leuchtenden Streben)
+    const tz = o.towerZ ?? -130, H = 78, base = 13;
+    const wAt = y => base * Math.pow(1 - y / (H * 1.02), 1.9) + 0.5;
+    const N = 46;
+    for (let i = 0; i < N; i++) {
+      const y0 = i / N * H * 0.86, y1 = (i + 1) / N * H * 0.86, w0 = wAt(y0), w1 = wAt(y1), ym = (y0 + y1) / 2, wm = (w0 + w1) / 2;
+      for (const [sx, sz] of [[1, 1], [1, -1], [-1, 1], [-1, -1]]) {
+        const dx = (w1 - w0) * sx, ang = Math.atan2(-dx, y1 - y0);
+        G.push(M4.chain(M4.T(sx * wm, ym, tz + sz * wm), M4.RZ(ang))); G.box(0.55, (y1 - y0) * 1.08, 0.55, i % 3 ? gold : dim); G.pop();
+      }
+      if (i % 3 === 0) for (const sz of [1, -1]) { P_(G, 0, y0, tz + sz * w0, () => G.box(w0 * 2, 0.22, 0.22, gold)); P_(G, sz * w0, y0, tz, () => G.box(0.22, 0.22, w0 * 2, gold)); }
+      if (i % 3 === 1 && w0 > 1.2) for (const sz of [1, -1]) { const d = Math.hypot(w0 * 2, y1 - y0) * 1.5; for (const r of [1, -1]) { G.push(M4.chain(M4.T(0, ym, tz + sz * wm), M4.RZ(r * Math.atan2(w0 * 2, (y1 - y0) * 1.5)))); G.box(0.14, d, 0.14, dim); G.pop(); } }
+    }
+    // Bögen unten, zwei Plattformen, Spitze
+    for (const sz of [1, -1]) { for (let a = 0; a <= 12; a++) { const q = a / 12 * Math.PI, x = Math.cos(q) * 7.5, y = 4.5 + Math.sin(q) * 4.5; P_(G, x, y, tz + sz * wAt(y), () => G.box(0.7, 0.4, 0.4, gold)); } }
+    for (const yp of [12, 26]) P_(G, 0, yp, tz, () => G.box(wAt(yp) * 2 + 2.4, 1.1, wAt(yp) * 2 + 2.4, gold));
+    P_(G, 0, H * 0.86 + 2, tz, () => G.box(2.2, 4, 2.2, gold)); P_(G, 0, H * 0.86 + 7, tz, () => G.box(0.4, 6, 0.4, '#fff1c4'));
+    P_(G, 0, H * 0.86 + 10.2, tz, () => G.sphere(0.5, 1, '#ffffff'));
+    for (const [x, z] of [[-12, -6], [12, -6], [-12, 6], [12, 6]]) setLampPost(mb, S.lamp, x, z);
+    S.wide = { eye: [0, 4, 16], look: [0, 18, -60] };
+  },
   plaza(S, o) {
     const mb = S.mb; groundPlane(mb, '#7ccf4a');
     P_(mb, 0, 0.04, -8, () => mb.box(110, 0.08, 90, '#eadfc8'));
@@ -323,7 +355,7 @@ function getSet(name, o = {}) {
   const S = new SB(); (SETS[name] || SETS.street)(S, o);
   const out = { bg: S.bg, wide: S.wide, indoor: S.indoor, bounds: S.bounds, items: [], surf: S.surf || [] };
   const add = (mb, extra) => { if (mb.a.length) out.items.push({ g: GL.geo(mb), ...extra }); };
-  add(S.mb, { grain: 0.16 }); add(S.fol, { sway: 1, spec: 0.08, rim: 0.12 }); add(S.ns, { sh: false, kind: 'ns', grain: 0.05 }); add(S.win, { kind: 'win' }); add(S.lamp, { kind: 'lamp' }); add(S.glow, { e: 1, sh: false, kind: 'glow' }); add(S.skywin, { kind: 'sky', sh: false });
+  add(S.mb, { grain: 0.16 }); add(S.fol, { sway: 1, spec: 0.08, rim: 0.12 }); add(S.ns, { sh: false, kind: 'ns', grain: 0.05 }); add(S.win, { kind: 'win' }); add(S.lamp, { kind: 'lamp' }); add(S.glow, { e: 1, sh: false, kind: 'glow' }); add(S.neon, { e: 1, sh: false, kind: 'neon' }); add(S.skywin, { kind: 'sky', sh: false });
   out.items.push(...S.tx, ...S.items);
   return (SETC[key] = out);
 }

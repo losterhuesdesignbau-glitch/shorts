@@ -268,7 +268,12 @@ def main():
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', str(lst), '-c', 'copy', str(vid)], check=True)
     if viral.get('loop'):
         lv = work / 'video_loop.mp4'; loop_end(vid, lv, total); vid = lv
-    mixbuf = AU.mix(total, events, voice, src.get('music', 'happy'), not a.no_music and src.get('music', 'happy') != 'none', src.get('seed', 3))
+    mf = src.get('musicFile')
+    mixbuf = AU.mix(total, events, voice, src.get('music', 'happy'), not a.no_music and not mf and src.get('music', 'happy') != 'none', src.get('seed', 3))
+    if mf and not a.no_music:  # eigene Musikdatei (z. B. Trend-Sound) statt generierter Musik
+        mp = Path(mf) if Path(mf).is_absolute() else Path(a.episode).parent / mf
+        tr = AU.load_audio(str(mp))[int(float(src.get('musicStart', 0)) * AU.SR):] * float(src.get('musicGain', 0.9))
+        n = min(len(tr), len(mixbuf)); mixbuf[:n] += tr[:n, None] if mixbuf.ndim == 2 else tr[:n]
     wav = work / 'mix.wav'; AU.write_wav(str(wav), mixbuf)
     tmp = str(out) + '.part.mp4'
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-i', str(wav), '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-af', 'loudnorm=I=-15:TP=-1.5:LRA=11', '-ar', '44100', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], check=True)

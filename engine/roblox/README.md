@@ -136,3 +136,10 @@ Schluss mit Frage/CTA, 3–6 Hashtags, Loop an.
 **Skript-Regeln:** 1. Satz = Hook (Schock-Aussage oder Frage, keine Einleitung wie „Imagine…“) · alle 1–2 s neues Bild ·
 Twist erst ganz am Ende · letzter Satz führt in den ersten zurück (Loop) · Ja/Nein-Frage an die Zuschauer ·
 3–5 passende Hashtags inkl. Nischen-Tag (z. B. `weirdtowns`, `fortnitelore`).
+
+## Trend-Tänze (Ergänzung)
+- Neue Tanz-Aktionen im Takt: `strut` (Stolzier-Schritt), `jazzhands` (Arme weit + Seitenkick), `salute` (Hand an die Stirn), `twist` (Oberkörper-Twist). Pro Figur `bpm` (Standard 120) und `boff` (Versatz in s, damit Schritte auf den Beats liegen); der Takt läuft über Schnitte weiter. Shots ohne Text über `dur` (Sekunden) auf Beats schneiden.
+- Look-Feld `gloves` (`true` = weiß oder Farbe) färbt die Hände.
+- Set `paris`: Platz bei Nacht mit leuchtendem Gitterturm (Optionen über `setOpts`: `color`, `towerZ`), mit `"time": "night"` verwenden. Neues Leucht-Mesh `S.neon` (wird nachts nicht abgedunkelt).
+- Eigene Musik: `"musicFile": "datei.wav"` (relativ zur episode.json), optional `musicStart`, `musicGain` – ersetzt die generierte Musik. Nur Musik mit Nutzungsrechten veröffentlichen; Trend-Sounds bei TikTok/Instagram besser in der App hinzufügen.
+- Beispiel: `beispiele/trend_tanz.json` (rendern mit `--no-tts --force`, da kürzer als 40 s).

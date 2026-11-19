@@ -53,7 +53,7 @@ function cfgFor(id, a) {
   const base = c.look ? (LOOKS[c.look] || {}) : (Object.keys(c).length ? {} : npcCfg(hash(id)));
   const o = { ...AVDEF, ...base, ...c, ...(a.look && typeof a.look === 'object' ? a.look : {}) }; delete o.look; delete o.name; return o;
 }
-const MOVERS = { walk: 1, run: 1, sneak: 1, hop: 1, dance: 1, spin: 1 };
+const MOVERS = { walk: 1, run: 1, sneak: 1, hop: 1, dance: 1, spin: 1, strut: 1, jazzhands: 1, salute: 1, twist: 1 };
 const DEFMOOD = { yawn: 'yawn', sleep: 'sleep', lie: 'sleep', cheer: 'grin', laugh: 'laugh', cry: 'cry', scared: 'scared', angry: 'angry', talk: 'talk', think: 'think', dance: 'grin', jump: 'grin', spin: 'grin', fall: 'shock', facepalm: 'sad', shrug: 'confused', wave: 'happy', clap: 'grin' };
 function timed(v, u, def) { if (v === undefined || v === null) return [def, u, 0, 1]; if (!Array.isArray(v)) return [v, u, 0, 1]; let cur = [def, 0, 0, 1]; for (const e of v) { const [a, t0 = 0, t1 = 1] = e; if (u >= t0 && u < t1) cur = [a, (u - t0) / Math.max(0.001, t1 - t0), t0, t1]; } if (u >= 1 && v.length) { const e = v[v.length - 1]; if ((e[2] ?? 1) >= 1) cur = [e[0], 1, e[1] ?? 0, e[2] ?? 1]; } return cur; }
 function pt3(p, dy = 0) { if (!p) return [0, dy, 0]; return p.length === 3 ? [p[0], p[1], p[2]] : [p[0], dy, p[1]]; }
@@ -98,6 +98,28 @@ function pose(act, t, k, A) {
     case 'point': idle(0.5); P.aRx = -88; P.aRz = -4; P.eR = 4; P.hy = 0; break;
     case 'pointup': idle(0.5); P.aRx = -170; P.aRz = -10; P.eR = 5; P.hx = -12; break;
     case 'talk': { idle(0.7); const G = gestureP(t, ph, sd), beat = Math.max(0, s(t * 7.3 + ph)) ** 2; Object.assign(P, G); P.eR = (P.eR || 0) + 10 * beat; P.eL = (P.eL || 0) + 7 * beat; P.aRx = (P.aRx || 0) - 4 * beat; P.hx += 3 * beat + 2; P.hz = 3 * s(t * 2.1); P.tb += 0.02 * beat; break; }
+    // Trend-Tänze im Takt: bpm (Standard 120) und boff (Versatz in s) pro Figur; Takt läuft über Schnitte weiter
+    case 'strut': case 'jazzhands': case 'salute': case 'twist': {
+      const bt = ((A.tg ?? t) + (A.a.boff || 0)) * (A.a.bpm || 120) / 60, i = Math.floor(bt), f = bt - i, sd2 = i % 2 ? 1 : -1;
+      const lift = s(f * Math.PI), snap = Math.max(0, 1 - f * 3);
+      // Beine: Schritt pro Schlag, Knie hoch, Fuß nach außen geschnippt
+      P.lLx = sd2 < 0 ? -48 * lift : 6 * lift; P.lRx = sd2 > 0 ? -48 * lift : 6 * lift;
+      P.kL = sd2 < 0 ? 75 * lift : 8; P.kR = sd2 > 0 ? 75 * lift : 8;
+      P.lLz = sd2 < 0 ? 14 * lift : 0; P.lRz = sd2 > 0 ? -14 * lift : 0;
+      P.y = 0.22 * lift - 0.08 - 0.06 * snap; P.rz = 4 * sd2 * lift; P.tw = 8 * sd2 * lift; P.hz = -3 * sd2 * lift; P.hx = -4 * snap;
+      P.aLz = 22 + 12 * lift; P.aRz = -22 - 12 * lift; P.eL = P.eR = 22 + 18 * snap; P.aLx = -10 * sd2 * lift; P.aRx = 10 * sd2 * lift; P.aLy = 40; P.aRy = -40;
+      if (act === 'jazzhands') {
+        P.aLz = 98 + 10 * s(bt * Math.PI * 2); P.aRz = -98 - 10 * s(bt * Math.PI * 2 + 1); P.eL = P.eR = 12; P.aLx = -15 + 12 * s(bt * Math.PI * 4); P.aRx = -15 - 12 * s(bt * Math.PI * 4); P.aLy = 80; P.aRy = -80;
+        P.lLx = sd2 < 0 ? -20 * lift : 0; P.lRx = sd2 > 0 ? -20 * lift : 0; P.lLz = sd2 < 0 ? 38 * lift : 0; P.lRz = sd2 > 0 ? -38 * lift : 0;
+        P.kL = sd2 < 0 ? 30 * lift : 10; P.kR = sd2 > 0 ? 30 * lift : 10; P.rz = -9 * sd2 * lift; P.hz = 6 * sd2 * lift;
+      }
+      if (act === 'salute') { P.aRz = -150; P.aRx = -25; P.eR = 115; P.aRy = -20; P.aLz = 45 + 8 * lift; P.eL = 15; P.hz = 7; P.hx = -6; }
+      if (act === 'twist') {
+        const w = s(bt * Math.PI); P.tw = 32 * w; P.hy = -14 * w; P.kL = P.kR = 32 + 10 * lift; P.lLx = P.lRx = -14; P.y = -0.22 + 0.08 * lift; P.rz = 5 * w;
+        P.aLx = 55 * w; P.aRx = -55 * w; P.eL = 70 + 20 * w; P.eR = 70 - 20 * w; P.aLz = 30; P.aRz = -30; P.aLy = 50; P.aRy = -50; P.lLz = P.lRz = 0;
+      }
+      break;
+    }
     case 'dance': { const b = s(t * 8 + ph), c = Math.abs(b); P.rz = 7 * b; P.y = c * 0.3 - 0.2; P.kL = P.kR = 20 + 20 * c; P.lLx = P.lRx = -10 * c; P.aLz = 70 + 35 * s(t * 8); P.aRz = -70 + 35 * s(t * 8); P.eL = P.eR = 70 + 20 * b; P.aLy = 60; P.aRy = -60; P.lLz = 10 * Math.max(0, b); P.lRz = 10 * Math.min(0, b); P.hz = -6 * b; P.tw = 10 * s(t * 4 + ph); break; }
     case 'sit': idle(0); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = 88; P.kR = 88; P.aLx = -28; P.aRx = -28; P.eL = 40; P.eR = 40; P.rz = 0; break;
     case 'sitdesk': idle(0); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = 85; P.kR = 85; P.aLx = -42; P.aRx = -42; P.eL = 52; P.eR = 52; P.aLz = -6; P.aRz = 6; P.hx = 8 + 2 * s(t * 1.3 + ph); P.rz = 0; break;
@@ -592,6 +614,7 @@ function renderShot(sh, si, tl) {
   for (const it of set.items) items.push({ ...it, ...tintFor(it.kind) });
   if (!window._nolife) lifeItems(items, sh, si, set, tg, E, cam);
   for (const s of list) {
+    s.tg = tg;
     let P = s.cfg.animal ? apose(s.act, tl, s.k, s, s.cfg.animal) : pose(s.act, tl, s.k, s);
     if (!s.cfg.animal) {
       // weiche Übergänge zwischen Aktionen (0,3 s) und beim Loslaufen/Anhalten

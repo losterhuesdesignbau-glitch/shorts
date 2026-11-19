@@ -246,7 +246,8 @@ function shirtTex(cfg) {
 function avatarGeo(cfg) {
   const k = JSON.stringify(cfg); if (AVC[k] !== undefined) return AVC[k];
   const g = {}, sk = cfg.skin, sh = cfg.shirt, sleeve = cfg.jacket || cfg.sleeveColor || sh;
-  const hand = (mb, y) => { T_(mb, 0, y + 0.04, 0, () => mb.rbox(0.84, 0.4, 0.84, 0.16, sk)); for (let i = 0; i < 4; i++) T_(mb, -0.3 + i * 0.2, y - 0.2, 0.04, () => mb.rbox(0.18, 0.24, 0.62, 0.08, i % 2 ? shade(sk, 0.96) : sk)); T_(mb, 0, y + 0.02, 0.38, () => mb.rbox(0.26, 0.32, 0.2, 0.1, shade(sk, 0.95))); };
+  const gk = cfg.gloves ? (cfg.gloves === true ? '#ffffff' : cfg.gloves) : sk; // Handschuhe färben die Hände
+  const hand = (mb, y) => { T_(mb, 0, y + 0.04, 0, () => mb.rbox(0.84, 0.4, 0.84, 0.16, gk)); for (let i = 0; i < 4; i++) T_(mb, -0.3 + i * 0.2, y - 0.2, 0.04, () => mb.rbox(0.18, 0.24, 0.62, 0.08, i % 2 ? shade(gk, 0.96) : gk)); T_(mb, 0, y + 0.02, 0.38, () => mb.rbox(0.26, 0.32, 0.2, 0.1, shade(gk, 0.95))); if (cfg.gloves) T_(mb, 0, y + 0.3, 0, () => mb.rbox(0.96, 0.22, 0.96, 0.08, shade(gk, 0.9))); };
   g.head = cgeo('head2|' + sk, mb => mb.rbox(1.32, 1.32, 1.32, 0.38, sk, { uv: true }));
   // Torso + Accessoires am Oberkörper
   g.torso = cgeo('torso2|' + JSON.stringify([sh, cfg.belt, cfg.tie, cfg.bowtie, cfg.chain, cfg.backpack, cfg.scarf, cfg.jacket, cfg.vest, cfg.hoodie, cfg.apron, cfg.badge, cfg.sash, cfg.collar, cfg.buttons]), mb => {
@@ -279,8 +280,8 @@ function avatarGeo(cfg) {
     hand(mb, -0.78);
     if (watch) { T_(mb, 0, -0.52, 0, () => mb.rbox(0.92, 0.16, 0.92, 0.04, '#2b2b2b')); T_(mb, 0, -0.52, 0.47, () => mb.box(0.3, 0.26, 0.04, watch === true ? '#cfd8dc' : watch)); }
   };
-  g.larmL = cgeo(`larm|${sleeve}|${sk}|${cfg.sleeves}|${!!cfg.jacket}|${cfg.watch || ''}`, larm(cfg.watch));
-  g.larmR = cgeo(`larm|${sleeve}|${sk}|${cfg.sleeves}|${!!cfg.jacket}|`, larm(false));
+  g.larmL = cgeo(`larm|${sleeve}|${sk}|${cfg.gloves || ''}|${cfg.sleeves}|${!!cfg.jacket}|${cfg.watch || ''}`, larm(cfg.watch));
+  g.larmR = cgeo(`larm|${sleeve}|${sk}|${cfg.gloves || ''}|${cfg.sleeves}|${!!cfg.jacket}|`, larm(false));
   // Beine: Oberschenkel (Hüfte) + Unterschenkel mit Schuh (Knie bei y=-1.0)
   const shorts = cfg.shorts;
   g.thigh = cgeo(`thigh|${cfg.pants}|${sk}|${shorts ? 1 : 0}`, mb => { T_(mb, 0, -0.5, 0, () => mb.rbox(0.98, 1.06, 0.98, 0.1, cfg.pants)); if (shorts) T_(mb, 0, -0.98, 0, () => mb.rbox(0.9, 0.2, 0.9, 0.08, sk)); });
