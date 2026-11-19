@@ -102,7 +102,10 @@ export async function handleVideoReady(env, p) {
 
 /** Video auf den nächsten freien Termin legen – eine Zeile je Plattform. */
 export async function scheduleVideo(env, videoId, settings, from = new Date()) {
-  const slot = nextFreeSlot({ slots: settings.slots, tz: settings.timezone, taken: await takenSlots(env), from });
+  const taken = await takenSlots(env);
+  // Render kam zu spät (eigener Termin vor < 60 min verpasst und frei): sofort posten statt einen späteren Termin zu belegen
+  const missed = nextFreeSlot({ slots: settings.slots, tz: settings.timezone, taken, from: new Date(from.getTime() - 60 * 60000), leadMinutes: 0 });
+  const slot = Date.parse(missed) <= from.getTime() ? from.toISOString() : nextFreeSlot({ slots: settings.slots, tz: settings.timezone, taken, from });
   const ts = nowIso();
   const stmts = [env.DB.prepare("UPDATE videos SET slot_at = ?, status = 'scheduled', updated_at = ? WHERE id = ?").bind(slot, ts, videoId)];
   for (const platform of PLATFORMS) {
@@ -179,7 +182,11 @@ export async function tick(env, now = new Date()) {
       send.push(p);
     }
     for (const vid of overdueVideos) {
-      await rescheduleVideo(env, vid, settings, { now, onlyStatuses: ['queued'], reason: 'Termin verpasst' });
+      // Termin verpasst -> überspringen (kein Nachrutschen, damit die folgenden Termine unberührt bleiben)
+      await env.DB.prepare("UPDATE publications SET status = 'cancelled', error = 'Termin verpasst – übersprungen', lease_until = NULL, updated_at = ? WHERE video_id = ? AND status = 'queued' AND attempts = 0")
+        .bind(iso, vid).run();
+      await logEvent(env, 'SKIPPED', { video_id: vid, level: 'warn', message: 'Termin verpasst – übersprungen' });
+      await refreshVideoStatus(env, vid, settings);
       report.rescheduled.push(vid);
     }
     if (send.length) {
@@ -229,9 +236,11 @@ export async function tick(env, now = new Date()) {
 export async function registerFailure(env, pub, error, settings, { retryable = true } = {}) {
   const attempts = pub.attempts + 1;
   const iso = nowIso();
-  if (retryable && attempts < settings.max_attempts) {
-    const delayMin = 5 * 2 ** (attempts - 1); // 5, 10, 20, 40 … Minuten
-    const next = new Date(Date.now() + delayMin * 60000).toISOString();
+  const delayMin = 5 * 2 ** (attempts - 1); // 5, 10, 20, 40 … Minuten
+  const next = new Date(Date.now() + delayMin * 60000).toISOString();
+  // Nur kurz nach dem Termin erneut versuchen – sonst aufgeben, der nächste Termin läuft normal weiter
+  const inWindow = Date.parse(next) <= Date.parse(pub.scheduled_at) + 90 * 60000;
+  if (retryable && attempts < settings.max_attempts && inWindow) {
     await env.DB.prepare("UPDATE publications SET status = 'queued', attempts = ?, next_attempt_at = ?, lease_until = NULL, run_id = NULL, error = ?, updated_at = ? WHERE id = ?")
       .bind(attempts, next, error, iso, pub.id).run();
     await logEvent(env, 'RETRY', { video_id: pub.video_id, platform: pub.platform, level: 'warn', message: `Versuch ${attempts}/${settings.max_attempts} fehlgeschlagen: ${error} – neuer Versuch in ${delayMin} min` });
