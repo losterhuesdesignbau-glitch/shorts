@@ -437,7 +437,7 @@ function fxItems(items, sh, tl, D, map) {
 const LAYC = {};
 function surfTop(x, z, surfs) { let top = 0; for (const f of surfs) { const dx = x - f.x, dz = z - f.z, c = Math.cos(f.ry || 0), s = Math.sin(f.ry || 0), lx = c * dx - s * dz, lz = s * dx + c * dz; if (Math.abs(lx) < f.w / 2 - 0.15 && Math.abs(lz) < f.d / 2 - 0.15) top = Math.max(top, f.top); } return top; }
 // Eigene Requisiten aus dem Shorts-Chat: genau dort lassen, wo sie gesetzt sind (kein Wegschieben/Zufallsdrehen)
-const FIXP = { airdrop: 1, tunnel: 1, cutboard: 1, tray: 1, cabbage: 1, shreds: 1, radish: 1, meat: 1, meatslice: 1, helper: 1, nest: 1, pebble: 1, piano: 1, keys: 1, stool: 1, panel: 1, display: 1, tower: 1, ghostfloors: 1, controller: 1, console: 1, pen: 1, smartphone: 1 };
+const FIXP = { pickaxe: 1, buildwall: 1, stormwall: 1, islandmap: 1, airdrop: 1, tunnel: 1, cutboard: 1, tray: 1, cabbage: 1, shreds: 1, radish: 1, meat: 1, meatslice: 1, helper: 1, nest: 1, pebble: 1, piano: 1, keys: 1, stool: 1, panel: 1, display: 1, tower: 1, ghostfloors: 1, controller: 1, console: 1, pen: 1, smartphone: 1 };
 function propLayout(sh, si, set) {
   const key = si + '|' + (sh.set || ''); if (LAYC[key]) return LAYC[key];
   const props = sh.props || [], surfs = [...(set.surf || [])];

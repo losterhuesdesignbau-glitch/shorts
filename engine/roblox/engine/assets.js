@@ -569,6 +569,30 @@ const PROPS = {
     T_(mb, 0, 1.1, 1.13, () => mb.box(0.9, 0.9, 0.06, '#ffffff'));
     if (o.balloon !== false) { for (const x of [-0.8, 0.8]) T_(mb, x, 2.2, 0, () => mb.cyl(0.02, 0.02, 3.2, 3, '#eeeeee')); T_(mb, 0, 6.3, 0, () => mb.sphere(1.25, 2, o.balloonColor || '#e63946', { sy: 1.15 })); }
   }), e: 0.05 }] }),
+  pickaxe: o => ({ parts: [{ g: cgeo('pickaxe|' + (o.color || '#4cc9f0'), mb => {
+    const c = o.color || '#4cc9f0';
+    T_(mb, 0, -0.5, 0, () => mb.cyl(0.09, 0.09, 2.3, 8, '#5b3a1e', { flat: false }));
+    T_(mb, 0, -0.55, 0, () => mb.cyl(0.12, 0.12, 0.5, 8, '#2b2b2b', { flat: false }));
+    T_(mb, 0, 1.85, 0, () => mb.rbox(0.36, 0.42, 0.36, 0.08, '#2b2b2b'));
+    for (const sx of [-1, 1]) { mb.push(M4.chain(M4.T(sx * 0.62, 1.78, 0), M4.RZ(sx * -0.28))); mb.rbox(1.0, 0.28, 0.26, 0.08, c); mb.pop();
+      mb.push(M4.chain(M4.T(sx * 1.2, 1.55, 0), M4.RZ(sx * -0.75))); mb.rbox(0.42, 0.2, 0.2, 0.06, shade(c, 1.25)); mb.pop(); }
+  }) }] }),
+  buildwall: o => ({ parts: [{ g: cgeo('buildwall|' + (o.ramp ? 1 : 0), mb => {
+    const w = '#c8935a', d = '#8b5a2b';
+    mb.push(M4.chain(M4.T(0, o.ramp ? 0 : 2.1, 0), M4.RX(o.ramp ? -0.75 : 0), M4.T(0, o.ramp ? 2.1 : 0, 0)));
+    for (let i = 0; i < 4; i++) T_(mb, 0, -1.6 + i * 1.07, 0, () => mb.box(4.1, 0.95, 0.22, i % 2 ? w : shade(w, 0.92)));
+    for (const x of [-2.0, 2.0]) T_(mb, x, 0, 0.05, () => mb.box(0.28, 4.3, 0.34, d));
+    T_(mb, 0, 0, 0.05, () => mb.box(4.2, 0.26, 0.34, d));
+    mb.pop();
+  }) }] }),
+  stormwall: o => ({ parts: [{ g: cgeo('stormwall|' + (o.r || 30), mb => { mb.cyl(o.r || 30, o.r || 30, o.h || 40, 48, '#9d4edd', { flat: false, cap: false }); }), e: 0.7, a: o.a || 0.38, sh: false }] }),
+  islandmap: o => ({ parts: [{ g: cgeo('islandmap|' + (o.storm || 5), mb => {
+    T_(mb, 0, 0.02, 0, () => mb.cyl(10, 10, 0.06, 40, '#2a6fdb'));
+    T_(mb, 0, 0.06, 0, () => mb.cyl(7.6, 7.2, 0.25, 22, '#e9d8a6'));
+    T_(mb, 0, 0.2, 0, () => mb.cyl(7.0, 6.6, 0.3, 22, '#55a630'));
+    for (const [x, z, r, c] of [[-3, -2, 1.6, '#2d6a4f'], [2.5, 2.8, 1.3, '#2d6a4f'], [3, -3, 1.0, '#b08968'], [-2.4, 3.2, 1.1, '#adb5bd']]) T_(mb, x, 0.45, z, () => mb.cyl(r, r, 0.12, 14, c));
+    for (const [x, z] of [[-0.5, 0.5], [0.4, -0.2], [1.2, 0.8], [-3.1, 3.3], [3.2, -2.9]]) T_(mb, x, 0.75, z, () => mb.box(0.45, 0.6, 0.45, '#f1faee'));
+  }) }, { g: cgeo('islandstorm|' + (o.storm || 5), mb => { const r = o.storm || 5; T_(mb, o.sx || 0.8, 0, o.sz || -0.4, () => mb.cyl(r, r, 1.6, 40, '#9d4edd', { flat: false, cap: false })); }), e: 0.8, a: 0.55, sh: false }] }),
   bigtext: o => ({ parts: [{ g: cgeo('bigtext|' + (o.w || 6) + '|' + (o.h || 2), mb => { mb.push(M4.T(0, (o.h || 2) / 2, 0)); mb.box(o.w || 6, o.h || 2, 0.1, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ffd23f', fg: o.fg || '#1d1712', border: o.border === undefined ? '#1d1712' : o.border, tw: 512, th: Math.round(512 * (o.h || 2) / (o.w || 6)) }) }] }),
 };
 
