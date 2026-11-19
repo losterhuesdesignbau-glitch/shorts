@@ -98,6 +98,8 @@ function pose(act, t, k, A) {
     case 'point': idle(0.5); P.aRx = -88; P.aRz = -4; P.eR = 4; P.hy = 0; break;
     case 'pointup': idle(0.5); P.aRx = -170; P.aRz = -10; P.eR = 5; P.hx = -12; break;
     case 'talk': { idle(0.7); const G = gestureP(t, ph, sd), beat = Math.max(0, s(t * 7.3 + ph)) ** 2; Object.assign(P, G); P.eR = (P.eR || 0) + 10 * beat; P.eL = (P.eL || 0) + 7 * beat; P.aRx = (P.aRx || 0) - 4 * beat; P.hx += 3 * beat + 2; P.hz = 3 * s(t * 2.1); P.tb += 0.02 * beat; break; }
+    case 'turnaround': { const w = smooth(k); P.spin = 360 * w; const q = s(w * Math.PI); P.aLz = 40 + 50 * q; P.aRz = -40 - 50 * q; P.eL = P.eR = 20; P.kL = P.kR = 15 + 25 * q; P.y = 0.25 * q - 0.05; P.lLz = 10 * q; break; }
+    case 'finale': { const w = smooth(Math.min(1, k * 3)); P.aRz = -140 * w; P.aRx = -20 * w; P.eR = 10; P.aRy = -60; P.aLz = 55 * w; P.aLx = -15 * w; P.eL = 25; P.aLy = 70; P.lLx = -8 * w; P.lLz = 18 * w; P.kL = 14 * w; P.rz = -6 * w; P.hz = 8 * w; P.hx = -6 * w; P.y = 0.08 * w; break; }
     // Trend-Tänze im Takt: bpm (Standard 120) und boff (Versatz in s) pro Figur; Takt läuft über Schnitte weiter
     case 'strut': case 'jazzhands': case 'salute': case 'twist': {
       const bt = ((A.tg ?? t) + (A.a.boff || 0)) * (A.a.bpm || 120) / 60, i = Math.floor(bt), f = bt - i, sd2 = i % 2 ? 1 : -1;
@@ -109,11 +111,11 @@ function pose(act, t, k, A) {
       P.y = 0.22 * lift - 0.08 - 0.06 * snap; P.rz = 4 * sd2 * lift; P.tw = 8 * sd2 * lift; P.hz = -3 * sd2 * lift; P.hx = -4 * snap;
       P.aLz = 22 + 12 * lift; P.aRz = -22 - 12 * lift; P.eL = P.eR = 22 + 18 * snap; P.aLx = -10 * sd2 * lift; P.aRx = 10 * sd2 * lift; P.aLy = 40; P.aRy = -40;
       if (act === 'jazzhands') {
-        P.aLz = 98 + 10 * s(bt * Math.PI * 2); P.aRz = -98 - 10 * s(bt * Math.PI * 2 + 1); P.eL = P.eR = 12; P.aLx = -15 + 12 * s(bt * Math.PI * 4); P.aRx = -15 - 12 * s(bt * Math.PI * 4); P.aLy = 80; P.aRy = -80;
+        P.aLz = 82 + 10 * s(bt * Math.PI * 2); P.aRz = -82 - 10 * s(bt * Math.PI * 2 + 1); P.eL = P.eR = 12; P.aLx = -15 + 12 * s(bt * Math.PI * 4); P.aRx = -15 - 12 * s(bt * Math.PI * 4); P.aLy = 80; P.aRy = -80;
         P.lLx = sd2 < 0 ? -20 * lift : 0; P.lRx = sd2 > 0 ? -20 * lift : 0; P.lLz = sd2 < 0 ? 38 * lift : 0; P.lRz = sd2 > 0 ? -38 * lift : 0;
         P.kL = sd2 < 0 ? 30 * lift : 10; P.kR = sd2 > 0 ? 30 * lift : 10; P.rz = -9 * sd2 * lift; P.hz = 6 * sd2 * lift;
       }
-      if (act === 'salute') { P.aRz = -150; P.aRx = -25; P.eR = 115; P.aRy = -20; P.aLz = 45 + 8 * lift; P.eL = 15; P.hz = 7; P.hx = -6; }
+      if (act === 'salute') { P.aRx = -105; P.aRz = -50; P.eR = 128; P.aRy = -35; P.aLz = 45 + 8 * lift; P.eL = 15; P.hz = 9; P.hx = -8; P.hy = -8; }
       if (act === 'twist') {
         const w = s(bt * Math.PI); P.tw = 32 * w; P.hy = -14 * w; P.kL = P.kR = 32 + 10 * lift; P.lLx = P.lRx = -14; P.y = -0.22 + 0.08 * lift; P.rz = 5 * w;
         P.aLx = 55 * w; P.aRx = -55 * w; P.eL = 70 + 20 * w; P.eR = 70 - 20 * w; P.aLz = 30; P.aRz = -30; P.aLy = 50; P.aRy = -50; P.lLz = P.lRz = 0;
@@ -386,7 +388,7 @@ function camera(sh, si, tl, D, set, map) {
   // Vorlauf-Raum: bei Bewegung schaut die Kamera etwas in Laufrichtung
   if (A && A.moving && c.type !== 'pov' && c.type !== 'free') { const L = clamp((A.speed || 0) * 0.35, 0, 2.2); look = [look[0] + Math.sin(face) * L, look[1], look[2] + Math.cos(face) * L]; }
   // Handkamera-"Atmen": sehr leichtes, langsames Schweben (abschaltbar mit "steady": true)
-  if (!c.steady && c.type !== 'free' && !(sh.camSteady)) { const dd = V3.len(V3.sub(eye, look)), amp = clamp(dd * 0.006, 0.02, 0.16) * (c.handheld ?? 1), tg2 = (sh.tg0 || 0) + tl, q = k => n1(tg2 * 0.45 + k * 7.3, 11 + k) * 0.7 + n1(tg2 * 1.1 + k * 3.1, 23 + k) * 0.3;
+  if (!c.steady && (c.type !== 'free' || c.handheld) && !(sh.camSteady)) { const dd = V3.len(V3.sub(eye, look)), amp = clamp(dd * 0.006, 0.02, 0.16) * (c.handheld ?? 1), tg2 = (sh.tg0 || 0) + tl, q = k => n1(tg2 * 0.45 + k * 7.3, 11 + k) * 0.7 + n1(tg2 * 1.1 + k * 3.1, 23 + k) * 0.3;
     eye = [eye[0] + q(1) * amp, eye[1] + q(2) * amp * 0.7, eye[2] + q(3) * amp]; look = [look[0] + q(4) * amp * 0.5, look[1] + q(5) * amp * 0.4, look[2] + q(6) * amp * 0.5]; }
   if (set.bounds) { const [x0, x1, z0, z1, ym] = set.bounds; eye = [clamp(eye[0], x0, x1), clamp(eye[1], 0.5, ym), clamp(eye[2], z0, z1)]; }
   let shake = c.shake || 0;

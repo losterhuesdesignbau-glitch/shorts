@@ -142,4 +142,5 @@ Twist erst ganz am Ende · letzter Satz führt in den ersten zurück (Loop) · J
 - Look-Feld `gloves` (`true` = weiß oder Farbe) färbt die Hände.
 - Set `paris`: Platz bei Nacht mit leuchtendem Gitterturm (Optionen über `setOpts`: `color`, `towerZ`), mit `"time": "night"` verwenden. Neues Leucht-Mesh `S.neon` (wird nachts nicht abgedunkelt).
 - Eigene Musik: `"musicFile": "datei.wav"` (relativ zur episode.json), optional `musicStart`, `musicGain` – ersetzt die generierte Musik. Nur Musik mit Nutzungsrechten veröffentlichen; Trend-Sounds bei TikTok/Instagram besser in der App hinzufügen.
-- Beispiel: `beispiele/trend_tanz.json` (rendern mit `--no-tts --force`, da kürzer als 40 s).
+- Weitere Aktionen: `turnaround` (eine Drehung über den Zeitabschnitt), `finale` (Schlusspose, Arm hoch). Freie Kamera mit leichtem Handkamera-Wackeln: `"cam": {"type": "free", …, "handheld": 0.6}`.
+- Beispiel: `beispiele/trend_tanz.json` (eine durchgehende Einstellung wie Handy-Video) (rendern mit `--no-tts --force`, da kürzer als 40 s).

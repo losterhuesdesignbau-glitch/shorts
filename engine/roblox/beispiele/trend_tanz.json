@@ -21,7 +21,7 @@
  },
  "shots": [
   {
-   "dur": 1.953,
+   "dur": 11.9,
    "set": "paris",
    "time": "night",
    "actors": [
@@ -29,351 +29,106 @@
      "id": "d",
      "at": [
       0,
-      -7
+      -9
      ],
-     "do": "strut",
-     "face": 0,
-     "mood": "grin",
-     "bpm": 161,
-     "boff": -0.09,
      "to": [
       0,
-      -5.6
+      -3.5
      ],
-     "ease": "linear"
+     "move": [
+      0,
+      0.86
+     ],
+     "ease": "linear",
+     "do": [
+      [
+       "strut",
+       0.0,
+       0.0924
+      ],
+      [
+       "salute",
+       0.0924,
+       0.1597
+      ],
+      [
+       "jazzhands",
+       0.1597,
+       0.2521
+      ],
+      [
+       "strut",
+       0.2521,
+       0.3782
+      ],
+      [
+       "jazzhands",
+       0.3782,
+       0.479
+      ],
+      [
+       "salute",
+       0.479,
+       0.5714
+      ],
+      [
+       "twist",
+       0.5714,
+       0.7059
+      ],
+      [
+       "jazzhands",
+       0.7059,
+       0.7899
+      ],
+      [
+       "turnaround",
+       0.7899,
+       0.8739
+      ],
+      [
+       "finale",
+       0.8739,
+       1.0
+      ]
+     ],
+     "face": 0,
+     "mood": [
+      [
+       "grin",
+       0,
+       0.6
+      ],
+      [
+       "cool",
+       0.6,
+       0.8
+      ],
+      [
+       "grin",
+       0.8,
+       1
+      ]
+     ],
+     "bpm": 161,
+     "boff": -0.09
     }
    ],
    "cam": {
     "type": "free",
     "eye": [
      0,
-     3.2,
-     12
+     2.5,
+     9
     ],
     "look": [
      0,
-     9,
+     6.8,
      -80
     ],
-    "eye2": [
-     0,
-     3.2,
-     10.5
-    ],
-    "look2": [
-     0,
-     9,
-     -80
-    ]
+    "handheld": 0.6
    },
    "fx": []
-  },
-  {
-   "dur": 1.118,
-   "set": "paris",
-   "time": "night",
-   "actors": [
-    {
-     "id": "d",
-     "at": [
-      0,
-      -5.6
-     ],
-     "do": "salute",
-     "face": 0,
-     "mood": "cool",
-     "bpm": 161,
-     "boff": -0.09,
-     "to": [
-      0,
-      -4.6
-     ],
-     "ease": "linear"
-    }
-   ],
-   "cam": {
-    "type": "free",
-    "eye": [
-     1.2,
-     3.2,
-     9
-    ],
-    "look": [
-     0,
-     9,
-     -80
-    ]
-   }
-  },
-  {
-   "dur": 1.491,
-   "set": "paris",
-   "time": "night",
-   "actors": [
-    {
-     "id": "d",
-     "at": [
-      0,
-      -4.6
-     ],
-     "do": "jazzhands",
-     "face": 0,
-     "mood": "grin",
-     "bpm": 161,
-     "boff": -0.09
-    }
-   ],
-   "cam": {
-    "type": "free",
-    "eye": [
-     3,
-     3,
-     9
-    ],
-    "look": [
-     0,
-     9,
-     -80
-    ],
-    "eye2": [
-     2,
-     3,
-     8.5
-    ],
-    "look2": [
-     0,
-     9,
-     -80
-    ]
-   }
-  },
-  {
-   "dur": 1.491,
-   "set": "paris",
-   "time": "night",
-   "actors": [
-    {
-     "id": "d",
-     "at": [
-      0,
-      -4.6
-     ],
-     "do": "strut",
-     "face": 0,
-     "mood": "grin",
-     "bpm": 161,
-     "boff": -0.09,
-     "to": [
-      0,
-      -3.2
-     ],
-     "ease": "linear"
-    }
-   ],
-   "cam": {
-    "type": "free",
-    "eye": [
-     0,
-     1.6,
-     9
-    ],
-    "look": [
-     0,
-     11,
-     -80
-    ]
-   }
-  },
-  {
-   "dur": 1.118,
-   "set": "paris",
-   "time": "night",
-   "actors": [
-    {
-     "id": "d",
-     "at": [
-      0,
-      -3.2
-     ],
-     "do": "salute",
-     "face": 0,
-     "mood": "cool",
-     "bpm": 161,
-     "boff": -0.09,
-     "to": [
-      0,
-      -2.4
-     ],
-     "ease": "linear"
-    }
-   ],
-   "cam": {
-    "type": "free",
-    "eye": [
-     0,
-     3.2,
-     10
-    ],
-    "look": [
-     0,
-     9,
-     -80
-    ]
-   }
-  },
-  {
-   "dur": 1.49,
-   "set": "paris",
-   "time": "night",
-   "actors": [
-    {
-     "id": "d",
-     "at": [
-      0,
-      -2.4
-     ],
-     "do": "twist",
-     "face": 0,
-     "mood": "grin",
-     "bpm": 161,
-     "boff": -0.09
-    }
-   ],
-   "cam": {
-    "type": "free",
-    "eye": [
-     -1.4,
-     3.2,
-     10.5
-    ],
-    "look": [
-     0,
-     9,
-     -80
-    ],
-    "eye2": [
-     -0.8,
-     3.2,
-     10
-    ],
-    "look2": [
-     0,
-     9,
-     -80
-    ]
-   }
-  },
-  {
-   "dur": 1.118,
-   "set": "paris",
-   "time": "night",
-   "actors": [
-    {
-     "id": "d",
-     "at": [
-      0,
-      -2.4
-     ],
-     "do": "jazzhands",
-     "face": 0,
-     "mood": "grin",
-     "bpm": 161,
-     "boff": -0.09
-    }
-   ],
-   "cam": {
-    "type": "free",
-    "eye": [
-     0,
-     3.2,
-     10.5
-    ],
-    "look": [
-     0,
-     9,
-     -80
-    ]
-   }
-  },
-  {
-   "dur": 1.118,
-   "set": "paris",
-   "time": "night",
-   "actors": [
-    {
-     "id": "d",
-     "at": [
-      0,
-      -2.4
-     ],
-     "do": "spin",
-     "face": 0,
-     "mood": "grin",
-     "bpm": 161,
-     "boff": -0.09
-    }
-   ],
-   "cam": {
-    "type": "free",
-    "eye": [
-     1.5,
-     3.4,
-     10
-    ],
-    "look": [
-     0,
-     9,
-     -80
-    ]
-   }
-  },
-  {
-   "dur": 0.932,
-   "set": "paris",
-   "time": "night",
-   "actors": [
-    {
-     "id": "d",
-     "at": [
-      0,
-      -2.4
-     ],
-     "do": "jazzhands",
-     "face": 0,
-     "mood": "grin",
-     "bpm": 161,
-     "boff": -0.09
-    }
-   ],
-   "cam": {
-    "type": "free",
-    "eye": [
-     0,
-     3.2,
-     10
-    ],
-    "look": [
-     0,
-     9,
-     -80
-    ],
-    "eye2": [
-     0,
-     3.6,
-     13
-    ],
-    "look2": [
-     0,
-     11,
-     -80
-    ]
-   },
-   "fx": [
-    {
-     "type": "sparkle",
-     "t": 0.3
-    }
-   ]
   }
  ]
 }
