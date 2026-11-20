@@ -17,7 +17,7 @@ permissions:
   contents: write
 
 env:
-  VF_QUALITY: classic   # 4K-Look: auf "hq" stellen, sobald Lukas den Look freigibt
+  VF_QUALITY: hq   # 4K-Look (freigegeben 20.11.2026); "classic" = alter Look
 
 jobs:
   plan:
