@@ -372,6 +372,7 @@ const ANIMALS = {
   guineapig: { guinea: 1, c: '#b5652b', c2: '#ffffff', c3: '#3b2a1a', s: 0.62 },
   guineapig2: { guinea: 1, c: '#f0a04b', c2: '#ffffff', c3: '#f0a04b', s: 0.58 },
   guineapig3: { guinea: 1, c: '#2b2b2b', c2: '#ffffff', c3: '#d9a066', s: 0.6 },
+  croc: { croc: 1, c: '#4f8a3c', c2: '#c9d88a', s: 1.15 }, shark: { shark: 1, c: '#6f8fa8', c2: '#f2f4f6', s: 1.2 },
   penguin: { biped: 'penguin', s: 1 }, frog: { biped: 'frog', s: 1 }, chicken: { biped: 'chicken', s: 0.8 },
 };
 const ANC = {};
@@ -380,6 +381,26 @@ function animalGeo(type) {
   const A = ANIMALS[type] || ANIMALS.dog, parts = [];
   const part = (kind, p, build, o = {}) => { const mb = new MB(); build(mb); parts.push({ kind, p, g: GL.geo(mb), ...o }); };
   const T = (mb, x, y, z, f) => { mb.push(M4.T(x, y, z)); f(); mb.pop(); };
+  if (A.croc) { // Krokodil: lang, flach, kurze gespreizte Beine, lange Schnauze mit Zähnen, langer Schwanz
+    const c = A.c, c2 = A.c2;
+    part('body', [0, 0.95, 0], mb => { mb.rbox(1.9, 0.95, 3.4, 0.38, c); T(mb, 0, -0.28, 0.1, () => mb.rbox(1.5, 0.45, 2.9, 0.2, c2)); for (let i = 0; i < 7; i++) for (const sx of [-0.45, 0.45]) T(mb, sx, 0.52, -1.4 + i * 0.45, () => mb.rbox(0.28, 0.22, 0.3, 0.08, shade(c, 0.8))); });
+    part('head', [0, 1.05, 1.7], mb => { T(mb, 0, 0.12, 0.45, () => { mb.rbox(1.45, 0.85, 1.0, 0.32, c, { uv: true }); T(mb, 0, -0.2, 1.0, () => mb.rbox(1.0, 0.45, 1.5, 0.18, c)); T(mb, 0, -0.45, 1.0, () => mb.rbox(0.95, 0.18, 1.45, 0.08, c2));
+      for (let i = 0; i < 6; i++) for (const sx of [-0.45, 0.45]) T(mb, sx, -0.36, 0.45 + i * 0.22, () => mb.box(0.08, 0.16, 0.08, '#fffbe6'));
+      for (const sx of [-0.12, 0.12]) T(mb, sx, 0.05, 1.7, () => mb.sphere(0.06, 0, '#1d1712')); }); }, { face: 'animal' });
+    for (const [x, z, ph] of [[0.95, 1.15, 0], [-0.95, 1.15, 1], [0.95, -1.1, 1], [-0.95, -1.1, 0]]) part('leg', [x, 0.75, z], mb => { mb.push(M4.RZ((x > 0 ? 1 : -1) * 35 * DEG)); T(mb, 0, -0.35, 0, () => mb.rbox(0.45, 0.75, 0.5, 0.15, c)); T(mb, 0, -0.72, 0.15, () => mb.rbox(0.5, 0.16, 0.7, 0.06, shade(c, 0.75))); mb.pop(); }, { ph });
+    part('tail', [0, 1.0, -1.7], mb => { for (let i = 0; i < 6; i++) { const w = 1.3 * (1 - i / 7), h = 0.75 * (1 - i / 8); T(mb, 0, -0.12 * i / 5, -0.45 - i * 0.55, () => { mb.rbox(w, h, 0.62, 0.15, c); T(mb, 0, h / 2 + 0.08, 0, () => mb.rbox(0.18, 0.18, 0.4, 0.05, shade(c, 0.8))); }); } });
+    return (ANC[type] = { parts, A });
+  }
+  if (A.shark) { // Hai: schwebt über dem Boden (schwimmt in der Luft), Rückenflosse, Brustflossen, Schwanzflosse
+    const c = A.c, c2 = A.c2;
+    part('body', [0, 2.1, 0], mb => { T(mb, 0, 0, -0.4, () => mb.sphere(1.05, 2, c, { sz: 2.1, sy: 0.95 })); T(mb, 0, -0.38, -0.2, () => mb.sphere(0.85, 2, c2, { sz: 1.85, sy: 0.6 }));
+      T(mb, 0, 1.0, -0.4, () => { mb.push(M4.RX(-25 * DEG)); mb.cyl(0.55, 0.05, 1.2, 4, c, { rot: Math.PI / 4 }); mb.pop(); });
+      for (const sx of [-1, 1]) T(mb, sx * 1.0, -0.35, 0.4, () => { mb.push(M4.chain(M4.RZ(sx * -55 * DEG), M4.RX(25 * DEG))); mb.rbox(0.18, 1.1, 0.7, 0.08, shade(c, 0.9)); mb.pop(); });
+      for (let i = 0; i < 3; i++) for (const sx of [-1, 1]) T(mb, sx * 0.9, 0.05, 0.55 - i * 0.22, () => mb.box(0.04, 0.45, 0.06, shade(c, 0.6))); });
+    part('head', [0, 2.15, 1.3], mb => { T(mb, 0, 0.02, 0.35, () => { mb.rbox(1.55, 1.45, 1.1, 0.55, c, { uv: true }); T(mb, 0, -0.45, 0.45, () => mb.rbox(1.1, 0.35, 0.45, 0.15, c2)); for (let i = 0; i < 7; i++) T(mb, -0.42 + i * 0.14, -0.3, 0.7, () => { mb.push(M4.RX(180 * DEG)); mb.cyl(0.06, 0, 0.16, 4, '#ffffff'); mb.pop(); }); }); }, { face: 'animal' });
+    part('tail', [0, 2.1, -2.3], mb => { T(mb, 0, 0, -0.4, () => mb.sphere(0.5, 1, c, { sz: 1.6, sy: 0.8 })); for (const sy of [1, -1]) T(mb, 0, sy * 0.55, -1.05, () => { mb.push(M4.RX(sy * 35 * DEG)); mb.rbox(0.14, 1.2 * (sy > 0 ? 1 : 0.75), 0.5, 0.06, c); mb.pop(); }); });
+    return (ANC[type] = { parts, A });
+  }
   if (A.guinea) {
     const c = A.c, c2 = A.c2, c3 = A.c3 || c;
     part('body', [0, 0, 0], mb => {
