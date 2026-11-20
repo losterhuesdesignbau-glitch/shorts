@@ -214,8 +214,8 @@ vec3 matC(float id,vec3 c,vec3 p,vec3 on){vec3 a=abs(on);vec2 uv=a.y>a.x&&a.y>a.
  else if(id<3.5){vec2 q=uv*vec2(2.6,5.2);q.x+=step(1.0,mod(q.y,2.0))*0.5;vec2 f=fract(q);float m=smoothstep(0.0,0.08,f.x)*smoothstep(1.0,0.92,f.x)*smoothstep(0.0,0.12,f.y)*smoothstep(1.0,0.88,f.y);
   k=mix(0.78,0.88+0.22*hh(vec3(floor(q),5.0)),m);}
  else if(id<4.5){k=0.93+0.1*tn(uv*1.6)+0.05*(tg(uv*14.0)-0.5);}
- else if(id<5.5){k=0.95+0.05*sin(uv.x*90.0)*sin(uv.y*90.0)+0.08*(tn(uv*1.3)-0.5);}
- else if(id<6.5){float f=tn(uv*1.4);k=0.9+0.08*sin((uv.x+uv.y)*70.0)+0.12*(f-0.4);c=mix(c,c*vec3(1.08,1.1,1.18),f*0.5);}
+ else if(id<5.5){k=0.985+0.015*sin(uv.x*70.0)*sin(uv.y*70.0)+0.1*(tn(uv*0.9)-0.5);}
+ else if(id<6.5){float f=tn(uv*1.4);k=0.93+0.03*sin((uv.x+uv.y)*60.0)+0.12*(f-0.4);c=mix(c,c*vec3(1.08,1.1,1.18),f*0.5);}
  else if(id<7.5){vec2 q=uv*vec2(9.0,12.0);float v=abs(fract(q.x)-0.5)*2.0;k=0.86+0.2*smoothstep(0.2,0.8,abs(fract(q.y+v*0.5)-0.5)*2.0);}
  else if(id<8.5){vec2 q=uv*vec2(1.4,3.2);q.x+=step(1.0,mod(q.y,2.0))*0.5;vec2 f=fract(q);k=(0.82+0.22*hh(vec3(floor(q),9.0)))*mix(0.7,1.0,smoothstep(0.0,0.2,f.y));}
  else if(id<9.5){float g=tn(uv*0.35);k=0.82+0.3*g+0.1*(tg(uv*6.0)-0.5);c=mix(c,c*vec3(1.15,1.05,0.75),smoothstep(0.55,0.8,tg(uv*0.12))*0.5);}

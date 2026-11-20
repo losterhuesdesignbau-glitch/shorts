@@ -258,11 +258,19 @@ function avatarGeo(cfg) {
   g.head = cgeo('head2|' + sk, mb => mb.rbox(1.32, 1.32, 1.32, 0.38, sk, { uv: true }));
   // Torso + Accessoires am Oberkörper
   g.torso = cgeo('torso2|' + JSON.stringify([sh, cfg.crop, cfg.belt, cfg.tie, cfg.bowtie, cfg.chain, cfg.backpack, cfg.scarf, cfg.jacket, cfg.vest, cfg.hoodie, cfg.apron, cfg.badge, cfg.sash, cfg.collar, cfg.buttons]), mb => {
-    mb.rbox(2, 2, 1, 0.16, sh, { uv: true });
-    T_(mb, 0, -0.9, 0, () => mb.rbox(2.03, 0.2, 1.03, 0.08, shade(sh, 0.9)));          // Saum
+    const ch = cfg.crop ? (cfg.crop === true ? 0.44 : +cfg.crop) : 0;
+    if (ch) {  // bauchfreies Crop-Top: kürzeres Oberteil, schmalere Taille mit Hautton, Saum, Bauchnabel, leichte Schattierung
+      T_(mb, 0, ch / 2, 0, () => mb.rbox(2, 2 - ch, 1, 0.16, sh, { uv: true }));
+      T_(mb, 0, -1 + ch + 0.03, 0, () => mb.rbox(2.02, 0.1, 1.02, 0.05, shade(sh, 0.94)));               // Saum
+      T_(mb, 0, -1 + (ch + 0.08) / 2, 0, () => mb.rbox(1.84, ch + 0.08, 0.88, 0.2, sk));                  // Taille (schmaler)
+      T_(mb, 0, -1 + ch - 0.02, 0, () => mb.rbox(1.9, 0.06, 0.93, 0.03, shade(sk, 0.86)));                // Schatten unter dem Saum
+      T_(mb, 0, -1 + ch * 0.42, 0.44, () => mb.sphere(0.045, 1, shade(sk, 0.62), { sz: 0.35, sy: 1.4 }));   // Bauchnabel
+    } else {
+      mb.rbox(2, 2, 1, 0.16, sh, { uv: true });
+      T_(mb, 0, -0.9, 0, () => mb.rbox(2.03, 0.2, 1.03, 0.08, shade(sh, 0.9)));          // Saum
+    }
     if (cfg.collar !== false && !cfg.hoodie) T_(mb, 0, 0.97, 0.1, () => mb.rbox(0.9, 0.1, 0.62, 0.05, shade(sh, 0.88)));
     if (cfg.buttons) for (let i = 0; i < 4; i++) T_(mb, 0, 0.7 - i * 0.45, 0.51, () => mb.sphere(0.06, 0, shade(sh, 0.7)));
-    if (cfg.crop) T_(mb, 0, -0.82, 0, () => mb.rbox(2.03, cfg.crop === true ? 0.36 : +cfg.crop, 1.03, 0.04, sk));  // bauchfreies Crop-Top: Hautstreifen über dem Hosenbund
     if (cfg.belt) { T_(mb, 0, -0.86, 0, () => mb.rbox(2.05, 0.22, 1.05, 0.05, cfg.belt)); T_(mb, 0, -0.86, 0.53, () => mb.box(0.32, 0.2, 0.04, GOLD)); }
     if (cfg.jacket || cfg.vest) { const c = cfg.jacket || cfg.vest, d = shade(c, 0.85); T_(mb, 0, 0, -0.53, () => mb.box(2.1, 2.06, 0.1, c)); for (const s of [-1, 1]) { T_(mb, s * 1.03, 0, 0, () => mb.box(0.1, 2.06, 1.1, c)); T_(mb, s * 0.68, 0.72, 0.53, () => mb.box(0.72, 0.62, 0.08, c)); } if (cfg.jacket) T_(mb, 0, 1.0, -0.35, () => mb.rbox(1.4, 0.24, 0.45, 0.08, d)); }
     if (cfg.hoodie) { const c = cfg.hoodie === true ? shade(sh, 0.92) : cfg.hoodie; T_(mb, 0, 1.12, -0.38, () => mb.rbox(1.5, 0.6, 0.62, 0.25, c)); T_(mb, 0, -0.35, 0.52, () => mb.rbox(1.2, 0.55, 0.08, 0.06, shade(c, 0.9))); }
