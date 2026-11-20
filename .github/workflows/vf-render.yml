@@ -47,7 +47,7 @@ jobs:
       - id: p
         env:
           MATRIX: ${{ steps.m.outputs.matrix }}
-          VF_PARTS: ${{ vars.VF_RENDER_PARTS || '12' }}
+          VF_PARTS: ${{ vars.VF_RENDER_PARTS || '16' }}
         run: |
           python3 - >> "$GITHUB_OUTPUT" <<'EOF'
           import json, os
