@@ -115,7 +115,7 @@ def length_report(ep, total, L):
     return True, f'✓ Länge {total:.1f}s (Ziel ≥ {L["goal"]:.0f}s, {len(ws)} Wörter, {wps:.1f} Wörter/s)'
 
 class Engine:
-    def __init__(self, ep, rs=0.75):
+    def __init__(self, ep, rs=0.75, hq=False):
         from playwright.sync_api import sync_playwright
         self.pw = sync_playwright().start()
         self.b = self.pw.chromium.launch(args=ARGS)
@@ -124,6 +124,7 @@ class Engine:
         self.pg.on('pageerror', lambda e: self.errs.append(str(e)))
         self.pg.on('console', lambda m: self.errs.append(m.text) if m.type == 'error' else None)
         self.pg.goto(ENGINE)
+        if hq: self.pg.evaluate('window._hq = true')
         self.pg.evaluate(f'R.init({W},{H},{rs})')
         self.pg.evaluate('ep => R.load(ep)', ep)
     def frame(self, si, t, q=0.92):
@@ -235,7 +236,7 @@ def main():
     ap.add_argument('episode'); ap.add_argument('-o', '--out', default=None)
     ap.add_argument('--voice'); ap.add_argument('--stills', action='store_true'); ap.add_argument('--frames', default=None, help='z.B. "3:0.5,7:0.2" (Shot:Anteil) als Einzelbilder')
     ap.add_argument('--part', default=None, help='verteiltes Rendern: K/N = nur Teil K (0-basiert) von N rendern, ohne Zusammenbau');
-    ap.add_argument('--only', default=None); ap.add_argument('--rs', type=float, default=0.75)
+    ap.add_argument('--only', default=None); ap.add_argument('--rs', type=float, default=None); ap.add_argument('--quality', default=None, help='hq (Standard: 4K-Look) oder classic')
     ap.add_argument('--no-music', action='store_true'); ap.add_argument('--work', default=None)
     ap.add_argument('--no-tts', action='store_true', help='keine Computerstimme')
     ap.add_argument('--tts-voice', default=None, help='z.B. thorsten, kerstin, thorsten-emo:whisper')
@@ -265,7 +266,11 @@ def main():
         p = out.with_name(out.stem + '_stimme.wav'); AU.write_wav(str(p), voice); print('Stimme:', p); return
     work = Path(a.work or out.with_suffix('')) .with_name(out.stem + '_shots'); work.mkdir(parents=True, exist_ok=True)
     print(f'{len(ep["shots"])} Shots, {total:.1f}s, {sum(s["nf"] for s in ep["shots"])} Frames')
-    eng = Engine(ep, a.rs)
+    qual = a.quality or src.get('quality') or os.environ.get('VF_QUALITY') or 'hq'
+    hq = qual != 'classic'
+    rs = a.rs if a.rs is not None else (float(os.environ.get('VF_RS', 1.25)) if hq else 0.75)
+    print(f'Qualität: {"4K-Look (HQ)" if hq else "klassisch"}, Render-Skala {rs}')
+    eng = Engine(ep, rs, hq)
     try:
         if a.stills:
             p = out.with_name(out.stem + '_vorschau.jpg'); contact_sheet(eng, ep, p); print('Vorschau:', p); return
@@ -288,7 +293,7 @@ def main():
         for si, sh in enumerate(ep['shots']):
             path = work / f'shot_{si + 1:03d}.mp4'
             key = work / f'shot_{si + 1:03d}.json'
-            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
+            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs]}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
             if mine is not None and si not in mine: continue
             if path.exists() and key.exists() and key.read_text() == cur and (only is None or si not in only):
                 continue
@@ -313,6 +318,9 @@ def main():
               f"eq=saturation={sat}:contrast={con},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},vignette=angle={0.2 + vg:.2f},format=yuv420p[v]")
         gv = work / 'video_grade.mp4'
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-filter_complex', fc, '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(gv)], check=True); vid = gv
+    if hq and src.get('post', True) is not False:  # 4K-Look: feines Nachschärfen + leichtes Filmkorn
+        pv = work / 'video_post.mp4'
+        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-vf', 'unsharp=5:5:0.55:5:5:0.0,noise=c0s=5:c0f=t+u,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '17', '-pix_fmt', 'yuv420p', str(pv)], check=True); vid = pv
     mbl = src.get('motionBlur')
     if mbl:  # leichte Bewegungsunschärfe wie bei echter Kamera: schnelle Bewegungen fließender, Rest-Zittern verdeckt
         w = 2 if mbl is True else max(1, int(round(3 - float(mbl) * 2)))

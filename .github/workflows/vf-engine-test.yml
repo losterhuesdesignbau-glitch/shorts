@@ -1,0 +1,62 @@
+# Engine-Test ohne Veröffentlichung: rendert eine Episode verteilt (nur Teile, Zeitmessung) – lädt nichts hoch, plant nichts ein
+name: "VIRALFLOW · Engine-Test (ohne Upload)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: "Episode (z. B. episodes/done/vs_shark_croc_v2.json)"
+        required: true
+        default: "episodes/done/vs_shark_croc_v2.json"
+      parts:
+        description: "Anzahl Teile"
+        required: false
+        default: "12"
+      quality:
+        description: "hq oder classic"
+        required: false
+        default: "hq"
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      parts: ${{ steps.p.outputs.parts }}
+    steps:
+      - id: p
+        env:
+          N: ${{ inputs.parts }}
+        run: python3 -c 'import json,os;n=int(os.environ["N"]);print("parts="+json.dumps({"include":[{"part":f"{k}/{n}"} for k in range(n)]}))' >> "$GITHUB_OUTPUT"
+  part:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.parts) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: viralflow/requirements-render.txt
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/block_studio
+          key: voices-v1
+      - uses: FedericoCarboni/setup-ffmpeg@v3
+        continue-on-error: true
+      - name: Abhängigkeiten
+        run: |
+          pip install -q -r viralflow/requirements-render.txt
+          command -v ffprobe >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }
+          python -m playwright install --with-deps chromium
+      - name: Teil rendern (Zeitmessung)
+        run: |
+          start=$(date +%s)
+          python engine/roblox/studio.py "${{ inputs.file }}" -o /tmp/test.mp4 --part "${{ matrix.part }}" --quality "${{ inputs.quality }}" --force
+          echo "TEIL ${{ matrix.part }}: $(( $(date +%s) - start )) s"
