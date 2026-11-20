@@ -26,9 +26,24 @@ def limb(d):
     return az, ax
 
 
+def one_euro(x, fps, mincut=1.0, beta=0.02, dcut=1.0):
+    """One-Euro-Filter je Spalte. x: (n, k)."""
+    te = 1.0 / fps
+    alpha = lambda c: 1.0 / (1.0 + 1.0 / (2 * np.pi * c * te))
+    y = x.copy(); dx = np.zeros(x.shape[1]); ad = alpha(dcut)
+    for i in range(1, len(x)):
+        dx = ad * (x[i] - y[i - 1]) / te + (1 - ad) * dx
+        a = alpha(mincut + beta * np.abs(dx))
+        y[i] = a * x[i] + (1 - a) * y[i - 1]
+    return y
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('kp'); ap.add_argument('out'); ap.add_argument('--mirror', action='store_true')
-    ap.add_argument('--smooth', type=float, default=3.0, help='Glättung der Gelenkwinkel (Gauß-Sigma in Frames, gegen Zittern)')
+    ap.add_argument('--euro', type=float, default=0.9, help='One-Euro mincutoff Hz (0=aus)')
+    ap.add_argument('--beta', type=float, default=0.004, help='One-Euro beta')
+    ap.add_argument('--maxvel', type=float, default=14.0, help='max Grad pro Frame (0=aus)')
+    ap.add_argument('--smooth', type=float, default=2.5, help='Glättung der Gelenkwinkel (Gauß-Sigma in Frames, gegen Zittern)')
     a = ap.parse_args()
     K = json.load(open(a.kp)); F = K['frames']; n = len(F); npl = max(len(f) for f in F)
     out = {'fps': K['fps'], 'keys': KEYS, 'people': []}
@@ -41,7 +56,7 @@ def main():
             ok = C[:, j] > 0.35
             if ok.sum() >= 2 and not ok.all():
                 for c in range(2): P[~ok, j, c] = np.interp(np.where(~ok)[0], np.where(ok)[0], P[ok, j, c])
-        P = smooth(P.reshape(n, 34), 7).reshape(n, 17, 2)
+        P = smooth(P.reshape(n, 34), 9).reshape(n, 17, 2)
         # Bild -> Figur-Raum: Figur schaut zur Kamera => ihre linke Seite ist rechts im Bild (+x), y nach oben
         V = np.stack([P[..., 0], -P[..., 1]], -1)
         if a.mirror: V[..., 0] *= -1
@@ -90,10 +105,23 @@ def main():
             r['y'] = max(-0.6, min(0.8, (hipc[i, 1] - base[1]) * u)); r['dx'] = max(-2, min(2, (hipc[i, 0] - base[0]) * u))
             rows.append([round(float(r[k]), 1) for k in KEYS])
         arr = np.array(rows, dtype=float)
+        for j, key in enumerate(KEYS):  # Winkel entfalten: Sprünge über ±180° sind keine echten Bewegungen (Hauptursache für Zucken)
+            if key not in ('y', 'dx'): arr[:, j] = np.degrees(np.unwrap(np.radians(arr[:, j])))
+        try:  # Savitzky-Golay erhält Spitzen (Kicks, Armschwünge) besser als reine Mittelung
+            from scipy.signal import savgol_filter
+            w = max(5, int(a.smooth * 4) | 1)
+            if len(arr) > w: arr = savgol_filter(arr, w, 2, axis=0, mode='interp')
+        except ImportError:
+            pass
         if a.smooth > 0 and len(arr) > 3:  # Gauß-Glättung über die Zeit (gegen Zittern), Ränder gespiegelt
             r = int(a.smooth * 3); xs = np.arange(-r, r + 1); kern = np.exp(-0.5 * (xs / a.smooth) ** 2); kern /= kern.sum()
             pad = np.pad(arr, ((r, r), (0, 0)), mode='reflect')
             arr = np.stack([np.convolve(pad[:, j], kern, mode='valid') for j in range(arr.shape[1])], 1)
+        if a.euro > 0 and len(arr) > 3:  # One-Euro-Filter (Casiez 2012): ruhig bei langsamer, scharf bei schneller Bewegung; vor+zurück = keine Verzögerung
+            arr = 0.5 * (one_euro(arr, K['fps'], a.euro, a.beta) + one_euro(arr[::-1], K['fps'], a.euro, a.beta)[::-1])
+        if a.maxvel > 0:  # max. Winkeländerung pro Frame (Ausreißer kappen)
+            for i in range(1, len(arr)):
+                arr[i] = arr[i - 1] + np.clip(arr[i] - arr[i - 1], -a.maxvel, a.maxvel)
         out['people'].append({'frames': np.round(arr, 1).tolist()})
     json.dump(out, open(a.out, 'w'))
     print(f'{n} Frames, {npl} Personen -> {a.out}')

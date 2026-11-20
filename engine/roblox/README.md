@@ -156,3 +156,12 @@ Twist erst ganz am Ende · letzter Satz führt in den ersten zurück (Loop) · J
 - **Look-Nachbearbeitung:** Episode `"grade": {"bloom": 0.35, "vignette": 0.3, "warm": 0.04, "sat": 1.08}`.
 - **Qualitätsprüfung** nach jedem Export: Auflösung, Länge, Tonspur, schwarze Bilder, Standbilder (Log „Qualitätsprüfung: ✓ ok“ oder ⚠ mit Grund).
 - **Verteiltes Rendern:** `studio.py … --part K/N` rendert nur Teil K von N (Shots nach Bildanzahl verteilt); ein normaler Lauf danach setzt aus dem Cache zusammen (bildgleich geprüft). In GitHub Actions automatisch 4 Teile (Repo-Variable `VF_RENDER_PARTS`); fehlende Teile rendert der Haupt-Job selbst.
+
+### Mocap gegen Zittern (21.11.2026)
+`tools/mocap_retarget.py` filtert jetzt in 4 Stufen:
+1. Winkel entfalten (`np.unwrap`) – Sprünge über ±180° waren die Hauptursache fürs Zucken.
+2. Savitzky-Golay (erhält Spitzen wie Kicks).
+3. One-Euro-Filter vor+zurück (`--euro 0.9 --beta 0.004`): ruhig bei langsamen, scharf bei schnellen Bewegungen, ohne Verzögerung.
+4. Geschwindigkeitsgrenze `--maxvel 14` (Grad/Frame).
+Ergebnis Tanz-Test: max. Sprung 37°→14°, Zittern (2. Ableitung) −45 %, Bewegungsumfang ~95 % erhalten.
+Abschalten: `--euro 0 --maxvel 0`.
