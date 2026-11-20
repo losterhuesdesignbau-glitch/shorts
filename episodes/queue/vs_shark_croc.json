@@ -1,0 +1,1385 @@
+{
+ "title": "Shark vs Croc",
+ "music": "happy",
+ "cast": {
+  "shark": {
+   "look": "man",
+   "hair": "spiky",
+   "hairColor": "#1b2a4a",
+   "shirt": "#3a86ff",
+   "pants": "#1d3557",
+   "hat": "helmet",
+   "hatColor": "#3a86ff",
+   "logo": "star",
+   "logoBg": "#1d3557",
+   "jacket": false
+  },
+  "croc": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#2b1b12",
+   "shirt": "#2a9d8f",
+   "pants": "#264653",
+   "hat": "cap",
+   "hatColor": "#2a9d8f",
+   "logo": "heart",
+   "logoBg": "#1b4332",
+   "shades": true,
+   "jacket": false
+  },
+  "host": {
+   "look": "woman",
+   "hair": "ponytail",
+   "hairColor": "#5a3825",
+   "shirt": "#ffd23f",
+   "jacket": "#e63946",
+   "logo": ""
+  },
+  "kid": {
+   "look": "kid",
+   "hair": "spiky",
+   "hairColor": "#3b2a1a",
+   "shirt": "#ff006e",
+   "logo": "star"
+  }
+ },
+ "shots": [
+  {
+   "say": "Shark versus crocodile.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "punch",
+     "face": 25,
+     "mood": "angry"
+    },
+    {
+     "id": "croc",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "punch",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Five rounds. One winner.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "grin"
+    },
+    {
+     "id": "shark",
+     "at": [
+      -3.5,
+      3
+     ],
+     "do": "cheer",
+     "face": 30,
+     "mood": "happy"
+    },
+    {
+     "id": "croc",
+     "at": [
+      3.5,
+      3
+     ],
+     "do": "cheer",
+     "face": -30,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     15
+    ],
+    "look": [
+     0,
+     3.0,
+     1
+    ]
+   }
+  },
+  {
+   "say": "Round one: *size.*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 0,
+    "b": 0
+   },
+   "counter": {
+    "label": "ROUND 1",
+    "from": 1,
+    "to": 1,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "host",
+    "ang": 10
+   }
+  },
+  {
+   "say": "A great white can weigh over *two thousand kilos.*",
+   "speak": "A great white can weigh over two thousand kilos.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "GREAT WHITE",
+    "from": 0,
+    "to": 2000,
+    "suffix": " kg",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      0,
+      2
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "target": "shark"
+   }
+  },
+  {
+   "say": "A big saltwater croc? About *one thousand.*",
+   "speak": "A big saltwater croc? About one thousand.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "SALTWATER CROC",
+    "from": 0,
+    "to": 1000,
+    "suffix": " kg",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "croc",
+     "at": [
+      0,
+      2
+     ],
+     "do": "shrug",
+     "face": 0,
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "target": "croc"
+   }
+  },
+  {
+   "say": "Point for the *shark!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 1,
+    "b": 0,
+    "from": [
+     0,
+     0
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": 25,
+     "mood": "laugh"
+    },
+    {
+     "id": "croc",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "no",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.35
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Round two: *bite force.*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 1,
+    "b": 0
+   },
+   "counter": {
+    "label": "ROUND 2",
+    "from": 2,
+    "to": 2,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "host",
+    "ang": -10
+   }
+  },
+  {
+   "say": "The saltwater croc has the strongest bite *ever measured.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "MEASURED BITE",
+    "from": 0,
+    "to": 3700,
+    "suffix": " psi",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "croc",
+     "at": [
+      0,
+      2
+     ],
+     "do": "punch",
+     "face": 0,
+     "mood": "angry"
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.6,
+     "dur": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.6
+    ]
+   ],
+   "cam": {
+    "type": "full",
+    "target": "croc"
+   }
+  },
+  {
+   "say": "The shark's bite? Only a *computer estimate.*",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      0,
+      2
+     ],
+     "do": "think",
+     "face": 0,
+     "mood": "think",
+     "bubble": "4,000 psi... maybe?"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "target": "shark"
+   }
+  },
+  {
+   "say": "Real numbers win. Point *croc!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 1,
+    "b": 1,
+    "from": [
+     1,
+     0
+    ],
+    "t": 0.4
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "no",
+     "face": 25,
+     "mood": "angry"
+    },
+    {
+     "id": "croc",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": -25,
+     "mood": "laugh"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.42
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Round three: *speed.*",
+   "set": "beach",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 3",
+    "from": 3,
+    "to": 3,
+    "y": 0.32
+   },
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 1,
+    "b": 1
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "host",
+    "ang": 15
+   }
+  },
+  {
+   "say": "Ready, set...",
+   "set": "beach",
+   "time": "day",
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.4,
+      4
+     ],
+     "do": "idle",
+     "face": 90,
+     "mood": "angry"
+    },
+    {
+     "id": "croc",
+     "at": [
+      -1.4,
+      1.2
+     ],
+     "do": "idle",
+     "face": 90,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     3,
+     4.0,
+     15
+    ],
+    "look": [
+     -1,
+     2.4,
+     2.5
+    ]
+   }
+  },
+  {
+   "say": "*Go!*",
+   "set": "beach",
+   "time": "day",
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -8,
+      4
+     ],
+     "to": [
+      6,
+      4
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "run",
+     "mood": "laugh"
+    },
+    {
+     "id": "croc",
+     "at": [
+      -8,
+      1.2
+     ],
+     "to": [
+      1,
+      1.2
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "run",
+     "mood": "angry"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.2,
+     14
+    ],
+    "look": [
+     0,
+     2.4,
+     2.5
+    ]
+   }
+  },
+  {
+   "say": "Sharks swim up to *forty kilometers an hour.*",
+   "speak": "Sharks swim up to forty kilometers an hour.",
+   "set": "beach",
+   "time": "day",
+   "counter": {
+    "label": "SHARK",
+    "from": 0,
+    "to": 40,
+    "suffix": " km/h",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -4,
+      2
+     ],
+     "to": [
+      4,
+      2
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "run",
+     "mood": "laugh"
+    }
+   ],
+   "cam": {
+    "type": "track",
+    "target": "shark"
+   }
+  },
+  {
+   "say": "Crocs only about *twenty-nine.*",
+   "speak": "Crocs only about twenty-nine.",
+   "set": "beach",
+   "time": "day",
+   "counter": {
+    "label": "CROC",
+    "from": 0,
+    "to": 29,
+    "suffix": " km/h",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "croc",
+     "at": [
+      -4,
+      2
+     ],
+     "to": [
+      2,
+      2
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "run",
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "track",
+    "target": "croc"
+   }
+  },
+  {
+   "say": "Point *shark!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 2,
+    "b": 1,
+    "from": [
+     1,
+     1
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": 25,
+     "mood": "laugh"
+    },
+    {
+     "id": "croc",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "facepalm",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Round four: *walking on land.*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 2,
+    "b": 1
+   },
+   "counter": {
+    "label": "ROUND 4",
+    "from": 4,
+    "to": 4,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "host",
+    "ang": 5
+   }
+  },
+  {
+   "say": "The croc just strolls out of the water.",
+   "set": "beach",
+   "time": "day",
+   "actors": [
+    {
+     "id": "croc",
+     "at": [
+      1,
+      -6
+     ],
+     "to": [
+      0,
+      2
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "mood": "smug"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.6,
+     12
+    ],
+    "look": [
+     0,
+     2.2,
+     3
+    ]
+   }
+  },
+  {
+   "say": "The shark...",
+   "set": "beach",
+   "time": "day",
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "fall",
+     "face": 90,
+     "mood": "dizzy",
+     "emote": "💫"
+    }
+   ],
+   "sfx": [
+    [
+     "bonk",
+     0.3
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "shark",
+    "ang": 0
+   }
+  },
+  {
+   "say": "not so much.",
+   "set": "beach",
+   "time": "day",
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "lie",
+     "face": 90,
+     "mood": "sad"
+    }
+   ],
+   "sfx": [
+    [
+     "sad",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "high",
+    "target": "shark"
+   }
+  },
+  {
+   "say": "Point *croc!* Two to two!",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 2,
+    "b": 2,
+    "from": [
+     2,
+     1
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "scared",
+     "face": 25,
+     "mood": "shock"
+    },
+    {
+     "id": "croc",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": -25,
+     "mood": "laugh"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ],
+    [
+     "riser",
+     0.6
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Final round decides everything.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 2,
+    "b": 2
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "shock"
+    }
+   ],
+   "crowd": {
+    "n": 6,
+    "area": [
+     -8,
+     -6,
+     8,
+     -2
+    ]
+   },
+   "cam": {
+    "type": "medium",
+    "target": "host",
+    "ang": -12
+   }
+  },
+  {
+   "say": "Who has been on Earth *longer?*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 2,
+    "b": 2
+   },
+   "counter": {
+    "label": "ROUND 5",
+    "from": 5,
+    "to": 5,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "face": 0,
+     "mood": "think"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "host"
+   }
+  },
+  {
+   "say": "Crocodiles are ancient. Over *two hundred million years.*",
+   "speak": "Crocodiles are ancient. Over two hundred million years.",
+   "set": "beach",
+   "time": "day",
+   "counter": {
+    "label": "CROC FAMILY",
+    "from": 0,
+    "to": 200,
+    "suffix": " million yrs",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "croc",
+     "at": [
+      0,
+      2
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "target": "croc"
+   }
+  },
+  {
+   "say": "But sharks? About *four hundred fifty million.*",
+   "speak": "But sharks? About four hundred fifty million.",
+   "set": "beach",
+   "time": "day",
+   "counter": {
+    "label": "SHARKS",
+    "from": 0,
+    "to": 450,
+    "suffix": " million yrs",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      0,
+      2
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.7,
+     "dur": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.7
+    ]
+   ],
+   "cam": {
+    "type": "full",
+    "target": "shark"
+   }
+  },
+  {
+   "say": "Sharks are older than *trees.*",
+   "pause": 0.2,
+   "set": "park",
+   "time": "day",
+   "props": [
+    {
+     "type": "tree",
+     "at": [
+      0,
+      -1.5
+     ],
+     "s": 1.4
+    }
+   ],
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      1.8,
+      1
+     ],
+     "do": "scared",
+     "face": -30,
+     "mood": "shock",
+     "emote": "🤯"
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.0,
+     11
+    ],
+    "look": [
+     0,
+     3.4,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Trees didn't exist yet!",
+   "set": "park",
+   "time": "day",
+   "props": [
+    {
+     "type": "tree",
+     "at": [
+      0,
+      -1.5
+     ],
+     "s": 1.4,
+     "hide": 0.3
+    }
+   ],
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      1.8,
+      1
+     ],
+     "do": "laugh",
+     "face": -30,
+     "mood": "laugh"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.0,
+     11
+    ],
+    "look": [
+     0,
+     3.4,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Shark wins, three to two!",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 3,
+    "b": 2,
+    "from": [
+     2,
+     2
+    ],
+    "t": 0.3
+   },
+   "props": [
+    {
+     "type": "trophy",
+     "on": "shark",
+     "head": true
+    }
+   ],
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": 25,
+     "mood": "laugh"
+    },
+    {
+     "id": "croc",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "cry",
+     "face": -25,
+     "mood": "sad"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ],
+   "crowd": {
+    "n": 6,
+    "area": [
+     -8,
+     -6,
+     8,
+     -2
+    ]
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Do you agree?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "croc",
+     "at": [
+      0,
+      2
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "croc",
+    "ang": 6
+   }
+  },
+  {
+   "say": "Team shark or team croc?",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 3,
+    "b": 2
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "point",
+     "face": 25,
+     "mood": "grin"
+    },
+    {
+     "id": "croc",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "point",
+     "face": -25,
+     "mood": "grin"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Because next time... shark versus crocodile.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Shark",
+    "away": "Croc",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "shark",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "punch",
+     "face": 25,
+     "mood": "angry"
+    },
+    {
+     "id": "croc",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "punch",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     15
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  }
+ ],
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "SHARK\nVS CROC",
+  "series": "VS BATTLE #2",
+  "cta": "SHARK or CROC? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "Shark vs Crocodile – Who Really Wins? 🦈🐊",
+  "description": "5 rounds: size, bite force, speed, land and... age. The final round is wild – sharks are older than trees! Team Shark or Team Croc? 👇",
+  "hashtags": [
+   "sharkvscroc",
+   "animals",
+   "vsbattle",
+   "facts"
+  ],
+  "language": "en"
+ }
+}
