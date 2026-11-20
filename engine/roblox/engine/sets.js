@@ -321,6 +321,47 @@ const SETS = {
     for (const [x, z] of [[-12, -6], [12, -6], [-12, 6], [12, 6]]) setLampPost(mb, S.lamp, x, z);
     S.wide = { eye: [0, 4, 16], look: [0, 18, -60] };
   },
+  xmasmarket(S, o) {
+    // Weihnachtliche Innenstadt mit Weihnachtsmarkt: Kopfsteinpflaster, Fachwerk-Häuser, Buden mit Lichterketten, großer Baum
+    const mb = S.mb, G = S.neon, R = rng(o.seed || 5);
+    groundPlane(mb, '#e9eef2');
+    P_(mb, 0, 0.03, -10, () => mb.box(110, 0.06, 90, '#8a8178'));
+    for (let i = -13; i <= 13; i++) { P_(mb, i * 2.2, 0.065, -10, () => mb.box(0.08, 0.02, 90, '#756c64')); P_(mb, 0, 0.065, -10 + i * 2.2, () => mb.box(110, 0.02, 0.08, '#756c64')); }
+    for (let i = 0; i < 40; i++) P_(mb, (R() - 0.5) * 60, 0.07, -4 - R() * 40, () => mb.box(1.5 + R() * 3, 0.02, 1 + R() * 2, '#f4f7fa'));  // Schneereste
+    const BULB = ['#ffd27a', '#ff5b5b', '#7ad1ff', '#9dff8a', '#ffd27a', '#ffffff'];
+    const lights = (x0, y0, z0, x1, y1, z1, n, sag = 0.5) => { for (let i = 0; i <= n; i++) { const k = i / n; P_(G, x0 + (x1 - x0) * k, y0 + (y1 - y0) * k - Math.sin(k * Math.PI) * sag, z0 + (z1 - z0) * k, () => G.sphere(0.11, 0, BULB[i % BULB.length])); } };
+    // Häuserzeile hinten + Seiten (Altstadt, Schnee auf den Dächern)
+    const WC = ['#f3e2c7', '#e9c9a6', '#d9e4ec', '#f2d0c9', '#efe6b8', '#d6cfe6'];
+    for (let i = 0; i < 9; i++) { const x = -44 + i * 11; house(S, x, -42, 0, { w: 10, h: 11 + (i % 3) * 2, wall: WC[i % 6], roof: '#f5f8fb', door: '#7a4b2a', chimney: i % 2 === 0 }); lights(x - 5, 9, -37.7, x + 5, 9, -37.7, 14, 0.4); }
+    for (const sd of [-1, 1]) for (let i = 0; i < 3; i++) house(S, sd * 40, -26 + i * 12, sd > 0 ? -90 : 90, { w: 11, h: 12, wall: WC[(i + 2) % 6], roof: '#f5f8fb', door: '#7a4b2a' });
+    // Kirchturm
+    S.at(22, 0, -58); P_(mb, 0, 13, 0, () => mb.box(7, 26, 7, '#d9cbb5')); P_(mb, 0, 30, 0, () => mb.cyl(5, 0, 9, 4, '#2f5d50', { rot: Math.PI / 4 })); S.pop();
+    // Marktbuden in zwei Reihen
+    const ROOF = ['#b23a3a', '#2f6b4f', '#b23a3a', '#7a4b2a'];
+    const booth = (x, z, i) => { S.at(x, 0, z);
+      P_(mb, 0, 1.3, 0, () => mb.box(4.2, 2.6, 2.6, '#9a6b43'));
+      P_(mb, 0, 1.25, 1.35, () => mb.box(3.6, 0.15, 0.6, '#c89b6a'));
+      P_(mb, 0, 1.9, 1.32, () => mb.box(3.6, 1.1, 0.05, '#2b1d14'));
+      P_(mb, 0, 3.15, 0, () => mb.prism(4.9, 1.3, 3.5, ROOF[i % 4], { gable: '#9a6b43' }));
+      P_(mb, 0, 3.85, 0, () => mb.box(5.0, 0.18, 3.6, '#f5f8fb'));
+      for (let k = 0; k < 6; k++) P_(G, -1.6 + k * 0.64, 2.05, 1.4, () => G.sphere(0.13, 0, BULB[(k + i) % BULB.length]));
+      lights(-2.4, 2.75, 1.75, 2.4, 2.75, 1.75, 12, 0.25);
+      S.pop(); };
+    let bi = 0;
+    for (const x of [-19, -13.5, -8, 8, 13.5, 19]) booth(x, -14, bi++);
+    for (const x of [-22, -16.5, -11, -5.5, 5.5, 11, 16.5, 22]) booth(x, -24, bi++);
+    // großer Weihnachtsbaum mit Kugeln und Stern
+    S.at(0, 0, -30);
+    P_(mb, 0, 1, 0, () => mb.cyl(0.6, 0.7, 2, 10, '#6b4423'));
+    for (let l = 0; l < 6; l++) P_(mb, 0, 2 + l * 2.1, 0, () => mb.cyl(5.2 - l * 0.85, 1.2 - l * 0.12, 3.2, 12, l % 2 ? '#1f6b3a' : '#24804a'));
+    for (let k = 0; k < 70; k++) { const y = 2.4 + R() * 12, r = (5.4 - (y - 2) * 0.42) * 0.92, a = R() * Math.PI * 2; if (r > 0.3) P_(G, Math.cos(a) * r, y, Math.sin(a) * r, () => G.sphere(0.2, 0, BULB[k % BULB.length])); }
+    P_(G, 0, 15.6, 0, () => G.sphere(0.8, 1, '#ffe27a'));
+    S.pop();
+    // Lichterketten quer über den Platz
+    for (const z of [-8, -19]) lights(-26, 7.5, z, 26, 7.5, z, 60, 1.2);
+    for (const [x, z] of [[-26, -6], [26, -6], [-26, -32], [26, -32], [-9, -6], [9, -6]]) setLampPost(mb, S.lamp, x, z);
+    S.wide = { eye: [0, 7, 26], look: [0, 5, -20] };
+  },
   stadium(S, o) {
     // Fußballstadion: Rasen mit Streifen, Linien, Tore, Tribünen ringsum, Flutlicht
     const mb = S.mb, G = S.glow;
