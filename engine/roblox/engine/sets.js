@@ -336,17 +336,17 @@ const SETS = {
   },
   mall(S, o) {
     // Einkaufszentrum: langer Gang (entlang z), glänzender Boden, Läden links/rechts mit Leuchtschildern, Galerie mit Glasgeländer, Oberlicht
-    S.bg = 'none'; S.indoor = true; S.bounds = [-6.6, 6.6, -60, 6.0, 15];
-    const mb = S.mb, G = S.glow, W = 7.2, L = 80, zc = -30, H = 15;
+    S.bg = 'none'; S.indoor = true; S.bounds = [-9.4, 9.4, -60, 16, 15];
+    const mb = S.mb, G = S.glow, W = o.width || 10, L = 88, zc = -26, H = 15;
     P_(mb, 0, -0.1, zc, () => mb.box(W * 2 + 1, 0.2, L, '#e9e6e1'));
-    for (let z = 6; z > -70; z -= 3) P_(mb, 0, 0.005, z, () => mb.box(W * 2, 0.012, 0.06, '#d6d2cb'));
-    for (const x of [-3, 3]) P_(mb, x, 0.006, zc, () => mb.box(0.06, 0.012, L, '#d6d2cb'));
+    for (let z = 18; z > -70; z -= 3) P_(mb, 0, 0.005, z, () => mb.box(W * 2, 0.012, 0.06, '#d6d2cb'));
+    for (const x of [-4, 4]) P_(mb, x, 0.006, zc, () => mb.box(0.06, 0.012, L, '#d6d2cb'));
     P_(G, 0, 0.01, zc, () => G.box(2.2, 0.01, L, '#f6f3ee'));  // Glanzstreifen (Spiegelung der Oberlichter)
     const NAMES = ['NOVA', 'PIXEL', 'BLOOM', 'URBAN', 'SNEAKR', 'LUMA', 'TOYBOX', 'BREW', 'VIBE', 'STYLE', 'GADGET', 'SWEETS'];
     const SIGN = ['#ff3d6e', '#2ec4ff', '#ffd23f', '#9b5de5', '#00f5d4', '#ff8c42'];
     const WIN = ['#fff4d6', '#e8f6ff', '#ffe8f1', '#eaffef'];
     let k = 0;
-    for (const sd of [-1, 1]) for (let z = 1; z > -66; z -= 9) {
+    for (const sd of [-1, 1]) for (let z = 19; z > -66; z -= 9) {
       const x = sd * (W + 0.1), i = k++;
       P_(S.ns, sd * (W + 0.6), H / 2, z - 4.5, () => S.ns.box(0.6, H, 9.2, '#f1efea'));
       P_(G, x, 2.4, z - 4.5, () => G.box(0.08, 4.4, 7.4, WIN[i % 4]));              // beleuchtetes Schaufenster
@@ -362,16 +362,16 @@ const SETS = {
       P_(mb, sd * (W - 1.4), 7.4, zc, () => mb.box(2.8, 0.4, L, '#f7f6f3'));                     // Galerieboden
       P_(S.win, sd * (W - 2.7), 8.2, zc, () => S.win.box(0.06, 1.1, L, '#cfe8f5'));             // Glasgeländer
       P_(mb, sd * (W - 2.7), 8.8, zc, () => mb.box(0.12, 0.1, L, '#b8bcc2'));
-      for (let z = 4; z > -66; z -= 12) P_(mb, sd * (W - 2.9), 3.7, z, () => mb.cyl(0.35, 0.35, 7.4, 12, '#f1efea'));
+      for (let z = 19 - 0.25; z > -66; z -= 9) { P_(mb, sd * (W - 2.75), 3.7, z, () => mb.cyl(0.32, 0.32, 7.4, 12, '#f1efea')); P_(mb, sd * (W - 2.75), 0.12, z, () => mb.cyl(0.5, 0.5, 0.24, 12, '#d6d2cb')); P_(mb, sd * (W - 2.75), 15 - H / 2 + 3.6, z, () => mb.cyl(0.28, 0.28, H - 8, 12, '#f1efea')); }  // Pfeiler an jeder Ladengrenze, tragen Galerie und Dach
     }
     P_(S.ns, 0, H, zc, () => S.ns.box(W * 2 + 1, 0.4, L, '#f4f2ee'));
-    for (let z = 4; z > -66; z -= 6) P_(S.skywin, 0, H - 0.25, z, () => S.skywin.box(5, 0.1, 4, '#bfe3ff'));   // Oberlichter
-    for (let z = 2; z > -66; z -= 8) for (const x of [-3.6, 3.6]) P_(G, x, 7.15, z, () => G.box(0.9, 0.06, 0.9, '#fffbe8'));
-    for (const [x, z] of [[-4.6, -2], [4.6, -14], [-4.6, -26], [4.6, -38]]) { P_(mb, x, 0.45, z, () => mb.cyl(0.6, 0.5, 0.9, 12, '#d9d4cc')); setTree(S.fol, x, z, 0.32, 1); }
+    for (let z = 16; z > -66; z -= 6) P_(S.skywin, 0, H - 0.25, z, () => S.skywin.box(5, 0.1, 4, '#bfe3ff'));   // Oberlichter
+    for (let z = 14.5; z > -66; z -= 9) for (const x of [-(W - 3.6), W - 3.6]) P_(G, x, 7.15, z, () => G.box(0.9, 0.06, 0.9, '#fffbe8'));
+    for (const [x, z] of [[-(W - 3.9), 10], [W - 3.9, 1], [-(W - 3.9), -17], [W - 3.9, -26], [-(W - 3.9), -35]]) { P_(mb, x, 0.45, z, () => mb.cyl(0.6, 0.5, 0.9, 12, '#d9d4cc')); setTree(S.fol, x, z, 0.32, 1); }
     P_(mb, 0, 0.35, -46, () => mb.cyl(3, 3, 0.7, 24, '#cfd5dc'));
     S.water(m => { m.push(M4.T(0, 0.72, -46)); m.disc(2.7, 24, '#36b3f0'); m.pop(); }, 0.85);
     P_(S.ns, 0, H / 2, -70, () => S.ns.box(W * 2 + 1, H, 0.4, '#f1efea'));
-    S.wide = { eye: [0, 4.4, 5], look: [0, 3.6, -40] };
+    S.wide = { eye: [0, 5, 15], look: [0, 3.6, -40] };
   },
   xmasmarket(S, o) {
     // Weihnachtliche Innenstadt mit Weihnachtsmarkt: Kopfsteinpflaster, Fachwerk-Häuser, Buden mit Lichterketten, großer Baum
