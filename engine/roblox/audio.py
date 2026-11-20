@@ -224,17 +224,19 @@ def sfx(name):
         return lp(noise(1.0, 11), 300) * (np.sin(np.pi * t) ** 2) * 1.5
     return np.zeros(10)
 
-def mix(total, events, voice=None, mood='happy', music_on=True, seed=3, music_gain=None):
+def mix(total, events, voice=None, mood='happy', music_on=True, seed=3, music_gain=None, cuts=(), hits=(), twist=None):
     buf = np.zeros((int(total * SR) + 1, 2))
     if music_on:
-        m = music(total, mood, seed)
-        g = music_gain if music_gain is not None else (0.33 if voice is not None else 0.75)
+        import score as SC
+        cine = mood in SC.GENRES
+        m = SC.score(total, mood, seed, cuts, hits, twist) if cine else music(total, mood, seed)  # Genre-Filmmusik oder klassische Loop-Musik
+        g = music_gain if music_gain is not None else ((0.3 if cine else 0.33) if voice is not None else 0.75)
         if voice is not None and len(voice):  # Ducking: Musik leiser, solange gesprochen wird
             from scipy.ndimage import uniform_filter1d
             e = np.zeros(len(m)); n = min(len(m), len(voice)); e[:n] = np.abs(voice[:n])
             e = uniform_filter1d(e, int(0.3 * SR))
             ref = np.percentile(e[e > 1e-4], 90) if np.any(e > 1e-4) else 1.0
-            m = m * (1 - 0.4 * np.clip(e / (0.5 * ref + 1e-9), 0, 1))[:, None]
+            m = m * (1 - (0.55 if cine else 0.4) * np.clip(e / (0.5 * ref + 1e-9), 0, 1))[:, None]  # Musik nie über der Stimme
         buf[: len(m)] += m * g
     for name, t, g in events:
         add(buf, sfx(name), t, 0, 0.5 * g)

@@ -327,7 +327,13 @@ def main():
         mv = work / 'video_blur.mp4'
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-vf', f"tmix=frames=2:weights='1 {w}'", '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(mv)], check=True); vid = mv
     mf = src.get('musicFile')
-    mixbuf = AU.mix(total, events, voice, src.get('music', 'happy'), not a.no_music and not mf and src.get('music', 'happy') != 'none', src.get('seed', 3))
+    cuts = [sh['tg0'] for sh in ep['shots'][1:]]
+    hits = [t for (nm, t, g) in events if nm in ('boom', 'tada', 'riser')]
+    tw = src.get('twistAt')
+    if tw is None and len(ep['shots']) > 4:  # Twist = letzter Shot mit "boom" im letzten Drittel, sonst 78 %
+        late = [t for t in hits if t > total * 0.6]; tw = late[-1] if late else None
+    sd = src.get('seed', (sum(map(ord, json.dumps((src.get('meta') or {}).get('title') or src.get('title') or ''))) % 9973) or 3)  # jedes Video eigene Musik-Variante
+    mixbuf = AU.mix(total, events, voice, src.get('music', 'happy'), not a.no_music and not mf and src.get('music', 'happy') != 'none', sd, cuts=cuts, hits=hits, twist=tw)
     if mf and not a.no_music:  # eigene Musikdatei (z. B. Trend-Sound) statt generierter Musik
         mp = Path(mf) if Path(mf).is_absolute() else Path(a.episode).parent / mf
         tr = AU.load_audio(str(mp))[int(float(src.get('musicStart', 0)) * AU.SR):] * float(src.get('musicGain', 0.9))

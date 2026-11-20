@@ -186,3 +186,17 @@ Alle Verbesserungen sind jetzt Standard:
 - In GitHub Actions per `VF_QUALITY` in `.github/workflows/vf-render.yml` schaltbar; Rendern auf 12 Teile verteilt. Test ohne Upload: Workflow „Engine-Test (ohne Upload)“.
 - **Requisit `paper`** (20.11.2026): Test-/Klassenarbeitsblatt mit Note (`grade`, `gradeColor`, `marks`: "x" oder "v"), liegend oder `up: true`; `crumpled: true` = zerknüllte Papierkugel.
 - **Look-Feld `glow`** (0–1): leuchtende Figur, z. B. Hauptfigur in dunklen Szenen (heller, starkes Randlicht, wirkt mit Bloom).
+
+## Sendeplan & Regeln (ab 21.11.2026)
+| Zeit | Serie | Musik (`"music"`) |
+|---|---|---|
+| 08:00 | Weird Towns / In This Town | `mystery` |
+| 10:00 | School Life | `school` (lustig) / `school_emo` (emotional) |
+| 12:30 | X vs Y | `battle` |
+| 15:30 | Virale Trends & Tänze | `trend` (Trend-Sound in der App ergänzen) |
+| 18:30 | Survival & Katastrophen | `epic` |
+| 21:00 | Dark Stories | `dark` |
+
+**Regel 1 – keine Wiederholungen:** `episodes/themen.json` ist das Register aller Folgen. Vor jeder Produktion `python engine/roblox/tools/themen.py check "<Thema, Hook, Handlung, Twist>"` – bei „ZU ÄHNLICH“ verwerfen. Nach dem Push `themen.py add …` und Register mitcommitten.
+
+**Regel 2 – szenenabhängige Musik:** `score.py` erzeugt pro Video eigene Filmmusik (Tonart, Tempo, Akkordfolge, Klangfarben zufällig je Titel; Feld `"seed"` überschreibt). Steigerung bis zum Twist (`"twistAt"` in s, sonst letzter „boom“ im letzten Drittel), Akzente auf jedem Schnitt, große Akzente auf `boom`/`riser`/`tada`, Stille direkt vor dem Twist (dark), Ducking: Musik nie über der Stimme. Die alten Stimmungen (`happy`, `mystery`-Loop …) bleiben verfügbar: `mystery` ist jetzt die neue Filmmusik; alte Loop-Variante über `chill`/`tense`/`happy`.
