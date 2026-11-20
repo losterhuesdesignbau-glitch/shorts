@@ -43,6 +43,8 @@ def main():
     ap.add_argument('--euro', type=float, default=0.9, help='One-Euro mincutoff Hz (0=aus)')
     ap.add_argument('--beta', type=float, default=0.004, help='One-Euro beta')
     ap.add_argument('--maxvel', type=float, default=14.0, help='max Grad pro Frame (0=aus)')
+    ap.add_argument('--depthnorm', type=int, default=1, help='Größenänderung (Tiefe) je Frame ausgleichen (1=an)')
+    ap.add_argument('--ground', type=int, default=1, help='Füße auf den Boden setzen (1=an)')
     ap.add_argument('--smooth', type=float, default=2.5, help='Glättung der Gelenkwinkel (Gauß-Sigma in Frames, gegen Zittern)')
     a = ap.parse_args()
     K = json.load(open(a.kp)); F = K['frames']; n = len(F); npl = max(len(f) for f in F)
@@ -56,10 +58,16 @@ def main():
             ok = C[:, j] > 0.35
             if ok.sum() >= 2 and not ok.all():
                 for c in range(2): P[~ok, j, c] = np.interp(np.where(~ok)[0], np.where(ok)[0], P[ok, j, c])
-        P = smooth(P.reshape(n, 34), 9).reshape(n, 17, 2)
+        P = smooth(P.reshape(n, 34), 7).reshape(n, 17, 2)
         # Bild -> Figur-Raum: Figur schaut zur Kamera => ihre linke Seite ist rechts im Bild (+x), y nach oben
         V = np.stack([P[..., 0], -P[..., 1]], -1)
         if a.mirror: V[..., 0] *= -1
+        if a.depthnorm and n > 10:  # Person läuft auf Kamera zu/weg: Größe je Frame herausrechnen (sonst wirken ferne Glieder verkürzt -> Hocke/Schweben)
+            from scipy.ndimage import gaussian_filter1d, median_filter
+            tl = np.linalg.norm((V[:, 5] + V[:, 6]) / 2 - (V[:, 11] + V[:, 12]) / 2, axis=1)
+            sc = gaussian_filter1d(median_filter(tl, 15, mode='nearest'), 8, mode='nearest'); sc = sc / np.median(sc)
+            hc = ((V[:, 11] + V[:, 12]) / 2)[:, None, :]
+            V = hc + (V - hc) / sc[:, None, None]
         seg = lambda i, j: V[:, j] - V[:, i]
         segs = {'uaL': (5, 7), 'faL': (7, 9), 'uaR': (6, 8), 'faR': (8, 10), 'thL': (11, 13), 'shL': (13, 15), 'thR': (12, 14), 'shR': (14, 16)}
         Lmax = {k: np.percentile(np.linalg.norm(seg(*v), axis=1), 90) for k, v in segs.items()}
@@ -122,7 +130,15 @@ def main():
         if a.maxvel > 0:  # max. Winkeländerung pro Frame (Ausreißer kappen)
             for i in range(1, len(arr)):
                 arr[i] = arr[i - 1] + np.clip(arr[i] - arr[i - 1], -a.maxvel, a.maxvel)
-        out['people'].append({'frames': np.round(arr, 1).tolist()})
+        if a.ground:  # Bodenkontakt: tiefster Fuß steht immer auf dem Boden (kein Schweben, kein Einsinken)
+            ix = {k: KEYS.index(k) for k in KEYS}
+            def drop(s_):
+                ax, az, k = np.radians(arr[:, ix['l' + s_ + 'x']]), np.radians(arr[:, ix['l' + s_ + 'z']]), np.radians(arr[:, ix['k' + s_]])
+                return (np.cos(ax) + np.cos(ax + k)) * np.cos(az)  # Oberschenkel + Schienbein (je 1.0 Einheiten)
+            gy = np.maximum(drop('L'), drop('R')) - 2.0
+            from scipy.ndimage import gaussian_filter1d
+            arr[:, ix['y']] = gaussian_filter1d(gy, 1.5, mode='nearest')
+        out['people'].append({'frames': np.round(arr, 2).tolist()})
     json.dump(out, open(a.out, 'w'))
     print(f'{n} Frames, {npl} Personen -> {a.out}')
 

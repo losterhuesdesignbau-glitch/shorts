@@ -105,7 +105,7 @@ function pose(act, t, k, A) {
       const M = A.a.mocap; if (!M || !M.frames || !M.frames.length) break;
       const fi = clamp(((A.tg ?? t) - (M.start || 0)) * (M.fps || 30), 0, M.frames.length - 1), i0 = Math.floor(fi), i1 = Math.min(M.frames.length - 1, i0 + 1), w = fi - i0;
       const f0 = M.frames[i0], f1 = M.frames[i1], g = M.gain ?? 1;
-      M.keys.forEach((key, j) => { const v = f0[j] * (1 - w) + f1[j] * w; P[key] = (key === 'y' || key === 'dx') ? v * (M.move ?? 1) : v * (key[0] === 'a' || key[0] === 'e' || key[0] === 'l' || key[0] === 'k' ? g : 1); });
+      M.keys.forEach((key, j) => { const v = f0[j] * (1 - w) + f1[j] * w; P[key] = (key === 'dx' || key === 'dz') ? 0 : key === 'y' ? v * (M.move ?? 1) : v * (key[0] === 'a' || key[0] === 'e' || key[0] === 'l' || key[0] === 'k' ? g : 1); });
       break;
     }
     // Trend-Tänze im Takt: bpm (Standard 120) und boff (Versatz in s) pro Figur; Takt läuft über Schnitte weiter
@@ -655,6 +655,11 @@ function renderShot(sh, si, tl) {
   if (!window._nolife) lifeItems(items, sh, si, set, tg, E, cam);
   for (const s of list) {
     s.tg = tg;
+    if (s.a.do === 'mocap' && s.a.mocap && s.a.mocap.frames && !s.mocapShift) { // Mocap-Verschiebung (dx/dz) bewegt die Figur selbst -> Schatten folgt, kein Schweben
+      const M = s.a.mocap, jx = M.keys.indexOf('dx'), jz = M.keys.indexOf('dz');
+      if (jz >= 0 || jx >= 0) { const fi = clamp((tg - (M.start || 0)) * (M.fps || 30), 0, M.frames.length - 1), i0 = Math.floor(fi), i1 = Math.min(M.frames.length - 1, i0 + 1), w = fi - i0, v = j => j < 0 ? 0 : (M.frames[i0][j] * (1 - w) + M.frames[i1][j] * w) * (M.move ?? 1);
+        s.x += v(jx); s.z += v(jz); s.mocapShift = true; }
+    }
     let P = s.cfg.animal ? apose(s.act, tl, s.k, s, s.cfg.animal) : pose(s.act, tl, s.k, s);
     if (!s.cfg.animal) {
       // weiche Übergänge zwischen Aktionen (0,3 s) und beim Loslaufen/Anhalten
