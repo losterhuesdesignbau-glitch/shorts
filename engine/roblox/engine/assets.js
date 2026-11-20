@@ -663,6 +663,18 @@ const PROPS = {
     for (const [x, z, r, c] of [[-3, -2, 1.6, '#2d6a4f'], [2.5, 2.8, 1.3, '#2d6a4f'], [3, -3, 1.0, '#b08968'], [-2.4, 3.2, 1.1, '#adb5bd']]) T_(mb, x, 0.45, z, () => mb.cyl(r, r, 0.12, 14, c));
     for (const [x, z] of [[-0.5, 0.5], [0.4, -0.2], [1.2, 0.8], [-3.1, 3.3], [3.2, -2.9]]) T_(mb, x, 0.75, z, () => mb.box(0.45, 0.6, 0.45, '#f1faee'));
   }) }, { g: cgeo('islandstorm|' + (o.storm || 5), mb => { const r = o.storm || 5; T_(mb, o.sx || 0.8, 0, o.sz || -0.4, () => mb.cyl(r, r, 1.6, 40, '#9d4edd', { flat: false, cap: false })); }), e: 0.8, a: 0.55, sh: false }] }),
+  // Klassenarbeit/Test-Blatt mit Note (grade, gradeColor), liegend (Standard) oder stehend (up: true); crumpled: true = zerknüllte Papierkugel
+  paper: o => {
+    if (o.crumpled) return { parts: [{ g: cgeo('paperball', mb => { mb.push(M4.T(0, 0.32, 0)); mb.sphere(0.32, 1, '#f2f0ea', { jit: 0.35, seed: 5, flat: true }); mb.pop(); }) }] };
+    const gr = o.grade || '', gc = o.gradeColor || (/^[AB]/.test(gr) ? '#1f8a3b' : '#d62828'), w = o.w || 1.3, h = o.h || 1.7;
+    const tex = ctex('paper|' + gr + '|' + gc + '|' + (o.marks || ''), 256, 336, (x, W, H) => {
+      x.fillStyle = '#f7f5ef'; x.fillRect(0, 0, W, H); x.fillStyle = '#c9c6bd';
+      for (let i = 0; i < 11; i++) { const y = 70 + i * 22; x.fillRect(24, y, i % 3 === 2 ? 120 : 200, 5); if (o.marks) { x.fillStyle = o.marks === 'x' ? '#d62828' : '#1f8a3b'; x.font = 'bold 18px sans-serif'; x.fillText(o.marks === 'x' ? '✗' : '✓', 228, y + 8); x.fillStyle = '#c9c6bd'; } }
+      x.fillRect(24, 24, 90, 8);
+      if (gr) { x.strokeStyle = gc; x.lineWidth = 9; x.beginPath(); x.ellipse(W - 70, 70, 52, 44, -0.1, 0, Math.PI * 2); x.stroke(); x.fillStyle = gc; x.font = 'bold 64px Poppins, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(gr, W - 70, 74); }
+    });
+    return { parts: [{ g: cgeo('paper|' + w + '|' + h + '|' + (o.up ? 1 : 0), mb => { if (o.up) { mb.push(M4.T(0, h / 2, 0)); mb.box(w, h, 0.02, '#ffffff', { uv: true }); } else { mb.push(M4.chain(M4.T(0, 0.02, 0), M4.RX(-Math.PI / 2))); mb.box(w, h, 0.02, '#ffffff', { uv: true }); } mb.pop(); }), tex, sh: false }] };
+  },
   bigtext: o => ({ parts: [{ g: cgeo('bigtext|' + (o.w || 6) + '|' + (o.h || 2), mb => { mb.push(M4.T(0, (o.h || 2) / 2, 0)); mb.box(o.w || 6, o.h || 2, 0.1, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ffd23f', fg: o.fg || '#1d1712', border: o.border === undefined ? '#1d1712' : o.border, tw: 512, th: Math.round(512 * (o.h || 2) / (o.w || 6)) }) }] }),
 };
 
