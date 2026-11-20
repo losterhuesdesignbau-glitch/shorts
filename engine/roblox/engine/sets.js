@@ -165,6 +165,25 @@ const SETS = {
     for (const x of [-6, 6]) for (const z of [-3, 8]) P_(S.glow, x, 9.95, z, () => S.glow.box(4.5, 0.12, 1.2, '#fffbe8'));
     S.wide = { eye: [0, 9.2, 13.3], look: [0, 2.4, -5] };
   },
+  danceroom(S, o) {
+    // heller Raum: weiße Wand, Holztür, Holzdecke, graue Fliesen (Handy-Tanzvideo-Look)
+    S.bg = 'none'; S.indoor = true; S.bounds = [-12, 12, -6, 30, 9];
+    const mb = S.mb, ns = S.ns;
+    P_(mb, 0, -0.1, 12, () => mb.box(26, 0.2, 38, '#b9b6b0'));
+    for (let x = -12; x <= 12; x += 2.4) P_(mb, x, 0.005, 4, () => mb.box(0.05, 0.02, 22, '#9c9993'));
+    for (let z = -6; z <= 14; z += 2.4) P_(mb, 0, 0.005, z, () => mb.box(26, 0.02, 0.05, '#9c9993'));
+    P_(ns, 0, 5.5, -6.2, () => ns.box(26, 11, 0.4, o.color || '#f1f1ee'));
+    P_(ns, -12.4, 5.5, 4, () => ns.box(0.4, 11, 22, '#e9e9e5')); P_(ns, 12.4, 5.5, 4, () => ns.box(0.4, 11, 22, '#e9e9e5'));
+    P_(mb, 0, 0.25, -5.9, () => mb.box(26, 0.5, 0.15, '#9c9993'));
+    // Holztür mittig
+    P_(mb, 0, 3.6, -5.9, () => mb.box(3.4, 7.2, 0.2, '#c8823f')); for (const x of [-1.4, 1.4]) P_(mb, x * 1.29, 3.6, -5.85, () => mb.box(0.18, 7.4, 0.24, '#e0ddd6'));
+    P_(mb, 0, 7.3, -5.85, () => mb.box(3.9, 0.2, 0.24, '#e0ddd6')); P_(mb, 1.2, 3.5, -5.72, () => mb.box(0.5, 0.12, 0.2, '#9a9a9a'));
+    for (let y = 0.6; y < 7; y += 0.9) P_(mb, 0, y, -5.79, () => mb.box(3.3, 0.03, 0.02, '#b77434'));
+    // Holzdecke (schräg, Paneele)
+    for (let z = -6; z < 14; z += 0.8) P_(mb, 0, 9.6 + (z + 6) * 0.05, z, () => mb.box(25.6, 0.25, 0.72, (Math.round(z / 0.8) % 2) ? '#c98b4e' : '#c2834a'));
+    P_(mb, 0, 8.6, -5.6, () => mb.box(26, 0.6, 0.8, '#b97a40'));
+    S.wide = { eye: [0, 4, 15], look: [0, 3.8, -6] };
+  },
   room(S, o) {
     S.bg = 'none'; S.indoor = true; S.bounds = [-10.4, 10.4, -8.4, 11.5, 8.6];
     const mb = S.mb, ns = S.ns, wc = o.color || '#ffd6e7';
@@ -301,6 +320,22 @@ const SETS = {
     P_(G, 0, H * 0.86 + 10.2, tz, () => G.sphere(0.5, 1, '#ffffff'));
     for (const [x, z] of [[-12, -6], [12, -6], [-12, 6], [12, 6]]) setLampPost(mb, S.lamp, x, z);
     S.wide = { eye: [0, 4, 16], look: [0, 18, -60] };
+  },
+  stadium(S, o) {
+    // Fußballstadion: Rasen mit Streifen, Linien, Tore, Tribünen ringsum, Flutlicht
+    const mb = S.mb, G = S.glow;
+    groundPlane(mb, '#3f8f3a');
+    for (let i = -6; i <= 6; i++) P_(mb, 0, 0.01, i * 6, () => mb.box(60, 0.02, 3, i % 2 ? '#4aa043' : '#3f8f3a'));
+    const L = (x, z, w, d) => P_(mb, x, 0.03, z, () => mb.box(w, 0.02, d, '#f4f4f4'));
+    L(0, -36, 60, 0.3); L(0, 36, 60, 0.3); L(-30, 0, 0.3, 72); L(30, 0, 0.3, 72); L(0, 0, 60, 0.3);
+    for (let a = 0; a < 40; a++) { const q = a / 40 * Math.PI * 2; P_(mb, Math.cos(q) * 7, 0.03, Math.sin(q) * 7, () => mb.box(0.5, 0.02, 0.5, '#f4f4f4')); }
+    for (const z of [-36, 36]) { const s = Math.sign(z); P_(mb, -4, 1.4, z, () => mb.box(0.25, 2.8, 0.25, '#ffffff')); P_(mb, 4, 1.4, z, () => mb.box(0.25, 2.8, 0.25, '#ffffff')); P_(mb, 0, 2.8, z, () => mb.box(8.25, 0.25, 0.25, '#ffffff')); P_(mb, 0, 1.4, z + s * 1.2, () => mb.box(8, 2.8, 0.05, '#e8e8e8')); }
+    const R = rng(11), C = ['#e63946', '#3a86ff', '#ffd23f', '#2a9d8f', '#ff006e', '#8338ec', '#fb5607', '#f4f4f4'], SK = ['#f5c79a', '#e0ac69', '#c68642', '#8d5524', '#ffdbac'];
+    const stand = (cx, cz, w, ry) => { for (let r = 0; r < 9; r++) { mb.push(M4.chain(M4.T(cx, 0, cz), M4.RY(ry), M4.T(0, r * 1.2 + 0.6, -r * 1.7))); mb.box(w, 1.2, 1.7, r % 2 ? '#8e98a3' : '#a9b2bc'); mb.pop();
+      for (let x = -w / 2 + 0.8; x < w / 2 - 0.5; x += 1.25) { if (R() < 0.1) continue; mb.push(M4.chain(M4.T(cx, 0, cz), M4.RY(ry), M4.T(x, r * 1.2 + 1.75, -r * 1.7 - 0.1))); mb.box(0.95, 1.05, 0.6, C[Math.floor(R() * C.length)]); mb.pop(); mb.push(M4.chain(M4.T(cx, 0, cz), M4.RY(ry), M4.T(x, r * 1.2 + 2.65, -r * 1.7 - 0.1))); mb.rbox(0.75, 0.75, 0.75, 0.12, SK[Math.floor(R() * SK.length)]); mb.pop(); } } };
+    stand(0, -44, 70, 0); stand(0, 44, 70, Math.PI); stand(-38, 0, 80, Math.PI / 2); stand(38, 0, 80, -Math.PI / 2);
+    for (const [x, z] of [[-34, -40], [34, -40], [-34, 40], [34, 40]]) { P_(mb, x, 14, z, () => mb.box(0.8, 28, 0.8, '#5a6470')); P_(G, x, 28.5, z, () => G.box(5, 2.5, 1, '#fffbe6')); }
+    S.wide = { eye: [0, 16, 52], look: [0, 0, 0] };
   },
   plaza(S, o) {
     const mb = S.mb; groundPlane(mb, '#7ccf4a');

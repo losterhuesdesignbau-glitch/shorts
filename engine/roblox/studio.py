@@ -162,12 +162,37 @@ def contact_sheet(eng, ep, path, cols=5):
 
 
 # ---------------- Viral-Werkzeuge (Hook, Serie, Kommentar-Frage, Loop, Check) ----------------
+def quality_check(path, total):
+    """Automatische Qualitätsprüfung: Auflösung, Länge, schwarze und eingefrorene Stellen, Ton vorhanden."""
+    import re
+    try:
+        pr = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,width,height', '-show_entries', 'format=duration', '-of', 'json', str(path)], capture_output=True, text=True).stdout
+        info = json.loads(pr); vs = [x for x in info.get('streams', []) if x.get('codec_type') == 'video']; aus = [x for x in info.get('streams', []) if x.get('codec_type') == 'audio']
+        probs = []
+        if not vs or (vs[0].get('width'), vs[0].get('height')) != (W, H): probs.append(f"Auflösung {vs[0].get('width') if vs else '?'}x{vs[0].get('height') if vs else '?'}")
+        if not aus: probs.append('keine Tonspur')
+        dur = float(info.get('format', {}).get('duration', 0))
+        if abs(dur - total) > 1.0: probs.append(f'Länge {dur:.1f}s statt {total:.1f}s')
+        lg = subprocess.run(['ffmpeg', '-v', 'info', '-i', str(path), '-vf', 'blackdetect=d=0.4:pix_th=0.06,freezedetect=n=0.002:d=1.6', '-an', '-f', 'null', '-'], capture_output=True, text=True).stderr
+        for m in re.finditer(r'black_start:([\d.]+) black_end:([\d.]+)', lg): probs.append(f'schwarzes Bild {float(m.group(1)):.1f}–{float(m.group(2)):.1f}s')
+        for m in re.finditer(r'freeze_start: ([\d.]+)', lg):
+            t = float(m.group(1))
+            if t < total - 2.5: probs.append(f'Standbild ab {t:.1f}s')
+        print('Qualitätsprüfung: ' + ('✓ ok' if not probs else '⚠ ' + ' · '.join(probs)), flush=True)
+        return probs
+    except Exception as e:
+        print(f'Qualitätsprüfung übersprungen ({e})', flush=True); return []
+
+
 def apply_viral(src):
     """Episode-Feld "viral": {"hook": "...", "series": "Weird Town #3", "cta": "YES or NO? 👇", "loop": true}.
     hook  = großer Text ab Frame 1 im ersten Shot (die ersten 2 Sekunden entscheiden)
     series= kleines Serien-Abzeichen oben in jedem Shot (Leute folgen für die nächste Folge)
     cta   = große Kommentar-Frage im letzten Shot
     loop  = letzte 0,4 s blenden in das erste Bild über (Video läuft nahtlos weiter -> Wiederholungen)"""
+    far = src.get('camFar', 1.4 if src.get('viral') else None)  # Viral-Folgen: standardmäßig weiter raus (Umgebung + Person sichtbar)
+    if far:
+        for sh in src.get('shots', []): sh.setdefault('camFar', far)
     v = src.get('viral') or {}
     shots = src.get('shots') or []
     if not shots or not v: return v
@@ -209,6 +234,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('episode'); ap.add_argument('-o', '--out', default=None)
     ap.add_argument('--voice'); ap.add_argument('--stills', action='store_true'); ap.add_argument('--frames', default=None, help='z.B. "3:0.5,7:0.2" (Shot:Anteil) als Einzelbilder')
+    ap.add_argument('--part', default=None, help='verteiltes Rendern: K/N = nur Teil K (0-basiert) von N rendern, ohne Zusammenbau');
     ap.add_argument('--only', default=None); ap.add_argument('--rs', type=float, default=0.75)
     ap.add_argument('--no-music', action='store_true'); ap.add_argument('--work', default=None)
     ap.add_argument('--no-tts', action='store_true', help='keine Computerstimme')
@@ -249,12 +275,19 @@ def main():
                 p = out.with_name(f'{out.stem}_shot{si + 1}_{fr}.jpg'); open(p, 'wb').write(eng.frame(si, t)); print(p)
             return
         only = {int(x) - 1 for x in a.only.split(',')} if a.only else None
+        mine = None
+        if a.part:  # Shots nach Bildanzahl gleichmäßig auf N Teile verteilen (größte zuerst, deterministisch)
+            k, n = (int(x) for x in a.part.split('/')); bins = [[0, []] for _ in range(n)]
+            for si in sorted(range(len(ep['shots'])), key=lambda i: (-ep['shots'][i]['nf'], i)):
+                b = min(bins, key=lambda x: x[0]); b[0] += ep['shots'][si]['nf']; b[1].append(si)
+            mine = set(bins[k][1]); print(f'Teil {k + 1}/{n}: Shots {sorted(i + 1 for i in mine)} ({bins[k][0]} Frames)', flush=True)
         sig = json.dumps(ep['shots'], sort_keys=True)
         t0 = time.time()
         for si, sh in enumerate(ep['shots']):
             path = work / f'shot_{si + 1:03d}.mp4'
             key = work / f'shot_{si + 1:03d}.json'
             cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']]}, sort_keys=True)
+            if mine is not None and si not in mine: continue
             if path.exists() and key.exists() and key.read_text() == cur and (only is None or si not in only):
                 continue
             ts = time.time(); render_shot(eng, ep, si, path, fps); key.write_text(cur)
@@ -262,12 +295,22 @@ def main():
         print(f'Rendern fertig in {time.time() - t0:.0f}s')
     finally:
         eng.close()
+    if a.part:
+        print('Teil fertig (Zusammenbau macht der Haupt-Job):', work); return
     lst = work / 'list.txt'
     lst.write_text(''.join(f"file '{(work / f'shot_{i + 1:03d}.mp4').resolve()}'\n" for i in range(len(ep['shots']))))
     vid = work / 'video_only.mp4'
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', str(lst), '-c', 'copy', str(vid)], check=True)
     if viral.get('loop'):
         lv = work / 'video_loop.mp4'; loop_end(vid, lv, total); vid = lv
+    gr = src.get('grade')
+    if gr:  # Look-Nachbearbeitung: Glühen (bloom), Vignette, Sättigung/Kontrast, Wärme
+        gr = gr if isinstance(gr, dict) else {}
+        b, vg = float(gr.get('bloom', 0.35)), float(gr.get('vignette', 0.35)); sat, con = gr.get('sat', 1.08), gr.get('contrast', 1.04); warm = float(gr.get('warm', 0.04))
+        fc = (f"[0:v]format=gbrp,split[a][b];[b]curves=all='0/0 0.62/0 1/1',gblur=sigma=26[g];[a][g]blend=all_mode=screen:all_opacity={b:.2f},"
+              f"eq=saturation={sat}:contrast={con},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},vignette=angle={0.2 + vg:.2f},format=yuv420p[v]")
+        gv = work / 'video_grade.mp4'
+        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-filter_complex', fc, '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(gv)], check=True); vid = gv
     mf = src.get('musicFile')
     mixbuf = AU.mix(total, events, voice, src.get('music', 'happy'), not a.no_music and not mf and src.get('music', 'happy') != 'none', src.get('seed', 3))
     if mf and not a.no_music:  # eigene Musikdatei (z. B. Trend-Sound) statt generierter Musik
@@ -278,6 +321,7 @@ def main():
     tmp = str(out) + '.part.mp4'
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-i', str(wav), '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-af', 'loudnorm=I=-15:TP=-1.5:LRA=11', '-ar', '44100', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], check=True)
     os.replace(tmp, out)
+    quality_check(out, total)
     print('Fertig:', out)
 
 if __name__ == '__main__':

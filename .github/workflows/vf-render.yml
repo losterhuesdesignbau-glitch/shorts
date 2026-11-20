@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.m.outputs.matrix }}
+      parts: ${{ steps.p.outputs.parts }}
     steps:
       - uses: actions/checkout@v4
       - id: m
@@ -40,9 +41,76 @@ jobs:
           print("matrix=" + json.dumps({"include": [{"episode_id": "", "file": f} for f in files] or [{"episode_id": "", "file": ""}]}))
           EOF
           fi
+      - id: p
+        env:
+          MATRIX: ${{ steps.m.outputs.matrix }}
+          VF_PARTS: ${{ vars.VF_RENDER_PARTS || '4' }}
+        run: |
+          python3 - >> "$GITHUB_OUTPUT" <<'EOF'
+          import json, os
+          m = json.loads(os.environ["MATRIX"]); n = int(os.environ.get("VF_PARTS") or 4)
+          inc = [{"file": e["file"], "stem": os.path.basename(e["file"])[:-5], "part": f"{k}/{n}"} for e in m["include"] if e.get("file") and n > 1 for k in range(n)]
+          print("parts=" + json.dumps({"include": inc or [{"file": "", "stem": "", "part": ""}]}))
+          EOF
+
+  # Verteiltes Rendern: jede Episode wird auf N Runner aufgeteilt (Shots nach Bildanzahl verteilt); der Haupt-Job setzt zusammen
+  parts:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.parts) }}
+    env:
+      PYTHONPATH: ${{ github.workspace }}/viralflow
+    steps:
+      - name: Nichts zu tun?
+        if: matrix.file == ''
+        run: echo "kein Teil"
+      - uses: actions/checkout@v4
+        if: matrix.file != ''
+      - uses: actions/setup-python@v5
+        if: matrix.file != ''
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: viralflow/requirements-render.txt
+      - name: Cache Stimmen-Modelle (Piper/Kokoro)
+        if: matrix.file != ''
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/block_studio
+          key: voices-v1
+      - name: ffmpeg installieren (ausfallsicher)
+        if: matrix.file != ''
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        continue-on-error: true
+      - name: Abhängigkeiten
+        if: matrix.file != ''
+        run: |
+          pip install -q -r viralflow/requirements-render.txt
+          for i in 1 2 3 4; do
+            ok=1
+            command -v ffprobe >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; } || ok=0
+            [ $ok = 1 ] && python -m playwright install --with-deps chromium && exit 0
+            echo "Paketserver-Problem – neuer Versuch in $((i * 30)) s"; sleep $((i * 30))
+          done
+          exit 1
+      - name: Teil rendern
+        if: matrix.file != ''
+        run: python -m vf.render_job --file "${{ matrix.file }}" --part "${{ matrix.part }}" --parts-out parts_out
+      - name: Teil ablegen
+        if: matrix.file != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: shots-${{ matrix.stem }}-${{ strategy.job-index }}
+          path: parts_out
+          retention-days: 2
+          if-no-files-found: ignore
 
   render:
-    needs: plan
+    needs: [plan, parts]
+    if: ${{ always() && needs.plan.result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 240
     strategy:
@@ -59,6 +127,7 @@ jobs:
       PYTHONPATH: ${{ github.workspace }}/viralflow
       EP_FILE: ${{ matrix.file }}
       EP_ID: ${{ matrix.episode_id }}
+      VF_PARTS_IN: ${{ github.workspace }}/parts_in
     steps:
       - name: Nichts zu tun?
         if: matrix.file == '' && matrix.episode_id == ''
@@ -92,6 +161,18 @@ jobs:
             echo "Paketserver-Problem – neuer Versuch in $((i * 30)) s"; sleep $((i * 30))
           done
           exit 1
+      - name: Name für Teile
+        id: stem
+        if: matrix.file != ''
+        run: echo "s=$(basename "$EP_FILE" .json)" >> "$GITHUB_OUTPUT"
+      - name: Verteilte Teile holen
+        if: matrix.file != ''
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: shots-${{ steps.stem.outputs.s }}-*
+          path: parts_in
+          merge-multiple: true
       - name: Rendern + hochladen + VIDEO_READY
         id: render
         if: matrix.file != '' || matrix.episode_id != ''

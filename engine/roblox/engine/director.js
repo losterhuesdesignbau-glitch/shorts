@@ -53,7 +53,7 @@ function cfgFor(id, a) {
   const base = c.look ? (LOOKS[c.look] || {}) : (Object.keys(c).length ? {} : npcCfg(hash(id)));
   const o = { ...AVDEF, ...base, ...c, ...(a.look && typeof a.look === 'object' ? a.look : {}) }; delete o.look; delete o.name; return o;
 }
-const MOVERS = { walk: 1, run: 1, sneak: 1, hop: 1, dance: 1, spin: 1, strut: 1, jazzhands: 1, salute: 1, twist: 1 };
+const MOVERS = { walk: 1, run: 1, sneak: 1, hop: 1, dance: 1, spin: 1, strut: 1, jazzhands: 1, salute: 1, twist: 1, mocap: 1 };
 const DEFMOOD = { yawn: 'yawn', sleep: 'sleep', lie: 'sleep', cheer: 'grin', laugh: 'laugh', cry: 'cry', scared: 'scared', angry: 'angry', talk: 'talk', think: 'think', dance: 'grin', jump: 'grin', spin: 'grin', fall: 'shock', facepalm: 'sad', shrug: 'confused', wave: 'happy', clap: 'grin' };
 function timed(v, u, def) { if (v === undefined || v === null) return [def, u, 0, 1]; if (!Array.isArray(v)) return [v, u, 0, 1]; let cur = [def, 0, 0, 1]; for (const e of v) { const [a, t0 = 0, t1 = 1] = e; if (u >= t0 && u < t1) cur = [a, (u - t0) / Math.max(0.001, t1 - t0), t0, t1]; } if (u >= 1 && v.length) { const e = v[v.length - 1]; if ((e[2] ?? 1) >= 1) cur = [e[0], 1, e[1] ?? 0, e[2] ?? 1]; } return cur; }
 function pt3(p, dy = 0) { if (!p) return [0, dy, 0]; return p.length === 3 ? [p[0], p[1], p[2]] : [p[0], dy, p[1]]; }
@@ -99,9 +99,17 @@ function pose(act, t, k, A) {
     case 'pointup': idle(0.5); P.aRx = -170; P.aRz = -10; P.eR = 5; P.hx = -12; break;
     case 'talk': { idle(0.7); const G = gestureP(t, ph, sd), beat = Math.max(0, s(t * 7.3 + ph)) ** 2; Object.assign(P, G); P.eR = (P.eR || 0) + 10 * beat; P.eL = (P.eL || 0) + 7 * beat; P.aRx = (P.aRx || 0) - 4 * beat; P.hx += 3 * beat + 2; P.hz = 3 * s(t * 2.1); P.tb += 0.02 * beat; break; }
     case 'turnaround': { const w = smooth(k); P.spin = 360 * w; const q = s(w * Math.PI); P.aLz = 40 + 50 * q; P.aRz = -40 - 50 * q; P.eL = P.eR = 20; P.kL = P.kR = 15 + 25 * q; P.y = 0.25 * q - 0.05; P.lLz = 10 * q; break; }
-    case 'finale': { const w = smooth(Math.min(1, k * 3)); P.aRz = -140 * w; P.aRx = -20 * w; P.eR = 10; P.aRy = -60; P.aLz = 55 * w; P.aLx = -15 * w; P.eL = 25; P.aLy = 70; P.lLx = -8 * w; P.lLz = 18 * w; P.kL = 14 * w; P.rz = -6 * w; P.hz = 8 * w; P.hx = -6 * w; P.y = 0.08 * w; break; }
+    case 'finale': { const w = smooth(Math.min(1, k * 3)); P.aRz = -140 * w; P.aRx = -20 * w; P.eR = 10; P.aRy = -60; P.aLz = 55 * w; P.aLx = -15 * w; P.eL = 25; P.aLy = 70; P.lLx = (A.a.finaleKnee ? -95 : -8) * w; P.lLz = (A.a.finaleKnee ? 10 : 18) * w; P.kL = (A.a.finaleKnee ? 115 : 14) * w; P.rz = -6 * w; P.hz = 8 * w; P.hx = -6 * w; P.y = 0.08 * w; break; }
+    // Motion-Capture: Winkel pro Frame aus tools/mocap_retarget.py (actor.mocap = {fps, keys, frames, start?, gain?})
+    case 'mocap': {
+      const M = A.a.mocap; if (!M || !M.frames || !M.frames.length) break;
+      const fi = clamp(((A.tg ?? t) - (M.start || 0)) * (M.fps || 30), 0, M.frames.length - 1), i0 = Math.floor(fi), i1 = Math.min(M.frames.length - 1, i0 + 1), w = fi - i0;
+      const f0 = M.frames[i0], f1 = M.frames[i1], g = M.gain ?? 1;
+      M.keys.forEach((key, j) => { const v = f0[j] * (1 - w) + f1[j] * w; P[key] = (key === 'y' || key === 'dx') ? v * (M.move ?? 1) : v * (key[0] === 'a' || key[0] === 'e' || key[0] === 'l' || key[0] === 'k' ? g : 1); });
+      break;
+    }
     // Trend-Tänze im Takt: bpm (Standard 120) und boff (Versatz in s) pro Figur; Takt läuft über Schnitte weiter
-    case 'strut': case 'jazzhands': case 'salute': case 'twist': {
+    case 'strut': case 'jazzhands': case 'salute': case 'twist': case 'cross': case 'chicken': case 'kneelift': case 'kickback': case 'wavearms': case 'figure4': case 'stand': case 'headhand': {
       const bt = ((A.tg ?? t) + (A.a.boff || 0)) * (A.a.bpm || 120) / 60, i = Math.floor(bt), f = bt - i, sd2 = i % 2 ? 1 : -1;
       const lift = s(f * Math.PI), snap = Math.max(0, 1 - f * 3);
       // Beine: Schritt pro Schlag, Knie hoch, Fuß nach außen geschnippt
@@ -115,6 +123,16 @@ function pose(act, t, k, A) {
         P.lLx = sd2 < 0 ? -20 * lift : 0; P.lRx = sd2 > 0 ? -20 * lift : 0; P.lLz = sd2 < 0 ? 38 * lift : 0; P.lRz = sd2 > 0 ? -38 * lift : 0;
         P.kL = sd2 < 0 ? 30 * lift : 10; P.kR = sd2 > 0 ? 30 * lift : 10; P.rz = -9 * sd2 * lift; P.hz = 6 * sd2 * lift;
       }
+      if (act === 'cross') { const w = s(bt * Math.PI); P.aLx = -70; P.aRx = -70; P.aLz = -18 + 6 * w; P.aRz = 18 - 6 * w; P.eL = P.eR = 60; P.aLy = 30; P.aRy = -30; P.lLx = P.lRx = 0; P.kL = P.kR = 12 + 10 * lift; P.lLz = P.lRz = 0; P.y = -0.08 + 0.05 * lift; P.tw = 10 * sd2 * lift; }
+      if (act === 'chicken') { P.aLz = 70 + 12 * lift; P.aRz = -70 - 12 * lift; P.aLx = -20; P.aRx = -20; P.eL = P.eR = 125; P.aLy = 60; P.aRy = -60; P.lLx = P.lRx = 0; P.lLz = P.lRz = 0; P.kL = P.kR = 14 + 14 * lift; P.y = -0.1 + 0.08 * lift; P.hz = 6 * sd2 * lift; }
+      // gehaltene Posen: weich ein-/ausblenden über den Abschnitt (k), leichtes Wippen im Takt
+      const hold = Math.min(1, k / 0.18, (1 - k) / 0.18), hb = 0.15 * lift;
+      if (act === 'kneelift') { const q = smooth(clamp(hold, 0, 1)); P.lRx = -100 * q; P.kR = 120 * q; P.lRz = -12 * q; P.lLx = 3; P.kL = 8 + 6 * hb; P.lLz = 0; P.aLx = -55; P.aRx = -40; P.aLz = 25; P.aRz = -35; P.eL = 95; P.eR = 80; P.aLy = 40; P.aRy = -40; P.y = 0.04 * q; P.rz = -4 * q; P.hx = -3; P.tw = 0; if (A.a.headhand) { P.aLz = 140; P.aLx = -40; P.eL = 120; P.aLy = 20; P.hz = 6; } }
+      if (act === 'figure4' || act === 'kickback') { const q = smooth(clamp(hold, 0, 1)); P.lRx = 24 * q; P.lRz = -55 * q; P.kR = 125 * q; P.lLx = 2; P.kL = 10 + 8 * hb; P.lLz = 4 * q; P.rz = 9 * q; P.hz = -6 * q; P.tw = -8 * q;
+        const w = s(bt * Math.PI); P.aLz = 55 + 15 * w; P.aRz = -55 + 15 * w; P.eL = P.eR = 85; P.aLx = -30 - 15 * w; P.aRx = -30 + 15 * w; P.aLy = 40; P.aRy = -40; P.y = 0.05 * q; }
+      if (act === 'stand') { const w = s((A.tg ?? t) * 1.1); P.lLx = P.lRx = 0; P.lLz = 0; P.lRz = 0; P.kL = 20; P.kR = 3; P.lLx = -6; P.rz = 4 + w; P.hz = -3; P.y = -0.06; P.aLz = 6; P.aRz = -6; P.eL = P.eR = 8; P.aLx = P.aRx = 0; P.aLy = P.aRy = 0; P.tw = 3; if (A.a.headhand && k < 0.5) { P.aRz = -140; P.aRx = -40; P.eR = 120; P.hz = 6; } }
+      if (act === 'headhand') { P.aRz = -140; P.aRx = -40; P.eR = 120; P.aRy = -20; P.aLz = 12; P.eL = 10; P.aLx = 0; P.lLx = P.lRx = 0; P.lLz = P.lRz = 0; P.kL = 14; P.kR = 4; P.rz = 4; P.hz = 7; P.hx = -4; P.y = -0.04; }
+      if (act === 'wavearms') { const w = s(bt * Math.PI * 2); P.aLz = 80 + 18 * w; P.aRz = -80 + 18 * w; P.eL = 30 - 25 * w; P.eR = 30 + 25 * w; P.aLx = -10; P.aRx = -10; P.aLy = 60; P.aRy = -60; P.lLx = P.lRx = 0; P.lLz = P.lRz = 0; P.kL = P.kR = 10 + 10 * lift; P.y = -0.05 + 0.05 * lift; P.rz = 4 * w; P.hz = -3 * w; }
       if (act === 'salute') { P.aRx = -105; P.aRz = -50; P.eR = 128; P.aRy = -35; P.aLz = 45 + 8 * lift; P.eL = 15; P.hz = 9; P.hx = -8; P.hy = -8; }
       if (act === 'twist') {
         const w = s(bt * Math.PI); P.tw = 32 * w; P.hy = -14 * w; P.kL = P.kR = 32 + 10 * lift; P.lLx = P.lRx = -14; P.y = -0.22 + 0.08 * lift; P.rz = 5 * w;
@@ -339,6 +357,7 @@ function camera(sh, si, tl, D, set, map) {
   const SF = c.lock ? null : smoothFocus(A, tl, D, sh), f = A ? [SF ? SF.x : A.x, A.y + (A.seat || 0), SF ? SF.z : A.z] : pt3(c.at), fs = A ? (A.cfg.animal ? Math.max(A.h / 5.4, 0.95) : A.h / 5.4) : 1, face = A ? (SF ? SF.face : A.face) : 0, hy = A ? A.y + (A.seat || 0) + A.h * 0.86 : 3;
   let ang, eye, look, fov;
   let DM = 1;
+  const FAR0 = c.far ?? sh.camFar ?? 1, FAR = FAR0 === 1 || c.far ? FAR0 : FAR0 * ({ close: 1.55, medium: 1.25, pov: 1, ots: 1.15 }[c.type] || 1); // >1 = weiter rausgezoomt (mehr Umgebung sichtbar)
   const shoot = (off, dm = 1) => { DM = dm; ang = face + ((c.ang ?? DEFANG[si % DEFANG.length]) + off + (c.arc ?? (si % 2 ? 5 : -5)) * (ue - 0.5)) * DEG; fov = 45; eye = look = null;
   const around = (dist, ey, ly, a = ang + 0) => { dist *= DM; eye = [f[0] + Math.sin(a) * dist, f[1] + ey, f[2] + Math.cos(a) * dist]; look = [f[0], f[1] + ly, f[2]]; };
   switch (c.type) {
@@ -394,6 +413,8 @@ function camera(sh, si, tl, D, set, map) {
   let shake = c.shake || 0;
   for (const fx of sh.fx || []) { if (fx.type === 'shake') { const t0 = (fx.t || 0) * D, d = fx.dur || 0.5; if (tl >= t0 && tl < t0 + d) shake = Math.max(shake, (fx.amp || 0.4) * (1 - (tl - t0) / d)); } if (fx.type === 'zoom') { const t0 = (fx.t || 0) * D, d = fx.dur || 0.6; if (tl >= t0) fov *= 1 - (fx.amp || 0.3) * Math.max(0, 1 - (tl - t0) / d) * smooth((tl - t0) / 0.08); } }
   if (shake) { const n = (a) => Math.sin(tl * 47 + a) * 0.6 + Math.sin(tl * 83 + a * 2) * 0.4; eye = [eye[0] + n(1) * shake, eye[1] + n(2) * shake, eye[2] + n(3) * shake]; look = [look[0] + n(4) * shake * 0.5, look[1] + n(5) * shake * 0.5, look[2]]; }
+  // weiter rausgezoomt: Bildwinkel vergrößern (kollidiert nicht mit Wänden/Figuren wie Zurückfahren)
+  if (FAR !== 1) { const f0 = fov ?? 45; fov = Math.min(100, 2 * Math.atan(Math.tan(f0 / 2 * DEG) * FAR) / DEG); }
   return { eye, look, fov };
 }
 
@@ -461,7 +482,7 @@ function fxItems(items, sh, tl, D, map) {
 const LAYC = {};
 function surfTop(x, z, surfs) { let top = 0; for (const f of surfs) { const dx = x - f.x, dz = z - f.z, c = Math.cos(f.ry || 0), s = Math.sin(f.ry || 0), lx = c * dx - s * dz, lz = s * dx + c * dz; if (Math.abs(lx) < f.w / 2 - 0.15 && Math.abs(lz) < f.d / 2 - 0.15) top = Math.max(top, f.top); } return top; }
 // Eigene Requisiten aus dem Shorts-Chat: genau dort lassen, wo sie gesetzt sind (kein Wegschieben/Zufallsdrehen)
-const FIXP = { pickaxe: 1, buildwall: 1, stormwall: 1, islandmap: 1, airdrop: 1, tunnel: 1, cutboard: 1, tray: 1, cabbage: 1, shreds: 1, radish: 1, meat: 1, meatslice: 1, helper: 1, nest: 1, pebble: 1, piano: 1, keys: 1, stool: 1, panel: 1, display: 1, tower: 1, ghostfloors: 1, controller: 1, console: 1, pen: 1, smartphone: 1 };
+const FIXP = { lightbeam: 1, motes: 1, potplant: 1, window: 1, rug: 1, pickaxe: 1, buildwall: 1, stormwall: 1, islandmap: 1, airdrop: 1, tunnel: 1, cutboard: 1, tray: 1, cabbage: 1, shreds: 1, radish: 1, meat: 1, meatslice: 1, helper: 1, nest: 1, pebble: 1, piano: 1, keys: 1, stool: 1, panel: 1, display: 1, tower: 1, ghostfloors: 1, controller: 1, console: 1, pen: 1, smartphone: 1 };
 function propLayout(sh, si, set) {
   const key = si + '|' + (sh.set || ''); if (LAYC[key]) return LAYC[key];
   const props = sh.props || [], surfs = [...(set.surf || [])];
@@ -524,10 +545,17 @@ function drawOverlay(sh, tl, D, map, list) {
   // Vignette
   const g = x.createRadialGradient(R.W / 2, R.H / 2, R.H * 0.35, R.W / 2, R.H / 2, R.H * 0.75); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.22)'); x.fillStyle = g; x.fillRect(0, 0, R.W, R.H);
   for (const A of list) {
-    if (!A.emote && !A.bubble && !(A.a.zzz)) continue;
+    if (!A.emote && !A.bubble && !(A.a.zzz) && !A.a.counter) continue;
     const hp = A.rig && A.rig.head && !A.cfg.animal ? M4.xp(A.rig.head, [0, 0, 0]) : [A.x, A.y + (A.seat || 0) + A.h - 0.7, A.z]; const p = proj([hp[0], hp[1] + 1.6, hp[2]]); if (p[2] <= 0.1) continue; const sz = clamp(1300 / p[2], 50, 170); p[0] = clamp(p[0], sz * 0.8, R.W - sz * 0.8); p[1] = clamp(p[1], sz * 1.4, R.H * 0.55);
     if (A.emote === 'zzz' || A.a.zzz) { for (let i = 0; i < 3; i++) { const q = ((tl * 0.7 + i / 3) % 1); x.globalAlpha = Math.sin(q * Math.PI); outlined(x, 'Z', p[0] + q * sz * 0.9 + i * 8, p[1] - q * sz * 1.4, sz * (0.5 + q * 0.5), '#ffffff', '#1d2b6b', 0.18); } x.globalAlpha = 1; }
     else if (A.emote) { const b = Math.sin(tl * 6) * sz * 0.06; x.font = `${sz}px "Noto Color Emoji", ${FONT}`; x.textAlign = 'center'; x.textBaseline = 'middle'; const isEmoji = /\p{Extended_Pictographic}/u.test(A.emote); if (isEmoji) x.fillText(A.emote, p[0], p[1] - sz * 0.5 + b); else outlined(x, A.emote, p[0], p[1] - sz * 0.5 + b, sz * 1.1, '#ffe14d', '#000', 0.2); }
+    if (A.a.counter) { // Zahl-Pille über dem Kopf (z. B. Schritte, Punkte): {from, to, t0, t1, suffix, color}
+      const c = typeof A.a.counter === 'object' ? A.a.counter : { to: A.a.counter }, q = smooth(clamp((u - (c.t0 ?? 0)) / Math.max(0.01, (c.t1 ?? 1) - (c.t0 ?? 0)), 0, 1));
+      const v = Math.round((c.from ?? c.to ?? 0) + ((c.to ?? 0) - (c.from ?? c.to ?? 0)) * q), txt = v.toLocaleString('de-DE') + (c.suffix || ''), fs2 = 46;
+      x.save(); x.font = `900 ${fs2}px ${FONT}`; const w2 = x.measureText(txt).width + 44, yy = A.bubble ? p[1] - 230 : p[1] - 40;
+      x.fillStyle = c.color || '#ffffff'; x.strokeStyle = '#1d1712'; x.lineWidth = 6; rrect(x, p[0] - w2 / 2, yy - 34, w2, 68, 34); x.fill(); x.stroke();
+      x.fillStyle = '#1d1712'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(txt, p[0], yy + 2); x.restore();
+    }
     if (A.bubble) {
       const fs = 50; x.font = `bold ${fs}px ${FONT}`; const words = String(A.bubble).split(' '), lines = []; let cur = '';
       for (const w of words) { const t = cur ? cur + ' ' + w : w; if (x.measureText(t).width > R.W * 0.6 && cur) { lines.push(cur); cur = w; } else cur = t; } lines.push(cur);
@@ -558,6 +586,16 @@ function drawOverlay(sh, tl, D, map, list) {
     x.restore();
   }
   if (sh.badge) { x.save(); x.font = `bold 44px ${FONT}`; const w = x.measureText(sh.badge).width + 48; x.fillStyle = 'rgba(0,0,0,0.55)'; x.beginPath(); x.roundRect ? x.roundRect(R.W / 2 - w / 2, R.H * 0.035, w, 66, 33) : x.rect(R.W / 2 - w / 2, R.H * 0.035, w, 66); x.fill(); x.restore(); outlined(x, sh.badge, R.W / 2, R.H * 0.035 + 34, 44, '#ffe14d', '#000', 0.12); }
+  if (sh.score) { // Anzeigetafel oben: {home, away, a, b, from:[a0,b0], t:Anteil wann der Stand wechselt}
+    const S2 = sh.score, ch = u >= (S2.t ?? 0), a = ch ? S2.a ?? 0 : (S2.from || [S2.a ?? 0])[0], b = ch ? S2.b ?? 0 : (S2.from || [0, S2.b ?? 0])[1], pk = ch && S2.t !== undefined ? backOut(clamp((u - S2.t) * D / 0.3, 0, 1)) : 1;
+    const W2 = 520, H2 = 170, X2 = R.W / 2 - W2 / 2, Y2 = sh.badge ? 130 : 70; x.save(); x.fillStyle = 'rgba(14,18,30,0.92)'; rrect(x, X2, Y2, W2, H2, 22); x.fill(); x.strokeStyle = '#ffd23f'; x.lineWidth = 5; x.stroke();
+    x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#cfd8e6'; x.font = `bold 34px ${FONT}`; x.fillText(String(S2.home || 'HOME').toUpperCase(), X2 + W2 * 0.22, Y2 + 40); x.fillText(String(S2.away || 'AWAY').toUpperCase(), X2 + W2 * 0.78, Y2 + 40);
+    x.translate(R.W / 2, Y2 + 112); x.scale(pk, pk); x.fillStyle = '#ffffff'; x.font = `900 92px ${FONT}`; x.fillText(`${a} : ${b}`, 0, 0); x.restore(); }
+  if (sh.counter) { // großer Zähler: {label, from, to, t0, t1, suffix}
+    const c = sh.counter, q = smooth(clamp((u - (c.t0 ?? 0)) / Math.max(0.01, (c.t1 ?? 1) - (c.t0 ?? 0)), 0, 1)), v = Math.round((c.from ?? 0) + ((c.to ?? 0) - (c.from ?? 0)) * q);
+    const txt = v.toLocaleString('de-DE') + (c.suffix || ''), Y3 = (c.y ?? 0.2) * R.H; x.save(); x.textAlign = 'center'; x.textBaseline = 'middle';
+    if (c.label) { x.font = `bold 40px ${FONT}`; const lw = x.measureText(c.label).width + 40; x.fillStyle = 'rgba(0,0,0,0.6)'; rrect(x, R.W / 2 - lw / 2, Y3 - 110, lw, 56, 28); x.fill(); x.fillStyle = '#ffd23f'; x.fillText(c.label, R.W / 2, Y3 - 82); }
+    outlined(x, txt, R.W / 2, Y3, 120, c.color || '#ffffff', '#000', 0.16); x.restore(); }
   if (sh.hook && tl < (sh.hookDur || 2.2)) { const k = backOut(Math.min(1, tl / 0.22)), fade = clamp(((sh.hookDur || 2.2) - tl) / 0.25, 0, 1); x.save(); x.globalAlpha = fade; x.translate(R.W / 2, R.H * 0.34); x.scale(k, k); x.rotate(-2.5 * DEG); const hl = String(sh.hook).split('\n'); x.font = `bold 116px ${FONT}`; const fit = Math.min(116, 116 * (R.W * 0.86) / Math.max(...hl.map(l => x.measureText(l).width))); hl.forEach((l, i, arr) => outlined(x, l, 0, (i - (arr.length - 1) / 2) * fit * 1.1, fit, '#ffe14d', '#000', 0.22)); x.restore(); }
   if (sh.title && !(sh.hook && tl < (sh.hookDur || 2.2))) { const lines = String(sh.title).split('\n'); lines.forEach((l, i) => outlined(x, l, R.W / 2, R.H * 0.14 + i * 110, 92, '#ffffff', '#000', 0.2)); }
   drawCaption(x, sh.words || [], tl);

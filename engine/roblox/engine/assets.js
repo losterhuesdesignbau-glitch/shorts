@@ -236,6 +236,7 @@ function shirtTex(cfg) {
     if (pat) {
       x.fillStyle = cfg.shirt; x.fillRect(0, 0, 256, 256); x.fillStyle = pc;
       if (pat === 'stripes') for (let y = 8; y < 256; y += 40) x.fillRect(0, y, 256, 16);
+      if (pat === 'knit') for (let y = 4; y < 256; y += 22) x.fillRect(0, y, 256, 9); // feine Strickstreifen
       if (pat === 'dots') for (let y = 16; y < 256; y += 38) for (let xx = (y / 38 % 2) * 19 + 12; xx < 256; xx += 38) { ell(x, xx, y, 7, 7); x.fill(); }
       if (pat === 'plaid') { x.globalAlpha = 0.35; for (let i = 0; i < 256; i += 48) { x.fillRect(i, 0, 18, 256); x.fillRect(0, i, 256, 18); } x.globalAlpha = 1; }
       if (pat === 'split') x.fillRect(128, 0, 128, 256);
@@ -285,8 +286,9 @@ function avatarGeo(cfg) {
   // Beine: Oberschenkel (Hüfte) + Unterschenkel mit Schuh (Knie bei y=-1.0)
   const shorts = cfg.shorts;
   g.thigh = cgeo(`thigh|${cfg.pants}|${sk}|${shorts ? 1 : 0}`, mb => { T_(mb, 0, -0.5, 0, () => mb.rbox(0.98, 1.06, 0.98, 0.1, cfg.pants)); if (shorts) T_(mb, 0, -0.98, 0, () => mb.rbox(0.9, 0.2, 0.9, 0.08, sk)); });
-  g.shin = cgeo(`shin|${cfg.pants}|${cfg.shoes}|${cfg.sole}|${sk}|${shorts ? 1 : 0}|${cfg.boots ? 1 : 0}`, mb => {
+  g.shin = cgeo(`shin|${cfg.pants}|${cfg.shoes}|${cfg.sole}|${sk}|${shorts ? 1 : 0}|${cfg.boots ? 1 : 0}|${cfg.flare ? 1 : 0}`, mb => {
     T_(mb, 0, -0.3, 0, () => mb.rbox(shorts ? 0.86 : 0.96, 0.64, shorts ? 0.86 : 0.96, 0.1, shorts ? sk : cfg.pants));
+    if (cfg.flare && !shorts) T_(mb, 0, -0.6, 0.02, () => mb.rbox(1.22, 0.34, 1.26, 0.1, cfg.pants)); // Schlaghose
     if (cfg.boots) T_(mb, 0, -0.45, 0, () => mb.rbox(1.0, 0.5, 1.0, 0.1, cfg.shoes));
     T_(mb, 0, -0.77, 0.08, () => mb.rbox(1.02, 0.4, 1.16, 0.15, cfg.shoes));
     T_(mb, 0, -0.93, 0.08, () => mb.rbox(1.06, 0.12, 1.2, 0.05, cfg.sole || '#f2f2f2'));
@@ -320,7 +322,7 @@ function avatarItems(items, cfg, S, P) {
   const g = avatarGeo(cfg), sc = (cfg.scale || 1) * (S.scale || 1), sq = P.sq || 0;
   const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0) * sc, S.z + (P.dz || 0)), M4.RY(S.face + (P.spin || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.S(sc * (1 + sq * 0.5), sc * (1 - sq), sc * (1 + sq * 0.5)));
   const tb = P.tb || 0, sh = S.sh, chr = { spec: 0.3, rim: 0.32, ao: 0 };
-  const torso = M4.chain(root, M4.T(0, 3 + tb, 0), M4.RY((P.tw || 0) * DEG), M4.RX((P.bx || 0) * DEG));
+  const torso = M4.chain(root, M4.T(0, 3 + tb, 0), M4.RY((P.tw || 0) * DEG), M4.RX((P.bx || 0) * DEG), M4.RZ((P.wz || 0) * DEG)); // wz = seitliche Taillenbeugung
   const armL = M4.chain(torso, M4.T(1.5, 0.88, 0), M4.RZ((P.aLz || 0) * DEG), M4.RX((P.aLx || 0) * DEG), M4.RY((P.aLy || 0) * DEG));
   const armR = M4.chain(torso, M4.T(-1.5, 0.88, 0), M4.RZ((P.aRz || 0) * DEG), M4.RX((P.aRx || 0) * DEG), M4.RY((P.aRy || 0) * DEG));
   const foreL = M4.chain(armL, M4.T(0, -0.95, 0), M4.RX(-(P.eL || 0) * DEG)), foreR = M4.chain(armR, M4.T(0, -0.95, 0), M4.RX(-(P.eR || 0) * DEG));
@@ -335,8 +337,10 @@ function avatarItems(items, cfg, S, P) {
   add(g.neck, M4.chain(torso, M4.T(0, 1.0, 0), M4.RY((P.hy || 0) * 0.5 * DEG), M4.RX((P.hx || 0) * 0.5 * DEG)));
   add(g.pelvis, M4.chain(root, M4.T(0, 0, 0), M4.RY((P.tw || 0) * -0.3 * DEG)), {});
   add(g.cap, M4.chain(armL, M4.T(0, -0.25, 0))); add(g.cap, M4.chain(armR, M4.T(0, -0.25, 0)));
-  if ((P.eL || 0) > 20) add(g.elbow, M4.chain(armL, M4.T(0, -0.95, 0))); if ((P.eR || 0) > 20) add(g.elbow, M4.chain(armR, M4.T(0, -0.95, 0)));
-  if ((P.kL || 0) > 20) add(g.knee, M4.chain(legL, M4.T(0, -1.0, 0))); if ((P.kR || 0) > 20) add(g.knee, M4.chain(legR, M4.T(0, -1.0, 0)));
+  if ((P.eL || 0) > 8) add(g.elbow, M4.chain(armL, M4.T(0, -0.95, 0))); if ((P.eR || 0) > 8) add(g.elbow, M4.chain(armR, M4.T(0, -0.95, 0)));
+  if ((P.kL || 0) > 8) add(g.knee, M4.chain(legL, M4.T(0, -1.0, 0))); if ((P.kR || 0) > 8) add(g.knee, M4.chain(legR, M4.T(0, -1.0, 0)));
+  // runde Hüftgelenke, wenn das Bein weit angehoben/abgespreizt ist (keine Lücke zwischen Becken und Oberschenkel)
+  if (Math.abs(P.lLx || 0) > 25 || Math.abs(P.lLz || 0) > 15) add(g.knee, M4.chain(legL, M4.T(0, -0.15, 0), M4.S(1.02, 1.02, 1.02))); if (Math.abs(P.lRx || 0) > 25 || Math.abs(P.lRz || 0) > 15) add(g.knee, M4.chain(legR, M4.T(0, -0.15, 0), M4.S(1.02, 1.02, 1.02)));
   // Stoff-Physik: sec.<teil> = [vor/zurück, seitlich] in Grad (positiv = Spitze nach hinten / nach links)
   const sec = S.sec || {}, sw = sec.swing || 0, sd = sec.side || 0, D_ = (k, dx, dz) => sec[k] || [dx, dz];
   const cp = D_('cape', 6 + sw * 1.4, sd * 0.5), tl2 = D_('tail', 18 + sw * 0.9, sd), pg = D_('pig', sw * 0.5, sd * 0.8), ti = D_('tie', -sw * 0.15, sd * 0.4), jf = D_('jacket', -sw * 0.2, 0), sf = D_('scarf', -sw * 0.2, sd * 0.4), st_ = D_('strings', -sw * 0.2, sd * 0.4), pk = D_('pack', sw * 0.12, sd * 0.2), sk_ = D_('skirt', sw * 0.2, sd * 0.3);
@@ -455,6 +459,24 @@ function animalItems(items, type, S, P, t) {
 // ---------- Requisiten ----------
 // jede Funktion baut Geometrie (lokal, Boden bei y=0) – Rückgabe {parts:[{g,m?,tex?,e?,a?}]}
 const PROPS = {
+  // Pommes in roter Schachtel
+  fries: o => ({ parts: [{ g: cgeo('fries|' + (o.color || '#e63a2e'), mb => { mb.push(M4.T(0, 0.55, 0)); mb.rbox(1.0, 1.1, 0.6, 0.06, o.color || '#e63a2e'); mb.pop(); mb.push(M4.T(0, 0.7, 0.31)); mb.box(0.5, 0.4, 0.02, '#ffd23f'); mb.pop(); const R = rng(9); for (let i = 0; i < 16; i++) { mb.push(M4.chain(M4.T((R() - 0.5) * 0.8, 1.25 + R() * 0.35, (R() - 0.5) * 0.4), M4.RZ((R() - 0.5) * 0.4), M4.RX((R() - 0.5) * 0.3))); mb.box(0.12, 0.9, 0.12, i % 3 ? '#f4c542' : '#e8b030'); mb.pop(); } }) }] }),
+  // Becher mit Deckel und Strohhalm
+  soda: o => ({ parts: [{ g: cgeo('soda|' + (o.color || '#e63a2e'), mb => { mb.cyl(0.45, 0.55, 1.4, 14, o.color || '#e63a2e', { flat: false }); mb.push(M4.T(0, 1.4, 0)); mb.cyl(0.6, 0.6, 0.12, 14, '#f4f4f4', { flat: false }); mb.pop(); mb.push(M4.chain(M4.T(0.15, 1.9, 0), M4.RZ(-0.2))); mb.box(0.1, 1.0, 0.1, '#ffffff'); mb.pop(); }) }] }),
+  // Tribüne mit Zuschauern (bunte Köpfe/Oberkörper als günstige Masse)
+  bleachers: o => ({ parts: [{ g: cgeo('bleach|' + (o.w || 30) + '|' + (o.rows || 6), mb => { const w = o.w || 30, rows = o.rows || 6, R = rng(4 + rows); const C = ['#e63946', '#3a86ff', '#ffd23f', '#2a9d8f', '#ff006e', '#8338ec', '#fb5607', '#f4f4f4']; const SK = ['#f5c79a', '#e0ac69', '#c68642', '#8d5524', '#ffdbac'];
+      for (let r = 0; r < rows; r++) { mb.push(M4.T(0, r * 1.1 + 0.55, -r * 1.6)); mb.box(w, 1.1, 1.6, r % 2 ? '#9aa3ad' : '#b5bcc5'); mb.pop();
+        for (let x = -w / 2 + 0.8; x < w / 2 - 0.5; x += 1.15 + R() * 0.25) { if (R() < 0.12) continue; const y0 = r * 1.1 + 1.1, z0 = -r * 1.6 - 0.1; mb.push(M4.T(x, y0 + 0.55, z0)); mb.box(0.9, 1.0, 0.6, C[Math.floor(R() * C.length)]); mb.pop(); mb.push(M4.T(x, y0 + 1.4, z0)); mb.rbox(0.72, 0.72, 0.72, 0.12, SK[Math.floor(R() * SK.length)]); mb.pop(); } } }) }] }),
+  // Lichtstrahl (additiv, halbtransparent): w Breite, l Länge, Richtung über ry/rx der Prop-Optionen; a = Deckkraft
+  lightbeam: o => ({ parts: [{ g: cgeo('beam|' + (o.color || '#fff2c8') + '|' + (o.w || 3) + '|' + (o.l || 14), mb => { for (let i = 0; i < 6; i++) { const q = i / 5; mb.push(M4.chain(M4.RX((o.tilt ?? -38) * DEG), M4.T(0, -(o.l || 14) / 2, 0))); mb.box((o.w || 3) * (1 + q * 0.35), o.l || 14, 0.18 + q * 0.9, o.color || '#fff2c8'); mb.pop(); } }), e: 1, a: o.a ?? 0.07, sh: false, add: true }] }),
+  // schwebender Staub im Licht (mit bob/spin animieren)
+  motes: o => ({ parts: [{ g: cgeo('motes|' + (o.n || 70) + '|' + (o.r || 4), mb => { const R = rng(77 + (o.n || 70)); for (let i = 0; i < (o.n || 70); i++) { mb.push(M4.T((R() - 0.5) * (o.r || 4) * 2, R() * (o.h || 6), (R() - 0.5) * (o.r || 4))); mb.sphere(0.02 + R() * 0.02, 0, '#ffe9b8'); mb.pop(); } }), e: 1, a: 0.45, sh: false, add: true }] }),
+  // Topfpflanze
+  potplant: o => ({ parts: [{ g: cgeo('potplant|' + (o.color || '#e7e1d6'), mb => { mb.cyl(0.7, 0.55, 1.2, 14, o.color || '#e7e1d6', { flat: false }); const R = rng(5); for (let i = 0; i < 9; i++) { const a = R() * 6.28, h = 1.6 + R() * 2.2, r = 0.2 + R() * 0.5; mb.push(M4.chain(M4.T(Math.sin(a) * r, h, Math.cos(a) * r), M4.RY(a), M4.RZ((R() - 0.5) * 0.9))); mb.sphere(0.55 + R() * 0.35, 1, i % 3 ? '#3f8f4a' : '#2f7a3d'); mb.pop(); } for (let i = 0; i < 4; i++) { mb.push(M4.chain(M4.T(0, 1.2, 0), M4.RZ((i - 1.5) * 0.25))); mb.box(0.08, 1.8, 0.08, '#4a6b2a'); mb.pop(); } }) }] }),
+  // Fenster mit hellem Himmel (leuchtend) und Rahmen
+  window: o => ({ parts: [{ g: cgeo('winframe|' + (o.w || 4) + '|' + (o.h || 5), mb => { const w = o.w || 4, h = o.h || 5; for (const x of [-w / 2, 0, w / 2]) { mb.push(M4.T(x, h / 2, 0.05)); mb.box(0.18, h + 0.2, 0.2, '#f4f4f2'); mb.pop(); } for (const y of [0, h / 2, h]) { mb.push(M4.T(0, y, 0.05)); mb.box(w + 0.2, 0.18, 0.2, '#f4f4f2'); mb.pop(); } }) }, { g: cgeo('winpane|' + (o.w || 4) + '|' + (o.h || 5), mb => { mb.push(M4.T(0, (o.h || 5) / 2, 0)); mb.box(o.w || 4, o.h || 5, 0.06, '#dff1ff'); mb.pop(); }), e: 1 }] }),
+  // Teppich
+  rug: o => ({ parts: [{ g: cgeo('rug|' + (o.color || '#c9b49a') + '|' + (o.w || 7), mb => { mb.push(M4.T(0, 0.02, 0)); mb.rbox(o.w || 7, 0.04, (o.w || 7) * 0.62, 0.02, o.color || '#c9b49a'); mb.pop(); mb.push(M4.T(0, 0.045, 0)); mb.rbox((o.w || 7) - 0.6, 0.02, (o.w || 7) * 0.62 - 0.6, 0.01, shade(o.color || '#c9b49a', 0.85)); mb.pop(); }) }] }),
   sign: o => ({ parts: [{ g: cgeo('signpost', mb => { mb.push(M4.T(0, 0, -0.05)); mb.cyl(0.14, 0.14, 2.6, 8, '#8b5a2b'); mb.pop(); }) }, { g: cgeo('signboard|' + (o.w || 3.4) + '|' + (o.h || 1.8), mb => { mb.push(M4.T(0, 2.4 + (o.h || 1.8) / 2, 0.1)); mb.box(o.w || 3.4, o.h || 1.8, 0.2, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '!', { ...o, tw: 512, th: Math.round(512 * (o.h || 1.8) / (o.w || 3.4)) }) }] }),
   board: o => { const w = o.w || 6, h = o.h || 3; return { parts: [{ g: cgeo('boardposts|' + w, mb => { for (const s of [-1, 1]) { mb.push(M4.T(s * w * 0.4, 0, 0)); mb.cyl(0.16, 0.16, 3.2 + h * 0.4, 8, '#7a4a24'); mb.pop(); } }) }, { g: cgeo(`boardpanel|${w}|${h}`, mb => { mb.push(M4.T(0, 2.6 + h / 2, 0.2)); mb.box(w, h, 0.25, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { ...o, tw: 512, th: Math.round(512 * h / w) }) }] }; },
   banner: o => { const w = o.w || 8; return { parts: [{ g: cgeo('bannerposts|' + w, mb => { for (const s of [-1, 1]) { mb.push(M4.T(s * w / 2, 0, 0)); mb.cyl(0.18, 0.18, 5.6, 8, o.pole || '#1e88e5'); mb.push(M4.T(0, 5.6, 0)); mb.sphere(0.3, 1, '#ffd23f'); mb.pop(); mb.pop(); } }) }, { g: cgeo('bannercloth|' + w, mb => { mb.push(M4.T(0, 4.6, 0)); mb.box(w, 1.5, 0.12, '#ffffff', { uv: true }); mb.pop(); }), tex: signTex(o.text || '', { bg: o.bg || '#ff7a1a', fg: o.fg || '#ffffff', border: o.border || '#ffffff', tw: 1024, th: 192 }) }] }; },

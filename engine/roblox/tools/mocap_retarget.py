@@ -1,0 +1,88 @@
+"""Gelenkpunkte (tools/mocap_extract.py) -> Rig-Winkel pro Frame (Aktion "mocap").
+python tools/mocap_retarget.py kp.json mocap.json [--mirror]
+Ergebnis: {"fps":30,"people":[{"keys":[...], "frames":[[...],...]}, ...]} – Person 0 = links im Video."""
+import argparse, json, math
+import numpy as np
+
+KEYS = ['aLz', 'aLx', 'aLy', 'eL', 'aRz', 'aRx', 'aRy', 'eR', 'lLz', 'lLx', 'kL', 'lRz', 'lRx', 'kR', 'wz', 'tw', 'hz', 'hx', 'y', 'dx']
+D = 180 / math.pi
+
+
+def smooth(a, w=5):
+    if len(a) < w: return a
+    k = np.hanning(w + 2)[1:-1]; k /= k.sum(); pad = w // 2
+    ap = np.pad(a, ((pad, pad), (0, 0)), mode='edge')
+    return np.stack([np.convolve(ap[:, j], k, mode='valid') for j in range(a.shape[1])], 1)
+
+
+def rx(t): c, s = math.cos(t), math.sin(t); return np.array([[1, 0, 0], [0, c, -s], [0, s, c]])
+def rz(t): c, s = math.cos(t), math.sin(t); return np.array([[c, -s, 0], [s, c, 0], [0, 0, 1]])
+
+
+def limb(d):
+    """Richtung (Figur-Raum: x=links der Figur, y=oben, z=nach vorn) -> (z-Winkel, x-Winkel) für RZ·RX·(0,-1,0)."""
+    d = d / (np.linalg.norm(d) + 1e-9)
+    ax = -math.asin(max(-1, min(1, d[2]))); az = math.atan2(d[0], -d[1])
+    return az, ax
+
+
+def main():
+    ap = argparse.ArgumentParser(); ap.add_argument('kp'); ap.add_argument('out'); ap.add_argument('--mirror', action='store_true')
+    a = ap.parse_args()
+    K = json.load(open(a.kp)); F = K['frames']; n = len(F); npl = max(len(f) for f in F)
+    out = {'fps': K['fps'], 'keys': KEYS, 'people': []}
+    for p in range(npl):
+        P = np.zeros((n, 17, 2)); C = np.zeros((n, 17))
+        for i, f in enumerate(F):
+            if p < len(f): P[i] = f[p]['k']; C[i] = f[p]['c']
+        # schwache Punkte über die Zeit auffüllen
+        for j in range(17):
+            ok = C[:, j] > 0.35
+            if ok.sum() >= 2 and not ok.all():
+                for c in range(2): P[~ok, j, c] = np.interp(np.where(~ok)[0], np.where(ok)[0], P[ok, j, c])
+        P = smooth(P.reshape(n, 34), 5).reshape(n, 17, 2)
+        # Bild -> Figur-Raum: Figur schaut zur Kamera => ihre linke Seite ist rechts im Bild (+x), y nach oben
+        V = np.stack([P[..., 0], -P[..., 1]], -1)
+        if a.mirror: V[..., 0] *= -1
+        seg = lambda i, j: V[:, j] - V[:, i]
+        segs = {'uaL': (5, 7), 'faL': (7, 9), 'uaR': (6, 8), 'faR': (8, 10), 'thL': (11, 13), 'shL': (13, 15), 'thR': (12, 14), 'shR': (14, 16)}
+        Lmax = {k: np.percentile(np.linalg.norm(seg(*v), axis=1), 90) for k, v in segs.items()}
+        for s_ in ('ua', 'fa', 'th', 'sh'): m = max(Lmax[s_ + 'L'], Lmax[s_ + 'R']); Lmax[s_ + 'L'] = Lmax[s_ + 'R'] = m
+        def d3(k, sign=1):
+            v = seg(*segs[k]); L = Lmax[k]; pr = np.linalg.norm(v, axis=1)
+            rr = np.clip(pr / (L * 0.9), 0, 1)  # Totzone: fast volle Länge = in der Bildebene
+            z = np.sqrt(np.clip(1 - rr ** 2, 0, 1)) * L * sign
+            return np.concatenate([v, z[:, None]], 1)
+        torso = (V[:, 5] + V[:, 6]) / 2 - (V[:, 11] + V[:, 12]) / 2; tlen = np.median(np.linalg.norm(torso, axis=1))
+        hipc = (V[:, 11] + V[:, 12]) / 2; base = np.median(hipc[: max(5, n // 10)], 0)
+        rows = []
+        for i in range(n):
+            r = {}
+            for side, s in (('L', 1), ('R', -1)):
+                ua = d3('ua' + side)[i]; fa = d3('fa' + side)[i]
+                az, ax = limb(ua); R = rz(az) @ rx(ax)
+                fl = R.T @ (fa / (np.linalg.norm(fa) + 1e-9))
+                e = math.acos(max(-1, min(1, -fl[1]))); ay = math.atan2(fl[0], fl[2]) if e > 0.25 else 0.0
+                r['a' + side + 'z'] = az * D; r['a' + side + 'x'] = ax * D; r['a' + side + 'y'] = ay * D; r['e' + side] = min(150, e * D)
+                th = d3('th' + side)[i]; lz, lx = limb(th); RL = rz(lz) @ rx(lx)
+                best = None
+                for sg in (1, -1):
+                    sh = d3('sh' + side, sg)[i]; sl = RL.T @ (sh / (np.linalg.norm(sh) + 1e-9))
+                    k = math.atan2(-sl[2], -sl[1]); score = abs(sl[0]) + (0.5 if k < -0.1 else 0)
+                    if best is None or score < best[0]: best = (score, k)
+                r['l' + side + 'z'] = lz * D; r['l' + side + 'x'] = lx * D; r['k' + side] = max(0, min(150, best[1] * D))
+            r['wz'] = max(-30, min(30, -math.degrees(math.atan2(torso[i, 0], torso[i, 1]))))
+            sw = np.linalg.norm(V[i, 5] - V[i, 6]); r['tw'] = 0.0
+            eye = V[i, 1] - V[i, 2]; shl = V[i, 5] - V[i, 6]
+            r['hz'] = max(-25, min(25, math.degrees(math.atan2(eye[1], eye[0]) - math.atan2(shl[1], shl[0]))))
+            r['hx'] = 0.0
+            u = 1.88 / tlen  # Figur-Einheiten pro Pixel (Rumpflänge)
+            r['y'] = max(-0.6, min(0.8, (hipc[i, 1] - base[1]) * u)); r['dx'] = max(-2, min(2, (hipc[i, 0] - base[0]) * u))
+            rows.append([round(float(r[k]), 1) for k in KEYS])
+        out['people'].append({'frames': rows})
+    json.dump(out, open(a.out, 'w'))
+    print(f'{n} Frames, {npl} Personen -> {a.out}')
+
+
+if __name__ == '__main__':
+    main()

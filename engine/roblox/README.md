@@ -144,3 +144,15 @@ Twist erst ganz am Ende · letzter Satz führt in den ersten zurück (Loop) · J
 - Eigene Musik: `"musicFile": "datei.wav"` (relativ zur episode.json), optional `musicStart`, `musicGain` – ersetzt die generierte Musik. Nur Musik mit Nutzungsrechten veröffentlichen; Trend-Sounds bei TikTok/Instagram besser in der App hinzufügen.
 - Weitere Aktionen: `turnaround` (eine Drehung über den Zeitabschnitt), `finale` (Schlusspose, Arm hoch). Freie Kamera mit leichtem Handkamera-Wackeln: `"cam": {"type": "free", …, "handheld": 0.6}`.
 - Beispiel: `beispiele/trend_tanz.json` (eine durchgehende Einstellung wie Handy-Video) (rendern mit `--no-tts --force`, da kürzer als 40 s).
+
+## Großes Update (20.11.2026)
+- **Rauszoomen:** Viral-Folgen zeigen automatisch mehr Umgebung (`camFar`, Standard 1.4; close ×1.55, medium ×1.25 zusätzlich). Pro Episode `"camFar": 1.0` = alter Look, pro Kamera `"far": 2`.
+- **Motion-Capture:** `tools/mocap_extract.py video.mp4 kp.json --people 2` (YOLO-Pose, Gewichte `yolo11m-pose.pt` von GitHub/ultralytics) → `tools/mocap_retarget.py kp.json mocap.json` → Figur mit `"do": "mocap", "mocap": {"fps", "keys", "frames", "start", "gain", "move"}` (frames = `people[i].frames`, Person 0 = links im Video). Bewegung wird 1:1 aus dem Video übernommen.
+- **Rig:** Taillenbeugung `wz`, runde Ellbogen/Knie ab 8°, Hüftkugeln bei angehobenem Bein.
+- **Tanz-Posen:** `cross`, `chicken`, `kneelift`, `figure4`, `kickback`, `wavearms`, `stand`, `headhand` (im Takt über `bpm`/`boff`); Figur-Felder `headhand`, `finaleKnee`. Look: `flare` (Schlaghose), Muster `knit`.
+- **Sets:** `danceroom` (heller Raum, Holztür, Holzdecke, Fliesen), `stadium` (Rasen, Linien, Tore, volle Tribünen, Flutlicht).
+- **Props:** `lightbeam`, `motes` (Staub im Licht), `potplant`, `window`, `rug`, `fries`, `soda`, `bleachers`. Höhe über `"at": [x, y, z]`.
+- **Overlays:** Figur `"counter": {"from", "to", "t0", "t1", "suffix"}` (Zahl-Pille über dem Kopf), Shot `"score": {"home", "away", "a", "b", "from": [a0, b0], "t"}` (Anzeigetafel), Shot `"counter": {"label", "from", "to"}` (großer Zähler).
+- **Look-Nachbearbeitung:** Episode `"grade": {"bloom": 0.35, "vignette": 0.3, "warm": 0.04, "sat": 1.08}`.
+- **Qualitätsprüfung** nach jedem Export: Auflösung, Länge, Tonspur, schwarze Bilder, Standbilder (Log „Qualitätsprüfung: ✓ ok“ oder ⚠ mit Grund).
+- **Verteiltes Rendern:** `studio.py … --part K/N` rendert nur Teil K von N (Shots nach Bildanzahl verteilt); ein normaler Lauf danach setzt aus dem Cache zusammen (bildgleich geprüft). In GitHub Actions automatisch 4 Teile (Repo-Variable `VF_RENDER_PARTS`); fehlende Teile rendert der Haupt-Job selbst.
