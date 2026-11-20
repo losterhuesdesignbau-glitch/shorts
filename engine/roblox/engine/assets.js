@@ -320,7 +320,7 @@ function avatarGeo(cfg) {
 // P: Pose in Grad (Gelenke: a*=Schulter, e*=Ellbogen, l*=Hüfte, k*=Knie); S: Zustand {x,y,z,face(rad),scale, sec}
 function avatarItems(items, cfg, S, P) {
   const g = avatarGeo(cfg), sc = (cfg.scale || 1) * (S.scale || 1), sq = P.sq || 0;
-  const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0) * sc, S.z + (P.dz || 0)), M4.RY(S.face + (P.spin || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.S(sc * (1 + sq * 0.5), sc * (1 - sq), sc * (1 + sq * 0.5)));
+  const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0) * sc, S.z + (P.dz || 0)), M4.RY(S.face + (P.spin || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.S(sc * (1 + sq * 0.5) * (cfg.slim || 1), sc * (1 - sq) * (cfg.tall || 1), sc * (1 + sq * 0.5) * (cfg.slim || 1))); // slim/tall: schlankere, größere Figur
   const tb = P.tb || 0, sh = S.sh, chr = { spec: 0.3, rim: 0.32, ao: 0 };
   const torso = M4.chain(root, M4.T(0, 3 + tb, 0), M4.RY((P.tw || 0) * DEG), M4.RX((P.bx || 0) * DEG), M4.RZ((P.wz || 0) * DEG)); // wz = seitliche Taillenbeugung
   const armL = M4.chain(torso, M4.T(1.5, 0.88, 0), M4.RZ((P.aLz || 0) * DEG), M4.RX((P.aLx || 0) * DEG), M4.RY((P.aLy || 0) * DEG));

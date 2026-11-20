@@ -4,7 +4,7 @@ Ergebnis: {"fps":30,"people":[{"keys":[...], "frames":[[...],...]}, ...]} – Pe
 import argparse, json, math
 import numpy as np
 
-KEYS = ['aLz', 'aLx', 'aLy', 'eL', 'aRz', 'aRx', 'aRy', 'eR', 'lLz', 'lLx', 'kL', 'lRz', 'lRx', 'kR', 'wz', 'tw', 'hz', 'hx', 'y', 'dx']
+KEYS = ['aLz', 'aLx', 'aLy', 'eL', 'aRz', 'aRx', 'aRy', 'eR', 'lLz', 'lLx', 'kL', 'lRz', 'lRx', 'kR', 'wz', 'tw', 'hz', 'hx', 'hy', 'y', 'dx']
 D = 180 / math.pi
 
 
@@ -40,7 +40,7 @@ def main():
             ok = C[:, j] > 0.35
             if ok.sum() >= 2 and not ok.all():
                 for c in range(2): P[~ok, j, c] = np.interp(np.where(~ok)[0], np.where(ok)[0], P[ok, j, c])
-        P = smooth(P.reshape(n, 34), 5).reshape(n, 17, 2)
+        P = smooth(P.reshape(n, 34), 7).reshape(n, 17, 2)
         # Bild -> Figur-Raum: Figur schaut zur Kamera => ihre linke Seite ist rechts im Bild (+x), y nach oben
         V = np.stack([P[..., 0], -P[..., 1]], -1)
         if a.mirror: V[..., 0] *= -1
@@ -54,6 +54,7 @@ def main():
             z = np.sqrt(np.clip(1 - rr ** 2, 0, 1)) * L * sign
             return np.concatenate([v, z[:, None]], 1)
         torso = (V[:, 5] + V[:, 6]) / 2 - (V[:, 11] + V[:, 12]) / 2; tlen = np.median(np.linalg.norm(torso, axis=1))
+        swmax = np.percentile(np.abs(V[:, 5, 0] - V[:, 6, 0]), 92)
         hipc = (V[:, 11] + V[:, 12]) / 2; base = np.median(hipc[: max(5, n // 10)], 0)
         rows = []
         for i in range(n):
@@ -72,7 +73,12 @@ def main():
                     if best is None or score < best[0]: best = (score, k)
                 r['l' + side + 'z'] = lz * D; r['l' + side + 'x'] = lx * D; r['k' + side] = max(0, min(150, best[1] * D))
             r['wz'] = max(-30, min(30, -math.degrees(math.atan2(torso[i, 0], torso[i, 1]))))
-            sw = np.linalg.norm(V[i, 5] - V[i, 6]); r['tw'] = 0.0
+            sw = abs(V[i, 5, 0] - V[i, 6, 0]); smid = (V[i, 5, 0] + V[i, 6, 0]) / 2
+            q = math.degrees(math.acos(max(0.0, min(1.0, sw / (swmax + 1e-6))))) if swmax else 0.0
+            sgn = 1 if (V[i, 0, 0] - smid) > 0 else -1  # Nase vor der Schultermitte verschoben -> Drehrichtung
+            r['tw'] = max(-40, min(40, sgn * max(0.0, q - 22) * 0.7))  # Totzone: Schulterbreite schwankt auch durch Armbewegung
+            emid = (V[i, 3, 0] + V[i, 4, 0]) / 2; ew = abs(V[i, 3, 0] - V[i, 4, 0]) + 1e-6
+            r['hy'] = max(-40, min(40, (V[i, 0, 0] - emid) / ew * 70 - r['tw'] * 0.5))
             eye = V[i, 1] - V[i, 2]; shl = V[i, 5] - V[i, 6]
             r['hz'] = max(-25, min(25, math.degrees(math.atan2(eye[1], eye[0]) - math.atan2(shl[1], shl[0]))))
             r['hx'] = 0.0
