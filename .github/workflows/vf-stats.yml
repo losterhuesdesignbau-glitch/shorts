@@ -1,0 +1,24 @@
+# Statistiken + Verdienst alle 6 Stunden in ViralFlow übernehmen (Dashboard: Analysen / Verdienst)
+name: "VIRALFLOW · Statistiken abrufen"
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    env:
+      VF_API_URL: ${{ secrets.VF_API_URL }}
+      VF_WEBHOOK_SECRET: ${{ secrets.VF_WEBHOOK_SECRET }}
+      PYTHONPATH: ${{ github.workspace }}/viralflow
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: viralflow
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - run: python -m vf.stats

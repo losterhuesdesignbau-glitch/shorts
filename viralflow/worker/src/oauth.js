@@ -10,7 +10,7 @@ const PROVIDERS = {
     authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
     clientId: (env) => env.YOUTUBE_CLIENT_ID,
     clientSecret: (env) => env.YOUTUBE_CLIENT_SECRET,
-    scopes: ['https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube.readonly'],
+    scopes: ['https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube.readonly', 'https://www.googleapis.com/auth/yt-analytics.readonly', 'https://www.googleapis.com/auth/yt-analytics-monetary.readonly'],
     authParams: (env, redirect, state) => ({
       client_id: env.YOUTUBE_CLIENT_ID, redirect_uri: redirect, response_type: 'code', state,
       scope: PROVIDERS.youtube.scopes.join(' '), access_type: 'offline', prompt: 'consent', include_granted_scopes: 'true',
@@ -182,5 +182,5 @@ export async function accessToken(env, platform) {
       if (!tok.expires_at || tok.expires_at < Date.now()) throw new HttpError(401, `${platform}: Anmeldung abgelaufen – im Dashboard neu verbinden`);
     }
   }
-  return { access_token: tok.access_token, account_id: row.account_id, account_name: row.account_name, graph_version: env.IG_GRAPH_VERSION || 'v24.0', graph_base: tok.graph_base };
+  return { access_token: tok.access_token, account_id: row.account_id, account_name: row.account_name, graph_version: env.IG_GRAPH_VERSION || 'v24.0', graph_base: tok.graph_base, scopes: row.scopes || '' };
 }

@@ -59,7 +59,12 @@ def main():
     ap.add_argument('--episode-id')
     ap.add_argument('--rs', default=os.environ.get('VF_RENDER_SCALE', '0.75'))
     ap.add_argument('--extra', default=os.environ.get('VF_STUDIO_ARGS', ''), help='zusätzliche studio.py-Argumente, z. B. --force')
+    ap.add_argument('--part', default=None, help='verteiltes Rendern: K/N – nur Shots rendern, nach --parts-out kopieren (kein Upload/Orchestrator)')
+    ap.add_argument('--parts-out', default='parts_out')
+    ap.add_argument('--parts-in', default=os.environ.get('VF_PARTS_IN', ''), help='Ordner mit vorab gerenderten Shots (Matrix-Teile)')
     a = ap.parse_args()
+    if a.part:
+        return render_part(a)
     api = Orchestrator()
 
     if a.file:
@@ -86,6 +91,12 @@ def main():
         src_name = vid
 
     work = Path(tempfile.mkdtemp(prefix='vf-render-'))
+    if a.parts_in and Path(a.parts_in).is_dir():  # vorab verteilt gerenderte Shots übernehmen (fehlende rendert studio.py selbst)
+        import shutil
+        sd = work / f'{vid}_shots'; sd.mkdir(parents=True, exist_ok=True); n = 0
+        for f in Path(a.parts_in).rglob('shot_*'):
+            shutil.copy2(f, sd / f.name); n += 1
+        print(f'Verteilte Teile übernommen: {n} Dateien', flush=True)
     ep_path = work / 'episode.json'
     ep_path.write_text(json.dumps(ep, ensure_ascii=False), encoding='utf-8')
     out = work / f'{vid}.mp4'
@@ -120,6 +131,23 @@ def main():
             pass
         output('status', 'failed')
         return 1
+
+
+def render_part(a):
+    """Matrix-Teil: nur die eigenen Shots rendern (gleiche episode.json + gleiche ID wie der Haupt-Job)."""
+    import shutil
+    path = Path(a.file); raw = path.read_bytes(); vid = video_id_for(path.stem, raw)
+    work = Path(tempfile.mkdtemp(prefix='vf-part-')); ep_path = work / 'episode.json'
+    ep_path.write_text(json.dumps(json.loads(raw), ensure_ascii=False), encoding='utf-8')
+    out = work / f'{vid}.mp4'
+    cmd = [sys.executable, str(STUDIO), str(ep_path), '-o', str(out), '--rs', str(a.rs), '--part', a.part] + a.extra.split()
+    print('Engine 1 (Teil):', ' '.join(cmd), flush=True)
+    p = subprocess.run(cmd, cwd=STUDIO.parent)
+    dst = Path(a.parts_out); dst.mkdir(parents=True, exist_ok=True)
+    for f in (work / f'{vid}_shots').glob('shot_*'):
+        if f.suffix in ('.mp4', '.json'): shutil.copy2(f, dst / f.name)
+    print(f'Teil {a.part}: {len(list(dst.glob("shot_*.mp4")))} Shots -> {dst}', flush=True)
+    return 0  # Fehler eines Teils sind unkritisch: der Haupt-Job rendert fehlende Shots selbst
 
 
 if __name__ == '__main__':

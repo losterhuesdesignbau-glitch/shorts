@@ -205,9 +205,19 @@ async function engineApi(env, method, path, data) {
   }
   if (path === '/api/engine/publications/list' && method === 'POST') {
     const st = Array.isArray(data.statuses) && data.statuses.length ? data.statuses.map(String) : ['queued', 'failed', 'dispatched'];
-    const r = await env.DB.prepare(`SELECT p.id, p.platform, p.status, p.scheduled_at, p.error, v.filename FROM publications p JOIN videos v ON v.id = p.video_id
+    const r = await env.DB.prepare(`SELECT p.id, p.platform, p.status, p.scheduled_at, p.error, p.remote_id, p.remote_url, p.published_at, p.video_id, v.filename FROM publications p JOIN videos v ON v.id = p.video_id
         WHERE p.status IN (${st.map(() => '?').join(',')}) ORDER BY p.scheduled_at`).bind(...st).all();
     return json({ items: r.results });
+  }
+  if (path === '/api/engine/stats' && method === 'POST') { // Statistik-Job: {videos:[{platform,remote_id,video_id,views,...}], accounts:[{platform,followers,...}], earnings:[{platform,day,amount,currency}]}
+    const ts = nowIso(), st = [];
+    for (const v of (data.videos || []).slice(0, 500)) st.push(env.DB.prepare('INSERT INTO stats(platform, remote_id, video_id, taken_at, views, likes, comments, shares, saves, reach) VALUES(?,?,?,?,?,?,?,?,?,?)')
+      .bind(String(v.platform), String(v.remote_id), v.video_id || null, ts, v.views ?? null, v.likes ?? null, v.comments ?? null, v.shares ?? null, v.saves ?? null, v.reach ?? null));
+    for (const a of (data.accounts || []).slice(0, 10)) st.push(env.DB.prepare('INSERT INTO account_stats(platform, taken_at, followers, total_views, media_count) VALUES(?,?,?,?,?)').bind(String(a.platform), ts, a.followers ?? null, a.total_views ?? null, a.media_count ?? null));
+    for (const e of (data.earnings || []).slice(0, 400)) st.push(env.DB.prepare(`INSERT INTO earnings(platform, day, amount, currency, source, note, created_at) VALUES(?,?,?,?, 'auto', ?, ?)
+        ON CONFLICT(platform, day, source) WHERE source = 'auto' DO UPDATE SET amount = excluded.amount, currency = excluded.currency`).bind(String(e.platform), String(e.day), Number(e.amount) || 0, e.currency || 'EUR', e.note || null, ts));
+    if (st.length) await env.DB.batch(st);
+    return json({ ok: true, rows: st.length });
   }
   if (path === '/api/engine/token/instagram/import' && method === 'POST') return json(await importInstagramToken(env, data.access_token, data.account_id));
   const tm = path.match(/^\/api\/engine\/token\/(youtube|instagram|tiktok)$/);
@@ -362,6 +372,40 @@ async function dashboardApi(env, req, method, path, url) {
     await tick(env);
     return json({ ok: true });
   }
+  if (path === '/api/analytics') { // ?platform=all|youtube|instagram|tiktok&days=7|30|365
+    const days = Math.min(730, Math.max(1, +(url.searchParams.get('days') || 30))), pf = url.searchParams.get('platform') || 'all';
+    const since = new Date(Date.now() - days * 86400000).toISOString(), pq = pf === 'all' ? '' : ' AND s.platform = ?', pb = pf === 'all' ? [] : [pf];
+    // pro Video der neueste Stand
+    const vids = await all(`SELECT s.platform, s.remote_id, s.video_id, s.views, s.likes, s.comments, s.shares, s.saves, s.reach, s.taken_at, v.metadata, p.remote_url, p.published_at
+        FROM stats s JOIN (SELECT platform, remote_id, MAX(id) mid FROM stats GROUP BY platform, remote_id) m ON m.mid = s.id
+        LEFT JOIN videos v ON v.id = s.video_id LEFT JOIN publications p ON p.video_id = s.video_id AND p.platform = s.platform WHERE 1=1${pq} ORDER BY p.published_at DESC LIMIT 300`, ...pb);
+    // Zuwachs pro Tag: Differenz des letzten Stands je Tag und Video
+    const rows = await all(`SELECT s.platform, s.remote_id, substr(s.taken_at, 1, 10) d, MAX(s.views) v, MAX(s.likes) l, MAX(s.comments) c, MAX(s.shares) sh FROM stats s WHERE s.taken_at >= ?${pq} GROUP BY s.platform, s.remote_id, d ORDER BY d`, since, ...pb);
+    const prev = {}, daily = {};
+    const base = await all(`SELECT s.platform, s.remote_id, MAX(s.views) v, MAX(s.likes) l, MAX(s.comments) c, MAX(s.shares) sh FROM stats s WHERE s.taken_at < ?${pq} GROUP BY s.platform, s.remote_id`, since, ...pb);
+    for (const b of base) prev[b.platform + b.remote_id] = b;
+    for (const r of rows) { const k = r.platform + r.remote_id, p0 = prev[k] || { v: 0, l: 0, c: 0, sh: 0 }, d = daily[r.d] || (daily[r.d] = { day: r.d, views: 0, likes: 0, comments: 0, shares: 0 });
+      d.views += Math.max(0, (r.v || 0) - (p0.v || 0)); d.likes += Math.max(0, (r.l || 0) - (p0.l || 0)); d.comments += Math.max(0, (r.c || 0) - (p0.c || 0)); d.shares += Math.max(0, (r.sh || 0) - (p0.sh || 0)); prev[k] = r; }
+    const acc = await all(`SELECT platform, substr(taken_at, 1, 10) d, MAX(followers) f FROM account_stats WHERE taken_at >= ?${pf === 'all' ? '' : ' AND platform = ?'} GROUP BY platform, d ORDER BY d`, since, ...pb);
+    const sum = (k) => vids.reduce((a, v) => a + (v[k] || 0), 0);
+    const per = {}; for (const v of vids) { const q = per[v.platform] || (per[v.platform] = { videos: 0, views: 0, likes: 0, comments: 0, shares: 0 }); q.videos++; q.views += v.views || 0; q.likes += v.likes || 0; q.comments += v.comments || 0; q.shares += v.shares || 0; }
+    const lastAt = (await one('SELECT MAX(taken_at) t FROM stats'))?.t || null;
+    return json({ days, platform: pf, totals: { videos: vids.length, views: sum('views'), likes: sum('likes'), comments: sum('comments'), shares: sum('shares'), saves: sum('saves') }, per, daily: Object.values(daily), followers: acc, videos: vids, updated_at: lastAt });
+  }
+  if (path === '/api/earnings' && method === 'GET') {
+    const rows = await all('SELECT id, platform, day, amount, currency, source, note FROM earnings ORDER BY day DESC, id DESC LIMIT 2000');
+    const now = Date.now(), win = (d) => { const since = new Date(now - d * 86400000).toISOString().slice(0, 10); const o = { total: 0, youtube: 0, tiktok: 0, instagram: 0 }; for (const r of rows) if (r.day >= since) { o.total += r.amount; o[r.platform] = (o[r.platform] || 0) + r.amount; } return o; };
+    const monthly = {}; for (const r of rows) { const m = r.day.slice(0, 7); const o = monthly[m] || (monthly[m] = { month: m, youtube: 0, tiktok: 0, instagram: 0, total: 0 }); o[r.platform] = (o[r.platform] || 0) + r.amount; o.total += r.amount; }
+    return json({ rows, sums: { d7: win(7), d30: win(30), d365: win(365), all: win(100000) }, monthly: Object.values(monthly).sort((a, b) => a.month < b.month ? -1 : 1) });
+  }
+  if (path === '/api/earnings' && method === 'POST') {
+    const p = String(body.platform || ''), d = String(body.day || '').slice(0, 10), amt = Number(String(body.amount ?? '').replace(',', '.'));
+    if (!PLATFORMS.includes(p) || !/^\d{4}-\d{2}-\d{2}$/.test(d) || !isFinite(amt)) throw new HttpError(400, 'Plattform, Datum und Betrag angeben');
+    await env.DB.prepare("INSERT INTO earnings(platform, day, amount, currency, source, note, created_at) VALUES(?,?,?,?, 'manual', ?, ?)").bind(p, d, amt, body.currency || 'EUR', body.note || null, nowIso()).run();
+    return json({ ok: true });
+  }
+  const erm = path.match(/^\/api\/earnings\/(\d+)$/);
+  if (erm && method === 'DELETE') { await env.DB.prepare("DELETE FROM earnings WHERE id = ? AND source = 'manual'").bind(+erm[1]).run(); return json({ ok: true }); }
   if (path === '/api/test-dispatch' && method === 'POST') {
     await dispatchGithub(env, 'vf-ping', { at: nowIso() });
     return json({ ok: true });

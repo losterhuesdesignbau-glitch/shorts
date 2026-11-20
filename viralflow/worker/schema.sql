@@ -91,3 +91,34 @@ CREATE TABLE IF NOT EXISTS idempotency (
   response   TEXT NOT NULL,
   created_at TEXT NOT NULL
 );
+
+-- Statistik-Schnappschüsse pro veröffentlichtem Video (alle paar Stunden vom Statistik-Job)
+CREATE TABLE IF NOT EXISTS stats (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  platform    TEXT NOT NULL,
+  remote_id   TEXT NOT NULL,
+  video_id    TEXT,
+  taken_at    TEXT NOT NULL,
+  views       INTEGER, likes INTEGER, comments INTEGER, shares INTEGER, saves INTEGER, reach INTEGER
+);
+CREATE INDEX IF NOT EXISTS idx_stats_vid ON stats(platform, remote_id, taken_at);
+-- Kontowerte (Follower/Abonnenten, Gesamtaufrufe)
+CREATE TABLE IF NOT EXISTS account_stats (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  platform    TEXT NOT NULL,
+  taken_at    TEXT NOT NULL,
+  followers   INTEGER, total_views INTEGER, media_count INTEGER
+);
+CREATE INDEX IF NOT EXISTS idx_acc ON account_stats(platform, taken_at);
+-- Verdienst: YouTube automatisch (wenn Partnerprogramm + Berechtigung), TikTok/Instagram manuell
+CREATE TABLE IF NOT EXISTS earnings (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  platform    TEXT NOT NULL,
+  day         TEXT NOT NULL,          -- YYYY-MM-DD
+  amount      REAL NOT NULL,          -- Betrag in Währung
+  currency    TEXT NOT NULL DEFAULT 'EUR',
+  source      TEXT NOT NULL DEFAULT 'manual', -- manual | auto
+  note        TEXT,
+  created_at  TEXT NOT NULL
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_earn_auto ON earnings(platform, day, source) WHERE source = 'auto';

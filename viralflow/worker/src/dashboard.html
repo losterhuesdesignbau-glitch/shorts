@@ -50,6 +50,9 @@ table{width:100%;border-collapse:collapse}td,th{padding:8px 6px;border-bottom:1p
  nav .lg{display:none}nav .sh{display:block}
  .grid{grid-template-columns:repeat(2,1fr)}.kpi .n{font-size:24px}.card{padding:13px}
  main{padding-bottom:110px}}
+.seg{display:inline-flex;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}.seg button{background:none;border:0;padding:6px 11px;border-radius:8px;cursor:pointer;color:var(--mute)}.seg button.on{background:var(--accent);color:#fff}
+.chart{width:100%;height:190px}.chart text{fill:var(--mute);font-size:11px}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mute);margin-top:6px}
+.vt{display:grid;grid-template-columns:1fr repeat(4,auto);gap:4px 14px;align-items:center}.vt .h{color:var(--mute);font-size:12px}.num{text-align:right;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -75,7 +78,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:8px 6px;border-bottom:1p
 
 <script>
 const SECTIONS = [
-  ['uebersicht', '◎', 'Übersicht', 'Start'], ['produktion', '⚙', 'Video-Produktion', 'Produktion'], ['bibliothek', '▦', 'Video-Bibliothek', 'Videos'],
+  ['uebersicht', '◎', 'Übersicht', 'Start'], ['analysen', '▲', 'Analysen', 'Analysen'], ['verdienst', '€', 'Verdienst', 'Geld'], ['produktion', '⚙', 'Video-Produktion', 'Produktion'], ['bibliothek', '▦', 'Video-Bibliothek', 'Videos'],
   ['warteschlange', '⇅', 'Upload-Warteschlange', 'Queue'], ['plan', '◷', 'Veröffentlichungsplan', 'Plan'], ['verbindungen', '⛓', 'Plattformverbindungen', 'Konten'],
   ['protokoll', '≣', 'Upload-Protokoll', 'Protokoll'], ['einstellungen', '⚑', 'Einstellungen', 'Setup'],
 ];
@@ -282,7 +285,66 @@ const VIEWS = {
       <button class="btn" onclick="api('/api/logout',{method:'POST'}).then(showLogin)">Abmelden</button></div>`;
   },
 };
+
+const PCOL = { youtube: '#ff3b30', instagram: '#d6249f', tiktok: '#25f4ee', total: '#a48bff' };
+let ANA = { platform: 'all', days: 30 };
+const nf = (n) => (n == null ? '–' : new Intl.NumberFormat('de-DE', { notation: n >= 100000 ? 'compact' : 'standard', maximumFractionDigits: 1 }).format(n));
+const eur = (n) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(n || 0);
+function barChart(series, keys, labels) { // series: [{label, values:{key:n}}], gestapelte Balken
+  const W = 700, H = 190, P = 28, n = Math.max(1, series.length), max = Math.max(1, ...series.map((s) => keys.reduce((a, k) => a + (s.values[k] || 0), 0)));
+  const bw = Math.max(2, (W - P) / n * 0.72); let out = `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+  for (let i = 0; i <= 3; i++) { const y = 8 + (H - P - 8) * i / 3; out += `<line x1="${P}" x2="${W}" y1="${y}" y2="${y}" stroke="#2a2e38"/><text x="0" y="${y + 4}">${nf(Math.round(max * (1 - i / 3)))}</text>`; }
+  series.forEach((s, i) => { let y = H - P; const x = P + (W - P) / n * i + ((W - P) / n - bw) / 2;
+    keys.forEach((k) => { const v = s.values[k] || 0, h = (H - P - 8) * v / max; if (h > 0) { y -= h; out += `<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="2" fill="${PCOL[k] || '#a48bff'}"><title>${esc(s.label)} · ${esc(labels?.[k] || k)}: ${nf(v)}</title></rect>`; } });
+    if (n <= 14 || i % Math.ceil(n / 10) === 0) out += `<text x="${x + bw / 2}" y="${H - 8}" text-anchor="middle">${esc(s.label)}</text>`; });
+  return out + '</svg>';
+}
+VIEWS.analysen = async () => {
+  const d = await api(`/api/analytics?platform=${ANA.platform}&days=${ANA.days}`);
+  const seg = (k, vals) => `<div class="seg">${vals.map(([v, l]) => `<button data-${k}="${v}" class="${String(ANA[k]) === String(v) ? 'on' : ''}">${l}</button>`).join('')}</div>`;
+  const t = d.totals, per = d.per || {};
+  const days = d.daily.map((x) => ({ label: x.day.slice(8, 10) + '.' + x.day.slice(5, 7), values: { total: x.views } }));
+  const lk = d.daily.map((x) => ({ label: x.day.slice(8, 10) + '.' + x.day.slice(5, 7), values: { likes: x.likes, comments: x.comments } }));
+  const fol = {}; for (const f of d.followers) (fol[f.platform] ||= []).push(f);
+  const lastF = Object.fromEntries(Object.entries(fol).map(([p, a]) => [p, a[a.length - 1].f]));
+  return `<h1>Analysen</h1>
+  <div class="row">${seg('platform', [['all', 'Alle'], ['youtube', 'YouTube'], ['tiktok', 'TikTok'], ['instagram', 'Instagram']])}<span class="sp"></span>${seg('days', [[1, 'Tag'], [7, 'Woche'], [30, 'Monat'], [365, 'Jahr']])}</div>
+  <div class="mute" style="margin:8px 0 14px">Stand: ${d.updated_at ? fmt(d.updated_at) : 'noch keine Daten'} · wird alle 6 Stunden automatisch aktualisiert${ANA.platform === 'tiktok' || ANA.platform === 'all' ? ' · TikTok-Zahlen kommen erst mit TikTok-Leseberechtigung' : ''}</div>
+  <div class="grid">
+    <div class="card kpi"><div class="n">${nf(t.views)}</div><div class="l">Aufrufe gesamt</div></div>
+    <div class="card kpi"><div class="n">${nf(d.daily.reduce((a, x) => a + x.views, 0))}</div><div class="l">neue Aufrufe im Zeitraum</div></div>
+    <div class="card kpi"><div class="n">${nf(t.likes)}</div><div class="l">Likes</div></div>
+    <div class="card kpi"><div class="n">${nf(t.comments)}</div><div class="l">Kommentare</div></div>
+    <div class="card kpi"><div class="n">${nf(t.shares)}</div><div class="l">Shares</div></div>
+    <div class="card kpi"><div class="n">${t.views ? ((t.likes + t.comments + t.shares) / t.views * 100).toFixed(1) + ' %' : '–'}</div><div class="l">Interaktionsrate</div></div>
+  </div>
+  <h2>Aufrufe pro Tag</h2><div class="card">${days.length ? barChart(days, ['total']) : '<div class="mute">Noch keine Verlaufsdaten – die ersten Werte kommen mit dem nächsten Abruf.</div>'}</div>
+  <h2>Likes & Kommentare pro Tag</h2><div class="card">${lk.length ? barChart(lk, ['likes', 'comments'], { likes: 'Likes', comments: 'Kommentare' }) + '<div class="legend"><span><span class="dot" style="background:#a48bff"></span> Likes</span><span><span class="dot" style="background:#a48bff88"></span> Kommentare</span></div>' : '<div class="mute">–</div>'}</div>
+  <h2>Plattformen</h2><div class="grid">${Object.keys(PNAME).map((p) => `<div class="card"><div class="row">${pdot(p)} <b>${PNAME[p]}</b></div><div class="mute" style="margin-top:6px">${per[p] ? `${per[p].videos} Videos · ${nf(per[p].views)} Aufrufe · ${nf(per[p].likes)} Likes` : 'keine Daten'}${lastF[p] != null ? `<br>${nf(lastF[p])} Follower` : ''}</div></div>`).join('')}</div>
+  <h2>Videos</h2><div class="card"><div class="vt"><span class="h">Video</span><span class="h num">Aufrufe</span><span class="h num">Likes</span><span class="h num">Komm.</span><span class="h num">Shares</span>
+  ${d.videos.map((v) => `<span>${pdot(v.platform)} ${v.remote_url ? `<a href="${esc(v.remote_url)}" target="_blank" rel="noopener">${esc(title(v.metadata) || v.video_id || v.remote_id)}</a>` : esc(title(v.metadata) || v.video_id || v.remote_id)}<div class="mute">${v.published_at ? fmt(v.published_at) : ''}</div></span><span class="num">${nf(v.views)}</span><span class="num">${nf(v.likes)}</span><span class="num">${nf(v.comments)}</span><span class="num">${nf(v.shares)}</span>`).join('') || '<span class="mute">Noch keine Videos mit Zahlen.</span>'}
+  </div></div>`;
+};
+VIEWS.verdienst = async () => {
+  const d = await api('/api/earnings'), S = d.sums, today = new Date().toISOString().slice(0, 10);
+  const box = (l, o) => `<div class="card kpi"><div class="n">${eur(o.total)}</div><div class="l">${l}</div><div class="mute" style="margin-top:6px">${pdot('youtube')} ${eur(o.youtube)} · ${pdot('tiktok')} ${eur(o.tiktok)} · ${pdot('instagram')} ${eur(o.instagram)}</div></div>`;
+  const months = d.monthly.slice(-12).map((m) => ({ label: m.month.slice(5) + '/' + m.month.slice(2, 4), values: { youtube: m.youtube, tiktok: m.tiktok, instagram: m.instagram } }));
+  return `<h1>Verdienst</h1>
+  <div class="grid">${box('letzte 7 Tage', S.d7)}${box('letzte 30 Tage', S.d30)}${box('letzte 12 Monate', S.d365)}${box('gesamt', S.all)}</div>
+  <h2>Pro Monat</h2><div class="card">${months.length ? barChart(months, ['youtube', 'tiktok', 'instagram'], PNAME) + `<div class="legend">${Object.keys(PNAME).map((p) => `<span>${pdot(p)} ${PNAME[p]}</span>`).join('')}</div>` : '<div class="mute">Noch keine Einnahmen eingetragen.</div>'}</div>
+  <h2>Betrag eintragen</h2><div class="card"><div class="mute">TikTok und Instagram geben Einnahmen nicht über eine Schnittstelle heraus – hier eintragen (z. B. aus dem TikTok-Creator-Center). YouTube kommt automatisch, sobald der Kanal im Partnerprogramm ist und YouTube neu verbunden wurde.</div>
+    <div class="form" style="margin-top:6px"><div><label>Plattform</label><select id="eP">${Object.keys(PNAME).map((p) => `<option value="${p}">${PNAME[p]}</option>`).join('')}</select></div>
+    <div><label>Datum</label><input id="eD" type="date" value="${today}"></div><div><label>Betrag (€)</label><input id="eA" inputmode="decimal" placeholder="z. B. 12,50"></div><div><label>Notiz</label><input id="eN" placeholder="optional"></div></div>
+    <div style="margin-top:12px"><button class="btn pri" id="eSave">Speichern</button></div></div>
+  <h2>Einträge</h2><div class="list">${d.rows.slice(0, 200).map((r) => `<div class="item">${pdot(r.platform)}<span class="t">${eur(r.amount)}</span><span class="mute">${esc(r.day)} · ${PNAME[r.platform]} · ${r.source === 'auto' ? 'automatisch' : 'manuell'}${r.note ? ' · ' + esc(r.note) : ''}</span><span class="sp"></span>${r.source === 'manual' ? `<button class="btn sm danger" data-del="${r.id}">Löschen</button>` : ''}</div>`).join('') || '<div class="mute">Noch keine Einträge.</div>'}</div>`;
+};
+
 const AFTER = {
+  analysen() { document.querySelectorAll('[data-platform]').forEach((b) => b.onclick = () => { ANA.platform = b.dataset.platform; render(); }); document.querySelectorAll('[data-days]').forEach((b) => b.onclick = () => { ANA.days = +b.dataset.days; render(); }); },
+  verdienst() {
+    $('#eSave').onclick = async () => { try { await api('/api/earnings', { method: 'POST', body: { platform: $('#eP').value, day: $('#eD').value, amount: $('#eA').value, note: $('#eN').value } }); toast('Gespeichert'); render(); } catch (e) { toast(e.message); } };
+    document.querySelectorAll('[data-del]').forEach((b) => b.onclick = async () => { if (!confirm('Eintrag löschen?')) return; try { await api('/api/earnings/' + b.dataset.del, { method: 'DELETE' }); render(); } catch (e) { toast(e.message); } });
+  },
   produktion() {
     $('#epSend').onclick = async () => {
       try { const r = await api('/api/episodes', { method: 'POST', body: { title: $('#epTitle').value, episode: $('#epJson').value } }); toast('Übergeben: ' + r.id); render(); }
