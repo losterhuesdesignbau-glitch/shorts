@@ -1,0 +1,1307 @@
+{
+ "title": "Singford",
+ "music": "happy",
+ "cast": {
+  "tom": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#c68642",
+   "shirt": "#ffd23f",
+   "shades": true,
+   "backpack": "#457b9d",
+   "logo": ""
+  },
+  "kid": {
+   "look": "kid",
+   "hair": "spiky",
+   "hairColor": "#2b1b12",
+   "shirt": "#3a86ff",
+   "logo": "star"
+  },
+  "kid2": {
+   "look": "girl",
+   "hair": "pigtails",
+   "hairColor": "#5a3825",
+   "shirt": "#ff006e",
+   "logo": "heart"
+  },
+  "barista": {
+   "look": "woman",
+   "hair": "bun",
+   "hairColor": "#3b2a1a",
+   "shirt": "#2a9d8f",
+   "logo": ""
+  },
+  "worker": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#1b1b1b",
+   "shirt": "#457b9d",
+   "tie": "#e63946",
+   "glasses": true
+  },
+  "cop": {
+   "look": "cop"
+  },
+  "teacher": {
+   "look": "woman",
+   "hair": "long",
+   "hairColor": "#b0b0b0",
+   "shirt": "#6a4c93",
+   "glasses": true,
+   "logo": ""
+  },
+  "mayor": {
+   "look": "grandpa",
+   "hat": "tophat",
+   "tie": "#7b2cbf"
+  },
+  "sheep": {
+   "animal": "sheep"
+  },
+  "grandma": {
+   "look": "grandma"
+  }
+ },
+ "shots": [
+  {
+   "say": "In Singford,",
+   "set": "street",
+   "time": "day",
+   "props": [
+    {
+     "type": "sign",
+     "text": "NO TALKING!\nSING ONLY",
+     "at": [
+      3.0,
+      -2.6
+     ],
+     "ry": -15,
+     "fg": "#d63031"
+    }
+   ],
+   "actors": [
+    {
+     "id": "worker",
+     "at": [
+      -1.5,
+      1
+     ],
+     "do": "talk",
+     "face": 20,
+     "mood": "happy",
+     "emote": "🎵"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     1,
+     4.6,
+     14
+    ],
+    "eye2": [
+     1,
+     4.4,
+     12.5
+    ],
+    "look": [
+     0.5,
+     2.6,
+     0
+    ]
+   }
+  },
+  {
+   "say": "*talking* is illegal.",
+   "set": "street",
+   "time": "day",
+   "props": [
+    {
+     "type": "sign",
+     "text": "NO TALKING!\nSING ONLY",
+     "at": [
+      0,
+      -2
+     ],
+     "ry": 0,
+     "fg": "#d63031"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.3
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.6,
+     8
+    ],
+    "look": [
+     0,
+     3.2,
+     -2
+    ]
+   }
+  },
+  {
+   "say": "You have to *sing* everything.",
+   "set": "plaza",
+   "time": "day",
+   "actors": [
+    {
+     "id": "worker",
+     "at": [
+      -2.4,
+      0.5
+     ],
+     "do": "talk",
+     "face": 30,
+     "mood": "happy",
+     "emote": "🎵"
+    },
+    {
+     "id": "grandma",
+     "at": [
+      0,
+      -0.4
+     ],
+     "do": "dance",
+     "face": 0,
+     "mood": "happy",
+     "emote": "🎵"
+    },
+    {
+     "id": "kid",
+     "at": [
+      2.4,
+      0.5
+     ],
+     "do": "talk",
+     "face": -30,
+     "mood": "happy",
+     "emote": "🎵"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     12
+    ],
+    "look": [
+     0,
+     2.6,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Ordering coffee?",
+   "set": "plaza",
+   "time": "day",
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      0,
+      0
+     ]
+    },
+    {
+     "type": "cup",
+     "at": [
+      0,
+      0
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "barista",
+     "at": [
+      1.6,
+      -0.6
+     ],
+     "do": "idle",
+     "face": -40,
+     "mood": "happy"
+    },
+    {
+     "id": "worker",
+     "at": [
+      -1.6,
+      0.8
+     ],
+     "do": "point",
+     "face": 40,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "worker",
+    "ang": 25
+   }
+  },
+  {
+   "say": "*Sing it.*",
+   "set": "plaza",
+   "time": "day",
+   "actors": [
+    {
+     "id": "worker",
+     "at": [
+      0,
+      0
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "grin",
+     "emote": "🎵"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "close",
+    "target": "worker",
+    "ang": 0
+   }
+  },
+  {
+   "say": "Asking for directions?",
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tom",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "think",
+     "face": 40,
+     "mood": "think"
+    },
+    {
+     "id": "grandma",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "point",
+     "face": -40,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.0,
+     10
+    ],
+    "look": [
+     0,
+     2.6,
+     1
+    ]
+   }
+  },
+  {
+   "say": "*Sing it.*",
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "grandma",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "grin",
+     "emote": "🎵"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "grandma",
+    "ang": 8
+   }
+  },
+  {
+   "say": "Even the *weather report* is a song.",
+   "set": "room",
+   "time": "day",
+   "props": [
+    {
+     "type": "tv",
+     "at": [
+      0,
+      -1.5
+     ],
+     "s": 1.4,
+     "text": "☀️"
+    }
+   ],
+   "fx": [],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.0,
+     6.5
+    ],
+    "look": [
+     0,
+     2.6,
+     -1.5
+    ]
+   }
+  },
+  {
+   "say": "The fire alarm sings,",
+   "set": "street",
+   "time": "day",
+   "props": [
+    {
+     "type": "alarm",
+     "at": [
+      0,
+      -1
+     ],
+     "s": 1.6,
+     "spin": 0
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.1
+    ],
+    [
+     "ding",
+     0.5
+    ]
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.2,
+     "dur": 0.3
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.2,
+     6
+    ],
+    "look": [
+     0,
+     2.4,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "and the police sing your *ticket.*",
+   "set": "street",
+   "time": "day",
+   "props": [
+    {
+     "type": "sign",
+     "text": "TICKET\n$50",
+     "at": [
+      0.2,
+      -2.4
+     ],
+     "pop": 0.3,
+     "fg": "#d63031"
+    }
+   ],
+   "actors": [
+    {
+     "id": "cop",
+     "at": [
+      1.4,
+      0.6
+     ],
+     "do": "talk",
+     "face": -50,
+     "mood": "smug",
+     "emote": "🎵"
+    },
+    {
+     "id": "tom",
+     "at": [
+      -0.6,
+      1.2
+     ],
+     "do": "facepalm",
+     "face": 30,
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     4.4,
+     12
+    ],
+    "look": [
+     0,
+     3.0,
+     -0.6
+    ]
+   }
+  },
+  {
+   "say": "Kids sing their homework.",
+   "set": "plaza",
+   "time": "day",
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      -1.3,
+      0
+     ],
+     "do": "talk",
+     "face": 20,
+     "mood": "happy",
+     "hold": "book",
+     "emote": "🎵"
+    },
+    {
+     "id": "kid2",
+     "at": [
+      1.3,
+      0
+     ],
+     "do": "talk",
+     "face": -20,
+     "mood": "happy",
+     "hold": "book",
+     "emote": "🎵"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.0,
+     9
+    ],
+    "look": [
+     0,
+     2.4,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Teachers sing the grades.",
+   "set": "classroom",
+   "time": "day",
+   "props": [
+    {
+     "type": "board",
+     "at": [
+      0,
+      -1.0
+     ],
+     "text": "A+  B  C"
+    }
+   ],
+   "actors": [
+    {
+     "id": "teacher",
+     "at": [
+      -2,
+      0
+     ],
+     "do": "point",
+     "face": 30,
+     "mood": "happy",
+     "emote": "🎵"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "teacher",
+    "ang": -20
+   }
+  },
+  {
+   "say": "*Bad* grades sound *extra sad.*",
+   "set": "classroom",
+   "time": "day",
+   "props": [
+    {
+     "type": "board",
+     "at": [
+      0,
+      -1.0
+     ],
+     "text": "F"
+    }
+   ],
+   "actors": [
+    {
+     "id": "kid2",
+     "at": [
+      0,
+      0
+     ],
+     "do": "cry",
+     "face": 0,
+     "mood": "sad",
+     "emote": "😭"
+    }
+   ],
+   "sfx": [
+    [
+     "sad",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "close",
+    "target": "kid2",
+    "ang": 0
+   }
+  },
+  {
+   "say": "Why?",
+   "set": "plaza",
+   "time": "day",
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      0,
+      0
+     ],
+     "do": "think",
+     "face": 0,
+     "mood": "think"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "kid",
+    "ang": 0
+   }
+  },
+  {
+   "say": "Long ago, the mayor",
+   "set": "field",
+   "time": "sunset",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      -1.2,
+      0
+     ],
+     "do": "talk",
+     "face": 40,
+     "mood": "angry"
+    },
+    {
+     "id": "sheep",
+     "at": [
+      2.8,
+      1.4
+     ],
+     "do": "idle",
+     "face": -60,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.8,
+     11
+    ],
+    "look": [
+     0,
+     2.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "yelled at a *sheep* for an hour.",
+   "set": "field",
+   "time": "sunset",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      -1.2,
+      0
+     ],
+     "do": "angry",
+     "face": 40,
+     "mood": "angry"
+    },
+    {
+     "id": "sheep",
+     "at": [
+      2.8,
+      1.4
+     ],
+     "do": "idle",
+     "face": -60,
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.5
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "mayor",
+    "ang": 30
+   }
+  },
+  {
+   "say": "He lost his *voice.*",
+   "set": "house",
+   "time": "sunset",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "facepalm",
+     "face": 0,
+     "mood": "sad",
+     "emote": "😶"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "mayor",
+    "ang": 0
+   }
+  },
+  {
+   "say": "The only way he could talk",
+   "set": "house",
+   "time": "sunset",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "think",
+     "face": 0,
+     "mood": "think"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "mayor",
+    "ang": 15
+   }
+  },
+  {
+   "say": "was by *singing.*",
+   "set": "house",
+   "time": "sunset",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "laugh",
+     "emote": "🎵"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "mayor",
+    "ang": -15
+   }
+  },
+  {
+   "say": "So he made *everyone* sing.",
+   "set": "plaza",
+   "time": "day",
+   "props": [
+    {
+     "type": "sign",
+     "text": "NO TALKING!\nSING ONLY",
+     "at": [
+      0,
+      -2.5
+     ],
+     "ry": 0,
+     "fg": "#d63031",
+     "pop": 0.3
+    }
+   ],
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      1.8,
+      0.4
+     ],
+     "do": "point",
+     "face": -40,
+     "mood": "smug"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.32
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.6,
+     4.4,
+     11
+    ],
+    "look": [
+     0.4,
+     3.0,
+     -1
+    ]
+   }
+  },
+  {
+   "say": "*Forever.*",
+   "set": "plaza",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      0
+     ],
+     "do": "no",
+     "face": 0,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "mayor",
+    "ang": 10
+   }
+  },
+  {
+   "say": "Then one day, a tourist arrived.",
+   "pause": 0.2,
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tom",
+     "at": [
+      -8,
+      1
+     ],
+     "to": [
+      -1,
+      1
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     3,
+     4.0,
+     11
+    ],
+    "look": [
+     -2,
+     2.6,
+     1
+    ]
+   }
+  },
+  {
+   "say": "He just *talked.* Totally normal.",
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tom",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "tom",
+    "ang": 20
+   }
+  },
+  {
+   "say": "Everyone *froze.*",
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "worker",
+     "at": [
+      -2.4,
+      0.8
+     ],
+     "do": "idle",
+     "face": 40,
+     "mood": "shock"
+    },
+    {
+     "id": "grandma",
+     "at": [
+      0,
+      -0.2
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "shock"
+    },
+    {
+     "id": "barista",
+     "at": [
+      2.4,
+      0.8
+     ],
+     "do": "idle",
+     "face": -40,
+     "mood": "shock"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.2,
+     11
+    ],
+    "look": [
+     0,
+     2.8,
+     0
+    ]
+   }
+  },
+  {
+   "say": "The police ran at him...",
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "cop",
+     "at": [
+      6,
+      1
+     ],
+     "to": [
+      1.6,
+      1
+     ],
+     "move": [
+      0,
+      1
+     ],
+     "do": "run",
+     "mood": "angry",
+     "face": -90
+    },
+    {
+     "id": "tom",
+     "at": [
+      -1.5,
+      1
+     ],
+     "do": "idle",
+     "face": 90,
+     "mood": "scared"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.0,
+     11
+    ],
+    "look": [
+     0,
+     2.6,
+     1
+    ]
+   }
+  },
+  {
+   "say": "and started to *clap!*",
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "cop",
+     "at": [
+      1.2,
+      1
+     ],
+     "do": "clap",
+     "face": -60,
+     "mood": "laugh"
+    },
+    {
+     "id": "worker",
+     "at": [
+      -2.6,
+      0
+     ],
+     "do": "clap",
+     "face": 40,
+     "mood": "laugh"
+    },
+    {
+     "id": "tom",
+     "at": [
+      -0.6,
+      1.4
+     ],
+     "do": "shrug",
+     "face": 20,
+     "mood": "confused",
+     "emote": "🤯"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.3
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     11
+    ],
+    "look": [
+     0,
+     2.8,
+     0.6
+    ]
+   }
+  },
+  {
+   "say": "Plain talking sounded *brand new* to them.",
+   "set": "plaza",
+   "time": "day",
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      -1.4,
+      0
+     ],
+     "do": "cheer",
+     "face": 20,
+     "mood": "laugh"
+    },
+    {
+     "id": "kid2",
+     "at": [
+      1.4,
+      0
+     ],
+     "do": "cheer",
+     "face": -20,
+     "mood": "laugh"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.2,
+     10
+    ],
+    "look": [
+     0,
+     2.6,
+     0
+    ]
+   }
+  },
+  {
+   "say": "They called it *rap.*",
+   "set": "plaza",
+   "time": "day",
+   "props": [
+    {
+     "type": "bigtext",
+     "text": "RAP?!",
+     "at": [
+      0,
+      -3
+     ],
+     "pop": 0.2,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.0,
+     9
+    ],
+    "look": [
+     0,
+     3.4,
+     -3
+    ]
+   }
+  },
+  {
+   "say": "Now he's the *biggest star* in town.",
+   "set": "plaza",
+   "time": "day",
+   "props": [
+    {
+     "type": "crown",
+     "on": "tom"
+    }
+   ],
+   "actors": [
+    {
+     "id": "tom",
+     "at": [
+      0,
+      0
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "grin"
+    },
+    {
+     "id": "grandma",
+     "at": [
+      -2.4,
+      1
+     ],
+     "do": "clap",
+     "face": 30,
+     "mood": "laugh"
+    },
+    {
+     "id": "cop",
+     "at": [
+      2.4,
+      1
+     ],
+     "do": "clap",
+     "face": -30,
+     "mood": "laugh"
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.3
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.2,
+     10
+    ],
+    "look": [
+     0,
+     2.8,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Would *you* move here?",
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tom",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "target": "tom",
+    "ang": 6
+   }
+  },
+  {
+   "say": "Yes or no?",
+   "set": "street",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tom",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "target": "tom",
+    "ang": -10
+   }
+  },
+  {
+   "say": "Because in Singford...",
+   "set": "street",
+   "time": "day",
+   "props": [
+    {
+     "type": "sign",
+     "text": "NO TALKING!\nSING ONLY",
+     "at": [
+      3.0,
+      -2.6
+     ],
+     "ry": -15,
+     "fg": "#d63031"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     2,
+     4.0,
+     9
+    ],
+    "eye2": [
+     2.4,
+     3.8,
+     7.5
+    ],
+    "look": [
+     3.0,
+     3.2,
+     -2.6
+    ]
+   }
+  }
+ ],
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "TALKING\n= ILLEGAL",
+  "series": "WEIRD TOWNS #1",
+  "cta": "YES or NO? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "The Town Where TALKING Is Illegal 🎵🤐",
+  "description": "In Singford you have to SING everything – coffee orders, police tickets, even homework. Then a tourist just… talked. Would YOU move here? 👇",
+  "hashtags": [
+   "weirdtowns",
+   "funny",
+   "story",
+   "animation"
+  ],
+  "language": "en"
+ }
+}
