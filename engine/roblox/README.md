@@ -147,7 +147,7 @@ Twist erst ganz am Ende · letzter Satz führt in den ersten zurück (Loop) · J
 
 ## Großes Update (20.11.2026)
 - **Rauszoomen:** Viral-Folgen zeigen automatisch mehr Umgebung (`camFar`, Standard 1.4; close ×1.55, medium ×1.25 zusätzlich). Pro Episode `"camFar": 1.0` = alter Look, pro Kamera `"far": 2`.
-- **Motion-Capture:** `tools/mocap_extract.py video.mp4 kp.json --people 2` (YOLO-Pose, Gewichte `yolo11m-pose.pt` von GitHub/ultralytics) → `tools/mocap_retarget.py kp.json mocap.json` → Figur mit `"do": "mocap", "mocap": {"fps", "keys", "frames", "start", "gain", "move"}` (frames = `people[i].frames`, Person 0 = links im Video). Bewegung wird 1:1 aus dem Video übernommen.
+- **Motion-Capture:** `tools/mocap_extract.py video.mp4 kp.json --people 2` (YOLO-Pose, Gewichte `yolo11m-pose.pt` von GitHub/ultralytics) → `tools/mocap_retarget.py kp.json mocap.json [--smooth 3]` (Glättung gegen Zittern, Standard 3 Frames) → Figur mit `"do": "mocap", "mocap": {"fps", "keys", "frames", "start", "gain", "move"}` (frames = `people[i].frames`, Person 0 = links im Video). Bewegung wird 1:1 aus dem Video übernommen.
 - **Rig:** Look-Felder `slim` (z. B. 0.8) und `tall` (z. B. 1.12) für schlankere/größere Figuren; Taillenbeugung `wz`, runde Ellbogen/Knie ab 8°, Hüftkugeln bei angehobenem Bein.
 - **Tanz-Posen:** `cross`, `chicken`, `kneelift`, `figure4`, `kickback`, `wavearms`, `stand`, `headhand` (im Takt über `bpm`/`boff`); Figur-Felder `headhand`, `finaleKnee`. Look: `flare` (Schlaghose), Muster `knit`.
 - **Sets:** `danceroom` (heller Raum, Holztür, Holzdecke, Fliesen), `stadium` (Rasen, Linien, Tore, volle Tribünen, Flutlicht).

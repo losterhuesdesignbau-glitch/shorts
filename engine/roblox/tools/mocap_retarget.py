@@ -28,6 +28,7 @@ def limb(d):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('kp'); ap.add_argument('out'); ap.add_argument('--mirror', action='store_true')
+    ap.add_argument('--smooth', type=float, default=3.0, help='Glättung der Gelenkwinkel (Gauß-Sigma in Frames, gegen Zittern)')
     a = ap.parse_args()
     K = json.load(open(a.kp)); F = K['frames']; n = len(F); npl = max(len(f) for f in F)
     out = {'fps': K['fps'], 'keys': KEYS, 'people': []}
@@ -56,21 +57,24 @@ def main():
         torso = (V[:, 5] + V[:, 6]) / 2 - (V[:, 11] + V[:, 12]) / 2; tlen = np.median(np.linalg.norm(torso, axis=1))
         swmax = np.percentile(np.abs(V[:, 5, 0] - V[:, 6, 0]), 92)
         hipc = (V[:, 11] + V[:, 12]) / 2; base = np.median(hipc[: max(5, n // 10)], 0)
-        rows = []
+        rows = []; last = {}
         for i in range(n):
             r = {}
             for side, s in (('L', 1), ('R', -1)):
                 ua = d3('ua' + side)[i]; fa = d3('fa' + side)[i]
                 az, ax = limb(ua); R = rz(az) @ rx(ax)
                 fl = R.T @ (fa / (np.linalg.norm(fa) + 1e-9))
-                e = math.acos(max(-1, min(1, -fl[1]))); ay = math.atan2(fl[0], fl[2]) if e > 0.25 else 0.0
+                e = math.acos(max(-1, min(1, -fl[1]))); key = 'ay' + side
+                if e > 0.35: last[key] = math.atan2(fl[0], fl[2])
+                ay = last.get(key, 0.0) * min(1.0, e / 0.35)  # bei fast gestrecktem Arm Drehung halten statt springen
                 r['a' + side + 'z'] = az * D; r['a' + side + 'x'] = ax * D; r['a' + side + 'y'] = ay * D; r['e' + side] = min(150, e * D)
                 th = d3('th' + side)[i]; lz, lx = limb(th); RL = rz(lz) @ rx(lx)
                 best = None
                 for sg in (1, -1):
                     sh = d3('sh' + side, sg)[i]; sl = RL.T @ (sh / (np.linalg.norm(sh) + 1e-9))
-                    k = math.atan2(-sl[2], -sl[1]); score = abs(sl[0]) + (0.5 if k < -0.1 else 0)
+                    k = math.atan2(-sl[2], -sl[1]); score = abs(sl[0]) + (0.5 if k < -0.1 else 0) + (0 if last.get('k' + side, 0) * k >= 0 else 0.25)
                     if best is None or score < best[0]: best = (score, k)
+                last['k' + side] = best[1]
                 r['l' + side + 'z'] = lz * D; r['l' + side + 'x'] = lx * D; r['k' + side] = max(0, min(150, best[1] * D))
             r['wz'] = max(-30, min(30, -math.degrees(math.atan2(torso[i, 0], torso[i, 1]))))
             sw = abs(V[i, 5, 0] - V[i, 6, 0]); smid = (V[i, 5, 0] + V[i, 6, 0]) / 2
@@ -85,7 +89,12 @@ def main():
             u = 1.88 / tlen  # Figur-Einheiten pro Pixel (Rumpflänge)
             r['y'] = max(-0.6, min(0.8, (hipc[i, 1] - base[1]) * u)); r['dx'] = max(-2, min(2, (hipc[i, 0] - base[0]) * u))
             rows.append([round(float(r[k]), 1) for k in KEYS])
-        out['people'].append({'frames': rows})
+        arr = np.array(rows, dtype=float)
+        if a.smooth > 0 and len(arr) > 3:  # Gauß-Glättung über die Zeit (gegen Zittern), Ränder gespiegelt
+            r = int(a.smooth * 3); xs = np.arange(-r, r + 1); kern = np.exp(-0.5 * (xs / a.smooth) ** 2); kern /= kern.sum()
+            pad = np.pad(arr, ((r, r), (0, 0)), mode='reflect')
+            arr = np.stack([np.convolve(pad[:, j], kern, mode='valid') for j in range(arr.shape[1])], 1)
+        out['people'].append({'frames': np.round(arr, 1).tolist()})
     json.dump(out, open(a.out, 'w'))
     print(f'{n} Frames, {npl} Personen -> {a.out}')
 
