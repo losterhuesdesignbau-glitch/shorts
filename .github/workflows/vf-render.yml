@@ -16,6 +16,9 @@ on:
 permissions:
   contents: write
 
+env:
+  VF_QUALITY: classic   # 4K-Look: auf "hq" stellen, sobald Lukas den Look freigibt
+
 jobs:
   plan:
     runs-on: ubuntu-latest
