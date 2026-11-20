@@ -201,27 +201,29 @@ out vec4 o;
 uniform sampler2D uNz;
 #endif
 #ifdef HQ
+#ifndef GRAIN
+uniform sampler2D uNz;
+#endif
 float hh(vec3 p){p=fract(p*0.3183099+0.1);p*=17.0;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
-float n3(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.0-2.0*f);
- return mix(mix(mix(hh(i),hh(i+vec3(1,0,0)),f.x),mix(hh(i+vec3(0,1,0)),hh(i+vec3(1,1,0)),f.x),f.y),mix(mix(hh(i+vec3(0,0,1)),hh(i+vec3(1,0,1)),f.x),mix(hh(i+vec3(0,1,1)),hh(i+vec3(1,1,1)),f.x),f.y),f.z);}
-float fb(vec3 p){return n3(p)*0.5+n3(p*2.07)*0.3+n3(p*4.3)*0.2;}
+float tn(vec2 q){return texture(uNz,q*0.0625).r;}
+float tg(vec2 q){return texture(uNz,q*0.0625).g;}
 vec3 matC(float id,vec3 c,vec3 p,vec3 on){vec3 a=abs(on);vec2 uv=a.y>a.x&&a.y>a.z?p.xz:(a.x>a.z?p.zy:p.xy);float k=1.0;
- if(id<1.5){float g=fb(vec3(uv.x*0.7,uv.y*7.0,p.z*0.3+p.x*0.2));k=0.86+0.22*g+0.06*sin(uv.y*26.0+g*9.0);float pl=fract(uv.x*1.1);k*=mix(0.82,1.0,smoothstep(0.0,0.04,pl)*smoothstep(1.0,0.96,pl));}
+ if(id<1.5){float g=tn(vec2(uv.x*0.5,uv.y*5.0));k=0.86+0.22*g+0.06*sin(uv.y*26.0+g*9.0);float pl=fract(uv.x*1.1);k*=mix(0.82,1.0,smoothstep(0.0,0.04,pl)*smoothstep(1.0,0.96,pl));}
  else if(id<2.5){vec2 q=uv*vec2(1.6,2.4);q.x+=step(1.0,mod(q.y,2.0))*0.5;vec2 f=fract(q);float m=smoothstep(0.0,0.06,f.x)*smoothstep(1.0,0.94,f.x)*smoothstep(0.0,0.08,f.y)*smoothstep(1.0,0.92,f.y);
-  k=mix(0.72,0.9+0.2*hh(vec3(floor(q),3.0))+0.08*fb(p*3.0),m);}
+  k=mix(0.72,0.9+0.2*hh(vec3(floor(q),3.0))+0.08*tg(uv*3.0),m);}
  else if(id<3.5){vec2 q=uv*vec2(2.6,5.2);q.x+=step(1.0,mod(q.y,2.0))*0.5;vec2 f=fract(q);float m=smoothstep(0.0,0.08,f.x)*smoothstep(1.0,0.92,f.x)*smoothstep(0.0,0.12,f.y)*smoothstep(1.0,0.88,f.y);
   k=mix(0.78,0.88+0.22*hh(vec3(floor(q),5.0)),m);}
- else if(id<4.5){k=0.93+0.1*fb(p*1.6)+0.05*(n3(p*18.0)-0.5);}
- else if(id<5.5){k=0.95+0.05*sin(uv.x*90.0)*sin(uv.y*90.0)+0.08*(fb(p*1.3)-0.5);}
- else if(id<6.5){k=0.9+0.08*sin((uv.x+uv.y)*70.0)+0.12*(fb(p*2.0)-0.4);c=mix(c,c*vec3(1.08,1.1,1.18),fb(p*1.1)*0.5);}
+ else if(id<4.5){k=0.93+0.1*tn(uv*1.6)+0.05*(tg(uv*14.0)-0.5);}
+ else if(id<5.5){k=0.95+0.05*sin(uv.x*90.0)*sin(uv.y*90.0)+0.08*(tn(uv*1.3)-0.5);}
+ else if(id<6.5){float f=tn(uv*1.4);k=0.9+0.08*sin((uv.x+uv.y)*70.0)+0.12*(f-0.4);c=mix(c,c*vec3(1.08,1.1,1.18),f*0.5);}
  else if(id<7.5){vec2 q=uv*vec2(9.0,12.0);float v=abs(fract(q.x)-0.5)*2.0;k=0.86+0.2*smoothstep(0.2,0.8,abs(fract(q.y+v*0.5)-0.5)*2.0);}
  else if(id<8.5){vec2 q=uv*vec2(1.4,3.2);q.x+=step(1.0,mod(q.y,2.0))*0.5;vec2 f=fract(q);k=(0.82+0.22*hh(vec3(floor(q),9.0)))*mix(0.7,1.0,smoothstep(0.0,0.2,f.y));}
- else if(id<9.5){float g=fb(p*0.35);k=0.82+0.3*g+0.1*(n3(p*9.0)-0.5);c=mix(c,c*vec3(1.15,1.05,0.75),smoothstep(0.55,0.8,fb(p*0.12))*0.5);}
- else if(id<10.5){k=0.94+0.06*n3(vec3(uv.x*40.0,uv.y*1.5,0.0));}
- else if(id<11.5){k=0.85+0.22*n3(vec3(p.x*28.0,p.y*2.0,p.z*28.0));}
- else if(id<12.5){float y=fract(p.y*1.8);k=mix(0.8,1.04,smoothstep(0.0,0.12,y))*(0.96+0.06*fb(p*2.0));}
- else if(id<13.5){k=0.97+0.05*fb(p*0.8);if(hh(floor(p*22.0))>0.985)k=1.25;}
- else {k=0.75+0.45*fb(p*1.6);}
+ else if(id<9.5){float g=tn(uv*0.35);k=0.82+0.3*g+0.1*(tg(uv*6.0)-0.5);c=mix(c,c*vec3(1.15,1.05,0.75),smoothstep(0.55,0.8,tg(uv*0.12))*0.5);}
+ else if(id<10.5){k=0.94+0.06*tn(vec2(uv.x*30.0,uv.y*1.0));}
+ else if(id<11.5){k=0.85+0.22*tn(vec2((p.x+p.z)*20.0,p.y*1.5));}
+ else if(id<12.5){float y=fract(p.y*1.8);k=mix(0.8,1.04,smoothstep(0.0,0.12,y))*(0.96+0.06*tn(uv*2.0));}
+ else if(id<13.5){k=0.97+0.05*tn(uv*0.8);if(hh(floor(p*22.0))>0.985)k=1.25;}
+ else {k=0.75+0.45*tn(uv*1.2);}
  return c*k;}
 #endif
 void main(){vec3 n=normalize(vN);
