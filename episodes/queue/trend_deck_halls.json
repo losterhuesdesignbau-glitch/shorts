@@ -1,0 +1,2110 @@
+{
+ "title": "Deck the Halls",
+ "music": "happy",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ },
+ "grade": {
+  "bloom": 0.3,
+  "vignette": 0.25,
+  "warm": 0.05,
+  "sat": 1.08
+ },
+ "viral": {
+  "hook": "WHY THIS\nDANCE?",
+  "series": "TRENDING NOW #1",
+  "cta": "YES or NO? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "The Deck the Halls Dance Has a SECRET 🎄💃",
+  "description": "Everyone on TikTok is doing the Deck the Halls dance – but the song was never about Christmas. Its 400-year-old Welsh melody was a New Year's Eve song! Would you dance it? 👇",
+  "hashtags": [
+   "deckthehalls",
+   "christmasdance",
+   "trendingnow",
+   "funfacts"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "mia": {
+   "look": "woman",
+   "hair": "long",
+   "hairColor": "#e2c17c",
+   "shirt": "#d62839",
+   "pants": "#1d2840",
+   "shoes": "#f5f5f5",
+   "lashes": true,
+   "logo": "none",
+   "slim": 0.85
+  },
+  "zoe": {
+   "look": "woman",
+   "hair": "long",
+   "hairColor": "#5b3a26",
+   "shirt": "#2a9d8f",
+   "pants": "#93b3d6",
+   "shoes": "#f5f5f5",
+   "lashes": true,
+   "logo": "none",
+   "slim": 0.85
+  },
+  "dad": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#3b2a1a",
+   "shirt": "#1d6f42",
+   "logo": "star"
+  },
+  "gran": {
+   "look": "grandma"
+  },
+  "kid": {
+   "look": "kid",
+   "hair": "spiky",
+   "hairColor": "#2b1b12",
+   "shirt": "#ffd23f",
+   "logo": "star"
+  },
+  "boss": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#1b1b1b",
+   "shirt": "#457b9d",
+   "tie": "#e63946",
+   "glasses": true
+  },
+  "bard": {
+   "look": "man",
+   "hair": "long",
+   "hairColor": "#7a4b2a",
+   "shirt": "#6a4c93",
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "This dance",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     13
+    ],
+    "eye2": [
+     0,
+     4.2,
+     11
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "is *everywhere*.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "twist",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "twist",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:zoe",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "The *Deck the Halls* dance.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "strut",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "strut",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "It's all over TikTok right now.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "twist",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "twist",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:mia",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Over *eighty thousand* videos",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "salute",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "salute",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "counter": {
+    "label": "VIDEOS",
+    "from": 0,
+    "to": 82900
+   },
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "use the sound.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "kneelift",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "kneelift",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:zoe",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Moms, dads, grandmas,",
+   "set": "house",
+   "time": "day",
+   "actors": [
+    {
+     "id": "dad",
+     "at": [
+      -2.4,
+      0.4
+     ],
+     "do": "strut",
+     "face": 20,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "gran",
+     "at": [
+      0,
+      -0.3
+     ],
+     "do": "jazzhands",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "kid",
+     "at": [
+      2.4,
+      0.4
+     ],
+     "do": "twist",
+     "face": -20,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group"
+  },
+  {
+   "say": "even whole *offices*.",
+   "set": "classroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "boss",
+     "at": [
+      -1.8,
+      0
+     ],
+     "do": "jazzhands",
+     "face": 15,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "dad",
+     "at": [
+      1.8,
+      0
+     ],
+     "do": "jazzhands",
+     "face": -15,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group"
+  },
+  {
+   "say": "So why is it exploding in *November*?",
+   "set": "room",
+   "time": "day",
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      0,
+      0
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0,
+     "emote": "🤔"
+    }
+   ],
+   "cam": "medium:kid"
+  },
+  {
+   "say": "Because TikTok starts Christmas *early*.",
+   "set": "room",
+   "time": "day",
+   "actors": [
+    {
+     "id": "gran",
+     "at": [
+      0,
+      0
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0,
+     "emote": "🎄"
+    }
+   ],
+   "cam": "medium:gran",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      2.4,
+      -1.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "The moment Halloween ends,",
+   "set": "street",
+   "time": "night",
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0,
+     "emote": "🎃"
+    }
+   ],
+   "cam": "medium:kid"
+  },
+  {
+   "say": "the *trees* go up,",
+   "set": "room",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.6,
+     9
+    ],
+    "look": [
+     0,
+     2.6,
+     -2
+    ]
+   },
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      0,
+      -2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -1.2,
+      -0.8
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      1.2,
+      -0.8
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "the lights come on,",
+   "set": "street",
+   "time": "night",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.1
+    },
+    {
+     "type": "snow",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "and the *fa la la* begins.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.4
+    }
+   ]
+  },
+  {
+   "say": "The dance is *easy*.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "stand",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "stand",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Step to the side,",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "strut",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "strut",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "full:mia",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "jazz hands up,",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:zoe",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "a little twist,",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "twist",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "twist",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "and a big *pose* at the end.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "finale",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "finale",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "low:mia",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.5
+    }
+   ]
+  },
+  {
+   "say": "Anyone can copy it in *ten seconds*.",
+   "set": "plaza",
+   "time": "day",
+   "actors": [
+    {
+     "id": "dad",
+     "at": [
+      -2.4,
+      0.4
+     ],
+     "do": "jazzhands",
+     "face": 20,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "gran",
+     "at": [
+      0,
+      -0.3
+     ],
+     "do": "jazzhands",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "kid",
+     "at": [
+      2.4,
+      0.4
+     ],
+     "do": "jazzhands",
+     "face": -20,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group"
+  },
+  {
+   "say": "That's the secret of every viral dance:",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "cross",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "cross",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "easy moves,",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "kneelift",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "kneelift",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:mia",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "and a song *everyone* knows.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "wavearms",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "wavearms",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "But here's the *twist*.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "shock",
+     "bpm": 120,
+     "boff": 0,
+     "emote": "❗"
+    }
+   ],
+   "cam": "close:zoe",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "*Deck the Halls* was never a Christmas song.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      0
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "shock",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:mia",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "The melody comes from *Wales*,",
+   "set": "room",
+   "time": "day",
+   "actors": [
+    {
+     "id": "bard",
+     "at": [
+      0,
+      0
+     ],
+     "do": "piano",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:bard",
+   "props": [
+    {
+     "type": "piano",
+     "at": [
+      0,
+      -1
+     ]
+    },
+    {
+     "type": "stool",
+     "at": [
+      0,
+      0.2
+     ]
+    }
+   ]
+  },
+  {
+   "say": "and it's over *four hundred* years old.",
+   "set": "room",
+   "time": "day",
+   "actors": [
+    {
+     "id": "bard",
+     "at": [
+      0,
+      0
+     ],
+     "do": "piano",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "side:bard",
+   "props": [
+    {
+     "type": "piano",
+     "at": [
+      0,
+      -1
+     ]
+    },
+    {
+     "type": "stool",
+     "at": [
+      0,
+      0.2
+     ]
+    }
+   ],
+   "counter": {
+    "label": "YEARS OLD",
+    "from": 0,
+    "to": 450
+   }
+  },
+  {
+   "say": "It was called *Nos Galan*,",
+   "set": "room",
+   "time": "day",
+   "actors": [
+    {
+     "id": "bard",
+     "at": [
+      0,
+      0
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "close:bard",
+   "speak": "It was called Noss Galan,",
+   "props": [
+    {
+     "type": "sign",
+     "text": "NOS GALAN",
+     "at": [
+      2.2,
+      -1.8
+     ],
+     "fg": "#6a4c93"
+    }
+   ]
+  },
+  {
+   "say": "which means...",
+   "set": "room",
+   "time": "day",
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0,
+     "emote": "❓"
+    }
+   ],
+   "cam": "close:kid"
+  },
+  {
+   "say": "*New Year's Eve*!",
+   "set": "plaza",
+   "time": "night",
+   "actors": [
+    {
+     "id": "kid",
+     "at": [
+      0,
+      0
+     ],
+     "do": "jump",
+     "face": 0,
+     "mood": "shock",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:kid",
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "People danced to it",
+   "set": "plaza",
+   "time": "night",
+   "actors": [
+    {
+     "id": "dad",
+     "at": [
+      -2.4,
+      0.4
+     ],
+     "do": "dance",
+     "face": 20,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "gran",
+     "at": [
+      0,
+      -0.3
+     ],
+     "do": "dance",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "bard",
+     "at": [
+      2.4,
+      0.4
+     ],
+     "do": "dance",
+     "face": -20,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group"
+  },
+  {
+   "say": "to say goodbye to the old year.",
+   "set": "plaza",
+   "time": "night",
+   "actors": [
+    {
+     "id": "gran",
+     "at": [
+      0,
+      0
+     ],
+     "do": "dance",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:gran",
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "The Christmas words",
+   "set": "room",
+   "time": "day",
+   "actors": [
+    {
+     "id": "bard",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:bard"
+  },
+  {
+   "say": "only came in *1862*.",
+   "set": "room",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     8
+    ],
+    "look": [
+     0,
+     3.2,
+     -2
+    ]
+   },
+   "speak": "only came in eighteen sixty-two.",
+   "props": [
+    {
+     "type": "bigtext",
+     "text": "1862",
+     "at": [
+      0,
+      -2
+     ]
+    }
+   ]
+  },
+  {
+   "say": "So TikTok isn't early for Christmas.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "stand",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "stand",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "It's *way* too late for New Year's!",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:zoe",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ]
+  },
+  {
+   "say": "Would *you* dance it?",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "stand",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "stand",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:mia",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "finale",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "finale",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     13
+    ],
+    "eye2": [
+     0,
+     4.2,
+     11
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Because now,",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "strut",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "strut",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "medium:zoe",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "this dance is everywhere.",
+   "set": "danceroom",
+   "time": "day",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": 10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      0
+     ],
+     "do": "jazzhands",
+     "face": -10,
+     "mood": "happy",
+     "bpm": 120,
+     "boff": 0
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "pine",
+     "at": [
+      -4.2,
+      -2.5
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      -3.2,
+      -1.2
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      3.4,
+      -1.4
+     ]
+    },
+    {
+     "type": "pine",
+     "at": [
+      4.4,
+      -2.6
+     ]
+    }
+   ]
+  }
+ ]
+}
