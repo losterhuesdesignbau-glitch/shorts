@@ -64,6 +64,7 @@ async function route(req, env) {
       },
     });
   }
+  if (path === '/tiktokIFUBXv6cR6Cy0z3e3d4aSb4357fJRqQJ.txt') return new Response('tiktok-developers-site-verification=IFUBXv6cR6Cy0z3e3d4aSb4357fJRqQJ', { headers: { 'content-type': 'text/plain' } });
   if (path === '/health') return json({ ok: true, at: nowIso() });
   if (path === '/privacy' || path === '/datenschutz') return htmlPage('Datenschutz – viralflow', PRIVACY);
   if (path === '/about') return htmlPage('viralflow', ABOUT);
