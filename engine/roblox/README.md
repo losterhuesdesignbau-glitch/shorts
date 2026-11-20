@@ -177,3 +177,4 @@ Alle Verbesserungen sind jetzt Standard:
 - Director: `dx`/`dz` bewegen die Figur selbst (Schatten folgt, kein Schweben).
 - `studio.py`: Episode-Feld `"motionBlur": true` (leichte Bewegungsunschärfe); Shot-Cache enthält den Engine-Stand (nach Engine-Änderungen wird automatisch neu gerendert).
 - Neue Orte: `xmasmarket`, `snowyard`, `mall` (Option `width`); Requisit `snowman`.
+- **Set `patio`** (Terrasse vor großem Landhaus mit Giebel, Balkon, Steinsäulen; Option `z` für Hausabstand) und Look-Feld **`crop`** (bauchfreies Crop-Top, `true` oder Streifenhöhe).

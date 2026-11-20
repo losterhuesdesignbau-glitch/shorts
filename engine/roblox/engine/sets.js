@@ -334,6 +334,44 @@ const SETS = {
     setLampPost(mb, S.lamp, 2, -7);
     S.wide = { eye: [0, 8, 22], look: [0, 2, -8] };
   },
+  patio(S, o) {
+    // Terrasse vor großem modernem Landhaus: Betonplatten, weißes Haus mit Giebel, überdachter Balkon (dunkle Decke, schwarzes Geländer), Steinsäulen, Steinmauer, Rattan-Sofa
+    S.bg = 'beach'; const mb = S.mb, G = S.glow;
+    groundPlane(mb, '#9fb07a');
+    P_(mb, 0, 0.02, -10, () => mb.box(44, 0.04, 44, '#d9d6d0'));
+    for (let x = -18; x <= 18; x += 3.6) P_(mb, x, 0.045, -6, () => mb.box(0.05, 0.01, 34, '#bfbbb4'));
+    for (let z = 10; z >= -22; z -= 3.6) P_(mb, 0, 0.045, z, () => mb.box(40, 0.01, 0.05, '#bfbbb4'));
+    const hz = o.z ?? -28, wall = '#f1efea', dark = '#2b2d33', stone = '#d8c7a6', stone2 = '#c9b48f';
+    // Hauptbau (2 Etagen) + Seitenflügel
+    P_(mb, 0, 7, hz - 4, () => mb.box(22, 14, 8, wall));
+    for (const sx of [-1, 1]) P_(mb, sx * 19, 5.5, hz - 2, () => mb.box(16, 11, 8, wall));
+    for (let y = 0.6; y < 14; y += 0.55) P_(mb, 0, y, hz - 0.02, () => mb.box(22, 0.04, 0.05, '#dcd9d3'));     // Holzverkleidung-Fugen
+    for (const sx of [-1, 1]) for (let y = 0.6; y < 11; y += 0.55) P_(mb, sx * 19, y, hz + 2.02, () => mb.box(16, 0.04, 0.05, '#dcd9d3'));
+    for (const sx of [-1, 1]) P_(mb, sx * 19, 11.4, hz - 2, () => mb.box(16.6, 0.8, 8.6, dark));
+    // Giebel-Vorbau mit überdachtem Balkon
+    mb.push(M4.chain(M4.T(0, 17.2, hz + 1.5), M4.RY(Math.PI / 2))); mb.prism(7.4, 4.2, 14.6, dark, { gable: wall }); mb.pop();
+    P_(mb, 0, 15.1, hz + 1.5, () => mb.box(14, 0.5, 7, '#e9e6e0'));
+    P_(mb, 0, 14.75, hz + 1.5, () => mb.box(12.4, 0.2, 6.2, dark));                                       // dunkle Decke
+    for (const [x, z] of [[-3, hz + 2.5], [3, hz + 2.5], [-3, hz], [3, hz], [0, hz + 1.2]]) P_(G, x, 14.6, z, () => G.sphere(0.12, 0, '#fff6d8'));
+    P_(mb, 0, 7.6, hz + 1.5, () => mb.box(14, 0.5, 7, '#e9e6e0'));                                          // Balkonboden
+    P_(mb, 0, 9.15, hz + 4.85, () => mb.box(10.6, 0.1, 0.1, '#111111'));
+    for (let x = -5.2; x <= 5.2; x += 0.35) P_(mb, x, 8.5, hz + 4.85, () => mb.box(0.04, 1.3, 0.04, '#111111'));
+    for (const x of [-4, 0, 4]) { P_(S.win, x, 10.5, hz + 0.05, () => S.win.box(3, 5, 0.1, '#2e3640')); P_(mb, x, 10.5, hz + 0.1, () => mb.box(0.1, 5, 0.12, dark)); }
+    for (const x of [-4.6, 0, 4.6]) P_(S.win, x, 3.2, hz + 0.05, () => S.win.box(3.4, 5.4, 0.1, '#30363e'));
+    P_(mb, 0, 10.8, hz + 0.3, () => mb.box(3.4, 6.4, 0.5, stone));                                          // Stein-Kamin
+    // Steinsäulen mit weißem Oberteil
+    for (const sx of [-1, 1]) { P_(mb, sx * 6.6, 3.8, hz + 4.6, () => mb.box(1.8, 7.6, 1.8, stone)); for (let y = 0.4; y < 7.6; y += 0.6) P_(mb, sx * 6.6, y, hz + 4.6, () => mb.box(1.84, 0.05, 1.84, stone2));
+      P_(mb, sx * 6.6, 7.85, hz + 4.6, () => mb.box(2.1, 0.5, 2.1, '#e9e6e0')); P_(mb, sx * 6.6, 11.3, hz + 4.6, () => mb.box(1.5, 6.4, 1.5, wall)); }
+    for (const sx of [-1, 1]) P_(mb, sx * 19, 3.8, hz + 2.1, () => mb.box(0.2, 0.2, 0.2, wall));
+    for (const sx of [-1, 1]) for (const dx of [-4, 3]) P_(S.win, sx * 19 + dx, 7.5, hz + 2.05, () => S.win.box(2.2, 3, 0.1, '#30363e'));
+    // Außenküche/Grill unter dem Balkon
+    P_(mb, 3.4, 0.9, hz + 1.2, () => mb.box(3.6, 1.8, 1.2, '#b9bcc0')); P_(mb, 3.4, 1.85, hz + 1.2, () => mb.box(3.7, 0.1, 1.3, '#8f9398'));
+    // Steinmauer vorne links, Rattan-Sofa rechts
+    P_(mb, -7.5, 0.9, 1, () => mb.box(3, 1.8, 14, stone)); P_(mb, -7.5, 1.85, 1, () => mb.box(3.3, 0.15, 14.3, '#e2ddd3'));
+    for (let y = 0.3; y < 1.8; y += 0.45) P_(mb, -6.0, y, 1, () => mb.box(0.03, 0.04, 14, stone2));
+    S.at(7.5, 0, -4, -20); P_(mb, 0, 0.6, 0, () => mb.rbox(2.4, 1.2, 6, 0.15, '#3d3f44')); P_(mb, 0.9, 1.4, 0, () => mb.rbox(0.6, 1.4, 6, 0.15, '#3d3f44')); for (const dz of [-2.8, 2.8]) P_(mb, 0, 1.1, dz, () => mb.rbox(2.4, 0.8, 0.5, 0.12, '#3d3f44')); S.pop();
+    S.wide = { eye: [0, 3, 14], look: [0, 6, -10] };
+  },
   mall(S, o) {
     // Einkaufszentrum: langer Gang (entlang z), glänzender Boden, Läden links/rechts mit Leuchtschildern, Galerie mit Glasgeländer, Oberlicht
     S.bg = 'none'; S.indoor = true; S.bounds = [-9.4, 9.4, -60, 16, 15];
