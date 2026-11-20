@@ -524,6 +524,16 @@ const PROPS = {
   table: o => ({ parts: [{ g: cgeo('table|' + (o.color || '#c08552') + '|' + (o.w || 4) + '|' + (o.d || 2.6), mb => { mb.push(M4.T(0, 2.3, 0)); mb.rbox(o.w || 4, 0.25, o.d || 2.6, 0.06, o.color || '#c08552'); mb.pop(); for (const [x, z] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) { mb.push(M4.T(x * ((o.w || 4) / 2 - 0.3), 1.1, z * ((o.d || 2.6) / 2 - 0.3))); mb.box(0.22, 2.2, 0.22, '#7a4a24'); mb.pop(); } }) }] }),
   desk: o => PROPS.table({ w: 3.2, d: 2.0, color: '#d9a066' }),
   bench: o => ({ parts: [{ g: cgeo('bench', mb => { for (let i = 0; i < 3; i++) { mb.push(M4.T(0, 1.0, -0.35 + i * 0.36)); mb.box(4.4, 0.16, 0.3, '#b5713c'); mb.pop(); } for (let i = 0; i < 2; i++) { mb.push(M4.chain(M4.T(0, 1.8 + i * 0.4, -0.75), M4.RX(-0.15))); mb.box(4.4, 0.28, 0.14, '#b5713c'); mb.pop(); } for (const s of [-1, 1]) { mb.push(M4.T(s * 1.9, 0.5, 0)); mb.box(0.2, 1.0, 1.2, '#3b3b3b'); mb.pop(); mb.push(M4.T(s * 1.9, 1.5, -0.8)); mb.box(0.2, 1.2, 0.15, '#3b3b3b'); mb.pop(); } }) }] }),
+  snowman: o => ({ parts: [{ g: cgeo('snowman|' + (o.scarf || '#d62839'), mb => {
+    const P = (x, y, z, f, r = M4.I()) => { mb.push(M4.mul(M4.T(x, y, z), r)); f(); mb.pop(); };
+    P(0, 1.0, 0, () => mb.sphere(1.05, 2, '#f7fbff')); P(0, 2.55, 0, () => mb.sphere(0.78, 2, '#f7fbff')); P(0, 3.65, 0, () => mb.sphere(0.56, 2, '#f7fbff'));
+    for (const x of [-0.2, 0.2]) P(x, 3.78, 0.5, () => mb.sphere(0.08, 1, '#111111'));
+    for (let i = 0; i < 5; i++) { const a = (i - 2) * 0.32; P(Math.sin(a) * 0.32, 3.42 - Math.cos(a) * 0.08 + 0.08, 0.5, () => mb.sphere(0.05, 1, '#111111')); }
+    P(0, 3.62, 0.62, () => mb.cyl(0.08, 0.0, 0.5, 8, '#f08a24', { flat: false }), M4.RX(Math.PI / 2));
+    for (const y of [2.4, 2.75, 1.0]) P(0, y, 0.78 + (y < 2 ? 0.28 : 0), () => mb.sphere(0.07, 1, '#111111'));
+    P(0, 3.15, 0, () => mb.cyl(0.62, 0.62, 0.2, 14, o.scarf || '#d62839'));
+    for (const sd of [-1, 1]) P(sd * 1.2, 2.75, 0, () => mb.box(1.3, 0.09, 0.09, '#5a3a22'), M4.RZ(sd * 0.45));
+  }) }] }),
   tree: o => ({ parts: [{ g: cgeo('tree|' + (o.v || 0), mb => setTree(mb, 0, 0, 1, o.v || 0)) }] }),
   pine: o => ({ parts: [{ g: cgeo('pine', mb => setPine(mb, 0, 0, 1)) }] }),
   bush: o => ({ parts: [{ g: cgeo('bush', mb => setBush(mb, 0, 0, 1)) }] }),

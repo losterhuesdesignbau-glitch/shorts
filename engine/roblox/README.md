@@ -166,3 +166,4 @@ Twist erst ganz am Ende · letzter Satz führt in den ersten zurück (Loop) · J
 Ergebnis Tanz-Test: max. Sprung 37°→14°, Zittern (2. Ableitung) −45 %, Bewegungsumfang ~95 % erhalten.
 Abschalten: `--euro 0 --maxvel 0`.
 - **Set `xmasmarket`** (20.11.2026): weihnachtliche Altstadt bei Nacht mit Weihnachtsmarkt – Buden mit Lichterketten, großer Baum mit Stern, verschneite Dächer. Mit `"time": "night"` + fx `snow` verwenden; Passanten als Figuren mit `do: walk`, `at`/`to`, `move: [0,1]`, `ease: linear` bei z ≈ −10…−21.
+- **Set `snowyard`** + Prop **`snowman`** (Option `scarf`-Farbe): verschneiter Garten am Waldrand mit Haus, Zaun, Schaukel.

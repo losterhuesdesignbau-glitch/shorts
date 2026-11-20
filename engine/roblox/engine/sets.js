@@ -321,6 +321,19 @@ const SETS = {
     for (const [x, z] of [[-12, -6], [12, -6], [-12, 6], [12, 6]]) setLampPost(mb, S.lamp, x, z);
     S.wide = { eye: [0, 4, 16], look: [0, 18, -60] };
   },
+  snowyard(S, o) {
+    // Verschneiter Garten am Waldrand: Haus mit hellen Fenstern, Zaun, Schaukel, dunkler Tannenwald
+    const mb = S.mb, R = rng(o.seed || 9);
+    groundPlane(mb, '#eef3f9');
+    for (let i = 0; i < 30; i++) P_(mb, (R() - 0.5) * 60, 0.1, -30 + R() * 40, () => mb.rbox(1 + R() * 3, 0.3, 1 + R() * 2, 0.15, '#f8fbff'));
+    house(S, 9, -18, 0, { w: 14, h: 8, wall: o.color || '#c9d6e3', roof: '#f5f8fb', door: '#5a3a22', chimney: true });
+    for (let x = -16; x <= 22; x += 2) { P_(mb, x, 0.7, -9, () => mb.box(0.25, 1.4, 0.25, '#7a5a3a')); }
+    P_(mb, 3, 1.1, -9, () => mb.box(38, 0.15, 0.12, '#7a5a3a')); P_(mb, 3, 0.5, -9, () => mb.box(38, 0.15, 0.12, '#7a5a3a'));
+    for (let i = 0; i < 26; i++) { const x = -40 + (i % 9) * 4.2 + R() * 2, z = -14 - Math.floor(i / 9) * 7 - R() * 3; setTree(S.fol, x, z, 1.1 + R() * 0.5, 2); }
+    S.at(-4, 0, -4); for (const x of [-1.5, 1.5]) P_(mb, x, 1.6, 0, () => mb.box(0.18, 3.2, 0.18, '#6b4a2b')); P_(mb, 0, 3.2, 0, () => mb.box(3.4, 0.18, 0.18, '#6b4a2b')); P_(mb, 0, 1.0, 0, () => mb.box(0.9, 0.1, 0.5, '#8a5a3a')); S.pop();
+    setLampPost(mb, S.lamp, 2, -7);
+    S.wide = { eye: [0, 8, 22], look: [0, 2, -8] };
+  },
   xmasmarket(S, o) {
     // Weihnachtliche Innenstadt mit Weihnachtsmarkt: Kopfsteinpflaster, Fachwerk-Häuser, Buden mit Lichterketten, großer Baum
     const mb = S.mb, G = S.neon, R = rng(o.seed || 5);
