@@ -65,11 +65,11 @@ const PROVIDERS = {
     authUrl: 'https://www.tiktok.com/v2/auth/authorize/',
     scopes: ['user.info.basic', 'user.info.stats', 'video.list'], // nur Statistik – Uploads laufen über Buffer
     authParams: (env, redirect, state) => ({
-      client_key: env.TIKTOK_CLIENT_KEY, redirect_uri: redirect, response_type: 'code', state, scope: PROVIDERS.tiktok.scopes.join(','),
+      client_key: (env.TIKTOK_CLIENT_KEY || '').trim(), redirect_uri: redirect, response_type: 'code', state, scope: PROVIDERS.tiktok.scopes.join(','),
     }),
     async exchange(env, code, redirect) {
       const t = await form('https://open.tiktokapis.com/v2/oauth/token/', {
-        client_key: env.TIKTOK_CLIENT_KEY, client_secret: env.TIKTOK_CLIENT_SECRET, code, grant_type: 'authorization_code', redirect_uri: redirect,
+        client_key: (env.TIKTOK_CLIENT_KEY || '').trim(), client_secret: (env.TIKTOK_CLIENT_SECRET || '').trim(), code, grant_type: 'authorization_code', redirect_uri: redirect,
       });
       if (t.error) throw new HttpError(400, `TikTok: ${t.error_description || t.error}`);
       let name = t.open_id;
@@ -84,7 +84,7 @@ const PROVIDERS = {
     },
     async refresh(env, tok) {
       const t = await form('https://open.tiktokapis.com/v2/oauth/token/', {
-        client_key: env.TIKTOK_CLIENT_KEY, client_secret: env.TIKTOK_CLIENT_SECRET, grant_type: 'refresh_token', refresh_token: tok.refresh_token,
+        client_key: (env.TIKTOK_CLIENT_KEY || '').trim(), client_secret: (env.TIKTOK_CLIENT_SECRET || '').trim(), grant_type: 'refresh_token', refresh_token: tok.refresh_token,
       });
       if (t.error) throw new Error(`TikTok-Refresh: ${t.error_description || t.error}`);
       return { ...tok, access_token: t.access_token, refresh_token: t.refresh_token || tok.refresh_token, expires_at: Date.now() + t.expires_in * 1000 };
