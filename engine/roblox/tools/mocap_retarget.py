@@ -40,15 +40,19 @@ def one_euro(x, fps, mincut=1.0, beta=0.02, dcut=1.0):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('kp'); ap.add_argument('out'); ap.add_argument('--mirror', action='store_true')
-    ap.add_argument('--euro', type=float, default=0.9, help='One-Euro mincutoff Hz (0=aus)')
-    ap.add_argument('--beta', type=float, default=0.004, help='One-Euro beta')
-    ap.add_argument('--maxvel', type=float, default=14.0, help='max Grad pro Frame (0=aus)')
+    ap.add_argument('--euro', type=float, default=1.8, help='One-Euro mincutoff Hz (0=aus)')
+    ap.add_argument('--beta', type=float, default=0.05, help='One-Euro beta')
+    ap.add_argument('--maxvel', type=float, default=0.0, help='max Grad pro Frame (0=aus)')
     ap.add_argument('--depthnorm', type=int, default=1, help='Größenänderung (Tiefe) je Frame ausgleichen (1=an)')
     ap.add_argument('--ground', type=int, default=1, help='Füße auf den Boden setzen (1=an)')
-    ap.add_argument('--smooth', type=float, default=2.5, help='Glättung der Gelenkwinkel (Gauß-Sigma in Frames, gegen Zittern)')
+    ap.add_argument('--bodysmooth', type=float, default=3.0, help='extra Glättung Oberkörper/Kopf (tw, wz, hz, hx, hy), Gauß-Sigma')
+    ap.add_argument('--depth', type=int, default=1, help='Vor/Zurück-Bewegung (dz) aus der Größe im Bild berechnen (1=an)')
+    ap.add_argument('--camdist', type=float, default=14.0, help='angenommener Kamera-Abstand für dz')
+    ap.add_argument('--pin', type=int, default=0, help='Figur bleibt am Platz (dx=dz=0), z. B. für Tänze auf der Stelle')
+    ap.add_argument('--smooth', type=float, default=1.4, help='Glättung der Gelenkwinkel (Gauß-Sigma in Frames, gegen Zittern)')
     a = ap.parse_args()
     K = json.load(open(a.kp)); F = K['frames']; n = len(F); npl = max(len(f) for f in F)
-    out = {'fps': K['fps'], 'keys': KEYS, 'people': []}
+    out = {'fps': K['fps'], 'keys': KEYS + ['dz'], 'people': []}
     for p in range(npl):
         P = np.zeros((n, 17, 2)); C = np.zeros((n, 17))
         for i, f in enumerate(F):
@@ -62,6 +66,7 @@ def main():
         # Bild -> Figur-Raum: Figur schaut zur Kamera => ihre linke Seite ist rechts im Bild (+x), y nach oben
         V = np.stack([P[..., 0], -P[..., 1]], -1)
         if a.mirror: V[..., 0] *= -1
+        Vraw = V.copy()
         if a.depthnorm and n > 10:  # Person läuft auf Kamera zu/weg: Größe je Frame herausrechnen (sonst wirken ferne Glieder verkürzt -> Hocke/Schweben)
             from scipy.ndimage import gaussian_filter1d, median_filter
             tl = np.linalg.norm((V[:, 5] + V[:, 6]) / 2 - (V[:, 11] + V[:, 12]) / 2, axis=1)
@@ -130,14 +135,22 @@ def main():
         if a.maxvel > 0:  # max. Winkeländerung pro Frame (Ausreißer kappen)
             for i in range(1, len(arr)):
                 arr[i] = arr[i - 1] + np.clip(arr[i] - arr[i - 1], -a.maxvel, a.maxvel)
+        from scipy.ndimage import gaussian_filter1d as _g
+        ix = {k: KEYS.index(k) for k in KEYS}
+        if a.bodysmooth > 0:
+            for k in ('tw', 'wz', 'hz', 'hx', 'hy'): arr[:, ix[k]] = _g(arr[:, ix[k]], a.bodysmooth, mode='nearest')
+        tl0 = np.linalg.norm((Vraw[:, 5] + Vraw[:, 6]) / 2 - (Vraw[:, 11] + Vraw[:, 12]) / 2, axis=1)
+        tl0 = _g(tl0, 6, mode='nearest'); hx0 = _g((Vraw[:, 11, 0] + Vraw[:, 12, 0]) / 2, 6, mode='nearest')
+        dz = np.clip(a.camdist - a.camdist * np.median(tl0) / tl0, -6, 5) if a.depth else np.zeros(len(arr))
+        arr[:, ix['dx']] = np.clip((hx0 - np.median(hx0)) / tl0 * 1.6, -3, 3)
+        if a.pin: arr[:, ix['dx']] = 0; dz = dz * 0
         if a.ground:  # Bodenkontakt: tiefster Fuß steht immer auf dem Boden (kein Schweben, kein Einsinken)
-            ix = {k: KEYS.index(k) for k in KEYS}
             def drop(s_):
                 ax, az, k = np.radians(arr[:, ix['l' + s_ + 'x']]), np.radians(arr[:, ix['l' + s_ + 'z']]), np.radians(arr[:, ix['k' + s_]])
                 return (np.cos(ax) + np.cos(ax + k)) * np.cos(az)  # Oberschenkel + Schienbein (je 1.0 Einheiten)
             gy = np.maximum(drop('L'), drop('R')) - 2.0
-            from scipy.ndimage import gaussian_filter1d
-            arr[:, ix['y']] = gaussian_filter1d(gy, 1.5, mode='nearest')
+            arr[:, ix['y']] = _g(gy, 1.5, mode='nearest')
+        arr = np.hstack([arr, np.round(dz, 2)[:, None]])
         out['people'].append({'frames': np.round(arr, 2).tolist()})
     json.dump(out, open(a.out, 'w'))
     print(f'{n} Frames, {npl} Personen -> {a.out}')

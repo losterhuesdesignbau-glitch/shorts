@@ -169,3 +169,11 @@ Abschalten: `--euro 0 --maxvel 0`.
 - **Set `snowyard`** + Prop **`snowman`** (Option `scarf`-Farbe): verschneiter Garten am Waldrand mit Haus, Zaun, Schaukel.
 - **Mocap realistischer (20.11.2026):** `mocap_retarget.py` gleicht jetzt die Größe je Frame aus (`--depthnorm 1`, Person läuft auf Kamera zu/weg → keine falsche Hocke) und setzt den tiefsten Fuß immer auf den Boden (`--ground 1`, kein Schweben/Einsinken). Neue Mocap-Spur `dz` (Vor/Zurück); `dx`/`dz` bewegen jetzt die Figur selbst, Schatten folgt. Für schnelle Tänze: `--euro 1.8 --beta 0.05 --maxvel 0 --smooth 1.4`.
 - **Set `mall`** (20.11.2026): Einkaufszentrum – langer Gang entlang z (Kamera bei z≈5, Blick nach −z), Läden mit Leuchtschildern auf zwei Etagen, Galerie mit Glasgeländer, Oberlichter, Pflanzen, Brunnen. Passanten mit `do: walk`, `at`/`to`.
+
+## Tanz nachbauen in einem Schritt (20.11.2026)
+`python tools/tanz_nachbauen.py tanz.mp4 ordner/ [--people 2] [--set mall|danceroom|hallway|xmasmarket|…] [--pin 0|1]` → `ordner/episode.json`, dann `python studio.py ordner/episode.json -o ordner/tanz.mp4 --force`.
+Alle Verbesserungen sind jetzt Standard:
+- `mocap_retarget.py`: schnelle, natürliche Glättung (`--euro 1.8 --beta 0.05 --maxvel 0 --smooth 1.4`), Winkel-Entfaltung, Savitzky-Golay, Oberkörper-/Kopf-Glättung (`--bodysmooth 3`), Tiefenausgleich (`--depthnorm 1`), Bodenkontakt (`--ground 1`), Vor/Zurück-Spur `dz` (`--depth 1`, `--camdist 14`), Seitwärts `dx` größennormiert, `--pin 1` = Figur bleibt am Platz.
+- Director: `dx`/`dz` bewegen die Figur selbst (Schatten folgt, kein Schweben).
+- `studio.py`: Episode-Feld `"motionBlur": true` (leichte Bewegungsunschärfe); Shot-Cache enthält den Engine-Stand (nach Engine-Änderungen wird automatisch neu gerendert).
+- Neue Orte: `xmasmarket`, `snowyard`, `mall` (Option `width`); Requisit `snowman`.

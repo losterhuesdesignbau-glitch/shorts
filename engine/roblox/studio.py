@@ -282,11 +282,13 @@ def main():
                 b = min(bins, key=lambda x: x[0]); b[0] += ep['shots'][si]['nf']; b[1].append(si)
             mine = set(bins[k][1]); print(f'Teil {k + 1}/{n}: Shots {sorted(i + 1 for i in mine)} ({bins[k][0]} Frames)', flush=True)
         sig = json.dumps(ep['shots'], sort_keys=True)
+        import hashlib
+        ENGINE_SIG = hashlib.sha1(b''.join(f.read_bytes() for f in sorted((Path(__file__).parent / 'engine').glob('*.js')))).hexdigest()[:12]
         t0 = time.time()
         for si, sh in enumerate(ep['shots']):
             path = work / f'shot_{si + 1:03d}.mp4'
             key = work / f'shot_{si + 1:03d}.json'
-            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']]}, sort_keys=True)
+            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
             if mine is not None and si not in mine: continue
             if path.exists() and key.exists() and key.read_text() == cur and (only is None or si not in only):
                 continue
@@ -311,6 +313,11 @@ def main():
               f"eq=saturation={sat}:contrast={con},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},vignette=angle={0.2 + vg:.2f},format=yuv420p[v]")
         gv = work / 'video_grade.mp4'
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-filter_complex', fc, '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(gv)], check=True); vid = gv
+    mbl = src.get('motionBlur')
+    if mbl:  # leichte Bewegungsunschärfe wie bei echter Kamera: schnelle Bewegungen fließender, Rest-Zittern verdeckt
+        w = 2 if mbl is True else max(1, int(round(3 - float(mbl) * 2)))
+        mv = work / 'video_blur.mp4'
+        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-vf', f"tmix=frames=2:weights='1 {w}'", '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(mv)], check=True); vid = mv
     mf = src.get('musicFile')
     mixbuf = AU.mix(total, events, voice, src.get('music', 'happy'), not a.no_music and not mf and src.get('music', 'happy') != 'none', src.get('seed', 3))
     if mf and not a.no_music:  # eigene Musikdatei (z. B. Trend-Sound) statt generierter Musik
