@@ -246,6 +246,12 @@ function shirtTex(cfg) {
 }
 function avatarGeo(cfg) {
   const k = JSON.stringify(cfg); if (AVC[k] !== undefined) return AVC[k];
+  // Materialien der Figur: Kleidung = Stoff/Jeans/Strick, Haare = Strähnen, Haut/Schuhe ohne
+  const prevMap = MAT.map; MAT.map = new Map();
+  { const cl = c => c && typeof c === 'string' ? matKey(col(c)) : null, put = (c, id) => { const kk = cl(c); if (kk && cfg.skin !== c) MAT.map.set(kk, id); };
+    const isBlue = c => { const q = col(c); return q[2] > q[0] * 1.15 && q[2] > 0.25; };
+    put(cfg.shirt, cfg.pattern === 'knit' ? 7 : 5); put(cfg.sleeveColor, 5); put(cfg.jacket, 5); put(cfg.vest, 5); put(cfg.hoodie === true ? cfg.shirt : cfg.hoodie, 5);
+    if (cfg.pants) put(cfg.pants, isBlue(cfg.pants) ? 6 : 5); put(cfg.hairColor, 11); put(cfg.scarf, 7); }
   const g = {}, sk = cfg.skin, sh = cfg.shirt, sleeve = cfg.jacket || cfg.sleeveColor || sh;
   const gk = cfg.gloves ? (cfg.gloves === true ? '#ffffff' : cfg.gloves) : sk; // Handschuhe färben die Hände
   const hand = (mb, y) => { T_(mb, 0, y + 0.04, 0, () => mb.rbox(0.84, 0.4, 0.84, 0.16, gk)); for (let i = 0; i < 4; i++) T_(mb, -0.3 + i * 0.2, y - 0.2, 0.04, () => mb.rbox(0.18, 0.24, 0.62, 0.08, i % 2 ? shade(gk, 0.96) : gk)); T_(mb, 0, y + 0.02, 0.38, () => mb.rbox(0.26, 0.32, 0.2, 0.1, shade(gk, 0.95))); if (cfg.gloves) T_(mb, 0, y + 0.3, 0, () => mb.rbox(0.96, 0.22, 0.96, 0.08, shade(gk, 0.9))); };
@@ -316,6 +322,7 @@ function avatarGeo(cfg) {
   if (cfg.scarf) { const c = cfg.scarf === true ? '#e63946' : cfg.scarf; g.scarfT = cgeo('scarft|' + c, mb => { T_(mb, 0, -0.5, 0, () => mb.rbox(0.42, 1.0, 0.12, 0.05, c)); T_(mb, 0, -0.95, 0, () => mb.box(0.44, 0.1, 0.13, shade(c, 0.75))); for (let i = 0; i < 3; i++) T_(mb, -0.14 + i * 0.14, -1.08, 0, () => mb.box(0.06, 0.18, 0.06, shade(c, 0.8))); }); }
   if (cfg.hoodie) g.string = cgeo('hstr', mb => { T_(mb, 0, -0.3, 0, () => mb.box(0.06, 0.6, 0.04, '#f2f2f2')); T_(mb, 0, -0.62, 0, () => mb.sphere(0.06, 0, '#d0d0d0')); });
   if (cfg.backpack) { const c = cfg.backpack === true ? '#e63946' : cfg.backpack; g.pack = cgeo('pack|' + c, mb => { T_(mb, 0, -0.85, -0.38, () => mb.rbox(1.55, 1.65, 0.75, 0.22, c)); T_(mb, 0, -1.25, -0.77, () => mb.rbox(1.05, 0.62, 0.2, 0.1, shade(c, 0.85))); T_(mb, 0, -0.08, -0.38, () => mb.rbox(0.5, 0.14, 0.3, 0.06, shade(c, 0.7))); for (const s of [-1, 1]) T_(mb, s * 0.55, -0.85, -0.02, () => mb.box(0.12, 1.4, 0.1, shade(c, 0.75))); }); }
+  MAT.map = prevMap;
   return (AVC[k] = g);
 }
 // P: Pose in Grad (Gelenke: a*=Schulter, e*=Ellbogen, l*=Hüfte, k*=Knie); S: Zustand {x,y,z,face(rad),scale, sec}

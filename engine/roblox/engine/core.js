@@ -74,6 +74,24 @@ function ICO(det) {
   return (_ico[det] = { V, F });
 }
 
+// ---------- Materialien (für den 4K-Look): Kennung wird in der Vertex-Farbe kodiert (R + 2*id), Shader dekodiert ----------
+// 1 Holz, 2 Stein, 3 Ziegel, 4 Putz/Beton, 5 Stoff, 6 Jeans, 7 Strick, 8 Dachschindeln, 9 Gras, 10 Metall, 11 Haar, 12 Holzverkleidung, 13 Schnee, 14 Blätter
+const MAT = { auto: true, map: null };
+function matKey(c) { return c[0].toFixed(3) + ',' + c[1].toFixed(3) + ',' + c[2].toFixed(3); }
+function autoMat(c, n) {
+  const r = c[0], g = c[1], b = c[2], mx = Math.max(r, g, b), mn = Math.min(r, g, b), v = mx, s = mx > 0 ? (mx - mn) / mx : 0;
+  let h = 0; if (mx !== mn) { if (mx === r) h = ((g - b) / (mx - mn)) % 6; else if (mx === g) h = (b - r) / (mx - mn) + 2; else h = (r - g) / (mx - mn) + 4; h *= 60; if (h < 0) h += 360; }
+  const up = n[1] > 0.7, slope = Math.abs(n[1]) > 0.25 && Math.abs(n[1]) < 0.95;
+  if (v > 0.9 && s < 0.07 && up) return 13;
+  if (h > 65 && h < 165 && s > 0.3) return up ? 9 : 14;
+  if (h >= 18 && h <= 45 && s > 0.35 && v < 0.78 && v > 0.15) return 1;
+  if (h >= 25 && h <= 55 && s > 0.1 && s < 0.45 && v > 0.55) return 2;
+  if ((h < 18 || h > 340) && s > 0.4 && v > 0.25 && v < 0.75) return slope ? 8 : 3;
+  if (s < 0.12 && slope) return 8;
+  if (s < 0.14 && v > 0.25) return 4;
+  return 0;
+}
+
 // ---------- Mesh-Builder (pos3 nor3 col3 uv2) ----------
 class MB {
   constructor() { this.a = []; this.S = [M4.I()]; }
@@ -81,9 +99,11 @@ class MB {
   push(m) { this.S.push(M4.mul(this.m, m)); return this; }
   pop() { this.S.pop(); return this; }
   at(x, y, z, ry = 0, s = 1) { return this.push(M4.chain(M4.T(x, y, z), M4.RY(ry * DEG), M4.S(s))); }
-  v(p, n, c, t) { const m = this.m, P = M4.xp(m, p), N = V3.norm(M4.xd(m, n)); this.a.push(P[0], P[1], P[2], N[0], N[1], N[2], c[0], c[1], c[2], t ? t[0] : 0, t ? t[1] : 0); }
-  tri(a, b, c, C, ta, tb, tc) { const n = V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a))); this.v(a, n, C, ta); this.v(b, n, C, tb); this.v(c, n, C, tc); }
-  triN(a, b, c, na, nb, nc, C, ta, tb, tc) { this.v(a, na, C, ta); this.v(b, nb, C, tb); this.v(c, nc, C, tc); }
+  fixMat(C, f) { const sv = this.mat; if (sv === undefined && !MAT.map) this.mat = MAT.auto && !this.nomat ? autoMat(col(C), [1, 0, 0]) : 0; f(); this.mat = sv; return this; }  // runde Formen: ein Material für das ganze Teil
+  mid(C, fn) { return this.mat ?? (MAT.map ? (MAT.map.get(matKey(C)) || 0) : (MAT.auto && !this.nomat ? autoMat(C, V3.norm(M4.xd(this.m, fn))) : 0)); }  // eine Material-Kennung pro Dreieck (sonst Farbfehler)
+  v(p, n, c, t, id = 0) { const m = this.m, P = M4.xp(m, p), N = V3.norm(M4.xd(m, n)); this.a.push(P[0], P[1], P[2], N[0], N[1], N[2], c[0] + 2 * id, c[1], c[2], t ? t[0] : 0, t ? t[1] : 0); }
+  tri(a, b, c, C, ta, tb, tc) { const n = V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a))), id = this.mid(C, n); this.v(a, n, C, ta, id); this.v(b, n, C, tb, id); this.v(c, n, C, tc, id); }
+  triN(a, b, c, na, nb, nc, C, ta, tb, tc) { const id = this.mid(C, V3.norm(V3.add(V3.add(na, nb), nc))); this.v(a, na, C, ta, id); this.v(b, nb, C, tb, id); this.v(c, nc, C, tc, id); }
   quad(a, b, c, d, C, ta, tb, tc, td) { this.tri(a, b, c, C, ta, tb, tc); this.tri(a, c, d, C, ta, tc, td); return this; }
   box(sx, sy, sz, C, o = {}) {
     C = col(C); const x = sx / 2, y = sy / 2, z = sz / 2, y0 = o.base ? y : 0; const P = (a, b, c) => [a, b + y0, c];
@@ -96,7 +116,8 @@ class MB {
     this.quad(P(-x, -y, -z), P(x, -y, -z), P(x, -y, z), P(-x, -y, z), C);
     return this;
   }
-  rbox(sx, sy, sz, r, C, o = {}) {
+  rbox(sx, sy, sz, r, C, o = {}) { return this.fixMat(C, () => this._rbox(sx, sy, sz, r, C, o)); }
+  _rbox(sx, sy, sz, r, C, o = {}) {
     C = col(C); const h = [sx / 2, sy / 2, sz / 2]; r = Math.min(r, h[0] * .98, h[1] * .98, h[2] * .98);
     const inner = h.map(v => v - r), k = 0.5858 * r, y0 = o.base ? h[1] : 0;
     const samp = hv => [-hv, -hv + k, -hv + r, hv - r, hv - k, hv];
@@ -120,7 +141,8 @@ class MB {
     }
     return this;
   }
-  cyl(r1, r2, h, seg, C, o = {}) {
+  cyl(r1, r2, h, seg, C, o = {}) { return this.fixMat(C, () => this._cyl(r1, r2, h, seg, C, o)); }
+  _cyl(r1, r2, h, seg, C, o = {}) {
     C = col(C); const flat = o.flat !== false, top = o.top ? col(o.top) : C, k = (r1 - r2) / h, rot = o.rot || 0;
     for (let i = 0; i < seg; i++) {
       const a0 = i / seg * Math.PI * 2 + rot, a1 = (i + 1) / seg * Math.PI * 2 + rot;
@@ -136,7 +158,8 @@ class MB {
     }
     return this;
   }
-  sphere(r, det, C, o = {}) {
+  sphere(r, det, C, o = {}) { return this.fixMat(C, () => this._sphere(r, det, C, o)); }
+  _sphere(r, det, C, o = {}) {
     C = col(C); const sx = (o.sx || 1) * r, sy = (o.sy || 1) * r, sz = (o.sz || 1) * r; const { V, F } = ICO(det); const R = o.jit ? rng(o.seed || 7) : null;
     const P = V.map(v => { const k = R ? 1 + (R() - 0.5) * o.jit : 1; return [v[0] * sx * k, v[1] * sy * k, v[2] * sz * k]; });
     for (const f of F) {
@@ -163,22 +186,50 @@ class MB {
 // Bodenmaserung, Wasser (bewegte Normalen + Glitzern), Wind (Bäume wiegen sich), weiche Lichter-Kompression.
 const VS = `#version 300 es
 layout(location=0) in vec3 aP;layout(location=1) in vec3 aN;layout(location=2) in vec3 aC;layout(location=3) in vec2 aT;
-uniform mat4 uM,uVP,uLVP;uniform vec3 uEye;uniform float uFogD,uTime,uSway;out vec3 vN,vC,vW;out vec2 vT;out vec4 vL;out float vF;
+uniform mat4 uM,uVP,uLVP;uniform vec3 uEye;uniform float uFogD,uTime,uSway;out vec3 vN,vC,vW,vO,vON;out vec2 vT;out vec4 vL;out float vF;
 vec3 sway(vec3 w){float h=max(0.0,w.y-1.2);float k=uSway*h*h/(1.0+h);
  w.x+=(sin(uTime*1.7+w.x*0.31+w.z*0.17)+0.4*sin(uTime*3.9+w.z*0.7))*0.035*k;w.z+=sin(uTime*1.3+w.x*0.23)*0.025*k;return w;}
-void main(){vec4 w=uM*vec4(aP,1.0);if(uSway>0.0)w.xyz=sway(w.xyz);vN=mat3(uM)*aN;vC=aC;vT=aT;vW=w.xyz;vL=uLVP*w;
+void main(){vec4 w=uM*vec4(aP,1.0);if(uSway>0.0)w.xyz=sway(w.xyz);vN=mat3(uM)*aN;vC=aC;vT=aT;vO=aP;vON=aN;vW=w.xyz;vL=uLVP*w;
  float d=length(w.xyz-uEye)/uFogD;vF=clamp(1.0-exp(-d*d),0.0,1.0);gl_Position=uVP*w;}`;
 const FS_SRC = `
 precision highp float;precision highp sampler2DShadow;
-in vec3 vN,vC,vW;in vec2 vT;in vec4 vL;in float vF;
+in vec3 vN,vC,vW,vO,vON;in vec2 vT;in vec4 vL;in float vF;
 uniform sampler2D uTex;uniform sampler2DShadow uSh;
 uniform vec3 uTint,uSun,uSunC,uSkyC,uGndC,uFogC,uEye;uniform float uEmi,uAlpha,uSR,uRecv,uHT,uTA,uTime,uSpec,uRim,uGrain,uWater,uAO,uNight;
 out vec4 o;
 #ifdef GRAIN
 uniform sampler2D uNz;
 #endif
+#ifdef HQ
+float hh(vec3 p){p=fract(p*0.3183099+0.1);p*=17.0;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
+float n3(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.0-2.0*f);
+ return mix(mix(mix(hh(i),hh(i+vec3(1,0,0)),f.x),mix(hh(i+vec3(0,1,0)),hh(i+vec3(1,1,0)),f.x),f.y),mix(mix(hh(i+vec3(0,0,1)),hh(i+vec3(1,0,1)),f.x),mix(hh(i+vec3(0,1,1)),hh(i+vec3(1,1,1)),f.x),f.y),f.z);}
+float fb(vec3 p){return n3(p)*0.5+n3(p*2.07)*0.3+n3(p*4.3)*0.2;}
+vec3 matC(float id,vec3 c,vec3 p,vec3 on){vec3 a=abs(on);vec2 uv=a.y>a.x&&a.y>a.z?p.xz:(a.x>a.z?p.zy:p.xy);float k=1.0;
+ if(id<1.5){float g=fb(vec3(uv.x*0.7,uv.y*7.0,p.z*0.3+p.x*0.2));k=0.86+0.22*g+0.06*sin(uv.y*26.0+g*9.0);float pl=fract(uv.x*1.1);k*=mix(0.82,1.0,smoothstep(0.0,0.04,pl)*smoothstep(1.0,0.96,pl));}
+ else if(id<2.5){vec2 q=uv*vec2(1.6,2.4);q.x+=step(1.0,mod(q.y,2.0))*0.5;vec2 f=fract(q);float m=smoothstep(0.0,0.06,f.x)*smoothstep(1.0,0.94,f.x)*smoothstep(0.0,0.08,f.y)*smoothstep(1.0,0.92,f.y);
+  k=mix(0.72,0.9+0.2*hh(vec3(floor(q),3.0))+0.08*fb(p*3.0),m);}
+ else if(id<3.5){vec2 q=uv*vec2(2.6,5.2);q.x+=step(1.0,mod(q.y,2.0))*0.5;vec2 f=fract(q);float m=smoothstep(0.0,0.08,f.x)*smoothstep(1.0,0.92,f.x)*smoothstep(0.0,0.12,f.y)*smoothstep(1.0,0.88,f.y);
+  k=mix(0.78,0.88+0.22*hh(vec3(floor(q),5.0)),m);}
+ else if(id<4.5){k=0.93+0.1*fb(p*1.6)+0.05*(n3(p*18.0)-0.5);}
+ else if(id<5.5){k=0.95+0.05*sin(uv.x*90.0)*sin(uv.y*90.0)+0.08*(fb(p*1.3)-0.5);}
+ else if(id<6.5){k=0.9+0.08*sin((uv.x+uv.y)*70.0)+0.12*(fb(p*2.0)-0.4);c=mix(c,c*vec3(1.08,1.1,1.18),fb(p*1.1)*0.5);}
+ else if(id<7.5){vec2 q=uv*vec2(9.0,12.0);float v=abs(fract(q.x)-0.5)*2.0;k=0.86+0.2*smoothstep(0.2,0.8,abs(fract(q.y+v*0.5)-0.5)*2.0);}
+ else if(id<8.5){vec2 q=uv*vec2(1.4,3.2);q.x+=step(1.0,mod(q.y,2.0))*0.5;vec2 f=fract(q);k=(0.82+0.22*hh(vec3(floor(q),9.0)))*mix(0.7,1.0,smoothstep(0.0,0.2,f.y));}
+ else if(id<9.5){float g=fb(p*0.35);k=0.82+0.3*g+0.1*(n3(p*9.0)-0.5);c=mix(c,c*vec3(1.15,1.05,0.75),smoothstep(0.55,0.8,fb(p*0.12))*0.5);}
+ else if(id<10.5){k=0.94+0.06*n3(vec3(uv.x*40.0,uv.y*1.5,0.0));}
+ else if(id<11.5){k=0.85+0.22*n3(vec3(p.x*28.0,p.y*2.0,p.z*28.0));}
+ else if(id<12.5){float y=fract(p.y*1.8);k=mix(0.8,1.04,smoothstep(0.0,0.12,y))*(0.96+0.06*fb(p*2.0));}
+ else if(id<13.5){k=0.97+0.05*fb(p*0.8);if(hh(floor(p*22.0))>0.985)k=1.25;}
+ else {k=0.75+0.45*fb(p*1.6);}
+ return c*k;}
+#endif
 void main(){vec3 n=normalize(vN);
- vec4 tx=uHT>0.5?texture(uTex,vT):vec4(0.0);vec3 base=uTA>0.5?vC*uTint:vC*uTint*(1.0-tx.a)+tx.rgb;
+ float mid=floor(vC.r*0.5+0.0001);vec3 vc=vec3(vC.r-2.0*mid,vC.g,vC.b);
+#ifdef HQ
+ if(mid>0.5&&uEmi<0.5)vc=matC(mid,vc,vO,normalize(vON));
+#endif
+ vec4 tx=uHT>0.5?texture(uTex,vT):vec4(0.0);vec3 base=uTA>0.5?vc*uTint:vc*uTint*(1.0-tx.a)+tx.rgb;
  vec3 V=normalize(uEye-vW);
 #ifdef GRAIN
  if(n.y>0.8){float g=texture(uNz,vW.xz*0.006).r*0.65+texture(uNz,vW.xz*0.05).g*0.35;base*=1.0+uGrain*1.4*(g-0.5);}

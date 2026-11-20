@@ -178,3 +178,9 @@ Alle Verbesserungen sind jetzt Standard:
 - `studio.py`: Episode-Feld `"motionBlur": true` (leichte Bewegungsunschärfe); Shot-Cache enthält den Engine-Stand (nach Engine-Änderungen wird automatisch neu gerendert).
 - Neue Orte: `xmasmarket`, `snowyard`, `mall` (Option `width`); Requisit `snowman`.
 - **Set `patio`** (Terrasse vor großem Landhaus mit Giebel, Balkon, Steinsäulen; Option `z` für Hausabstand) und Look-Feld **`crop`** (bauchfreies Crop-Top, `true` oder Streifenhöhe).
+
+## 4K-Look (HQ) (20.11.2026)
+`studio.py` rendert standardmäßig im 4K-Look (`--quality hq`, Episode-Feld `"quality": "classic"` oder Umgebungsvariable `VF_QUALITY=classic` für den alten Look):
+- Render-Skala 1.25 (Supersampling, `VF_RS`), MSAA, weiche PCF-Schatten, Wolkenhimmel, Tiefenunschärfe hinter dem Fokus (Kamera-Feld `dof`, `focus`), Bildraum-Umgebungsverdeckung (SSAO), Tonkurve, Glanz auf Böden, Nachschärfen + Filmkorn (`"post": false` schaltet ab).
+- **Materialien:** Holz, Stein, Ziegel, Putz/Beton, Stoff, Jeans, Strick, Dachschindeln, Gras, Metall, Haar, Holzverkleidung, Schnee, Blätter – prozedural im Shader. Kulissen/Requisiten werden automatisch nach Farbe/Ausrichtung zugeordnet, Figuren nach Kleidungsfarben (`MAT`, `autoMat` in core.js; eigenes Material: `mb.mat = <id>`).
+- In GitHub Actions per `VF_QUALITY` in `.github/workflows/vf-render.yml` schaltbar; Rendern auf 12 Teile verteilt. Test ohne Upload: Workflow „Engine-Test (ohne Upload)“.
