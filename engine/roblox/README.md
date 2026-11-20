@@ -157,7 +157,7 @@ Twist erst ganz am Ende · letzter Satz führt in den ersten zurück (Loop) · J
 - **Qualitätsprüfung** nach jedem Export: Auflösung, Länge, Tonspur, schwarze Bilder, Standbilder (Log „Qualitätsprüfung: ✓ ok“ oder ⚠ mit Grund).
 - **Verteiltes Rendern:** `studio.py … --part K/N` rendert nur Teil K von N (Shots nach Bildanzahl verteilt); ein normaler Lauf danach setzt aus dem Cache zusammen (bildgleich geprüft). In GitHub Actions automatisch 4 Teile (Repo-Variable `VF_RENDER_PARTS`); fehlende Teile rendert der Haupt-Job selbst.
 
-### Mocap gegen Zittern (21.11.2026)
+### Mocap gegen Zittern (20.11.2026)
 `tools/mocap_retarget.py` filtert jetzt in 4 Stufen:
 1. Winkel entfalten (`np.unwrap`) – Sprünge über ±180° waren die Hauptursache fürs Zucken.
 2. Savitzky-Golay (erhält Spitzen wie Kicks).
