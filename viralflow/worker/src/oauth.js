@@ -63,7 +63,7 @@ const PROVIDERS = {
 
   tiktok: {
     authUrl: 'https://www.tiktok.com/v2/auth/authorize/',
-    scopes: ['user.info.basic', 'video.publish', 'video.upload'],
+    scopes: ['user.info.basic', 'user.info.stats', 'video.list'], // nur Statistik – Uploads laufen über Buffer
     authParams: (env, redirect, state) => ({
       client_key: env.TIKTOK_CLIENT_KEY, redirect_uri: redirect, response_type: 'code', state, scope: PROVIDERS.tiktok.scopes.join(','),
     }),

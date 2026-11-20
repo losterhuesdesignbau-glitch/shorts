@@ -2,7 +2,7 @@
 python -m vf.stats      (läuft alle 6 h über .github/workflows/vf-stats.yml)
 YouTube: Data API (youtube.readonly) für Zahlen; Verdienst über YouTube Analytics (nur mit yt-analytics-monetary + Partnerprogramm).
 Instagram: Graph API (like_count, comments_count; Aufrufe/Reichweite nur mit Insights-Berechtigung).
-TikTok: läuft über Buffer – ohne eigene TikTok-Leseberechtigung keine automatischen Zahlen (Verdienst manuell im Dashboard)."""
+TikTok: Uploads über Buffer; Zahlen über Display API (user.info.stats, video.list) der eigenen Sandbox-App. Zuordnung zum Video über Veröffentlichungszeit."""
 import datetime as dt
 
 import requests
@@ -68,11 +68,41 @@ def instagram(api, pubs, out):
         d = r.json(); out['accounts'].append({'platform': 'instagram', 'followers': d.get('followers_count'), 'media_count': d.get('media_count')})
 
 
+def tiktok(api, pubs, out):
+    try:
+        tok = api.token('tiktok')
+    except Exception as e:
+        print('TikTok: kein Token –', e); return
+    H = {'Authorization': f"Bearer {tok['access_token']}"}
+    r = requests.get('https://open.tiktokapis.com/v2/user/info/', params={'fields': 'follower_count,likes_count,video_count'}, headers=H, timeout=30)
+    if r.status_code == 200 and (r.json().get('data') or {}).get('user'):
+        u = r.json()['data']['user']
+        out['accounts'].append({'platform': 'tiktok', 'followers': u.get('follower_count'), 'media_count': u.get('video_count')})
+    else:
+        print('TikTok user.info:', r.status_code, r.text[:200]); return
+    vids, cursor = [], None
+    for _ in range(10):  # bis 200 Videos
+        body = {'max_count': 20}
+        if cursor: body['cursor'] = cursor
+        r = requests.post('https://open.tiktokapis.com/v2/video/list/', params={'fields': 'id,create_time,view_count,like_count,comment_count,share_count'}, json=body, headers=H, timeout=30)
+        if r.status_code != 200: print('TikTok video.list:', r.status_code, r.text[:200]); break
+        d = r.json().get('data') or {}
+        vids += d.get('videos') or []
+        if not d.get('has_more'): break
+        cursor = d.get('cursor')
+    # TikTok-Video -> unser Video: nächste Veröffentlichung (±45 min)
+    tp = [(dt.datetime.fromisoformat(p['published_at'].replace('Z', '+00:00')).timestamp(), p) for p in pubs if p['platform'] == 'tiktok' and p.get('published_at')]
+    for v in vids:
+        best = min(tp, key=lambda x: abs(x[0] - v.get('create_time', 0)), default=None)
+        vid = best[1]['video_id'] if best and abs(best[0] - v.get('create_time', 0)) < 2700 else None
+        out['videos'].append({'platform': 'tiktok', 'remote_id': str(v['id']), 'video_id': vid, 'views': v.get('view_count'), 'likes': v.get('like_count'), 'comments': v.get('comment_count'), 'shares': v.get('share_count')})
+
+
 def main():
     api = Orchestrator()
     pubs = api.call('POST', '/api/engine/publications/list', {'statuses': ['published']}).get('items', [])
     out = {'videos': [], 'accounts': [], 'earnings': []}
-    youtube(api, pubs, out); instagram(api, pubs, out)
+    youtube(api, pubs, out); instagram(api, pubs, out); tiktok(api, pubs, out)
     r = api.call('POST', '/api/engine/stats', out)
     print(f"Statistik: {len(out['videos'])} Videos, {len(out['accounts'])} Konten, {len(out['earnings'])} Verdienst-Tage -> {r}")
 
