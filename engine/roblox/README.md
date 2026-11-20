@@ -185,3 +185,4 @@ Alle Verbesserungen sind jetzt Standard:
 - **Materialien:** Holz, Stein, Ziegel, Putz/Beton, Stoff, Jeans, Strick, Dachschindeln, Gras, Metall, Haar, Holzverkleidung, Schnee, Blätter – prozedural im Shader. Kulissen/Requisiten werden automatisch nach Farbe/Ausrichtung zugeordnet, Figuren nach Kleidungsfarben (`MAT`, `autoMat` in core.js; eigenes Material: `mb.mat = <id>`).
 - In GitHub Actions per `VF_QUALITY` in `.github/workflows/vf-render.yml` schaltbar; Rendern auf 12 Teile verteilt. Test ohne Upload: Workflow „Engine-Test (ohne Upload)“.
 - **Requisit `paper`** (20.11.2026): Test-/Klassenarbeitsblatt mit Note (`grade`, `gradeColor`, `marks`: "x" oder "v"), liegend oder `up: true`; `crumpled: true` = zerknüllte Papierkugel.
+- **Look-Feld `glow`** (0–1): leuchtende Figur, z. B. Hauptfigur in dunklen Szenen (heller, starkes Randlicht, wirkt mit Bloom).

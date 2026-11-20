@@ -337,7 +337,7 @@ function avatarGeo(cfg) {
 function avatarItems(items, cfg, S, P) {
   const g = avatarGeo(cfg), sc = (cfg.scale || 1) * (S.scale || 1), sq = P.sq || 0;
   const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0) * sc, S.z + (P.dz || 0)), M4.RY(S.face + (P.spin || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.S(sc * (1 + sq * 0.5) * (cfg.slim || 1), sc * (1 - sq) * (cfg.tall || 1), sc * (1 + sq * 0.5) * (cfg.slim || 1))); // slim/tall: schlankere, größere Figur
-  const tb = P.tb || 0, sh = S.sh, chr = { spec: 0.3, rim: 0.32, ao: 0 };
+  const tb = P.tb || 0, sh = S.sh, chr = cfg.glow ? { spec: 0.3, rim: 0.9, ao: 0, e: Math.min(1, +cfg.glow || 0.6) } : { spec: 0.3, rim: 0.32, ao: 0 };  // glow: leuchtende Figur (z. B. Hauptfigur im Dunkeln)
   const torso = M4.chain(root, M4.T(0, 3 + tb, 0), M4.RY((P.tw || 0) * DEG), M4.RX((P.bx || 0) * DEG), M4.RZ((P.wz || 0) * DEG)); // wz = seitliche Taillenbeugung
   const armL = M4.chain(torso, M4.T(1.5, 0.88, 0), M4.RZ((P.aLz || 0) * DEG), M4.RX((P.aLx || 0) * DEG), M4.RY((P.aLy || 0) * DEG));
   const armR = M4.chain(torso, M4.T(-1.5, 0.88, 0), M4.RZ((P.aRz || 0) * DEG), M4.RX((P.aRx || 0) * DEG), M4.RY((P.aRy || 0) * DEG));
