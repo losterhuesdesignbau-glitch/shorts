@@ -208,3 +208,9 @@ Alle Verbesserungen sind jetzt Standard:
 1. **Inhalt** (`regie.inhalt`): Besetzung vollständig, **Tier-Regel** (Tier im Titel/Hook → nur Tier-Modell; Mensch-als-Tier wird umgestellt; fehlendes Modell = Fehler), Tier-Aktionen übersetzt (Tiere zeigen/halten nicht), **Mimik passend zum Text** (scared/terrified → Angst-Gesicht …), **Tageszeit passend zum Text** (midnight → Nacht), Requisiten passend zum Ort, Tag/Nacht-Sprünge, **Hook** (keine Begrüßung, kurz, ohne Pause).
 2. **Physik/Bild** (`regie.physik` mit `R.check`): Figuren ineinander → auseinander; in Wand → in den Raum; schwebend → auf den Boden; in Tisch/Bett/Stuhl → nächste freie Stelle; Hauptfigur durch Möbel verdeckt → freier Kamerawinkel; Gesicht nicht im Bild/Kopf abgeschnitten/Kamera in Figur → Kamera weiter weg. Danach erneut geprüft (bis 3 Runden).
 Bericht: `Regie: N Korrekturen, M Hinweise, K Fehler`. Aus: `"regie": false`; `"regie": "strict"` bricht bei Fehlern ab.
+
+## Mimik (ab 21.11.2026)
+- Neue Gesichter: `panic` (Schrei-Mund, große Augen), `nervous` (kleine Pupillen, Sorgen-Brauen, Schweiß), `disappointed`, `confident`, `excited` (Glitzer-Augen), `relieved`, `determined`. Augenbrauen sitzen jetzt sichtbar unter dem Pony.
+- **Lippensynchron:** Spricht eine Figur (`do: talk`, `talk: true` oder Satz in Anführungszeichen → automatisch), folgt der Mund der echten Sprachspur (zu/halb/weit je Bild), statt zufällig zu wackeln.
+- Kamera `face:ID` = Großaufnahme fürs Gesicht (Emotions-Momente, Hook), Gesicht über den Untertiteln.
+- Der Regie-Prüfer setzt das Gesicht passend zum Text (z. B. „panics“ → panic, „nervous“ → nervous).

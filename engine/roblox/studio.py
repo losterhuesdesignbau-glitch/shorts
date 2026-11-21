@@ -127,6 +127,25 @@ def engine_meta():
                  'indoor': ['classroom', 'danceroom', 'room', 'elevator', 'hallway', 'kitchen', 'mall']}
     return _META
 
+def add_lipsync(ep, voice, fps):
+    """Mundöffnung je Bild (0 zu, 1 halb, 2 weit) aus der Lautstärke der Sprachspur -> shot['lip'] (Lippensynchronität)."""
+    import numpy as np
+    if voice is None: return
+    v = np.asarray(voice, dtype=np.float32)
+    if v.ndim == 2: v = v.mean(axis=1)
+    sr = AU.SR; hop = sr / fps; win = int(sr * 0.045)
+    n = int(len(v) / hop) + 1
+    rms = np.array([float(np.sqrt(np.mean(v[max(0, int(k * hop) - win // 2):int(k * hop) + win // 2] ** 2) + 1e-12)) for k in range(n)])
+    voiced = rms[rms > rms.max() * 0.05] if rms.max() > 0 else rms
+    ref = float(np.percentile(voiced, 85)) if len(voiced) else 1.0
+    lv = rms / max(ref, 1e-6)
+    lab = np.where(lv > 0.62, 2, np.where(lv > 0.2, 1, 0))
+    for k in range(1, n - 1):  # Einzelbild-Flackern glätten
+        if lab[k - 1] == lab[k + 1] != lab[k]: lab[k] = lab[k - 1]
+    for sh in ep['shots']:
+        f0 = int(round(sh.get('tg0', 0) * fps)); nf = int(sh.get('nf') or round(sh['dur'] * fps))
+        sh['lip'] = ''.join(str(int(x)) for x in lab[f0:f0 + nf]); sh['lipFps'] = fps
+
 class Engine:
     def __init__(self, ep, rs=0.75, hq=False):
         from playwright.sync_api import sync_playwright
@@ -277,6 +296,7 @@ def main():
         if not ok and not (a.force or a.stimme or a.stills or a.frames):
             sys.exit('Abbruch: Länge passt nicht (Skript anpassen oder --force).')
     viral_check(src, ep, total)
+    add_lipsync(ep, voice, fps)  # Lippensynchronität: Mund folgt der echten Stimme
     out = Path(a.out or Path(a.episode).with_suffix('.mp4'))
     if a.stimme:
         if voice is None: sys.exit('Keine Stimme erzeugt.')

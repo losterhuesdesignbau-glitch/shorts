@@ -25,6 +25,10 @@ const MOODS = {
   cool: { e: 'half', b: 'angry', m: 'smirk' }, smug: { e: 'half', b: 'norm', m: 'smirk' }, wink: { e: 'wink', b: 'norm', m: 'grin' },
   love: { e: 'heart', b: 'norm', m: 'smile', blush: 1 }, think: { e: 'up', b: 'think', m: 'smirk' }, evil: { e: 'half', b: 'angry', m: 'grin' },
   confused: { e: 'dot', b: 'think', m: 'wavy' }, dizzy: { e: 'x', b: 'none', m: 'wavy' },
+  // Neue Emotionen (Generalüberholung 21.11.2026)
+  panic: { e: 'wide', b: 'worry', m: 'scream', sweat: 1 }, nervous: { e: 'small', b: 'worry', m: 'wavy', sweat: 1 },
+  disappointed: { e: 'half', b: 'sad', m: 'frown' }, confident: { e: 'half', b: 'think', m: 'smirk' },
+  excited: { e: 'shine', b: 'up', m: 'grin', blush: 1 }, relieved: { e: 'closed', b: 'up', m: 'smile' }, determined: { e: 'dot', b: 'angry', m: 'flat' },
 };
 // o: { gx: Blickrichtung -1..1, lashes, freckles, eye: Augenfarbe }  – Textur 512px (scharf auch in Nahaufnahmen)
 function faceTex(mood, closed, open, kind = 'human', o = {}) {
@@ -35,7 +39,7 @@ function faceTex(mood, closed, open, kind = 'human', o = {}) {
     x.lineCap = 'round'; x.lineJoin = 'round';
     if (kind === 'penguin') { x.fillStyle = '#ffffff'; ell(x, 128, 132, 92, 86); x.fill(); }
     const ey = A ? 112 : 106, dx = A ? 50 : 42, rx = A ? 18 : 14.5, ry = A ? 23 : 21, px = gx * 4;
-    let eyes = M.e; if (closed && ['dot', 'wide', 'half', 'up', 'heart', 'wink'].includes(eyes)) eyes = 'closed';
+    let eyes = M.e; if (closed && ['dot', 'wide', 'half', 'up', 'heart', 'wink', 'small', 'shine'].includes(eyes)) eyes = 'closed';
     if (kind !== 'frog') for (const s of [-1, 1]) {
       const cx = 128 + s * dx; let e = eyes; if (e === 'wink') e = s > 0 ? 'happy' : 'dot';
       x.strokeStyle = ink; x.fillStyle = eyeC; x.lineWidth = A ? 7 : 6.5;
@@ -46,6 +50,8 @@ function faceTex(mood, closed, open, kind = 'human', o = {}) {
         hl(x, cx + px - rx * 0.32, ey + oy - ry * 0.4, A ? 7.5 : 6); hl(x, cx + px + rx * 0.35, ey + oy + ry * 0.38, A ? 3.5 : 2.8);
         if (o.lashes) { x.lineWidth = 4.5; x.strokeStyle = ink; x.beginPath(); x.moveTo(cx + s * rx * 0.75, ey + oy - ry * 0.7); x.lineTo(cx + s * (rx + 8), ey + oy - ry - 4); x.stroke(); }
       }
+      else if (e === 'small') { ell(x, cx + px, ey + 2, rx * 0.62, ry * 0.62); x.fill(); hl(x, cx + px - 2, ey - 3, 3); }
+      else if (e === 'shine') { ell(x, cx + px, ey, rx * 1.12, ry * 1.08); x.fill(); hl(x, cx + px - rx * 0.3, ey - ry * 0.42, 8); hl(x, cx + px + rx * 0.38, ey + ry * 0.3, 4); x.fillStyle = '#fff'; starPath(x, cx + px + rx * 0.2, ey - ry * 0.05, 6, 2.5); x.fill(); }
       else if (e === 'wide') { x.fillStyle = '#fff'; ell(x, cx, ey, rx + 8, ry + 6); x.fill(); x.lineWidth = 5; x.stroke(); x.fillStyle = eyeC; ell(x, cx + px * 1.5, ey + 2, rx * 0.6, ry * 0.55); x.fill(); hl(x, cx + px * 1.5 - 3, ey - 4, 4); }
       else if (e === 'half') { x.save(); x.beginPath(); x.rect(cx - 40, ey - ry * 0.1, 80, 80); x.clip(); ell(x, cx + px, ey, rx, ry); x.fill(); x.restore(); hl(x, cx + px - 3, ey + 4, 3.5); x.lineWidth = 6; x.beginPath(); x.moveTo(cx - rx - 4, ey - ry * 0.1); x.quadraticCurveTo(cx, ey - ry * 0.25, cx + rx + 4, ey - ry * 0.1); x.stroke(); }
       else if (e === 'closed') { x.beginPath(); x.arc(cx, ey - 8, 15, 0.15 * Math.PI, 0.85 * Math.PI); x.stroke(); if (o.lashes) { x.lineWidth = 4; x.beginPath(); x.moveTo(cx + s * 13, ey + 2); x.lineTo(cx + s * 21, ey + 7); x.stroke(); } }
@@ -54,16 +60,16 @@ function faceTex(mood, closed, open, kind = 'human', o = {}) {
       else if (e === 'x') { x.beginPath(); x.moveTo(cx - 12, ey - 12); x.lineTo(cx + 12, ey + 12); x.moveTo(cx + 12, ey - 12); x.lineTo(cx - 12, ey + 12); x.stroke(); }
     }
     // Augenbrauen (leicht gebogen)
-    if (M.b !== 'none' && (!A || ['angry', 'sad', 'up'].includes(M.b)) && kind !== 'frog') {
-      const by = ey - (A ? 42 : 38); x.lineWidth = 8.5; x.strokeStyle = '#2a1c12';
+    if (M.b !== 'none' && (!A || ['angry', 'sad', 'up', 'worry'].includes(M.b)) && kind !== 'frog') {
+      const by = ey - (A ? 42 : 27); x.lineWidth = A ? 8.5 : 9.5; x.strokeStyle = '#2a1c12';
       for (const s of [-1, 1]) {
         const cx = 128 + s * dx; let i0 = 0, o0 = 0, arch = -4;
-        if (M.b === 'up') { i0 = -9; o0 = -7; arch = -6; } else if (M.b === 'sad') { i0 = -10; o0 = 5; arch = -1; } else if (M.b === 'angry') { i0 = 10; o0 = -5; arch = 1; } else if (M.b === 'think' && s > 0) { i0 = -10; o0 = -12; arch = -7; }
+        if (M.b === 'up') { i0 = -9; o0 = -7; arch = -6; } else if (M.b === 'sad') { i0 = -10; o0 = 5; arch = -1; } else if (M.b === 'angry') { i0 = 10; o0 = -5; arch = 1; } else if (M.b === 'think' && s > 0) { i0 = -10; o0 = -12; arch = -7; } else if (M.b === 'worry') { i0 = -9; o0 = 6; arch = -2; }
         x.beginPath(); x.moveTo(cx - s * 15, by + i0); x.quadraticCurveTo(cx, by + (i0 + o0) / 2 + arch, cx + s * 15, by + o0); x.stroke();
       }
     }
     // Mund (op: 0 zu, 1 halb, 2 weit)
-    let m = M.m; if (op) m = (m === 'grin' || m === 'yawn') ? m : (m === 'frown' || m === 'wavy' ? 'wavyopen' : 'open');
+    let m = M.m; if (op) m = (m === 'grin' || m === 'yawn' || m === 'scream') ? m : (m === 'frown' || m === 'wavy' ? 'wavyopen' : 'open');
     const my = kind === 'frog' ? 150 : 158; x.strokeStyle = ink; x.lineWidth = 7;
     const showMouth = kind === 'human' || kind === 'frog';
     if (showMouth) {
@@ -73,6 +79,7 @@ function faceTex(mood, closed, open, kind = 'human', o = {}) {
       else if (m === 'frown') { x.beginPath(); x.arc(128, my + 24, 24, 1.22 * Math.PI, 1.78 * Math.PI); x.stroke(); }
       else if (m === 'open' || m === 'wavyopen') { const w = op > 1 ? 21 : 15, h = op > 1 ? 18 : 10; ell(x, 128, my + 4, w, h); fillM(); ell(x, 128, my + 4 + h * 0.55, w * 0.58, h * 0.42); fillM('#ff8a8a'); x.lineWidth = 5; ell(x, 128, my + 4, w, h); x.stroke(); if (op > 1) { x.save(); ell(x, 128, my + 4, w, h); x.clip(); x.fillStyle = '#fff'; x.fillRect(100, my + 4 - h, 56, 6); x.restore(); } }
       else if (m === 'grin') { x.beginPath(); x.moveTo(98, my - 10); x.quadraticCurveTo(128, my + (op ? 50 : 44), 158, my - 10); x.closePath(); fillM(); x.save(); x.clip(); x.fillStyle = '#fff'; x.fillRect(90, my - 12, 80, 11); ell(x, 128, my + 26, 16, 9); x.fillStyle = '#ff8a8a'; x.fill(); x.restore(); x.lineWidth = 5; x.stroke(); }
+      else if (m === 'scream') { const h = 24 + op * 4; ell(x, 128, my + 10, 20, h); fillM(); x.save(); ell(x, 128, my + 10, 20, h); x.clip(); x.fillStyle = '#fff'; x.fillRect(100, my + 10 - h, 56, 8); x.restore(); ell(x, 128, my + 10 + h * 0.6, 12, 7); fillM('#ff8a8a'); x.lineWidth = 5; ell(x, 128, my + 10, 20, h); x.stroke(); }
       else if (m === 'O') { ell(x, 128, my + 4, 10, 13); fillM(); x.lineWidth = 5; x.stroke(); }
       else if (m === 'o') { ell(x, 128, my + 2, 6, 7); fillM(); x.lineWidth = 4; x.stroke(); }
       else if (m === 'yawn') { ell(x, 128, my + 12, 19, 30); fillM(); ell(x, 128, my + 30, 11, 8); fillM('#ff8a8a'); x.lineWidth = 5; ell(x, 128, my + 12, 19, 30); x.stroke(); }

@@ -362,6 +362,7 @@ function camera(sh, si, tl, D, set, map) {
   const around = (dist, ey, ly, a = ang + 0) => { dist *= DM; eye = [f[0] + Math.sin(a) * dist, f[1] + ey, f[2] + Math.cos(a) * dist]; look = [f[0], f[1] + ly, f[2]]; };
   switch (c.type) {
     case 'close': around((c.dist || 7.0) * fs * push, hy - f[1] - 0.15 * fs, hy - f[1] - 0.95 * fs); fov = 37.5; break;
+    case 'face': around((c.dist || 5.0) * fs * push, hy - f[1] + 0.05 * fs, hy - f[1] - 0.32 * fs); fov = 34; break; // Großaufnahme Gesicht (Emotionen)
     case 'medium': around((c.dist || 10.5) * fs * push, 3.9 * fs, 3.0 * fs); break;
     case 'full': around((c.dist || 14) * push, 4.8 * fs, 2.7 * fs); break;
     case 'low': around((c.dist || 6.5) * fs * push, 0.9, A ? A.h * 0.75 : 3); fov = 52; break;
@@ -676,7 +677,9 @@ function renderShot(sh, si, tl) {
     const blink = ((tg + s.ph) % 3.4) < 0.12 || ((tg + s.ph * 3) % 7.3) < 0.1;
     P.mood = s.mood; P.closed = blink;
     const tk = s.a.talk, talking = s.act === 'talk' || s.mood === 'talk' || tk === true || (Array.isArray(tk) && tk.some(w => u >= w[0] && u < w[1]));
-    if (talking) { const v = Math.sin(tl * 15 + s.ph) + 0.5 * Math.sin(tl * 23) + 0.35 * Math.sin(tl * 6.3 + 1); P.open = v > 1.0 ? 2 : v > 0.1 ? 1 : 0; }
+    if (talking) { const L = sh.lip; // Lippensynchron: Mundöffnung aus der echten Sprachspur (studio.py), sonst Ersatz-Bewegung
+      if (L && L.length) { const i = Math.min(L.length - 1, Math.max(0, Math.floor(tl * (sh.lipFps || 30)))); P.open = +L[i]; }
+      else { const v = Math.sin(tl * 15 + s.ph) + 0.5 * Math.sin(tl * 23) + 0.35 * Math.sin(tl * 6.3 + 1); P.open = v > 1.0 ? 2 : v > 0.1 ? 1 : 0; } }
     s.lift = (P.lift || 0) * s.scale;
     // Sekundärbewegung (Haare, Umhang, Flügel) aus Tempo, Sprung und Wind
     const sec = clothSim(s, si, sh, tl, D, map) || { swing: 5 * Math.sin(tl * 1.9 + s.ph), side: 4 * Math.sin(tl * 1.3 + s.ph) };

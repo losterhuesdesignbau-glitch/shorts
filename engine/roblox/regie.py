@@ -130,9 +130,15 @@ def inhalt(src, info=None):
                 if re.search(rx, t):
                     want = next((c for c in cands if not moods or c in moods), None); break
             cur = m.get('mood')
-            if want and (cur is None or (cur in POSITIVE and want in NEGATIVE) or (cur in NEGATIVE and want in POSITIVE and want not in ('think',))):
+            posw = re.search(r'\b(best|love|loves|happy|yay|awesome|amazing|wins?|won|great|perfect)\b', t)
+            strong = want in ('scared', 'panic', 'cry', 'sad', 'angry', 'disappointed', 'nervous')
+            if want and (cur is None or (cur in POSITIVE and strong and not posw) or (cur in NEGATIVE and want in POSITIVE and want not in ('think',))):
                 if cur != want:
                     m['mood'] = want; fixes.append(f'Shot {i + 1}: Gesicht von "{m["id"]}" {cur or "-"} -> {want} (Text: "{sh.get("say", "")[:40]}")')
+        # Dialog in Anführungszeichen: sprechende Figur bewegt den Mund (lippensynchron zur Stimme)
+        say = str(sh.get('say', '')).strip()
+        if m is not None and re.match(r'^["“„«]', say) and 'talk' not in m and m.get('do') not in ('talk',):
+            m['talk'] = True; fixes.append(f'Shot {i + 1}: "{m["id"]}" spricht -> Mund lippensynchron')
         # unbekannte Gesichter
         for a in sh.get('actors') or []:
             if moods and isinstance(a.get('mood'), str) and a['mood'] and a['mood'] not in moods:

@@ -91,8 +91,8 @@ R.check = function (si) {
         const hp = chkProj(VP, [s.x, s.y + s.h * 0.86, s.z]);
         if (!hp || hp[0] < R.W * 0.04 || hp[0] > R.W * 0.96 || hp[1] < R.H * 0.03 || hp[1] > R.H * 0.97) add(u, 'kopf_nicht_im_bild', s.id, 'Gesicht der Hauptfigur nicht im Bild', { far: 1.25 });
         else if (hp[1] > R.H * ((R.ep.capY || 0.64) - 0.07) && hp[1] < R.H * ((R.ep.capY || 0.64) + 0.05)) add(u, 'untertitel_verdeckt', s.id, 'Untertitel liegt auf dem Gesicht');
-        if (bx.y0 < -R.H * 0.02 && c0.type !== 'close') add(u, 'kopf_abgeschnitten', s.id, 'Kopf oben angeschnitten', { far: 1.2 });
-      } else if (vis > 0.08 && vis < 0.55 && c0.type !== 'close' && bx.y1 - bx.y0 > R.H * 0.25) add(u, 'angeschnitten', s.id, `nur ${(vis * 100) | 0}% im Bild (Rand)`);
+        if (bx.y0 < -R.H * 0.02 && !['close', 'face'].includes(c0.type)) add(u, 'kopf_abgeschnitten', s.id, 'Kopf oben angeschnitten', { far: 1.2 });
+      } else if (vis > 0.08 && vis < 0.55 && !['close', 'face'].includes(c0.type) && bx.y1 - bx.y0 > R.H * 0.25) add(u, 'angeschnitten', s.id, `nur ${(vis * 100) | 0}% im Bild (Rand)`);
       if (bx.behind && bx.behind < 8 && Math.hypot(cam.eye[0] - s.x, cam.eye[2] - s.z) < r + 0.4) add(u, 'kamera_in_figur', s.id, 'Kamera steckt in der Figur', { far: 1.3 });
     }
     // 6) Hauptfigur durch Möbel verdeckt -> anderen Kamerawinkel suchen, der über die ganze Einstellung frei ist
