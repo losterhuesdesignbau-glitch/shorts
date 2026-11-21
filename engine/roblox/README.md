@@ -222,3 +222,9 @@ Bericht: `Regie: N Korrekturen, M Hinweise, K Fehler`. Aus: `"regie": false`; `"
 
 ## Musik mit echten Instrumenten (ab 21.11.2026)
 `score.py` rendert Klavier, Streicher, Chor, Spieluhr/Celesta, Gitarre/Pizzicato, Bass, Blech, Pfeife, Schlagzeug und Taiko mit der SoundFont-Bank **GeneralUser GS** (Lizenz: frei für eigene Musik, auch kommerziell) über `tinysoundfont`. Jeder Klang wird auf die Lautheit des alten Synth-Klangs kalibriert (gleiche Mischung). Drones, Riser, Booms, Herzschlag bleiben Sounddesign. Bank wird beim ersten Lauf nach `~/.cache/block_studio/sf2/` geladen (CI-Cache). Aus: `VF_SOUNDFONT=0`. Instrumente je Genre: `PROG` in score.py.
+
+## Privater Test (ohne Veröffentlichung)
+Episode nach `episodes/tests/<name>.json` legen (nicht queue!), pushen, dann Workflow „VIRALFLOW · Engine 1 · Render“ mit `file=episodes/tests/<name>.json` und `test=ja` starten. Der Lauf rendert in echtem 4K, prüft Bild/Ton/Aussprache und schreibt `TESTLINK …` (1080p und 4K, 7 Tage gültig) ins Log. Nichts wird eingeplant oder hochgeladen.
+
+## Qualitätskontrolle nach dem Rendern
+`tools/qa.py video.mp4` (läuft automatisch im Render-Job): Auflösung/Format/Länge/Tonspur, Schärfe, Helligkeit/Kontrast, Schwarzbilder, Standbilder, Bewegung in den ersten 2 s, Lautheit (Ziel −15 LUFS)/Spitzenpegel, lange Stille. Fehler → kein Upload; Warnungen → ViralFlow-Protokoll. `tools/aussprache.py episode.json` hört die Stimme per Spracherkennung (Whisper tiny.en, offline) ab und meldet unverständliche Wörter (Fix: "speak").
