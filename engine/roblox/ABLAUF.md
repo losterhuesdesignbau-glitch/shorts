@@ -1,23 +1,39 @@
-# Ablauf für automatische Shorts (gilt für alle Sendeplätze)
+# Ablauf für automatische Shorts (gilt für alle Sendeplätze) – Version 2 (Generalüberholung 21.11.2026)
 
 Der Auftrag (geplante Aufgabe) nennt: {SLOT} Sendezeit, {START} Start, {PUSH} spätester Push, {SERIE}, {THEMA}, {MUSIK}, {HASHTAG}.
-Die Aufgabe wiederholt sich täglich von selbst (fester Zeitplan) – NICHT neu planen, keine update_trigger-/send_later-Aufrufe. Ablauf:
+Die Aufgabe wiederholt sich täglich von selbst (fester Zeitplan) – die Aufgabe selbst NICHT umplanen (kein update_trigger).
+Ziel: nicht einfach 6 Videos am Tag, sondern 6 hochwertige, eigenständige Videos, bei denen jedes Detail stimmt.
 
-0. Repo losterhuesdesignbau-glitch/shorts unter /home/claude/shorts sicherstellen (fehlt es: add_repo mit push, klonen), git pull, CLAUDE.md und engine/roblox/README.md („Sendeplan & Regeln“, „4K-Look“, „Großes Update“) beachten. Lokale Engine für die Vorschau: /home/claude/engine/roblox (fehlt sie oder ist sie älter: engine/roblox aus dem Repo kopieren).
-1. THEMA: siehe {THEMA} im Auftrag (Serien-Beschreibung, Besonderheiten und Musik stehen dort).
-ENGINE-REGEL 1 – KEINE WIEDERHOLUNGEN: episodes/themen.json (Register aller Folgen) lesen. Komplett eigenständige Idee mit eigenem Hook, eigener Handlung, eigenem Spannungsbogen – keine recycelten Skripte mit ausgetauschten Namen/Orten. Vor dem Schreiben prüfen: `python engine/roblox/tools/themen.py check "<Thema, Hook, Handlung, Twist auf Englisch>"` – bei „ZU ÄHNLICH“ (Exit 1) oder wenn du selbst eine inhaltliche Ähnlichkeit zu einer Folge im Register siehst: verwerfen und neue Idee, bis „OK“.
-Dann selbst ein englisches Short-Skript schreiben (Titel mit Emoji, ≥ 61 s ≈ 165–180 Wörter / 40–48 Shots – die Stimme spricht jetzt flüssig ohne lange Pausen, kein Tempo in "tts" setzen: das kommt automatisch aus der Serie). Besonderheiten der Serie aus dem Auftrag beachten.
-ENGINE-REGEL 2 – MUSIK & SOUNDDESIGN: in episode.json "music": "{MUSIK}" setzen (score.py: eigene Filmmusik pro Video, Steigerung bis zum Twist, Akzente auf Schnitten, Musik nie über der Stimme). Wichtige Momente mit "sfx" markieren ("boom" auf Schock/Twist, "riser" vor großen Enthüllungen, "whoosh" bei schnellen Wechseln, "ding"/"pop" bei leichten Momenten); "twistAt" (Sekunden) setzen, wenn der Twist nicht der letzte „boom“ ist. Keine Standard-Musik für alle Videos.
-4K-LOOK & WERKZEUGE (README): Materialien/Licht automatisch; Sets inkl. mall, patio, xmasmarket, snowyard, classroom, stadium, danceroom; Requisiten inkl. paper (Test-Blatt), snowman, lightbeam, motes, window, crowd, bubble, counter, score; Look-Felder glow, crop. Klare Bildaufteilung: Figuren nicht verdeckt, Kamera nicht in Figuren/Wänden, Hauptfigur gut sichtbar.
-ENGINE-REGEL 3 – TIERE: Kommt ein Tier vor (v. a. X vs Y), IMMER als Tier-Modell im cast ({"animal": "…"}, siehe README Regel 3 und episodes/done/vs_cat_dog.json) – NIE Menschen als Tiere verkaufen; Menschen nur als Moderator. Fehlt das Tier in der Engine: anderes Duell mit verfügbaren Tieren wählen oder Modell rückwärtskompatibel bauen.
-VIRAL-REGELN (Pflicht): 1. Satz = Hook, Shot 1 ≤ 2 s ohne pause; alle 1–2 s neues Bild, keine Shots > 3 s; Twist ganz am Ende; letzter Satz führt in den ersten zurück; Ja/Nein-Frage; 3–5 Hashtags inkl. {HASHTAG}. "viral": {"hook": "<2–4 Wörter, GROSS>", "series": "{SERIE} #<n>", "cta": "YES or NO? 👇" o. ä., "loop": true}; n = bisherige {SERIE}-Folgen in episodes/ bzw. themen.json + 1.
-2. episode.json bauen (Kokoro af_heart, englische Untertitel), lokal NUR --stills prüfen (Bilder, „Timing exakt“, ≥ 61 s, „✓ Viral-Check“). Zügig arbeiten: Datei muss spätestens {PUSH} gepusht sein.
-3. Mit meta-Block (title mit Emoji, description, hashtags ohne #, language "en") als episodes/queue/<kurzer_name>.json committen; zusätzlich `python engine/roblox/tools/themen.py add --series "{SERIE}" --title "…" --topic "…" --hook "…" --plot "<Handlung in 2–3 Sätzen>" --twist "…" --file episodes/queue/<kurzer_name>.json` und episodes/themen.json im selben Commit; auf main pushen. Keine MP4s, kein ViralSpin. Engine-Änderungen nur rückwärtskompatibel mitpushen.
-4. Mit gh api (REST) prüfen, dass „VIRALFLOW · Engine 1 · Render“ startet (verteiltes Rendern, 16 Teile, 4K-Look) und erfolgreich endet; im Log sollte scheduled_at = {SLOT} Berlin stehen. Ist der Render erst nach {SLOT} fertig, postet ViralFlow (bis 60 min nach dem Termin) automatisch sofort.
-AUSFALL-REGEL (Lukas' Wunsch): Scheitert etwas (Render-Fehler, Render > 60 min zu spät, Upload-Fehler) → NICHT nachholen, nicht neu einreihen, keinen späteren Termin belegen. Landet das Video trotzdem auf einem späteren Termin: dessen Veröffentlichungen per Workflow „VIRALFLOW · Veröffentlichungen abbrechen / neu einreihen“ (ids <video-id>:youtube,<video-id>:tiktok,<video-id>:instagram, requeue=nein) abbrechen. Dieser Termin fällt dann aus; morgen geht es normal weiter.
-5. Nach {SLOT} warten, bis die Runs von „VIRALFLOW · Engine 2 · Publish“ für dieses Video fertig sind (gh api runs/Logs; Zeilen „✓ veröffentlicht“ bzw. „✗“ je Plattform youtube/tiktok/instagram; höchstens 60 min nach {SLOT} warten).
-6. BENACHRICHTIGUNG (Lukas will GENAU EINE Push-Nachricht, erst wenn das Video online ist – vorher keine):
+0. Repo losterhuesdesignbau-glitch/shorts unter /home/claude/shorts sicherstellen (fehlt es: add_repo mit push, klonen), git pull, CLAUDE.md und engine/roblox/README.md beachten (v. a. „Sendeplan & Regeln“, „Regie- & Physik-Prüfer“, „Mimik“, „Stimme“, „Musik“). Vorschau immer mit der Engine aus dem Repo (engine/roblox).
+
+1. IDEE & SKRIPT
+ENGINE-REGEL 1 – KEINE WIEDERHOLUNGEN: episodes/themen.json lesen. Eigene Idee mit eigenem Hook, eigener Handlung, eigenen Figuren/Namen, eigenem Einstieg, eigenem Ort – keine recycelten Skripte. Vor dem Schreiben `python engine/roblox/tools/themen.py check "<Thema, Hook, Handlung, Twist auf Englisch>"` – bei „ZU ÄHNLICH“ oder erkennbarer Ähnlichkeit: neue Idee, bis „OK“.
+Englisches Skript (Titel mit Emoji, ≥ 61 s ≈ 165–180 Wörter / 40–48 Shots; die Stimme spricht flüssig, kein Tempo in "tts" setzen – kommt aus der Serie).
+HOOK (die ersten 2 Sekunden entscheiden): Shot 1 ≤ 2 s, ≤ 7 Wörter, direkt in die Handlung – eine überraschende Situation, ein Konflikt oder eine Frage; KEINE Begrüßung/Einleitung („Hi“, „Today…“, „In this video…“). Bild in Shot 1: Bewegung + Hauptfigur mit starker Emotion (Kamera `face:ID` oder `close:ID`) + "viral.hook" (2–4 Wörter GROSS). Jeder Hook anders als die letzten Folgen.
+MIMIK: Jede Figur hat in jedem Shot das passende Gesicht ("mood": panic, scared, nervous, shock, sad, disappointed, angry, confused, think, excited, happy, laugh, confident, determined, relieved …). Emotionale Höhepunkte mit `face:ID` (Großaufnahme). Dialog in Anführungszeichen → Mund automatisch lippensynchron.
+ENGINE-REGEL 2 – MUSIK & SOUNDDESIGN: "music": "{MUSIK}" (echte Instrumente, eigene Komposition pro Video, Steigerung bis zum Twist, Akzente auf Schnitten, nie über der Stimme). sfx auf wichtige Momente ("boom" Schock/Twist, "riser" vor Enthüllungen, "whoosh" schnelle Wechsel, "ding"/"pop" leichte Momente); "twistAt" setzen, wenn der Twist nicht der letzte „boom“ ist. Keine fremde/urheberrechtlich geschützte Musik.
+ENGINE-REGEL 3 – TIERE: Tiere IMMER als Tier-Modell ({"animal": "…"}: dog, cat, fox, lion, tiger, pig, bear, sheep, cow, penguin, frog, chicken, croc, shark, guineapig) – NIE Menschen als Tiere. Fehlt ein Tier: anderes Tier wählen oder Modell rückwärtskompatibel bauen.
+SZENEN-LOGIK: Ort passt zur Handlung (Schule sieht aus wie Schule), Licht passt zur Tageszeit (Nacht = "time": "night"), Kleidung passt zu Figur/Ort, nur Requisiten, die dort hingehören, Figuren nicht in Möbeln/Wänden, Hauptfigur gut sichtbar.
+VIRAL-REGELN: alle 1–2 s neues Bild, keine Shots > 3 s; Twist ganz am Ende; letzter Satz führt in den ersten zurück; Ja/Nein-Frage; 3–5 Hashtags inkl. {HASHTAG}. "viral": {"hook": "…", "series": "{SERIE} #<n>", "cta": "…", "loop": true}; n = bisherige {SERIE}-Folgen + 1.
+
+2. PRÜFEN VOR DEM RENDERN (Pflicht, alles im Repo-Ordner engine/roblox)
+a) `python studio.py <episode.json> -o /tmp/v.mp4 --stills` → Ausgabe lesen:
+   - „Regie: … Fehler“ muss 0 sein (Tier-Regel, Hook-Einstieg …). ✎-Korrekturen macht die Engine selbst; ⚠-Hinweise ansehen und beheben, wo sinnvoll.
+   - „Timing exakt“, Länge ≥ 61 s, „✓ Viral-Check“.
+   - Kontaktbogen ansehen: Gesichter sichtbar und passend zur Emotion, nichts verdeckt, Ort/Licht logisch, Hook-Bild stark.
+b) `python tools/aussprache.py <episode.json>` → muss „OK“ sein (≥ 85 % verstanden, kein Satz < 60 %). Unklare Wörter mit "speak" (Lautschrift) im Shot korrigieren und erneut prüfen.
+Zügig arbeiten: Datei muss spätestens {PUSH} gepusht sein (Rendern in echtem 4K dauert ~20–30 min).
+
+3. Mit meta-Block (title mit Emoji, description, hashtags ohne #, language "en") als episodes/queue/<kurzer_name>.json committen; zusätzlich `python engine/roblox/tools/themen.py add --series "{SERIE}" --title "…" --topic "…" --hook "…" --plot "<Handlung in 2–3 Sätzen>" --twist "…" --file episodes/queue/<kurzer_name>.json` und episodes/themen.json im selben Commit; auf main pushen. Keine MP4s, kein ViralSpin.
+
+4. Mit gh api (REST) prüfen, dass „VIRALFLOW · Engine 1 · Render“ startet. Der Render prüft danach automatisch Bild/Ton (qa.py) und die Aussprache und lädt nur fehlerfreie Videos hoch (YouTube in 4K, Instagram/TikTok in 1080p aus dem 4K-Master). Im Log: scheduled_at = {SLOT} Berlin.
+AUSFALL-REGEL (Lukas' Wunsch): Scheitert etwas (Render-Fehler, Render > 60 min zu spät, Upload-Fehler) → NICHT nachholen. Landet das Video auf einem späteren Termin: Workflow „VIRALFLOW · Veröffentlichungen abbrechen / neu einreihen“ mit ids <video-id>:youtube,<video-id>:tiktok,<video-id>:instagram und requeue=nein (gibt den Termin frei). NIE requeue=ja (veröffentlicht sofort).
+
+5. CHAT FREIGEBEN: Sobald der Render läuft und keine Fehler zeigt, mit send_later eine Prüf-Nachricht an diese Unterhaltung für {SLOT} + 10 min planen (Text: „Check {SLOT}-Video <video-id>: Publish-Runs prüfen, dann GENAU EINE PushNotification …“, Benachrichtigungs-Regeln aus Schritt 6 mit hineinschreiben) und den Lauf beenden – nicht bis zur Veröffentlichung im Chat warten (sonst blockiert der Chat den nächsten Lauf).
+
+6. BENACHRICHTIGUNG (beim Prüf-Termin; GENAU EINE Push-Nachricht, erst wenn das Video online ist):
+- Publish-Runs „VIRALFLOW · Engine 2 · Publish“ für das Video prüfen (Zeilen „✓ veröffentlicht“ / „✗“ je Plattform; höchstens bis {SLOT} + 60 min warten).
 - Alle 3 online: PushNotification „✅ {SLOT}-Video online auf YouTube, TikTok & Instagram – alles hat geklappt“ (+ Titel).
-- Nur teilweise online: PushNotification „⚠️ {SLOT}-Video: online auf <…>, fehlgeschlagen bei <…> (<kurzer Grund>)“.
-- Fällt ganz aus: PushNotification „⚠️ {SLOT}-Video fällt heute aus: <kurzer Grund>“.
+- Nur teilweise: „⚠️ {SLOT}-Video: online auf <…>, fehlgeschlagen bei <…> (<kurzer Grund>)“.
+- Fällt ganz aus: „⚠️ {SLOT}-Video fällt heute aus: <kurzer Grund>“.
 Danach im Chat kurz: Titel, Links, Status.
