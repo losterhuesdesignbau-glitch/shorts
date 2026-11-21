@@ -128,5 +128,15 @@
   "plot": "Rounds: speed on land (ostrich ~70 km/h), swimming (emperor penguin up to ~24 km/h), size (ostrich ~2.5 m), diving (565 m record, 20+ min breath). 2-2 going into the final.",
   "twist": "Final round 'best dad': emperor penguin dads keep the egg on their feet ~2 months without eating – penguin wins 3-2.",
   "file": "episodes/queue/vs_penguin_ostrich.json"
+ },
+ {
+  "date": "2026-11-21",
+  "series": "TRENDING NOW",
+  "title": "The Chipmunks Dance Song Is OLDER Than Your Parents 🐿️🌀",
+  "topic": "TikTok Chipmunks Dance trend (trio: jump, kick, spin, hair flip) to sped-up You Spin Me Round",
+  "hook": "OLDER THAN YOUR PARENTS",
+  "plot": "Explains the viral TikTok Chipmunks Dance: groups of three, goofy jumps, kicks, spins and hair flips to a sped-up chipmunk-voiced sound, easy to learn in an afternoon.",
+  "twist": "The sound is Dead or Alive's You Spin Me Round from 1984 (UK No. 1 in 1985) – your parents danced to it first.",
+  "file": "episodes/queue/trend_chipmunks_dance.json"
  }
 ]
