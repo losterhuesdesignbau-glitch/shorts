@@ -174,6 +174,15 @@ def inhalt(src, info=None):
             if not (re.search(NIGHT, _txt(a) + ' ' + _txt(b)) or re.search(MORNING + '|' + EVENING, _txt(a) + ' ' + _txt(b)) or re.search(r'\b(next|later|hours|that night|morning)\b', _txt(b))):
                 warns.append(f'Shot {i}->{i + 1}: Tag/Nacht wechselt am selben Ort ohne Zeitsprung im Text')
 
+    # Musik passend zur Serie/Geschichte
+    series = ((src.get('viral') or {}).get('series', '') + ' ' + ' '.join((src.get('meta') or {}).get('hashtags') or [])).lower()
+    want_music = [(r'dark', ('dark',)), (r'weird|inthistown|mystery', ('mystery',)), (r'school', ('school', 'school_emo')), (r'vs|battle', ('battle',)),
+                  (r'survival|whatif', ('epic',)), (r'trend|genz', ('trend',))]
+    for rx, ok in want_music:
+        if re.search(rx, series):
+            if src.get('music') not in ok and not src.get('musicFile'):
+                warns.append(f'Musik: Serie passt zu {"/".join(ok)}, gesetzt ist "{src.get("music")}"')
+            break
     # Hook: die ersten 2 Sekunden
     if shots:
         t0 = _txt(shots[0])
