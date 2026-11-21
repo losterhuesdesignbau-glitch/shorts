@@ -53,7 +53,7 @@ jobs:
       - id: p
         env:
           MATRIX: ${{ steps.m.outputs.matrix }}
-          VF_PARTS: ${{ vars.VF_RENDER_PARTS || '20' }}
+          VF_PARTS: ${{ vars.VF_RENDER_PARTS || '18' }}  # 18 + Plan + Zusammenbau passen in GitHubs 20 gleichzeitige Jobs (kein Warten)
         run: |
           python3 - >> "$GITHUB_OUTPUT" <<'EOF'
           import json, os
