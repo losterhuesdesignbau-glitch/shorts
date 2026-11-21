@@ -187,14 +187,14 @@ Alle Verbesserungen sind jetzt Standard:
 - **Requisit `paper`** (20.11.2026): Test-/Klassenarbeitsblatt mit Note (`grade`, `gradeColor`, `marks`: "x" oder "v"), liegend oder `up: true`; `crumpled: true` = zerknüllte Papierkugel.
 - **Look-Feld `glow`** (0–1): leuchtende Figur, z. B. Hauptfigur in dunklen Szenen (heller, starkes Randlicht, wirkt mit Bloom).
 
-## Sendeplan & Regeln (ab 21.11.2026)
+## Sendeplan & Regeln (ab 21.11.2026; Läufe starten 75 min vor dem Termin, Push spätestens 40 min vorher – echtes 4K rendert ~25 min)
 | Zeit | Serie | Musik (`"music"`) |
 |---|---|---|
 | 08:00 | Weird Towns / In This Town | `mystery` |
 | 10:00 | School Life | `school` (lustig) / `school_emo` (emotional) |
 | 12:30 | X vs Y | `battle` |
-| 15:30 | Virale Trends (keine Tänze, keine Musik-Trends) | `trend` |
-| 18:30 | Survival & Katastrophen | `epic` |
+| 15:30 | GenZ Trends (Roblox/Gaming/Internet/Challenges – keine Tänze, keine Musik-Trends, nichts kopieren) | `trend` |
+| 18:30 | Survival & Katastrophen – „What if YOU …?“ | `epic` |
 | 21:00 | Dark Stories | `dark` |
 
 **Regel 1 – keine Wiederholungen:** `episodes/themen.json` ist das Register aller Folgen. Vor jeder Produktion `python engine/roblox/tools/themen.py check "<Thema, Hook, Handlung, Twist>"` – bei „ZU ÄHNLICH“ verwerfen. Nach dem Push `themen.py add …` und Register mitcommitten.
