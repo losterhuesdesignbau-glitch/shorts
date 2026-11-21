@@ -1,0 +1,1179 @@
+{
+ "title": "Frostwick",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "SNOW ON\nONE HOUSE",
+  "series": "WEIRD TOWNS #2",
+  "cta": "YES or NO? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "It Snows on Only ONE House in This Town ❄️🏠",
+  "description": "In Frostwick it snows on exactly one house every day – and that family makes hot cocoa for the whole town. But who picks the house? Would you live here? 👇",
+  "hashtags": [
+   "weirdtowns",
+   "mystery",
+   "story",
+   "animation"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "bell": {
+   "look": "grandma",
+   "shirt": "#c1121f",
+   "scarf": "#ffd23f"
+  },
+  "leo": {
+   "look": "kid",
+   "hair": "spiky",
+   "hairColor": "#5b3a26",
+   "shirt": "#3a86ff",
+   "backpack": "#ffbe0b",
+   "logo": "none"
+  },
+  "mayor": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#d9d9d9",
+   "shirt": "#2b2d42",
+   "tie": "#e63946",
+   "tophat": true,
+   "logo": "none"
+  },
+  "anna": {
+   "look": "woman",
+   "hair": "long",
+   "hairColor": "#e2c17c",
+   "shirt": "#2a9d8f",
+   "logo": "none"
+  },
+  "max": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#3b2a1a",
+   "shirt": "#ff8c42",
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "It snows",
+   "set": "snowyard",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     4,
+     4,
+     10
+    ],
+    "look": [
+     8,
+     4,
+     -14
+    ],
+    "eye2": [
+     3,
+     3.6,
+     8
+    ]
+   },
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  },
+  {
+   "say": "on just *one* house.",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Every single day.",
+   "set": "snowyard",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     10,
+     9,
+     0
+    ],
+    "look": [
+     9,
+     5,
+     -17
+    ]
+   },
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Welcome to *Frostwick*.",
+   "set": "street",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -1.5,
+      0.5
+     ],
+     "do": "wave",
+     "face": 20,
+     "mood": "happy"
+    },
+    {
+     "id": "max",
+     "at": [
+      1.5,
+      0.5
+     ],
+     "do": "wave",
+     "face": -20,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "FROSTWICK",
+     "at": [
+      3.2,
+      -2.6
+     ],
+     "fg": "#3a86ff"
+    }
+   ]
+  },
+  {
+   "say": "The sky is blue everywhere...",
+   "set": "street",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     2,
+     6
+    ],
+    "look": [
+     0,
+     8,
+     -10
+    ]
+   }
+  },
+  {
+   "say": "except over *one* roof.",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Nobody knows which house is next.",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -2,
+      0.3
+     ],
+     "do": "idle",
+     "face": 15,
+     "mood": "worried",
+     "emote": "❓"
+    },
+    {
+     "id": "max",
+     "at": [
+      2,
+      0.3
+     ],
+     "do": "idle",
+     "face": -15,
+     "mood": "worried",
+     "emote": "❓"
+    }
+   ]
+  },
+  {
+   "say": "So every morning,",
+   "set": "street",
+   "time": "morning",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "run",
+     "face": 0,
+     "to": [
+      0,
+      -1
+     ],
+     "move": [
+      0,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "say": "the whole town runs outside",
+   "set": "street",
+   "time": "morning",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -3,
+      2
+     ],
+     "do": "run",
+     "face": 0
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      2
+     ],
+     "do": "run",
+     "face": 0
+    },
+    {
+     "id": "leo",
+     "at": [
+      3,
+      2
+     ],
+     "do": "run",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "and looks *up*.",
+   "set": "street",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     1.4,
+     5
+    ],
+    "look": [
+     0,
+     6,
+     -2
+    ]
+   },
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -2,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "shock"
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "shock"
+    },
+    {
+     "id": "leo",
+     "at": [
+      2,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "shock"
+    }
+   ]
+  },
+  {
+   "say": "Today,",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  },
+  {
+   "say": "it's Mrs. Bell's house.",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "medium:bell",
+   "actors": [
+    {
+     "id": "bell",
+     "at": [
+      -4,
+      -4
+     ],
+     "do": "wave",
+     "face": 30,
+     "mood": "happy"
+    }
+   ],
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  },
+  {
+   "say": "And there's a *rule*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:mayor",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      0
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "SNOW = COCOA",
+     "at": [
+      2.6,
+      -2
+     ],
+     "fg": "#c1121f"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "If it snows on your roof,",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  },
+  {
+   "say": "you make *hot cocoa*",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "medium:bell",
+   "actors": [
+    {
+     "id": "bell",
+     "at": [
+      -4,
+      -4
+     ],
+     "do": "idle",
+     "face": 30,
+     "mood": "happy",
+     "hold": {
+      "type": "soda"
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  },
+  {
+   "say": "for the *whole town*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -3,
+      0.5
+     ],
+     "do": "cheer",
+     "face": 15
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      0
+     ],
+     "do": "cheer",
+     "face": 0
+    },
+    {
+     "id": "leo",
+     "at": [
+      3,
+      0.5
+     ],
+     "do": "cheer",
+     "face": -15
+    },
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      -3
+     ],
+     "do": "cheer",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "soda",
+     "at": [
+      -1.5,
+      1.5
+     ]
+    },
+    {
+     "type": "soda",
+     "at": [
+      1.5,
+      1.5
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ]
+  },
+  {
+   "say": "That's *four hundred* cups.",
+   "set": "plaza",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4,
+     8
+    ],
+    "look": [
+     0,
+     3,
+     0
+    ]
+   },
+   "actors": [
+    {
+     "id": "bell",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "shock"
+    }
+   ],
+   "counter": {
+    "label": "CUPS",
+    "from": 0,
+    "to": 400
+   },
+   "sfx": [
+    [
+     "coin",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "Mrs. Bell didn't mind.",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "medium:bell",
+   "actors": [
+    {
+     "id": "bell",
+     "at": [
+      -4,
+      -4
+     ],
+     "do": "dance",
+     "face": 30,
+     "mood": "grin"
+    }
+   ],
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  },
+  {
+   "say": "But Leo had a question.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "worried"
+    }
+   ]
+  },
+  {
+   "say": "*Who* picks the house?",
+   "set": "street",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "shock",
+     "emote": "❓"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "The mayor just *shrugged*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:mayor",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      0
+     ],
+     "do": "shrug",
+     "face": 0,
+     "mood": "happy"
+    }
+   ]
+  },
+  {
+   "say": "So Leo stayed up all night",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      2,
+      -6.5
+     ],
+     "do": "idle",
+     "face": 180,
+     "mood": "focused"
+    }
+   ]
+  },
+  {
+   "say": "watching the town hall.",
+   "set": "plaza",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3,
+     10
+    ],
+    "look": [
+     0,
+     5,
+     -4
+    ]
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "➜",
+     "at": [
+      0,
+      -3
+     ],
+     "fg": "#ffd23f",
+     "bg": "#2b2d42"
+    }
+   ]
+  },
+  {
+   "say": "At *midnight*,",
+   "set": "plaza",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3,
+     7
+    ],
+    "look": [
+     0,
+     4,
+     -3
+    ]
+   },
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      0,
+      -2
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.1
+    ],
+    [
+     "tick",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "the old *weather vane* creaked...",
+   "set": "plaza",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4,
+     4
+    ],
+    "look": [
+     0,
+     3,
+     -3
+    ]
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "➜",
+     "at": [
+      0,
+      -3
+     ],
+     "fg": "#ffd23f",
+     "bg": "#2b2d42"
+    }
+   ]
+  },
+  {
+   "say": "...and *turned*.",
+   "set": "plaza",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     1,
+     4,
+     4
+    ],
+    "look": [
+     0,
+     3,
+     -3
+    ]
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "➜",
+     "at": [
+      0,
+      -3
+     ],
+     "ry": 40,
+     "fg": "#ffd23f",
+     "bg": "#2b2d42"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Slowly.",
+   "set": "plaza",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     -1,
+     4,
+     4
+    ],
+    "look": [
+     0,
+     3,
+     -3
+    ]
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "➜",
+     "at": [
+      0,
+      -3
+     ],
+     "ry": 80,
+     "fg": "#ffd23f",
+     "bg": "#2b2d42"
+    }
+   ]
+  },
+  {
+   "say": "Until it pointed...",
+   "set": "street",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     6,
+     8
+    ],
+    "look": [
+     0,
+     3,
+     -6
+    ]
+   },
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "at *one* house.",
+   "set": "snowyard",
+   "time": "night",
+   "cam": "wide",
+   "sfx": [
+    [
+     "boom",
+     0.15
+    ]
+   ]
+  },
+  {
+   "say": "The next morning,",
+   "set": "snowyard",
+   "time": "morning",
+   "cam": "wide"
+  },
+  {
+   "say": "*snow*. Right on that roof.",
+   "set": "snowyard",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     10,
+     9,
+     0
+    ],
+    "look": [
+     9,
+     5,
+     -17
+    ]
+   },
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Leo finally knew the secret.",
+   "set": "street",
+   "time": "morning",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "grin"
+    }
+   ]
+  },
+  {
+   "say": "But tonight,",
+   "set": "plaza",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3,
+     10
+    ],
+    "look": [
+     0,
+     5,
+     -4
+    ]
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "➜",
+     "at": [
+      0,
+      -3
+     ],
+     "fg": "#ffd23f",
+     "bg": "#2b2d42"
+    }
+   ]
+  },
+  {
+   "say": "the vane is turning *again*...",
+   "set": "plaza",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4,
+     4
+    ],
+    "look": [
+     0,
+     3,
+     -3
+    ]
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "➜",
+     "at": [
+      0,
+      -3
+     ],
+     "ry": -60,
+     "fg": "#ffd23f",
+     "bg": "#2b2d42"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "and it's pointing at *your* house.",
+   "set": "plaza",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.2,
+     2
+    ],
+    "look": [
+     0,
+     3.2,
+     -3
+    ]
+   },
+   "props": [
+    {
+     "type": "sign",
+     "text": "➜",
+     "at": [
+      0,
+      -3
+     ],
+     "ry": -90,
+     "fg": "#ffd23f",
+     "bg": "#2b2d42"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Better buy some cocoa.",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "medium:bell",
+   "actors": [
+    {
+     "id": "bell",
+     "at": [
+      -4,
+      -4
+     ],
+     "do": "wave",
+     "face": 30,
+     "mood": "grin"
+    }
+   ],
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  },
+  {
+   "say": "Would *you* live here?",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0.6
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "happy"
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -2,
+      0.3
+     ],
+     "do": "wave",
+     "face": 15,
+     "mood": "happy"
+    },
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0.6
+     ],
+     "do": "wave",
+     "face": 0,
+     "mood": "happy"
+    },
+    {
+     "id": "max",
+     "at": [
+      2,
+      0.3
+     ],
+     "do": "wave",
+     "face": -15,
+     "mood": "happy"
+    }
+   ]
+  },
+  {
+   "say": "Because here,",
+   "set": "snowyard",
+   "time": "day",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  },
+  {
+   "say": "it snows on just one house.",
+   "set": "snowyard",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     4,
+     4,
+     10
+    ],
+    "look": [
+     8,
+     4,
+     -14
+    ]
+   },
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 110
+    }
+   ]
+  }
+ ]
+}

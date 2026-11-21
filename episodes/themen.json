@@ -98,5 +98,15 @@
   "plot": "In Singford, talking is illegal. You have to sing everything. Ordering coffee? Sing it. Asking for directions? Sing it. Even the weather report is a song. The fire alarm sings, and the police sing your ticket. Kids sing their homework. Teachers sing the grades. Bad grades sound extra sad. Why? Long ago, the mayor yelled at a sheep for an hour. He lost his voice. The only way he could talk was by singing. So he made everyone sing. Forever. Then one day, a tourist arrived. He just talked. Totally normal. Everyone froze. The police ran at him... and started to clap! Plain talking sounded brand new to them. They called it rap. Now he's the biggest star in town. Would you move here? Yes or no? Because in Singford...",
   "twist": "",
   "file": "episodes/done/weird_singford.json"
+ },
+ {
+  "date": "2026-11-21",
+  "series": "WEIRD TOWNS",
+  "title": "It Snows on Only ONE House in This Town ❄️🏠",
+  "topic": "Town Frostwick: snow falls on exactly one house per day; that family must make hot cocoa for the whole town",
+  "hook": "It snows on just one house. Every single day.",
+  "plot": "The whole town checks the sky every morning. Today Mrs. Bell's roof is snowy and she makes 400 cups of cocoa. Leo stays up all night to find out who picks the house.",
+  "twist": "The old weather vane on the town hall turns at midnight and points at the next house - tonight it points at the viewer's house",
+  "file": "episodes/queue/weird_frostwick.json"
  }
 ]
