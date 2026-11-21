@@ -211,7 +211,7 @@ Bericht: `Regie: N Korrekturen, M Hinweise, K Fehler`. Aus: `"regie": false`; `"
 
 ## Mimik (ab 21.11.2026)
 - Neue Gesichter: `panic` (Schrei-Mund, große Augen), `nervous` (kleine Pupillen, Sorgen-Brauen, Schweiß), `disappointed`, `confident`, `excited` (Glitzer-Augen), `relieved`, `determined`. Augenbrauen sitzen jetzt sichtbar unter dem Pony.
-- **Lippensynchron:** Spricht eine Figur (`do: talk`, `talk: true` oder Satz in Anführungszeichen → automatisch), folgt der Mund der echten Sprachspur (zu/halb/weit je Bild), statt zufällig zu wackeln.
+- **Lippensynchron:** Spricht eine Figur (`do: talk`, `talk: true` oder Satz in Anführungszeichen → automatisch, außer der Satz davor kündigt eine Nachricht/Stimme von außen an; Stimme von jemand Unsichtbarem: `"talk": false`), folgt der Mund der echten Sprachspur (zu/halb/weit je Bild), statt zufällig zu wackeln.
 - Kamera `face:ID` = Großaufnahme fürs Gesicht (Emotions-Momente, Hook), Gesicht über den Untertiteln.
 - Der Regie-Prüfer setzt das Gesicht passend zum Text (z. B. „panics“ → panic, „nervous“ → nervous).
 

@@ -87,7 +87,8 @@ R.check = function (si) {
       const bx = chkBox(VP, s, r);
       if (!bx) { if (c0.target === s.id) add(u, 'fokus_hinter_kamera', s.id, 'Hauptfigur hinter der Kamera'); continue; }
       const w = Math.max(1, bx.x1 - bx.x0), vis = Math.max(0, Math.min(bx.x1, R.W) - Math.max(bx.x0, 0)) / w;
-      if (c0.target === s.id || (c0.target2 === s.id)) {
+      const backCam = ['back', 'follow', 'pov', 'top', 'aerial', 'track'].includes(c0.type); // Rücken-/Draufsicht: Gesicht absichtlich nicht zu sehen
+      if ((c0.target === s.id || c0.target2 === s.id) && !backCam) {
         const hp = chkProj(VP, [s.x, s.y + s.h * 0.86, s.z]);
         if (!hp || hp[0] < R.W * 0.04 || hp[0] > R.W * 0.96 || hp[1] < R.H * 0.03 || hp[1] > R.H * 0.97) add(u, 'kopf_nicht_im_bild', s.id, 'Gesicht der Hauptfigur nicht im Bild', { far: 1.25 });
         else if (hp[1] > R.H * ((R.ep.capY || 0.64) - 0.07) && hp[1] < R.H * ((R.ep.capY || 0.64) + 0.05)) add(u, 'untertitel_verdeckt', s.id, 'Untertitel liegt auf dem Gesicht');
@@ -95,6 +96,12 @@ R.check = function (si) {
       } else if (vis > 0.08 && vis < 0.55 && !['close', 'face'].includes(c0.type) && bx.y1 - bx.y0 > R.H * 0.25) add(u, 'angeschnitten', s.id, `nur ${(vis * 100) | 0}% im Bild (Rand)`);
       if (bx.behind && bx.behind < 8 && Math.hypot(cam.eye[0] - s.x, cam.eye[2] - s.z) < r + 0.4) add(u, 'kamera_in_figur', s.id, 'Kamera steckt in der Figur', { far: 1.3 });
     }
+    // 5b) Figur durch andere Figur verdeckt (Kopf hinter einer näheren Figur) -> seitlich versetzen
+    { const vis = list.map(s => { const hp = chkProj(VP, [s.x, s.y + (s.seat || 0) + s.h * 0.86, s.z]); return { s, hp, bx: chkBox(VP, s, chkRadius(s)) }; });
+      for (const A of vis) { if (!A.hp) continue; for (const B of vis) { if (A === B || !B.bx || !B.hp || B.hp[2] >= A.hp[2] - 0.3) continue;
+        const m = (B.bx.x1 - B.bx.x0) * 0.08; if (A.hp[0] > B.bx.x0 + m && A.hp[0] < B.bx.x1 - m && A.hp[1] > B.bx.y0 && A.hp[1] < B.bx.y1) {
+          const fx = cam.look[0] - cam.eye[0], fz = cam.look[2] - cam.eye[2], fl = Math.hypot(fx, fz) || 1, sx = -fz / fl, sz = fx / fl, side = (A.s.x - B.s.x) * sx + (A.s.z - B.s.z) * sz >= 0 ? 1 : -1, d = (chkRadius(A.s) + chkRadius(B.s)) * 1.15;
+          add(u, 'verdeckt_figur', A.s.id, `von ${B.s.id} verdeckt`, { dx: +(sx * side * d).toFixed(2), dz: +(sz * side * d).toFixed(2), by: B.s.id }); } } } }
     // 6) Hauptfigur durch Möbel verdeckt -> anderen Kamerawinkel suchen, der über die ganze Einstellung frei ist
     const F = c0.target ? map[c0.target] : null;
     if (F && surfs.length && chkCover(cam, F, surfs)) {

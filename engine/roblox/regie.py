@@ -137,7 +137,9 @@ def inhalt(src, info=None):
                     m['mood'] = want; fixes.append(f'Shot {i + 1}: Gesicht von "{m["id"]}" {cur or "-"} -> {want} (Text: "{sh.get("say", "")[:40]}")')
         # Dialog in Anführungszeichen: sprechende Figur bewegt den Mund (lippensynchron zur Stimme)
         say = str(sh.get('say', '')).strip()
-        if m is not None and re.match(r'^["“„«]', say) and 'talk' not in m and m.get('do') not in ('talk',):
+        prev = _txt(shots[i - 1]) if i else ''
+        offscreen = re.search(r'\b(text|texts|message|voice|heard|hears|reads?|sign|note|letter|whisper\w*|calls?|radio|speaker)\b', prev) or isinstance(m.get('hold') if m else None, str) and 'phone' in str(m.get('hold'))
+        if m is not None and re.match(r'^["“„«]', say) and 'talk' not in m and m.get('do') not in ('talk',) and not offscreen:
             m['talk'] = True; fixes.append(f'Shot {i + 1}: "{m["id"]}" spricht -> Mund lippensynchron')
         # unbekannte Gesichter
         for a in sh.get('actors') or []:
@@ -158,6 +160,13 @@ def inhalt(src, info=None):
             if st in indoor and ty in OUTDOOR_ONLY: warns.append(f'Shot {i + 1}: "{ty}" steht drinnen ({st})')
             if st not in indoor and ty in INDOOR_ONLY and st not in ('house', 'backyard', 'patio'): warns.append(f'Shot {i + 1}: "{ty}" steht draußen ({st})')
 
+    # Kleidung passend zum Ort: Schulrucksack zuhause/nachts im Haus wirkt unlogisch
+    home = {'room', 'kitchen', 'hallway'}
+    if all((s.get('set') in home) for s in shots if s.get('actors')) and shots:
+        for cid, c in cast.items():
+            if isinstance(c, dict) and c.get('backpack') not in (None, False) or (isinstance(c, dict) and c.get('look') in ('boy', 'girl', 'kid', 'student') and 'backpack' not in c):
+                if isinstance(c, dict) and not c.get('animal'):
+                    c['backpack'] = False; fixes.append(f'Kleidung: "{cid}" trägt zuhause keinen Rucksack')
     # Tageszeit springt ohne Grund (gleicher Ort, direkt hintereinander)
     for i in range(1, len(shots)):
         a, b = shots[i - 1], shots[i]
@@ -213,6 +222,9 @@ def physik(eng, ep, runden=3):
                 fixes.append(label + ' -> in den Raum gestellt'); changed = True; continue
             if typ == 'in_moebel' and fx.get('to') and acts.get(b['id']) and not acts[b['id']].get('path'):
                 acts[b['id']]['at'] = fx['to']; fixes.append(label + f' -> umgestellt auf {fx["to"]}'); changed = True; continue
+            if typ == 'verdeckt_figur' and acts.get(b['id']) and acts[b['id']].get('at') and not acts[b['id']].get('path'):
+                a = acts[b['id']]; a['at'] = [round(a['at'][0] + fx['dx'], 2), round(a['at'][-1] + fx['dz'], 2)]
+                fixes.append(label + ' -> seitlich versetzt'); changed = True; continue
             if typ == 'verdeckt' and 'ang' in fx:
                 c = sh.get('cam'); _cam_far(sh, 1.0); sh['cam']['ang'] = fx['ang']; fixes.append(label + f' -> Kamerawinkel {fx["ang"]}°'); changed = True; continue
             if typ == 'schwebt' and acts.get(b['id']):
