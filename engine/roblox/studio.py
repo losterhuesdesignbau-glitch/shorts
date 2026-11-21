@@ -166,6 +166,14 @@ class Engine:
     def close(self):
         self.b.close(); self.pw.stop()
 
+def _keyround(o):
+    """Cache-Schlüssel robust machen: Kommazahlen auf 0,02 runden (Sprachsynthese schwankt je Server im Mikrosekunden-Bereich)."""
+    if isinstance(o, float): return round(o * 50) / 50
+    if isinstance(o, dict): return {k: _keyround(v) for k, v in o.items()}
+    if isinstance(o, list): return [_keyround(v) for v in o]
+    return o
+
+
 def post_filter(src, hq, out_k):
     """Nachbearbeitung je Bild (Grading/Glühen, Nachschärfen + Korn, Bewegungsunschärfe) als ffmpeg-Filterkette.
     Läuft direkt beim Kodieren jedes Shots -> in CI auf alle Render-Teile verteilt, kein extra 4K-Durchlauf am Ende."""
@@ -355,7 +363,7 @@ def main():
         for si, sh in enumerate(ep['shots']):
             path = work / f'shot_{si + 1:03d}.mp4'
             key = work / f'shot_{si + 1:03d}.json'
-            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs, out_k], 'post': vf}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
+            cur = json.dumps({'shot': _keyround({k: v for k, v in sh.items() if k not in ('lip', 'lipFps')}), 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs, out_k], 'post': vf}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
             if mine is not None and si not in mine: continue
             if path.exists() and key.exists() and key.read_text() == cur and (only is None or si not in only):
                 continue
