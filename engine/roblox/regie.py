@@ -241,6 +241,13 @@ def physik(eng, ep, runden=3):
                 fixes.append(label + ' -> seitlich versetzt'); changed = True; continue
             if typ == 'verdeckt' and 'ang' in fx:
                 c = sh.get('cam'); _cam_far(sh, 1.0); sh['cam']['ang'] = fx['ang']; fixes.append(label + f' -> Kamerawinkel {fx["ang"]}°'); changed = True; continue
+            if typ == 'sitzt_in_luft' and fx.get('chair'):
+                props = sh.setdefault('props', [])
+                if not any(p.get('type') in ('chair', 'bench', 'stool') and p.get('_auto') == b['id'] for p in props):
+                    props.append({'type': 'chair', 'at': fx['chair'], 'ry': fx.get('ry', 0), 'color': '#6d4c41', 'pin': True, '_auto': b['id']})
+                    fixes.append(label + ' -> Stuhl daruntergestellt'); changed = True; continue
+            if typ == 'sitz_zu_hoch' and acts.get(b['id']):
+                acts[b['id']]['y'] = fx['y']; fixes.append(label + f' -> auf die Sitzfläche gesetzt (y {fx["y"]})'); changed = True; continue
             if typ == 'schwebt' and acts.get(b['id']):
                 acts[b['id']]['y'] = round(float(fx.get('y', 0)), 2); fixes.append(label + ' -> auf den Boden gestellt'); changed = True; continue
             if typ in ('kopf_nicht_im_bild', 'kopf_abgeschnitten', 'kamera_in_figur', 'verdeckt') and fx.get('far'):

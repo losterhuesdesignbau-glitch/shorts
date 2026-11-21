@@ -228,3 +228,8 @@ Episode nach `episodes/tests/<name>.json` legen (nicht queue!), pushen, dann Wor
 
 ## Qualitätskontrolle nach dem Rendern
 `tools/qa.py video.mp4` (läuft automatisch im Render-Job): Auflösung/Format/Länge/Tonspur, Schärfe, Helligkeit/Kontrast, Schwarzbilder, Standbilder, Bewegung in den ersten 2 s, Lautheit (Ziel −15 LUFS)/Spitzenpegel, lange Stille. Fehler → kein Upload; Warnungen → ViralFlow-Protokoll. `tools/aussprache.py episode.json` hört die Stimme per Spracherkennung (Whisper tiny.en, offline) ab und meldet unverständliche Wörter (Fix: "speak").
+
+## Fixes 21.11.2026 abends (Lukas' Test-Feedback)
+- **Sitzen nur mit Sitzfläche:** Regie-Prüfer erkennt „sitzt in der Luft“ (sit/sitdesk/sitgame/piano ohne Stuhl/Bank/Bett) und stellt automatisch einen Stuhl darunter; zu hohe Sitzfläche (Bett) → Figur wird draufgesetzt.
+- **Ruhiges Halten:** Hält eine Figur etwas, bleibt der Haltearm ruhig (kein Wackeln). Handy/Buch/Zettel: Lesehaltung (Gerät vor der Brust, Blick nach unten).
+- **Flüssige Stimme:** Kokoro spricht mehrere Sätze am Stück (Blöcke bis ~220 Zeichen) statt jeden Satz einzeln → natürlicher Satzfluss, keine abgehackten Übergänge. Aus: `"tts": {"chunk": false}`.

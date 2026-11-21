@@ -488,7 +488,8 @@ def speak_episode(ep, shots, opts=None):
     natural = cfg.get('natural', True)
     noise = cfg.get('noise', 0.7 if natural else None)
     noise_w = cfg.get('noiseW', 0.9 if natural else None)
-    # 1) Äußerungen bilden: Satzweise, Bruch bei Stimmwechsel, 'pause' oder stummen Shots
+    chunked = cfg.get('chunk', True) and is_kokoro(vdef); chunk_chars = int(cfg.get('chunkChars', 220))
+    # 1) Äußerungen bilden: Blöcke aus mehreren Sätzen (Kokoro), Bruch bei Stimmwechsel, 'pause' oder stummen Shots
     utts, cur = [], None
     for si, sh in enumerate(shots):
         spk = sh['_w'] if 'speak' not in sh else AU.tokenize(sh['speak'])
@@ -502,7 +503,9 @@ def speak_episode(ep, shots, opts=None):
         for w in spk:
             if cur is None: cur = {'voice': v, 'tokens': [], 'pre': pre}; utts.append(cur); pre = 0.0
             cur['tokens'].append(w)
-            if SENT_END.search(w['raw']): cur = None
+            # Mehrere Sätze am Stück sprechen lassen (natürlicher Satzfluss/Betonung, keine abgehackten Einzelsätze);
+            # neuer Block erst nach ~220 Zeichen (Kokoro-Grenze 510 Laute), bei Stimmwechsel, "pause" oder stummem Shot
+            if SENT_END.search(w['raw']) and (not chunked or sum(len(x['raw']) + 1 for x in cur['tokens']) > chunk_chars): cur = None
     # 2) synthetisieren und auf die Zeitleiste legen
     t, parts, hows, cached, used = float(ep.get('lead', 0.3)), [], {}, 0, []
     last = t

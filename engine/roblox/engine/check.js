@@ -80,6 +80,12 @@ R.check = function (si) {
         }
         add(u, 'in_moebel', s.id, `steht in einem Möbelstück (Oberkante ${top.toFixed(1)})`, best ? { to: best } : null);
       }
+      // 3b) Sitzen braucht eine Sitzfläche (Stuhl/Bank/Bett) – sonst sitzt die Figur in der Luft
+      if (['sit', 'sitgame', 'sitdesk', 'piano'].includes(act) && !s.cfg.animal) {
+        const st = surfTop(s.x, s.z, surfs), want = 1.12 * s.scale * (s.cfg.scale || 1);
+        if (st < want - 0.35) add(u, 'sitzt_in_luft', s.id, 'sitzt ohne Stuhl in der Luft', { chair: [+s.x.toFixed(2), +s.z.toFixed(2)], ry: Math.round((s.face || 0) * 180 / Math.PI) });
+        else if (st > want + 0.3) add(u, 'sitz_zu_hoch', s.id, `Sitzfläche ${st.toFixed(2)} höher als Sitzhöhe`, { y: +(st - want).toFixed(2) });
+      }
       // 4) Schwerkraft: schwebt ohne Grund
       const baseY = s.a.y || 0, A = s.cfg.animal ? ANIMALS[s.cfg.animal] || {} : null;
       if (baseY > 0.35 && !CHK_SIT.has(act) && !CHK_AIR.has(act) && !(A && A.shark) && top < baseY - 0.3) add(u, 'schwebt', s.id, `schwebt ${baseY.toFixed(1)} über dem Boden`, { y: top });

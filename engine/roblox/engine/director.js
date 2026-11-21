@@ -165,7 +165,7 @@ function pose(act, t, k, A) {
     case 'look': idle(0.5); P.hy = 42 * s(t * 1.8); P.gx = Math.sign(s(t * 1.8)); break;
     case 'lookup': idle(0.5); P.hx = -25; break;
     case 'carry': idle(0.4); P.aLx = -70; P.aRx = -70; P.eL = P.eR = 25; P.aLz = -8; P.aRz = 8; break;
-    case 'hold': idle(0.6); P.aRx = -38; P.eR = 40; break;
+    case 'hold': idle(0.25); P.aRx = -38; P.eR = 40; P.aRz = -8; break;
     case 'game': { idle(0.4); const m = s(t * 17 + ph); P.aLx = -26 + 2 * m; P.aRx = -26 - 2 * m; P.eL = 72 + 4 * m; P.eR = 72 - 4 * m; P.aLz = -16; P.aRz = 16; P.hx = 10; P.tb = 0.03 * Math.abs(s(t * 7 + ph)); break; }
     case 'sitgame': { idle(0); const m = s(t * 17 + ph); P.y = -0.85; P.lLx = -90; P.lRx = -90; P.kL = P.kR = 86; P.aLx = -30 + 2 * m; P.aRx = -30 - 2 * m; P.eL = 70 + 4 * m; P.eR = 70 - 4 * m; P.aLz = -16; P.aRz = 16; P.hx = 8 + 2 * s(t * 1.3 + ph); P.rz = 0; break; }
     case 'laugh': idle(0.3); P.tb = 0.08 * Math.abs(s(t * 14)); P.hx = -14 + 4 * s(t * 14); P.aLx = -30; P.aRx = -30; P.eL = P.eR = 70; P.aLz = -12; P.aRz = 12; P.bx = -5 + 3 * s(t * 14); break;
@@ -662,6 +662,16 @@ function renderShot(sh, si, tl) {
         s.x += v(jx); s.z += v(jz); s.mocapShift = true; }
     }
     let P = s.cfg.animal ? apose(s.act, tl, s.k, s, s.cfg.animal) : pose(s.act, tl, s.k, s);
+    // Gegenstand in der Hand: Haltearm ruhig (kein Zittern/Wackeln des Handys), nur langsame, kleine Bewegung
+    if (s.a.hold && !s.cfg.animal && !MOVERS[s.act] && !['throw', 'wave', 'wave2', 'cheer', 'jump', 'dance', 'spin', 'fall', 'faint', 'game', 'sitgame'].includes(s.act)) {
+      const slow = Math.sin(tl * 0.8 + s.ph);
+      P.aRx = (s.act === 'hold' ? -38 : Math.min(P.aRx, -30)) + 1.2 * slow; P.eR = Math.max(P.eR, 40); P.aRz = -8 + 0.6 * slow; P.rz = (P.rz || 0) * 0.3; P.tb = (P.tb || 0) * 0.4; P.aRy = 0;
+      const ht = typeof s.a.hold === 'string' ? s.a.hold : (s.a.hold.type || '');
+      if (['phone', 'smartphone', 'book', 'paper', 'map', 'note', 'letter'].includes(ht) && ['hold', 'idle', 'talk', 'think', 'scared', 'freeze', 'look'].includes(s.act)) {
+        // Lesen/aufs Handy schauen: Unterarm angewinkelt, Gerät vor der Brust, Blick nach unten
+        P.aRx = -52 + 0.8 * slow; P.eR = 88; P.aRz = 34; P.aRy = 75; P.hx = Math.max(P.hx || 0, 16); P.gx = 0;
+      }
+    }
     if (!s.cfg.animal) {
       // weiche Übergänge zwischen Aktionen (0,3 s) und beim Loslaufen/Anhalten
       const ps = prevSeg(s.a.do, u, 'idle');
