@@ -25,6 +25,8 @@ CACHE = Path(os.environ.get('BLOCK_STUDIO_CACHE', Path.home() / '.cache' / 'bloc
 MODEL_URL = 'https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-whisper-tiny.en.tar.bz2'
 MDIR = CACHE / 'asr' / 'sherpa-onnx-whisper-tiny.en'
 
+# gleich klingende Wörter (Spracherkennung kann sie nicht unterscheiden)
+HOMO = {'ok': 'okay', 'threw': 'through', 'two': 'to', 'too': 'to', 'their': 'there', "they're": 'there', 'its': "it's", 'right': 'write', 'knew': 'new', 'know': 'no', 'hear': 'here', 'four': 'for', 'one': 'won', 'eight': 'ate', 'whole': 'hole', 'night': 'knight', 'sea': 'see', 'by': 'buy', 'bye': 'buy'}
 ONES = 'zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split()
 TENS = 'twenty thirty forty fifty sixty seventy eighty ninety'.split()
 
@@ -42,13 +44,14 @@ def num_words(n):
 
 def norm_words(text):
     t = text.lower().replace('’', "'").replace('-', ' ')
+    t = re.sub(r'\b([ap])\.\s?m\b\.?', r'\1m', t); t = re.sub(r'(\d)\s?([ap]m)\b', r'\1 \2', t)
     t = re.sub(r'(\d+)[.,](\d+)', lambda m: num_words(m.group(1)) + ' point ' + ' '.join(ONES[int(c)] for c in m.group(2)), t)
     t = re.sub(r'\d+', lambda m: ' ' + num_words(m.group(0)) + ' ', t)
     t = re.sub(r"[^a-z' ]+", ' ', t)
     out = []
     for w in t.split():
         w = w.strip("'")
-        if w: out.append({'ok': 'okay'}.get(w, w))
+        if w: out.append(HOMO.get(w, w))
     return out
 
 

@@ -166,11 +166,31 @@ class Engine:
     def close(self):
         self.b.close(); self.pw.stop()
 
-def render_shot(eng, ep, si, path, fps):
+def post_filter(src, hq, out_k):
+    """Nachbearbeitung je Bild (Grading/Glühen, Nachschärfen + Korn, Bewegungsunschärfe) als ffmpeg-Filterkette.
+    Läuft direkt beim Kodieren jedes Shots -> in CI auf alle Render-Teile verteilt, kein extra 4K-Durchlauf am Ende."""
+    parts = []
+    gr = src.get('grade')
+    if gr:  # Look: Glühen (bloom, auf 1/4 Größe weichgezeichnet), Vignette, Sättigung/Kontrast, Wärme
+        gr = gr if isinstance(gr, dict) else {}
+        b, vg = float(gr.get('bloom', 0.35)), float(gr.get('vignette', 0.35)); sat, con = gr.get('sat', 1.08), gr.get('contrast', 1.04); warm = float(gr.get('warm', 0.04))
+        parts.append(f"format=gbrp,split[ga][gb];[gb]scale=iw/4:ih/4:flags=bilinear,curves=all='0/0 0.62/0 1/1',gblur=sigma={26 / 4:.2f},scale=iw*4:ih*4:flags=bilinear[gg];"
+                     f"[ga][gg]blend=all_mode=screen:all_opacity={b:.2f},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},format=yuv420p,"
+                     f"eq=saturation={sat}:contrast={con},vignette=angle={0.2 + vg:.2f}")
+    if hq and src.get('post', True) is not False:  # 4K-Look: feines Nachschärfen + leichtes Filmkorn
+        parts.append('unsharp=5:5:0.55:5:5:0.0' + ',noise=c0s=5:c0f=t+u')
+    mbl = src.get('motionBlur')
+    if mbl:
+        w = 2 if mbl is True else max(1, int(round(3 - float(mbl) * 2)))
+        parts.append(f"tmix=frames=2:weights='1 {w}'")
+    return ','.join(parts) if parts else None
+
+
+def render_shot(eng, ep, si, path, fps, vf=None):
     sh = ep['shots'][si]
     tmp = str(path) + '.part.mp4'
-    cmd = ['ffmpeg', '-y', '-v', 'error', '-f', 'image2pipe', '-framerate', str(fps), '-c:v', 'mjpeg', '-i', '-',
-           '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', str(fps), tmp]
+    cmd = ['ffmpeg', '-y', '-v', 'error', '-f', 'image2pipe', '-framerate', str(fps), '-c:v', 'mjpeg', '-i', '-'] + (['-vf', vf] if vf else []) + \
+          ['-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', str(fps), tmp]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     for f in range(sh['nf']):
         p.stdin.write(eng.frame(si, f / fps))
@@ -331,14 +351,15 @@ def main():
         import hashlib
         ENGINE_SIG = hashlib.sha1(b''.join(f.read_bytes() for f in sorted((Path(__file__).parent / 'engine').glob('*.js')))).hexdigest()[:12]
         t0 = time.time()
+        vf = post_filter(src, hq, out_k)
         for si, sh in enumerate(ep['shots']):
             path = work / f'shot_{si + 1:03d}.mp4'
             key = work / f'shot_{si + 1:03d}.json'
-            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs, out_k]}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
+            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs, out_k], 'post': vf}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
             if mine is not None and si not in mine: continue
             if path.exists() and key.exists() and key.read_text() == cur and (only is None or si not in only):
                 continue
-            ts = time.time(); render_shot(eng, ep, si, path, fps); key.write_text(cur)
+            ts = time.time(); render_shot(eng, ep, si, path, fps, vf); key.write_text(cur)
             print(f'Shot {si + 1}/{len(ep["shots"])}: {sh["nf"]} Frames in {time.time() - ts:.0f}s', flush=True)
         print(f'Rendern fertig in {time.time() - t0:.0f}s')
     finally:
@@ -349,24 +370,18 @@ def main():
     lst.write_text(''.join(f"file '{(work / f'shot_{i + 1:03d}.mp4').resolve()}'\n" for i in range(len(ep['shots']))))
     vid = work / 'video_only.mp4'
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', str(lst), '-c', 'copy', str(vid)], check=True)
+    # Loop: nur der LETZTE Shot wird neu kodiert (erstes Bild blendet ein) – der Rest wird nur aneinandergehängt (kein 4K-Neu-Kodieren)
     if viral.get('loop'):
-        lv = work / 'video_loop.mp4'; loop_end(vid, lv, total); vid = lv
-    gr = src.get('grade')
-    if gr:  # Look-Nachbearbeitung: Glühen (bloom), Vignette, Sättigung/Kontrast, Wärme
-        gr = gr if isinstance(gr, dict) else {}
-        b, vg = float(gr.get('bloom', 0.35)), float(gr.get('vignette', 0.35)); sat, con = gr.get('sat', 1.08), gr.get('contrast', 1.04); warm = float(gr.get('warm', 0.04))
-        fc = (f"[0:v]format=gbrp,split[a][b];[b]curves=all='0/0 0.62/0 1/1',gblur=sigma={26 * out_k}[g];[a][g]blend=all_mode=screen:all_opacity={b:.2f},"
-              f"eq=saturation={sat}:contrast={con},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},vignette=angle={0.2 + vg:.2f},format=yuv420p[v]")
-        gv = work / 'video_grade.mp4'
-        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-filter_complex', fc, '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(gv)], check=True); vid = gv
-    if hq and src.get('post', True) is not False:  # 4K-Look: feines Nachschärfen + leichtes Filmkorn
-        pv = work / 'video_post.mp4'
-        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-vf', ('unsharp=5:5:0.55:5:5:0.0' if out_k < 2 else 'unsharp=7:7:0.6:7:7:0.0') + ',noise=c0s=5:c0f=t+u,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '17', '-pix_fmt', 'yuv420p', str(pv)], check=True); vid = pv
-    mbl = src.get('motionBlur')
-    if mbl:  # leichte Bewegungsunschärfe wie bei echter Kamera: schnelle Bewegungen fließender, Rest-Zittern verdeckt
-        w = 2 if mbl is True else max(1, int(round(3 - float(mbl) * 2)))
-        mv = work / 'video_blur.mp4'
-        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-vf', f"tmix=frames=2:weights='1 {w}'", '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(mv)], check=True); vid = mv
+        n = len(ep['shots']); last = work / f'shot_{n:03d}.mp4'; lastl = work / f'shot_{n:03d}_loop.mp4'
+        first = str(work / 'first.png')
+        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(work / 'shot_001.mp4'), '-frames:v', '1', first], check=True)
+        dl = ep['shots'][-1]['dur']; st = max(0.0, dl - 0.4)
+        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(last), '-loop', '1', '-t', f'{dl:.3f}', '-i', first, '-filter_complex',
+                        f'[1:v]format=rgba,fade=in:st={st:.3f}:d=0.4:alpha=1[f];[0:v][f]overlay=shortest=1,format=yuv420p[v]',
+                        '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-r', str(fps), str(lastl)], check=True)
+        lst.write_text(''.join(f"file '{(work / (f'shot_{i + 1:03d}.mp4' if i < n - 1 else lastl.name)).resolve()}'\n" for i in range(n)))
+        vid = work / 'video_loop.mp4'
+        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', str(lst), '-c', 'copy', str(vid)], check=True)
     mf = src.get('musicFile')
     cuts = [sh['tg0'] for sh in ep['shots'][1:]]
     hits = [t for (nm, t, g) in events if nm in ('boom', 'tada', 'riser')]
