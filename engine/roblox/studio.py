@@ -114,6 +114,19 @@ def length_report(ep, total, L):
         return True, f'⚠ Länge {total:.1f}s – unter {L["goal"]:.0f}s (TikTok zahlt erst ab 1 min). Für ≥ {L["goal"]:.0f}s: {need(L["goal"] - total)}.'
     return True, f'✓ Länge {total:.1f}s (Ziel ≥ {L["goal"]:.0f}s, {len(ws)} Wörter, {wps:.1f} Wörter/s)'
 
+_META = None
+def engine_meta():
+    """Moods/Tiere/Sets/Requisiten der Engine (statisch aus den JS-Dateien gelesen, ohne Browser)."""
+    global _META
+    if _META is None:
+        import re as _re
+        A = (HERE / 'engine' / 'assets.js').read_text(encoding='utf-8')
+        def keys(name, src):
+            i = src.index('const ' + name + ' = {'); j = src.index('\n};', i); return _re.findall(r'(?:^|[\s{,])([a-z0-9_]+): *\{', src[i + len(name) + 9:j])
+        _META = {'moods': keys('MOODS', A), 'animals': keys('ANIMALS', A),
+                 'indoor': ['classroom', 'danceroom', 'room', 'elevator', 'hallway', 'kitchen', 'mall']}
+    return _META
+
 class Engine:
     def __init__(self, ep, rs=0.75, hq=False):
         from playwright.sync_api import sync_playwright
@@ -245,6 +258,10 @@ def main():
     ap.add_argument('--force', action='store_true', help='auch rendern, wenn die Länge nicht passt')
     a = ap.parse_args()
     src = json.load(open(a.episode, encoding='utf-8'))
+    regie_on = src.get('regie', True) is not False
+    r_inhalt = None
+    if regie_on:  # Regie-Kontrolle 1: Logik der Geschichte (Tier-Regel, Mimik zum Text, Tageszeit, Hook) – korrigiert src
+        import regie; r_inhalt = regie.inhalt(src, engine_meta())
     viral = apply_viral(src)
     use_tts = not a.voice and not a.no_tts and src.get('tts', True) is not False
     tts = {'voice': a.tts_voice, 'speed': a.tts_speed} if use_tts else None
@@ -272,6 +289,9 @@ def main():
     print(f'Qualität: {"4K-Look (HQ)" if hq else "klassisch"}, Render-Skala {rs}')
     eng = Engine(ep, rs, hq)
     try:
+        if regie_on:  # Regie-Kontrolle 2: Physik/Bild mit der echten Engine (Kollisionen, Wände, Schweben, Bildausschnitt) – korrigiert ep
+            import regie; rep = regie.bericht(r_inhalt, regie.physik(eng, ep)); eng.pg.evaluate('ep => R.load(ep)', ep)
+            if rep['errors'] and src.get('regie') == 'strict' and not (a.stills or a.frames): sys.exit('Abbruch: Regie-Fehler (siehe oben).')
         if a.stills:
             p = out.with_name(out.stem + '_vorschau.jpg'); contact_sheet(eng, ep, p); print('Vorschau:', p); return
         if a.frames:
