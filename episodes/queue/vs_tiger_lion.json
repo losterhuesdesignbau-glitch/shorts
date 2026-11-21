@@ -1,0 +1,1319 @@
+{
+ "title": "Tiger vs Lion",
+ "music": "battle",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "TIGER\nVS LION",
+  "series": "VS BATTLE #4",
+  "cta": "TEAM TIGER or TEAM LION? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "Tiger vs Lion – Who Wins? 🐯🦁",
+  "description": "Five rounds: size, swimming, teamwork, style… and a final round with a twist nobody expects. Team Tiger or Team Lion? 👇",
+  "hashtags": [
+   "vsbattle",
+   "tiger",
+   "lion",
+   "animals",
+   "facts"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "tiger": {
+   "animal": "tiger"
+  },
+  "lion": {
+   "animal": "lion"
+  },
+  "lion2": {
+   "animal": "lion"
+  },
+  "lion3": {
+   "animal": "lion"
+  },
+  "host": {
+   "look": "woman",
+   "hair": "ponytail",
+   "hairColor": "#5a3825",
+   "shirt": "#ffd23f",
+   "jacket": "#e63946",
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "Tiger",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Tiger",
+    "away": "Lion",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "look",
+     "face": 30,
+     "mood": "angry"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "face": -30,
+     "mood": "cool"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "versus *lion.*",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "idle",
+     "face": 30,
+     "mood": "cool"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "look",
+     "face": -30,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Two kings of the cats.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "idle",
+     "face": 30,
+     "mood": "cool"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "face": -30,
+     "mood": "cool"
+    }
+   ],
+   "cam": "group"
+  },
+  {
+   "say": "Five rounds. One winner.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Tiger",
+    "away": "Lion",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "pointup",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": "medium:host"
+  },
+  {
+   "say": "Round one: *size.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 1",
+    "from": 1,
+    "to": 1,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Big male Siberian tigers",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "face": 20,
+     "mood": "cool"
+    }
+   ],
+   "cam": "full:tiger"
+  },
+  {
+   "say": "can reach *three hundred* kilos.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "TIGER",
+    "from": 0,
+    "to": 300,
+    "suffix": " kg",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "face": 20,
+     "mood": "cool"
+    }
+   ],
+   "cam": "full:tiger"
+  },
+  {
+   "say": "Most male lions?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "face": 20,
+     "mood": "sad"
+    }
+   ],
+   "cam": "medium:lion"
+  },
+  {
+   "say": "Around *two hundred sixty*.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "LION",
+    "from": 0,
+    "to": 260,
+    "suffix": " kg",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "face": 20,
+     "mood": "sad"
+    }
+   ],
+   "cam": "full:lion",
+   "sfx": [
+    [
+     "boing",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Point for the *tiger!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Tiger",
+    "away": "Lion",
+    "a": 1,
+    "b": 0,
+    "from": [
+     0,
+     0
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "cheer",
+     "face": 30,
+     "mood": "happy"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "sad",
+     "face": -30,
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.35
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ]
+  },
+  {
+   "say": "Round two: *swimming.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 2",
+    "from": 2,
+    "to": 2,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Tigers *love* water.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      0,
+      1
+     ],
+     "do": "jump",
+     "face": 20,
+     "mood": "happy"
+    }
+   ],
+   "cam": "orbit:tiger",
+   "pops": [
+    {
+     "text": "🌊",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "One swam *twenty-nine* kilometers",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "SWIM",
+    "from": 0,
+    "to": 29,
+    "suffix": " km",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      0,
+      1
+     ],
+     "do": "run",
+     "face": 20,
+     "mood": "happy"
+    }
+   ],
+   "cam": "track:tiger"
+  },
+  {
+   "say": "across rivers!",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "face": 20,
+     "mood": "cool"
+    }
+   ],
+   "cam": "medium:tiger"
+  },
+  {
+   "say": "Lions?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      1
+     ],
+     "do": "sad",
+     "face": 20,
+     "mood": "sad"
+    }
+   ],
+   "cam": "medium:lion"
+  },
+  {
+   "say": "They *avoid* water.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      1
+     ],
+     "do": "sad",
+     "face": 20,
+     "mood": "sad"
+    }
+   ],
+   "cam": "close:lion",
+   "sfx": [
+    [
+     "boing",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Tiger leads, *two to zero!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Tiger",
+    "away": "Lion",
+    "a": 2,
+    "b": 0,
+    "from": [
+     1,
+     0
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "cheer",
+     "face": 30,
+     "mood": "laugh"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "look",
+     "face": -30,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ]
+  },
+  {
+   "say": "Round three: *teamwork.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 3",
+    "from": 3,
+    "to": 3,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Tigers live *alone*.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "face": 20,
+     "mood": "sad"
+    }
+   ],
+   "cam": "wide"
+  },
+  {
+   "say": "But lions live in prides",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "face": 20,
+     "mood": "happy"
+    },
+    {
+     "id": "lion2",
+     "at": [
+      -3,
+      -1
+     ],
+     "do": "walk",
+     "face": 20,
+     "mood": "happy"
+    },
+    {
+     "id": "lion3",
+     "at": [
+      3,
+      -1
+     ],
+     "do": "walk",
+     "face": 20,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   }
+  },
+  {
+   "say": "of up to *thirty* lions!",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "PRIDE",
+    "from": 1,
+    "to": 30,
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      1
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "laugh"
+    },
+    {
+     "id": "lion2",
+     "at": [
+      -3,
+      -1
+     ],
+     "do": "jump",
+     "face": 10,
+     "mood": "happy"
+    },
+    {
+     "id": "lion3",
+     "at": [
+      3,
+      -1
+     ],
+     "do": "jump",
+     "face": -10,
+     "mood": "happy"
+    }
+   ],
+   "cam": "group",
+   "sfx": [
+    [
+     "boom",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "Point for the *lion!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Tiger",
+    "away": "Lion",
+    "a": 2,
+    "b": 1,
+    "from": [
+     2,
+     0
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "sad",
+     "face": 30,
+     "mood": "sad"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "cheer",
+     "face": -30,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.35
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ]
+  },
+  {
+   "say": "Round four: *style.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 4",
+    "from": 4,
+    "to": 4,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Only one big cat",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "face": 20,
+     "mood": "cool"
+    }
+   ],
+   "cam": "orbit:lion"
+  },
+  {
+   "say": "wears a giant *mane*.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      1
+     ],
+     "do": "cheer",
+     "face": 20,
+     "mood": "cool"
+    }
+   ],
+   "cam": "close:lion",
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "*Two – two!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Tiger",
+    "away": "Lion",
+    "a": 2,
+    "b": 2,
+    "from": [
+     2,
+     1
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "look",
+     "face": 30,
+     "mood": "angry"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "cheer",
+     "face": -30,
+     "mood": "laugh"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ]
+  },
+  {
+   "say": "Final round...",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "FINAL ROUND",
+    "from": 5,
+    "to": 5,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "surprised"
+    }
+   ],
+   "cam": "push:host",
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "the *biggest cat* on Earth.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "pointup",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": "close:host",
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "And the winner is...",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "look",
+     "face": 30,
+     "mood": "scared"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "look",
+     "face": -30,
+     "mood": "scared"
+    }
+   ],
+   "cam": "group",
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "*neither!*",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "sad",
+     "face": 30,
+     "mood": "shock"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "sad",
+     "face": -30,
+     "mood": "shock"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1,
+     "dur": 0.4
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "It's the *liger*:",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "idle",
+     "face": 30,
+     "mood": "love"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "face": -30,
+     "mood": "love"
+    }
+   ],
+   "cam": "group",
+   "pops": [
+    {
+     "text": "🦁 + 🐯 = LIGER",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "a lion dad and a tiger mom.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "cheer",
+     "face": 30,
+     "mood": "happy"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "cheer",
+     "face": -30,
+     "mood": "happy"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Up to *four hundred fifty* kilos!",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "LIGER",
+    "from": 0,
+    "to": 450,
+    "suffix": " kg",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "faint",
+     "face": 0,
+     "mood": "shock"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "boom",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "Team tiger or team lion?",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Tiger",
+    "away": "Lion",
+    "a": 2,
+    "b": 2
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "look",
+     "face": 30,
+     "mood": "cool"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "look",
+     "face": -30,
+     "mood": "cool"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Comment now!",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": "medium:host"
+  },
+  {
+   "say": "Because next time it's",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "cam": "medium:host"
+  },
+  {
+   "say": "tiger versus *lion.*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Tiger",
+    "away": "Lion",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "tiger",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "look",
+     "face": 30,
+     "mood": "angry"
+    },
+    {
+     "id": "lion",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "look",
+     "face": -30,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     15.5
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   }
+  }
+ ]
+}

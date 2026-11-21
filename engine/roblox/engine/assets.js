@@ -381,6 +381,7 @@ const ANIMALS = {
   cat: { c: '#f0a04b', c2: '#fff1dc', ears: 'point', tail: 'long', snout: 0, s: 0.8 },
   fox: { c: '#f07a2a', c2: '#ffffff', ears: 'point', tail: 'bushy', snout: 1, s: 0.95 },
   lion: { c: '#e7a94a', c2: '#f6d9a0', ears: 'round', tail: 'tuft', snout: 1, mane: '#9a4a1c', s: 1.3 },
+  tiger: { c: '#ee8a2a', c2: '#fff3e2', ears: 'round', tail: 'stripe', snout: 1, stripes: '#1d1712', s: 1.35 },
   pig: { c: '#f7a8b8', c2: '#f28aa0', ears: 'point', tail: 'curl', snout: 2, s: 1.0 },
   bear: { c: '#8a5a33', c2: '#c99b6d', ears: 'round', tail: 'stub', snout: 1, s: 1.35 },
   sheep: { c: '#f5f5f5', c2: '#3b3b3b', ears: 'flop', tail: 'stub', snout: 0, wool: 1, s: 1.05 },
@@ -436,7 +437,7 @@ function animalGeo(type) {
     for (const [x, z, ph] of [[0.6, 0.85, 0], [-0.6, 0.85, 1], [0.6, -0.95, 1], [-0.6, -0.95, 0]]) part('leg', [x, 0.32, z], mb => T(mb, 0, -0.16, 0.05, () => mb.rbox(0.42, 0.32, 0.52, 0.12, '#f2c2b0')), { ph });
   } else if (!A.biped) {
     const c = A.c, c2 = A.c2;
-    part('body', [0, 1.75, 0], mb => { mb.rbox(1.7, 1.35, 2.8, 0.42, c); T(mb, 0, -0.25, 0.3, () => mb.rbox(1.2, 0.9, 1.9, 0.35, c2)); if (A.wool) { const R = rng(5); for (let i = 0; i < 14; i++) T(mb, (R() - .5) * 1.3, 0.35 + R() * .3, (R() - .5) * 2.2, () => mb.sphere(0.55, 1, '#fafafa')); } if (A.spots) { T(mb, 0.55, 0.3, 0.4, () => mb.rbox(0.7, 0.75, 0.9, 0.2, A.spots)); T(mb, -0.6, 0.1, -0.7, () => mb.rbox(0.6, 0.7, 0.8, 0.2, A.spots)); } });
+    part('body', [0, 1.75, 0], mb => { mb.rbox(1.7, 1.35, 2.8, 0.42, c); T(mb, 0, -0.25, 0.3, () => mb.rbox(1.2, 0.9, 1.9, 0.35, c2)); if (A.wool) { const R = rng(5); for (let i = 0; i < 14; i++) T(mb, (R() - .5) * 1.3, 0.35 + R() * .3, (R() - .5) * 2.2, () => mb.sphere(0.55, 1, '#fafafa')); } if (A.stripes) for (const z of [-1.0, -0.5, 0, 0.5, 0.95]) { T(mb, 0, 0.665, z, () => mb.rbox(0.95, 0.06, 0.16, 0.02, A.stripes)); for (const s of [-1, 1]) T(mb, s * 0.845, 0.2, z, () => mb.rbox(0.06, 0.62, 0.16, 0.02, A.stripes)); } if (A.spots) { T(mb, 0.55, 0.3, 0.4, () => mb.rbox(0.7, 0.75, 0.9, 0.2, A.spots)); T(mb, -0.6, 0.1, -0.7, () => mb.rbox(0.6, 0.7, 0.8, 0.2, A.spots)); } });
     part('head', [0, 2.35, 1.35], mb => {
       mb.push(M4.T(0, 0.45, 0.35)); mb.rbox(1.45, 1.35, 1.3, 0.4, type === 'sheep' ? '#3b3b3b' : c, { uv: true });
       if (A.snout === 1) { T(mb, 0, -0.28, 0.72, () => mb.rbox(0.82, 0.55, 0.55, 0.2, c2)); T(mb, 0, -0.12, 1.0, () => mb.sphere(0.15, 1, '#1d1712', { sx: 1.3 })); }
@@ -447,15 +448,17 @@ function animalGeo(type) {
         if (A.ears === 'round') T(mb, s * 0.55, 0.65, -0.15, () => mb.sphere(0.27, 1, shade(c, 0.85), { sz: 0.6 }));
       }
       if (A.mane) { for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2; mb.push(M4.chain(M4.T(Math.sin(a) * 0.85, Math.cos(a) * 0.85, -0.25), M4.RZ(-a), M4.RX(0))); mb.cyl(0.38, 0, 0.75, 4, i % 2 ? A.mane : shade(A.mane, 1.15)); mb.pop(); } T(mb, 0, 0, -0.35, () => mb.rbox(1.9, 1.9, 0.5, 0.4, A.mane)); }
+      if (A.stripes) { for (const x of [-0.25, 0, 0.25]) T(mb, x, 0.6, 0.2, () => mb.rbox(0.09, 0.08, 0.7, 0.03, A.stripes)); for (const s of [-1, 1]) for (const y of [-0.05, 0.2]) T(mb, s * 0.71, y, 0.1, () => mb.rbox(0.06, 0.08, 0.55, 0.03, A.stripes)); }
       if (type === 'cow') for (const s of [-1, 1]) T(mb, s * 0.6, 0.75, 0, () => mb.cyl(0.12, 0.05, 0.4, 6, '#f2e6c9'));
       mb.pop();
     }, { face: 'animal' });
-    for (const [x, z, ph] of [[0.55, 0.95, 0], [-0.55, 0.95, 1], [0.55, -0.95, 1], [-0.55, -0.95, 0]]) part('leg', [x, 1.25, z], mb => { T(mb, 0, -0.62, 0, () => mb.rbox(0.5, 1.25, 0.5, 0.15, c)); T(mb, 0, -1.15, 0.05, () => mb.rbox(0.54, 0.22, 0.6, 0.08, shade(c, 0.7))); }, { ph });
+    for (const [x, z, ph] of [[0.55, 0.95, 0], [-0.55, 0.95, 1], [0.55, -0.95, 1], [-0.55, -0.95, 0]]) part('leg', [x, 1.25, z], mb => { T(mb, 0, -0.62, 0, () => mb.rbox(0.5, 1.25, 0.5, 0.15, c)); T(mb, 0, -1.15, 0.05, () => mb.rbox(0.54, 0.22, 0.6, 0.08, shade(c, 0.7))); if (A.stripes) for (const y of [-0.3, -0.7]) T(mb, 0, y, 0, () => mb.rbox(0.53, 0.12, 0.53, 0.04, A.stripes)); }, { ph });
     part('tail', [0, 2.15, -1.35], mb => {
       if (A.tail === 'up') { mb.push(M4.RX(-40 * DEG)); T(mb, 0, 0, -0.45, () => mb.rbox(0.25, 0.25, 0.9, 0.1, c)); mb.pop(); }
       if (A.tail === 'long') { mb.push(M4.RX(-70 * DEG)); T(mb, 0, 0, -0.75, () => mb.rbox(0.22, 0.22, 1.5, 0.1, c)); mb.pop(); }
       if (A.tail === 'bushy') { mb.push(M4.RX(-25 * DEG)); T(mb, 0, 0, -0.8, () => mb.rbox(0.6, 0.6, 1.4, 0.28, c)); T(mb, 0, 0, -1.55, () => mb.rbox(0.5, 0.5, 0.35, 0.2, '#ffffff')); mb.pop(); }
       if (A.tail === 'tuft') { mb.push(M4.RX(30 * DEG)); T(mb, 0, 0, -0.6, () => mb.rbox(0.18, 0.18, 1.2, 0.08, c)); T(mb, 0, 0, -1.25, () => mb.sphere(0.25, 1, A.mane || '#3b2a1a')); mb.pop(); }
+      if (A.tail === 'stripe') { mb.push(M4.RX(-60 * DEG)); T(mb, 0, 0, -0.75, () => mb.rbox(0.24, 0.24, 1.5, 0.1, c)); for (const z of [-0.35, -0.75, -1.15]) T(mb, 0, 0, z, () => mb.rbox(0.27, 0.27, 0.12, 0.04, A.stripes)); T(mb, 0, 0, -1.5, () => mb.rbox(0.27, 0.27, 0.2, 0.08, A.stripes)); mb.pop(); }
       if (A.tail === 'curl') T(mb, 0, 0, -0.1, () => mb.sphere(0.2, 1, A.c2));
       if (A.tail === 'stub') T(mb, 0, 0, -0.05, () => mb.sphere(0.25, 1, c));
     });

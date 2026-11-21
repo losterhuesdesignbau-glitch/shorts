@@ -138,5 +138,15 @@
   "plot": "New family the Parkers arrive in Swapton, where the bell rings every Sunday at noon and all families move one house over so nobody stays a stranger. 52 houses for 52 weeks – on New Year's Day everyone is back home and the town parties.",
   "twist": "The Parkers' house is number 53 – they will never get it back.",
   "file": "episodes/queue/weird_swapton.json"
+ },
+ {
+  "date": "2026-11-21",
+  "series": "VS BATTLE",
+  "title": "Tiger vs Lion – Who Wins? 🐯🦁",
+  "topic": "Tiger vs lion, 5 rounds with real animal models",
+  "hook": "TIGER VS LION",
+  "plot": "Rounds: size (Siberian tiger ~300 kg vs lion ~260 kg), swimming (tiger swam 29 km, lions avoid water), teamwork (lion prides up to 30), style (mane). 2-2.",
+  "twist": "Biggest cat on Earth is neither – it's the liger (lion dad + tiger mom), up to 450 kg.",
+  "file": "episodes/queue/vs_tiger_lion.json"
  }
 ]
