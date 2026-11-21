@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       ids:
-        description: "Veröffentlichungs-IDs, Komma-getrennt (video-id:plattform) – oder liste / plattform:instagram"
+        description: "Veröffentlichungs-IDs, Komma-getrennt (video-id:plattform) – oder liste / plattform:instagram / verschieben:VIDEO-ID@HH:MM"
         required: true
       requeue:
-        description: "ja = sofort neu einreihen statt abbrechen"
+        description: "ja = SOFORT veröffentlichen statt abbrechen (zum Verschieben: verschieben:ID@HH:MM)"
         required: false
         default: "nein"
 permissions:
@@ -33,6 +33,7 @@ jobs:
           case "$IDS" in
             liste) python -m vf.cancel --list ;;
             plattform:*) python -m vf.cancel --platform "${IDS#plattform:}" --requeue ;;
+            verschieben:*) v="${IDS#verschieben:}"; vid="${v%@*}"; at=""; [ "$v" != "$vid" ] && at="${v#*@}"; python -m vf.cancel --reschedule "$vid" ${at:+--at "$at"} ;;
             *) if [ "$REQUEUE" = "ja" ]; then python -m vf.cancel --ids "$IDS" --requeue; else python -m vf.cancel --ids "$IDS"; fi ;;
           esac
       - if: false

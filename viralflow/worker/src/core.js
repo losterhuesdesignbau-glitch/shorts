@@ -60,7 +60,8 @@ export async function logEvent(env, type, { video_id = null, platform = null, le
 }
 
 async function takenSlots(env) {
-  const { results } = await env.DB.prepare("SELECT DISTINCT scheduled_at FROM publications WHERE status != 'cancelled'").all();
+  // Nur echte Belegungen zählen: abgebrochene und endgültig fehlgeschlagene Termine sind wieder frei
+  const { results } = await env.DB.prepare("SELECT DISTINCT scheduled_at FROM publications WHERE status IN ('queued', 'dispatched', 'uploading', 'published', 'partial')").all();
   return new Set(results.map((r) => r.scheduled_at));
 }
 

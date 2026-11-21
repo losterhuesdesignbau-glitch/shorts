@@ -198,6 +198,24 @@ async function engineApi(env, method, path, data) {
     await tick(env);
     return json({ ok: true, id });
   }
+  // Geplante Veröffentlichung abbrechen -> Status 'cancelled' (Termin wird wieder frei; nie bereits veröffentlichte/aktive)
+  const cx = path.match(/^\/api\/engine\/publications\/([^/]+)\/cancel$/);
+  if (cx && method === 'POST') {
+    const id = decodeURIComponent(cx[1]), ts = nowIso();
+    const r = await env.DB.prepare("UPDATE publications SET status = 'cancelled', error = ?, updated_at = ? WHERE id = ? AND status IN ('queued', 'failed') RETURNING id, video_id, platform").bind(String(data.reason || 'abgebrochen').slice(0, 300), ts, id).first();
+    if (!r) throw new HttpError(409, 'Nicht abbrechbar (unbekannt, aktiv oder schon veröffentlicht)');
+    await logEvent(env, 'CANCELLED', { video_id: r.video_id, platform: r.platform, level: 'warn', message: data.reason || 'per Engine-API abgebrochen' });
+    return json({ ok: true, id });
+  }
+  // Video auf einen Termin legen: {at: "HH:MM"} = nächster freier Termin zu dieser Uhrzeit, ohne at = nächster freier Termin
+  const rs = path.match(/^\/api\/engine\/videos\/([^/]+)\/reschedule$/);
+  if (rs && method === 'POST') {
+    const vid = decodeURIComponent(rs[1]); const s = await getSettings(env);
+    const slots = data.at ? [String(data.at)] : s.slots;
+    const slot = await rescheduleVideo(env, vid, { ...s, slots }, { onlyStatuses: ['queued', 'failed', 'cancelled'], reason: data.reason || 'Per Engine-API verschoben' });
+    if (!slot) throw new HttpError(409, 'Nichts zu verschieben (schon veröffentlicht?)');
+    return json({ ok: true, video_id: vid, scheduled_at: slot, scheduled_local: formatLocal(slot, s.timezone) });
+  }
   const pm = path.match(/^\/api\/engine\/publications\/([^/]+)\/(claim|report)$/);
   if (pm && method === 'POST') {
     const id = decodeURIComponent(pm[1]);
