@@ -118,5 +118,15 @@
   "plot": "Noah studies all night for the biggest math test, sprints to school and finds it empty. The board says the test is Monday – it's Saturday. His teacher, there to grade papers, lets him take it early and he gets an A+.",
   "twist": "On Monday the test is cancelled for everyone – he is the only kid who took it.",
   "file": "episodes/queue/school_saturday.json"
+ },
+ {
+  "date": "2026-11-21",
+  "series": "VS BATTLE",
+  "title": "Penguin vs Ostrich – Which Flightless Bird Wins? 🐧🦤",
+  "topic": "Penguin vs ostrich, two flightless birds, 5 rounds",
+  "hook": "PENGUIN VS OSTRICH",
+  "plot": "Rounds: speed on land (ostrich ~70 km/h), swimming (emperor penguin up to ~24 km/h), size (ostrich ~2.5 m), diving (565 m record, 20+ min breath). 2-2 going into the final.",
+  "twist": "Final round 'best dad': emperor penguin dads keep the egg on their feet ~2 months without eating – penguin wins 3-2.",
+  "file": "episodes/queue/vs_penguin_ostrich.json"
  }
 ]

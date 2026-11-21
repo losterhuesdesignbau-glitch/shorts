@@ -1,0 +1,1333 @@
+{
+ "title": "Penguin vs Ostrich",
+ "music": "battle",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "PENGUIN\nVS OSTRICH",
+  "series": "VS BATTLE #3",
+  "cta": "TEAM PENGUIN or TEAM OSTRICH? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "Penguin vs Ostrich – Which Flightless Bird Wins? 🐧🦤",
+  "description": "Two birds that can't fly, 5 rounds: speed, swimming, size, diving… and the final round nobody expects. Team Penguin or Team Ostrich? 👇",
+  "hashtags": [
+   "vsbattle",
+   "penguin",
+   "ostrich",
+   "animals",
+   "facts"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "peng": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#111111",
+   "shirt": "#f1f1f1",
+   "pants": "#111111",
+   "jacket": "#1b1b1b",
+   "hat": "beanie",
+   "hatColor": "#ffb703",
+   "logo": "none"
+  },
+  "ost": {
+   "look": "man",
+   "hair": "messy",
+   "hairColor": "#6b4f3a",
+   "shirt": "#3b2a20",
+   "pants": "#e9c9a3",
+   "scarf": "#f4f1de",
+   "shades": true,
+   "logo": "none"
+  },
+  "host": {
+   "look": "woman",
+   "hair": "ponytail",
+   "hairColor": "#5a3825",
+   "shirt": "#ffd23f",
+   "jacket": "#e63946",
+   "logo": ""
+  }
+ },
+ "shots": [
+  {
+   "say": "Penguin",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "punch",
+     "face": 25,
+     "mood": "angry"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "punch",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "sfx": [
+    [
+     "whoosh",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "versus *ostrich.*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "punch",
+     "face": 25,
+     "mood": "angry"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "punch",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "sfx": [
+    [
+     "whoosh",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Two birds that *can't fly*.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "shrug",
+     "face": 25,
+     "mood": "confused"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "shrug",
+     "face": -25,
+     "mood": "confused"
+    }
+   ],
+   "cam": "group"
+  },
+  {
+   "say": "Five rounds. One winner.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": "medium:host"
+  },
+  {
+   "say": "Round one: *speed on land.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 1",
+    "from": 1,
+    "to": 1,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "An ostrich can run",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      -5,
+      2
+     ],
+     "path": [
+      [
+       -5,
+       2
+      ],
+      [
+       5,
+       2
+      ]
+     ],
+     "do": "run",
+     "mood": "cool"
+    }
+   ],
+   "cam": "track:ost",
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "about *seventy* km per hour.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "OSTRICH",
+    "from": 0,
+    "to": 70,
+    "suffix": " km/h",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      -5,
+      2
+     ],
+     "path": [
+      [
+       -5,
+       2
+      ],
+      [
+       5,
+       2
+      ]
+     ],
+     "do": "run",
+     "mood": "cool"
+    }
+   ],
+   "cam": "track:ost",
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ],
+   "speak": "about seventy kilometers per hour."
+  },
+  {
+   "say": "A penguin?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "walk",
+     "face": 0,
+     "mood": "sad"
+    }
+   ],
+   "cam": "full:peng",
+   "sfx": [
+    [
+     "boing",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "About *three*.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "PENGUIN",
+    "from": 0,
+    "to": 3,
+    "suffix": " km/h",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "walk",
+     "face": 0,
+     "mood": "sad"
+    }
+   ],
+   "cam": "full:peng",
+   "sfx": [
+    [
+     "boing",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Point for the *ostrich!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 0,
+    "b": 1,
+    "from": [
+     0,
+     0
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "no",
+     "face": 25,
+     "mood": "angry"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": -25,
+     "mood": "laugh"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.35
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ]
+  },
+  {
+   "say": "Round two: *swimming.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 2",
+    "from": 2,
+    "to": 2,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "An emperor penguin shoots through water",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "spin",
+     "mood": "cool"
+    }
+   ],
+   "cam": "orbit:peng",
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "at up to *twenty-four* km per hour.",
+   "set": "stadium",
+   "time": "day",
+   "speak": "at up to twenty-four kilometers per hour.",
+   "counter": {
+    "label": "PENGUIN",
+    "from": 0,
+    "to": 24,
+    "suffix": " km/h",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "cheer",
+     "mood": "smug"
+    }
+   ],
+   "cam": "full:peng"
+  },
+  {
+   "say": "The ostrich?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      0,
+      2
+     ],
+     "do": "shrug",
+     "mood": "confused"
+    }
+   ],
+   "cam": "medium:ost"
+  },
+  {
+   "say": "It just stays dry.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      0,
+      2
+     ],
+     "do": "shrug",
+     "mood": "confused"
+    }
+   ],
+   "cam": "medium:ost"
+  },
+  {
+   "say": "Point for the *penguin!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 1,
+    "b": 1,
+    "from": [
+     0,
+     1
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": 25,
+     "mood": "laugh"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "angry",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.35
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ]
+  },
+  {
+   "say": "Round three: *size.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 3",
+    "from": 3,
+    "to": 3,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Ostriches are the *tallest birds* alive,",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      0,
+      2
+     ],
+     "do": "pointup",
+     "mood": "smug",
+     "scale": 1.25
+    }
+   ],
+   "cam": "low:ost"
+  },
+  {
+   "say": "up to *two and a half* meters.",
+   "set": "stadium",
+   "time": "day",
+   "speak": "up to two and a half meters.",
+   "counter": {
+    "label": "OSTRICH",
+    "from": 0,
+    "to": 2.5,
+    "suffix": " m",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      0,
+      2
+     ],
+     "do": "cheer",
+     "mood": "cool",
+     "scale": 1.25
+    }
+   ],
+   "cam": "full:ost"
+  },
+  {
+   "say": "Emperor penguins?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "facepalm",
+     "mood": "sad",
+     "scale": 0.8
+    }
+   ],
+   "cam": "high:peng"
+  },
+  {
+   "say": "About *one*.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "PENGUIN",
+    "from": 0,
+    "to": 1,
+    "suffix": " m",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "facepalm",
+     "mood": "sad",
+     "scale": 0.8
+    }
+   ],
+   "cam": "high:peng"
+  },
+  {
+   "say": "Ostrich *leads!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 1,
+    "b": 2,
+    "from": [
+     1,
+     1
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "cry",
+     "face": 25,
+     "mood": "sad"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "dance",
+     "face": -25,
+     "mood": "laugh"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ]
+  },
+  {
+   "say": "Round four: *diving.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 4",
+    "from": 4,
+    "to": 4,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "One emperor penguin dove",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "jump",
+     "mood": "cool"
+    }
+   ],
+   "cam": "crane:peng"
+  },
+  {
+   "say": "*five hundred sixty-five* meters deep!",
+   "set": "stadium",
+   "time": "day",
+   "speak": "five hundred sixty-five meters deep!",
+   "counter": {
+    "label": "DEEPEST DIVE",
+    "from": 0,
+    "to": 565,
+    "suffix": " m",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "cheer",
+     "mood": "smug"
+    }
+   ],
+   "cam": "full:peng",
+   "fx": [
+    {
+     "type": "dark",
+     "t": 0.1,
+     "dur": 0.6
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "And it can hold its breath",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "freeze",
+     "mood": "cool"
+    }
+   ],
+   "cam": "close:peng"
+  },
+  {
+   "say": "for over *twenty minutes.*",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "BREATH",
+    "from": 0,
+    "to": 20,
+    "suffix": " min",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      0,
+      2
+     ],
+     "do": "scared",
+     "mood": "shock"
+    }
+   ],
+   "cam": "close:ost"
+  },
+  {
+   "say": "Two – two!",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 2,
+    "b": 2,
+    "from": [
+     1,
+     2
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": 25,
+     "mood": "laugh"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "no",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.35
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.32
+    ]
+   ]
+  },
+  {
+   "say": "Final round...",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "FINAL ROUND",
+    "from": 5,
+    "to": 5,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "surprised"
+    }
+   ],
+   "cam": "push:host",
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "*best dad.*",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "cam": "close:host",
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Penguin dads balance the egg on their feet",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "hold",
+     "mood": "love"
+    }
+   ],
+   "pops": [
+    {
+     "text": "🥚",
+     "x": 0.5,
+     "y": 0.62,
+     "t": 0.1
+    }
+   ],
+   "cam": "low:peng"
+  },
+  {
+   "say": "for about *two months*,",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ON HIS FEET",
+    "from": 0,
+    "to": 64,
+    "suffix": " days",
+    "y": 0.3
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "idle",
+     "mood": "sleepy"
+    }
+   ],
+   "cam": "medium:peng",
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 120
+    }
+   ]
+  },
+  {
+   "say": "in the Antarctic winter...",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      0,
+      2
+     ],
+     "do": "idle",
+     "mood": "sleepy"
+    }
+   ],
+   "cam": "medium:peng",
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0,
+     "dur": 1,
+     "n": 160
+    }
+   ]
+  },
+  {
+   "say": "without eating *anything.*",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      0,
+      2
+     ],
+     "do": "faint",
+     "mood": "shock"
+    }
+   ],
+   "cam": "medium:ost",
+   "sfx": [
+    [
+     "boing",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Penguin wins, *three to two!*",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 3,
+    "b": 2,
+    "from": [
+     2,
+     2
+    ],
+    "t": 0.3
+   },
+   "props": [
+    {
+     "type": "trophy",
+     "on": "peng",
+     "head": true
+    }
+   ],
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "cheer",
+     "face": 25,
+     "mood": "laugh"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "cry",
+     "face": -25,
+     "mood": "sad"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.25
+    ]
+   ]
+  },
+  {
+   "say": "Do you agree?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "ost",
+     "at": [
+      0,
+      2
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "angry"
+    }
+   ],
+   "cam": "medium:ost"
+  },
+  {
+   "say": "Team penguin or team ostrich?",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 3,
+    "b": 2
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "point",
+     "face": 25,
+     "mood": "grin"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "point",
+     "face": -25,
+     "mood": "grin"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.4,
+     14
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Because next time...",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "cam": "medium:host"
+  },
+  {
+   "say": "penguin versus ostrich.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Penguin",
+    "away": "Ostrich",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "peng",
+     "at": [
+      -1.8,
+      2
+     ],
+     "do": "punch",
+     "face": 25,
+     "mood": "angry"
+    },
+    {
+     "id": "ost",
+     "at": [
+      1.8,
+      2
+     ],
+     "do": "punch",
+     "face": -25,
+     "mood": "angry"
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.6,
+     15
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ]
+   }
+  }
+ ]
+}
