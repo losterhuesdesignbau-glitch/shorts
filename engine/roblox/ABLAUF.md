@@ -1,7 +1,7 @@
 # Ablauf für automatische Shorts (gilt für alle Sendeplätze)
 
 Der Auftrag (geplante Aufgabe) nennt: {SLOT} Sendezeit, {START} Start, {PUSH} spätester Push, {SERIE}, {THEMA}, {MUSIK}, {HASHTAG}.
-Zuerst den Auftrag selbst für morgen {START} neu planen (steht im Auftrag), dann:
+Die Aufgabe wiederholt sich täglich von selbst (fester Zeitplan) – NICHT neu planen, keine update_trigger-/send_later-Aufrufe. Ablauf:
 
 0. Repo losterhuesdesignbau-glitch/shorts unter /home/claude/shorts sicherstellen (fehlt es: add_repo mit push, klonen), git pull, CLAUDE.md und engine/roblox/README.md („Sendeplan & Regeln“, „4K-Look“, „Großes Update“) beachten. Lokale Engine für die Vorschau: /home/claude/engine/roblox (fehlt sie oder ist sie älter: engine/roblox aus dem Repo kopieren).
 1. THEMA: siehe {THEMA} im Auftrag (Serien-Beschreibung, Besonderheiten und Musik stehen dort).
