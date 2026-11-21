@@ -1,0 +1,1020 @@
+{
+ "title": "Third Knock",
+ "music": "dark",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "DON'T OPEN",
+  "series": "DARK STORIES #TEST",
+  "cta": "YES or NO? 👇",
+  "loop": true
+ },
+ "grade": {
+  "bloom": 0.3,
+  "vignette": 0.45,
+  "sat": 1.02,
+  "contrast": 1.08,
+  "warm": -0.03
+ },
+ "meta": {
+  "title": "Mom Said Don't Open The Door… Then She Knocked 🚪😨",
+  "description": "Test",
+  "hashtags": [
+   "darkstories",
+   "scary",
+   "story",
+   "horror"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "leo": {
+   "look": "boy",
+   "hair": "messy",
+   "hairColor": "#3b2a1a",
+   "shirt": "#2b2d42",
+   "hoodie": "#4361ee",
+   "logo": "none"
+  },
+  "mom": {
+   "look": "mom",
+   "hair": "bob",
+   "hairColor": "#5a3825",
+   "shirt": "#8d99ae",
+   "jacket": "#2b2d42",
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "Don't open that door.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Leo was home alone.",
+   "set": "room",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "sit",
+     "mood": "neutral"
+    }
+   ]
+  },
+  {
+   "say": "Ten p.m. Rain on the window.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "sit",
+     "mood": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      1.5,
+      -3
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "His phone buzzed.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "hold",
+     "mood": "surprised",
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.15
+    ]
+   ]
+  },
+  {
+   "say": "A text from Mom:",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "hold",
+     "mood": "think",
+     "hold": "phone"
+    }
+   ],
+   "speak": "A message from Mom."
+  },
+  {
+   "say": "\"Home soon. Don't open the door.\"",
+   "set": "room",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "hold",
+     "mood": "nervous",
+     "hold": "phone"
+    }
+   ]
+  },
+  {
+   "say": "He smiled.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "idle",
+     "mood": "smile"
+    }
+   ]
+  },
+  {
+   "say": "Easy.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "idle",
+     "mood": "confident"
+    }
+   ]
+  },
+  {
+   "say": "*Knock. Knock.*",
+   "set": "hallway",
+   "time": "night",
+   "cam": "wide",
+   "sfx": [
+    [
+     "boom",
+     0.05
+    ],
+    [
+     "boom",
+     0.45
+    ]
+   ]
+  },
+  {
+   "say": "Leo froze.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      4
+     ],
+     "do": "freeze",
+     "mood": "shock",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Then he heard her voice.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "back:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      4
+     ],
+     "do": "sneak",
+     "mood": "nervous",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "\"Leo, it's Mom! I forgot my keys!\"",
+   "set": "hallway",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      2
+     ],
+     "do": "look",
+     "mood": "relieved",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "He sighed and walked to the door.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "back:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      3
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "face": 180,
+     "path": [
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "His hand touched the handle...",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "*Buzz!* His phone.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "hold",
+     "mood": "surprised",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Another text from Mom.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "hold",
+     "mood": "think",
+     "face": 0,
+     "hold": "phone"
+    }
+   ]
+  },
+  {
+   "say": "\"Stuck in traffic. Twenty more minutes.\"",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "His blood ran cold.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "So who was outside?",
+   "set": "hallway",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "\"Leo? Open the door, sweetie.\"",
+   "set": "hallway",
+   "time": "night",
+   "cam": "low:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "freeze",
+     "mood": "scared",
+     "face": 180,
+     "talk": false
+    }
+   ]
+  },
+  {
+   "say": "He stepped back.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "mood": "scared",
+     "face": 180,
+     "path": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "One step.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      3
+     ],
+     "do": "sneak",
+     "mood": "nervous",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Two... three.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "back:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      3.5
+     ],
+     "do": "sneak",
+     "mood": "nervous",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "The knocking stopped.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      4
+     ],
+     "do": "freeze",
+     "mood": "nervous",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Silence.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      4
+     ],
+     "do": "freeze",
+     "mood": "think",
+     "face": 180
+    }
+   ],
+   "pause": 0.4
+  },
+  {
+   "say": "He let out a breath.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      4
+     ],
+     "do": "idle",
+     "mood": "relieved",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Maybe it was gone.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      2,
+      2
+     ],
+     "do": "walk",
+     "mood": "relieved",
+     "path": [
+      [
+       2,
+       2
+      ],
+      [
+       0,
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Then...",
+   "set": "room",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "freeze",
+     "mood": "shock"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "*Knock. Knock.*",
+   "set": "room",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "freeze",
+     "mood": "panic"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.05
+    ],
+    [
+     "boom",
+     0.45
+    ]
+   ]
+  },
+  {
+   "say": "But this time...",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "scared",
+     "mood": "panic"
+    }
+   ]
+  },
+  {
+   "say": "it came from his closet.",
+   "set": "room",
+   "time": "night",
+   "cam": "back:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 200
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.3,
+     "dur": 0.4
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "\"Leo... let me out.\"",
+   "set": "room",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "talk": false
+    }
+   ]
+  },
+  {
+   "say": "He ran to the front door,",
+   "set": "hallway",
+   "time": "night",
+   "cam": "back:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      4
+     ],
+     "do": "run",
+     "mood": "panic",
+     "face": 180,
+     "path": [
+      [
+       0,
+       4
+      ],
+      [
+       0,
+       0
+      ]
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "threw it open...",
+   "set": "hallway",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "mood": "panic",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "and Mom stood there with her keys.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 180
+    },
+    {
+     "id": "mom",
+     "at": [
+      0,
+      -2
+     ],
+     "do": "hold",
+     "hold": "keys",
+     "face": 0,
+     "mood": "confused"
+    }
+   ]
+  },
+  {
+   "say": "\"Why are you shaking?\"",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:mom",
+   "actors": [
+    {
+     "id": "mom",
+     "at": [
+      0,
+      -2
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "confused"
+    },
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "scared",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "They checked the closet together.",
+   "set": "room",
+   "time": "night",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1,
+      1
+     ],
+     "do": "sneak",
+     "mood": "nervous"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1,
+      1
+     ],
+     "do": "sneak",
+     "mood": "nervous"
+    }
+   ]
+  },
+  {
+   "say": "Empty.",
+   "set": "room",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1,
+      1
+     ],
+     "do": "look",
+     "mood": "confused"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1,
+      1
+     ],
+     "do": "look",
+     "mood": "confused"
+    }
+   ]
+  },
+  {
+   "say": "Only one thing was inside:",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "mood": "think"
+    }
+   ]
+  },
+  {
+   "say": "Mom's old phone.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Who sent those texts?",
+   "set": "room",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "panic",
+     "hold": "phone"
+    }
+   ]
+  },
+  {
+   "say": "Would you have opened the door?",
+   "set": "hallway",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      2
+     ],
+     "do": "idle",
+     "mood": "think",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Because tonight,",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "someone is *knocking*...",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 180
+    }
+   ]
+  }
+ ]
+}

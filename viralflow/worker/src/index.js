@@ -207,6 +207,16 @@ async function engineApi(env, method, path, data) {
     await logEvent(env, 'CANCELLED', { video_id: r.video_id, platform: r.platform, level: 'warn', message: data.reason || 'per Engine-API abgebrochen' });
     return json({ ok: true, id });
   }
+  // Privates Testvideo registrieren (wird NIE eingeplant/veröffentlicht) – nur für den signierten Ansehen-Link /m/…
+  if (path === '/api/engine/videos/test' && method === 'POST') {
+    for (const k of ['video_id', 'storage_key', 'filename']) if (!data[k]) throw new HttpError(400, `${k} fehlt`);
+    const ts = nowIso();
+    await env.DB.prepare(`INSERT INTO videos(id, storage_key, filename, duration, size_bytes, sha256, produced_at, script, meta_in, status, created_at, updated_at)
+        VALUES(?,?,?,?,?,NULL,?,NULL,NULL,'test',?,?) ON CONFLICT(id) DO UPDATE SET storage_key = excluded.storage_key, updated_at = excluded.updated_at WHERE videos.status = 'test'`)
+      .bind(String(data.video_id), String(data.storage_key), String(data.filename), data.duration ?? null, data.size_bytes ?? null, ts, ts, ts).run();
+    await logEvent(env, 'TEST_VIDEO', { video_id: String(data.video_id), message: 'Privates Testvideo (nicht veröffentlicht)' });
+    return json({ ok: true });
+  }
   // Video auf einen Termin legen: {at: "HH:MM"} = nächster freier Termin zu dieser Uhrzeit, ohne at = nächster freier Termin
   const rs = path.match(/^\/api\/engine\/videos\/([^/]+)\/reschedule$/);
   if (rs && method === 'POST') {

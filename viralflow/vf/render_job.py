@@ -67,13 +67,14 @@ def main():
         return render_part(a)
     api = Orchestrator()
 
+    test = os.environ.get('VF_TEST', '').lower() in ('1', 'ja', 'yes', 'true')  # privates Testvideo: rendern + prüfen, NICHT einplanen
     if a.file:
         path = Path(a.file)
         raw = path.read_bytes()
         ep = json.loads(raw)
         vid = video_id_for(path.stem, raw)
         title = (ep.get('meta') or {}).get('title') or path.stem
-        reg = api.register_episode(id=vid, path=str(path), title=title)
+        reg = {'proceed': True} if test else api.register_episode(id=vid, path=str(path), title=title)
         if not reg.get('proceed'):
             print(f'Nicht gerendert: {reg.get("reason")}')
             output('status', 'done' if reg.get('video_exists') else 'waiting')
@@ -123,6 +124,21 @@ def main():
         except Exception as e:
             print('Aussprache-Prüfung übersprungen:', e, flush=True)
         now = dt.datetime.now(dt.timezone.utc)
+        if test:  # nur ansehen: 1080p + 4K nach R2 (tests/), signierte Links (7 Tage), kein VIDEO_READY, keine Veröffentlichung
+            from .platforms import buffer_tiktok
+            tid = f'test-{vid}'
+            variants = [(tid, out)]
+            if out_k >= 2:
+                small = work / f'{vid}_1080.mp4'
+                subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(out), '-vf', 'scale=1080:1920:flags=lanczos', '-c:v', 'libx264', '-preset', 'medium',
+                                '-crf', '17', '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', str(small)], check=True)
+                variants = [(tid, small), (tid + '-4k', out)]
+            for v_id, f in variants:
+                k = f'tests/{v_id}.mp4'; Storage().upload(f, k)
+                api.call('POST', '/api/engine/videos/test', {'video_id': v_id, 'storage_key': k, 'filename': f.name, 'duration': q['info'].get('dur'), 'size_bytes': f.stat().st_size})
+                print(f'TESTLINK {v_id}: {buffer_tiktok.media_url(v_id, ttl=7 * 24 * 3600)}', flush=True)
+            output('status', 'test'); output('video_id', vid)
+            return 0
         key = f'videos/{now:%Y/%m}/{vid}.mp4'
         master = None
         if out_k >= 2:  # echtes 4K: Master für YouTube, scharfe 1080p-Fassung (aus 4K verkleinert) für Instagram/TikTok

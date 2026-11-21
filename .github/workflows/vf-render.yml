@@ -12,6 +12,10 @@ on:
       file:
         description: "Pfad einer Episode (leer = ganze Warteschlange)"
         required: false
+      test:
+        description: "ja = privates Testvideo (rendern + prüfen, Link im Log, NICHT veröffentlichen)"
+        required: false
+        default: "nein"
 
 permissions:
   contents: write
@@ -134,6 +138,7 @@ jobs:
       EP_FILE: ${{ matrix.file }}
       EP_ID: ${{ matrix.episode_id }}
       VF_PARTS_IN: ${{ github.workspace }}/parts_in
+      VF_TEST: ${{ inputs.test }}
     steps:
       - name: Nichts zu tun?
         if: matrix.file == '' && matrix.episode_id == ''
