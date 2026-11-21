@@ -714,14 +714,15 @@ function renderShot(sh, si, tl) {
   fxItems(items, sh, tl, D, map);
   for (const s of list) blobShadow(items, s);
   GL.render(items, cam, E);
-  OX.setTransform(1, 0, 0, 1, 0, 0); OX.drawImage(CV, 0, 0, R.W, R.H);
+  OX.setTransform(1, 0, 0, 1, 0, 0); OX.drawImage(CV, 0, 0, OC.width, OC.height); OX.setTransform(R.K || 1, 0, 0, R.K || 1, 0, 0);
   bloom(sh.bloom ?? (set.indoor ? 0.16 : lerp(0.09, 0.6, E.night)));
   drawOverlay(sh, tl, D, map, list);
 }
 
-R.init = async function (W = 1080, H = 1920, rs = 0.75) {
+R.init = async function (W = 1080, H = 1920, rs = 0.75, out = 1) {
+  // out = Ausgabe-Faktor (2 = echtes 4K 2160x3840). Logische Größe bleibt W x H -> Untertitel/Grafiken unverändert, nur schärfer.
   CV = document.getElementById('gl'); CV.width = Math.round(W * rs); CV.height = Math.round(H * rs); GL = new GLR(CV);
-  OC = document.getElementById('out'); OC.width = W; OC.height = H; OX = OC.getContext('2d'); OX.imageSmoothingEnabled = true; OX.imageSmoothingQuality = 'high';
+  R.K = out; OC = document.getElementById('out'); OC.width = Math.round(W * out); OC.height = Math.round(H * out); OX = OC.getContext('2d'); OX.imageSmoothingEnabled = true; OX.imageSmoothingQuality = 'high';
   R.W = W; R.H = H;
   await document.fonts.load(`bold 100px Poppins`); await document.fonts.load(`100px "Noto Color Emoji"`);
   return true;

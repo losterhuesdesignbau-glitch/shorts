@@ -16,6 +16,14 @@ on:
         description: "hq oder classic"
         required: false
         default: "hq"
+      rs:
+        description: "Render-Skala (2.0 = echtes 4K)"
+        required: false
+        default: "2.0"
+      out:
+        description: "Ausgabe-Faktor (2 = 2160x3840)"
+        required: false
+        default: "2"
 
 permissions:
   contents: read
@@ -57,6 +65,9 @@ jobs:
           command -v ffprobe >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }
           python -m playwright install --with-deps chromium
       - name: Teil rendern (Zeitmessung)
+        env:
+          VF_RS: ${{ inputs.rs }}
+          VF_OUT: ${{ inputs.out }}
         run: |
           start=$(date +%s)
           python engine/roblox/studio.py "${{ inputs.file }}" -o /tmp/test.mp4 --part "${{ matrix.part }}" --quality "${{ inputs.quality }}" --force

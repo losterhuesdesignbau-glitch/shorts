@@ -18,6 +18,8 @@ permissions:
 
 env:
   VF_QUALITY: hq   # 4K-Look (freigegeben 20.11.2026); "classic" = alter Look
+  VF_RS: '2.0'     # echtes 4K (21.11.2026): GL-Auflösung 2160x3840 …
+  VF_OUT: '2'      # … Ausgabe 2160x3840 (YouTube); Instagram/TikTok bekommen 1080p aus dem 4K-Master
 
 jobs:
   plan:
@@ -47,7 +49,7 @@ jobs:
       - id: p
         env:
           MATRIX: ${{ steps.m.outputs.matrix }}
-          VF_PARTS: ${{ vars.VF_RENDER_PARTS || '16' }}
+          VF_PARTS: ${{ vars.VF_RENDER_PARTS || '20' }}
         run: |
           python3 - >> "$GITHUB_OUTPUT" <<'EOF'
           import json, os
@@ -159,6 +161,7 @@ jobs:
         run: |
           pip install -q -r viralflow/requirements-render.txt
           pip install -q --no-deps tinysoundfont  # echte Instrumente (SoundFont), ohne pyaudio
+          pip install -q sherpa-onnx  # Aussprache-Prüfung (Spracherkennung, offline)
           for i in 1 2 3 4; do
             ok=1
             command -v ffprobe >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; } || ok=0

@@ -41,10 +41,16 @@ def run(ids, api=None, storage=None, run_id=None):
             if platform not in PLATFORMS:
                 raise PublishError(f'Unbekannte Plattform {platform}', retryable=False)
             key = video['storage_key']
+            if platform == 'youtube':  # YouTube bekommt den echten 4K-Master, falls vorhanden
+                k4 = key.replace('.mp4', '_4k.mp4')
+                try:
+                    if k4 in files or storage.exists(k4): key = k4
+                except Exception:
+                    pass
             if key not in files:
                 dst = tmp / Path(key).name
                 storage.download(key, dst)
-                info, warns = check(dst, video.get('sha256'))
+                info, warns = check(dst, video.get('sha256') if key == video['storage_key'] else None)
                 for w in warns:
                     api.log('VALIDATION_WARNING', w, video_id=video['id'], level='warn')
                 files[key] = (dst, info)

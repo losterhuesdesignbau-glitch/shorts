@@ -106,11 +106,36 @@ def main():
         p = subprocess.run(cmd, cwd=STUDIO.parent, capture_output=False)
         if p.returncode != 0 or not out.exists():
             raise RuntimeError(f'studio.py beendet mit Code {p.returncode}')
+        # Qualitätskontrolle nach dem Rendern (Bild, Ton, Hook) – kaputte Videos werden nicht hochgeladen
+        sys.path.insert(0, str(STUDIO.parent))
+        from tools import qa as QA
+        out_k = int(float(os.environ.get('VF_OUT', '1') or 1))
+        q = QA.run(out, expect=f'{1080 * out_k}x{1920 * out_k}')
+        for w in q['warnings']:
+            api.log('QA_WARNING', w, video_id=vid, level='warn')
+        if not q['ok']:
+            raise RuntimeError('Qualitätskontrolle: ' + '; '.join(q['errors']))
+        try:  # Aussprache der Stimme per Spracherkennung prüfen (nur Hinweise)
+            from tools import aussprache as AS
+            r = AS.check(ep)
+            if not r['ok']:
+                api.log('QA_WARNING', f"Aussprache: {r['rate'] * 100:.0f} % verstanden", video_id=vid, level='warn')
+        except Exception as e:
+            print('Aussprache-Prüfung übersprungen:', e, flush=True)
+        now = dt.datetime.now(dt.timezone.utc)
+        key = f'videos/{now:%Y/%m}/{vid}.mp4'
+        master = None
+        if out_k >= 2:  # echtes 4K: Master für YouTube, scharfe 1080p-Fassung (aus 4K verkleinert) für Instagram/TikTok
+            master = out
+            small = work / f'{vid}_1080.mp4'
+            subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(out), '-vf', 'scale=1080:1920:flags=lanczos', '-c:v', 'libx264', '-preset', 'medium',
+                            '-crf', '17', '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', str(small)], check=True)
+            Storage().upload(master, key.replace('.mp4', '_4k.mp4'))
+            out = small
+            info, _ = check(out)
         info, warns = check(out)
         for w in warns:
             api.log('VALIDATION_WARNING', w, video_id=vid, level='warn')
-        now = dt.datetime.now(dt.timezone.utc)
-        key = f'videos/{now:%Y/%m}/{vid}.mp4'
         Storage().upload(out, key)
         meta = dict(ep.get('meta') or {})
         resp = api.video_ready({

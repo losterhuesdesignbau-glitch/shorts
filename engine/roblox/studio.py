@@ -147,7 +147,7 @@ def add_lipsync(ep, voice, fps):
         sh['lip'] = ''.join(str(int(x)) for x in lab[f0:f0 + nf]); sh['lipFps'] = fps
 
 class Engine:
-    def __init__(self, ep, rs=0.75, hq=False):
+    def __init__(self, ep, rs=0.75, hq=False, out=1):
         from playwright.sync_api import sync_playwright
         self.pw = sync_playwright().start()
         self.b = self.pw.chromium.launch(args=ARGS)
@@ -157,7 +157,7 @@ class Engine:
         self.pg.on('console', lambda m: self.errs.append(m.text) if m.type == 'error' else None)
         self.pg.goto(ENGINE)
         if hq: self.pg.evaluate('window._hq = true')
-        self.pg.evaluate(f'R.init({W},{H},{rs})')
+        self.pg.evaluate(f'R.init({W},{H},{rs},{out})')
         self.pg.evaluate('ep => R.load(ep)', ep)
     def frame(self, si, t, q=0.92):
         d = self.pg.evaluate('([s,t,q]) => R.frame(s,t,q)', [si, t, q])
@@ -306,8 +306,9 @@ def main():
     qual = a.quality or src.get('quality') or os.environ.get('VF_QUALITY') or 'hq'
     hq = qual != 'classic'
     rs = a.rs if a.rs is not None else (float(os.environ.get('VF_RS', 1.25)) if hq else 0.75)
-    print(f'Qualität: {"4K-Look (HQ)" if hq else "klassisch"}, Render-Skala {rs}')
-    eng = Engine(ep, rs, hq)
+    out_k = 1 if (a.stills or a.frames) else int(float(os.environ.get('VF_OUT', src.get('out', 1)) or 1))  # 2 = echtes 4K (2160x3840)
+    print(f'Qualität: {"4K-Look (HQ)" if hq else "klassisch"}, Render-Skala {rs}, Ausgabe {W * out_k}x{H * out_k}')
+    eng = Engine(ep, rs, hq, out_k)
     try:
         if regie_on:  # Regie-Kontrolle 2: Physik/Bild mit der echten Engine (Kollisionen, Wände, Schweben, Bildausschnitt) – korrigiert ep
             import regie; rep = regie.bericht(r_inhalt, regie.physik(eng, ep)); eng.pg.evaluate('ep => R.load(ep)', ep)
@@ -333,7 +334,7 @@ def main():
         for si, sh in enumerate(ep['shots']):
             path = work / f'shot_{si + 1:03d}.mp4'
             key = work / f'shot_{si + 1:03d}.json'
-            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs]}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
+            cur = json.dumps({'shot': sh, 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs, out_k]}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
             if mine is not None and si not in mine: continue
             if path.exists() and key.exists() and key.read_text() == cur and (only is None or si not in only):
                 continue
@@ -354,13 +355,13 @@ def main():
     if gr:  # Look-Nachbearbeitung: Glühen (bloom), Vignette, Sättigung/Kontrast, Wärme
         gr = gr if isinstance(gr, dict) else {}
         b, vg = float(gr.get('bloom', 0.35)), float(gr.get('vignette', 0.35)); sat, con = gr.get('sat', 1.08), gr.get('contrast', 1.04); warm = float(gr.get('warm', 0.04))
-        fc = (f"[0:v]format=gbrp,split[a][b];[b]curves=all='0/0 0.62/0 1/1',gblur=sigma=26[g];[a][g]blend=all_mode=screen:all_opacity={b:.2f},"
+        fc = (f"[0:v]format=gbrp,split[a][b];[b]curves=all='0/0 0.62/0 1/1',gblur=sigma={26 * out_k}[g];[a][g]blend=all_mode=screen:all_opacity={b:.2f},"
               f"eq=saturation={sat}:contrast={con},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},vignette=angle={0.2 + vg:.2f},format=yuv420p[v]")
         gv = work / 'video_grade.mp4'
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-filter_complex', fc, '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(gv)], check=True); vid = gv
     if hq and src.get('post', True) is not False:  # 4K-Look: feines Nachschärfen + leichtes Filmkorn
         pv = work / 'video_post.mp4'
-        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-vf', 'unsharp=5:5:0.55:5:5:0.0,noise=c0s=5:c0f=t+u,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '17', '-pix_fmt', 'yuv420p', str(pv)], check=True); vid = pv
+        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-vf', ('unsharp=5:5:0.55:5:5:0.0' if out_k < 2 else 'unsharp=7:7:0.6:7:7:0.0') + ',noise=c0s=5:c0f=t+u,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '17', '-pix_fmt', 'yuv420p', str(pv)], check=True); vid = pv
     mbl = src.get('motionBlur')
     if mbl:  # leichte Bewegungsunschärfe wie bei echter Kamera: schnelle Bewegungen fließender, Rest-Zittern verdeckt
         w = 2 if mbl is True else max(1, int(round(3 - float(mbl) * 2)))
