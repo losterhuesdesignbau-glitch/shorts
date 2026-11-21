@@ -138,6 +138,10 @@ function panelTex(lit = []) {
       if (on) { x.lineWidth = 6; x.strokeStyle = '#fff3b0'; x.stroke(); }
       x.font = `bold 34px ${FONT}`; x.fillStyle = on ? '#3b2300' : '#2b2f33'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(String(n), cx, cy + 2);
     }
+    // Extra-Knopf über 10 (z. B. "11" oder "13" – ein Stockwerk, das es nicht geben dürfte): rot glühend oben in der Mitte
+    const ex = [...L].map(Number).filter(v => v > 10)[0];
+    if (ex) { const cx = 128, cy = 44; x.beginPath(); x.arc(cx, cy, 34, 0, Math.PI * 2); x.fillStyle = '#3b3f45'; x.fill(); x.beginPath(); x.arc(cx, cy, 28, 0, Math.PI * 2); x.fillStyle = '#ff2d2d'; x.fill(); x.lineWidth = 6; x.strokeStyle = '#ffb3b3'; x.stroke();
+      x.font = `bold 30px ${FONT}`; x.fillStyle = '#ffffff'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(String(ex), cx, cy + 2); }
   });
 }
 function chatTex(o = {}) {

@@ -45,6 +45,9 @@ def num_words(n):
 def norm_words(text):
     t = text.lower().replace('’', "'").replace('-', ' ')
     t = re.sub(r'\b([ap])\.\s?m\b\.?', r'\1m', t); t = re.sub(r'(\d)\s?([ap]m)\b', r'\1 \2', t)
+    ORD = {'1st': 'first', '2nd': 'second', '3rd': 'third', '4th': 'fourth', '5th': 'fifth', '6th': 'sixth', '7th': 'seventh', '8th': 'eighth', '9th': 'ninth', '10th': 'tenth', '11th': 'eleventh', '12th': 'twelfth', '13th': 'thirteenth', '20th': 'twentieth'}
+    t = re.sub(r'\b(\d+(?:st|nd|rd|th))\b', lambda m: ORD.get(m.group(1), m.group(1)), t)
+    t = re.sub(r"(\w)'(s|re|ll|ve|d|t|m)\b", r'\1\2', t)  # Apostrophe: door's = doors (gleich gesprochen)
     t = re.sub(r'(\d+)[.,](\d+)', lambda m: num_words(m.group(1)) + ' point ' + ' '.join(ONES[int(c)] for c in m.group(2)), t)
     t = re.sub(r'\d+', lambda m: ' ' + num_words(m.group(0)) + ' ', t)
     t = re.sub(r"[^a-z' ]+", ' ', t)

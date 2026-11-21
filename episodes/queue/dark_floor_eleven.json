@@ -1,0 +1,1119 @@
+{
+ "title": "Floor Eleven",
+ "music": "dark",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "FLOOR 11",
+  "series": "DARK STORIES #3",
+  "cta": "YES or NO? 👇",
+  "loop": true
+ },
+ "grade": {
+  "bloom": 0.3,
+  "vignette": 0.4,
+  "sat": 1.0,
+  "contrast": 1.06,
+  "warm": -0.03
+ },
+ "meta": {
+  "title": "Her Building Has 10 Floors… So Why Is There a Button for 11? 🛗😨",
+  "description": "Mia's building has ten floors. Tonight the elevator showed a glowing red button for floor eleven… Would you press it? YES or NO? 👇",
+  "hashtags": [
+   "darkstories",
+   "scary",
+   "horror",
+   "story",
+   "creepy"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "mia": {
+   "look": "girl",
+   "hair": "ponytail",
+   "hairColor": "#3b2a1a",
+   "shirt": "#5c4d7d",
+   "jacket": "#2b2d42",
+   "backpack": false,
+   "logo": "none"
+  },
+  "mom": {
+   "look": "mom",
+   "hair": "bob",
+   "hairColor": "#5a3825",
+   "shirt": "#8d99ae",
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "Never press floor eleven.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.15
+    ]
+   ]
+  },
+  {
+   "say": "Mia's building has ten floors.",
+   "set": "street",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -4,
+      0.5
+     ],
+     "do": "walk",
+     "mood": "sleepy",
+     "path": [
+      [
+       -4,
+       0.5
+      ],
+      [
+       2,
+       0.5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "She lives on the tenth.",
+   "set": "street",
+   "time": "night",
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "idle",
+     "mood": "sleepy"
+    }
+   ]
+  },
+  {
+   "say": "It was late, and she was *exhausted*.",
+   "set": "street",
+   "time": "night",
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "yawn",
+     "mood": "sleepy"
+    }
+   ]
+  },
+  {
+   "say": "She stepped into the elevator",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      4
+     ],
+     "do": "walk",
+     "mood": "sleepy",
+     "path": [
+      [
+       0,
+       4
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "and reached for button ten...",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "think",
+     "face": 90
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Then she *froze*.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "freeze",
+     "mood": "shock",
+     "face": 60
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Above it was a button she had never seen.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     2.2,
+     4.4,
+     -3.4
+    ],
+    "look": [
+     5,
+     4.2,
+     -3.4
+    ]
+   }
+  },
+  {
+   "say": "*Eleven.*",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     3.3,
+     5.3,
+     -3.4
+    ],
+    "look": [
+     5,
+     5.1,
+     -3.4
+    ]
+   },
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Glowing *red*.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "nervous",
+     "face": 60
+    }
+   ]
+  },
+  {
+   "say": "Her finger was shaking.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "nervous",
+     "face": 90
+    }
+   ]
+  },
+  {
+   "say": "Don't do it, she thought.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "nervous",
+     "face": 40
+    }
+   ]
+  },
+  {
+   "say": "She pressed it anyway.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "determined",
+     "face": 90
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "The doors closed.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ],
+    "open": 0
+   },
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "The lights blinked,",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.3
+    },
+    {
+     "type": "flash",
+     "t": 0.6
+    }
+   ]
+  },
+  {
+   "say": "and the elevator went *up*.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "low:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1,
+     "dur": 0.6
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "The doors *opened*.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ],
+    "open": 1
+   },
+   "cam": "back:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "freeze",
+     "mood": "shock",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "A hallway... exactly like hers.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true
+   },
+   "cam": "back:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      4
+     ],
+     "do": "sneak",
+     "mood": "nervous",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Same red carpet. Same doors.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true
+   },
+   "cam": "back:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2
+     ],
+     "do": "sneak",
+     "mood": "nervous",
+     "face": 180,
+     "path": [
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       -2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "And the same name on the last door:",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true,
+    "name": "MIA"
+   },
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      -3
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Her *own* name.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true,
+    "name": "MIA"
+   },
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      -3
+     ],
+     "do": "freeze",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Then a voice came from inside.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true,
+    "name": "MIA"
+   },
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      -3
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "\"Mia, sweetie? You're late.\"",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true,
+    "name": "MIA"
+   },
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      -3
+     ],
+     "do": "freeze",
+     "mood": "panic",
+     "face": 0,
+     "talk": false
+    }
+   ]
+  },
+  {
+   "say": "It was her mom's voice.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true,
+    "name": "MIA"
+   },
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      -3
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "But her mom was waiting on floor ten.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true,
+    "name": "MIA"
+   },
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      -3
+     ],
+     "do": "think",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "So Mia *ran*.",
+   "set": "hallway",
+   "time": "night",
+   "setOpts": {
+    "flicker": true
+   },
+   "cam": "back:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      -3
+     ],
+     "do": "run",
+     "mood": "panic",
+     "face": 0,
+     "path": [
+      [
+       0,
+       -3
+      ],
+      [
+       0,
+       4
+      ]
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "She hit button ten.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "10",
+     "11"
+    ]
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     2.2,
+     4.4,
+     -3.4
+    ],
+    "look": [
+     5,
+     4.2,
+     -3.4
+    ]
+   },
+   "sfx": [
+    [
+     "pop",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Again. And again!",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "10",
+     "11"
+    ]
+   },
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "panic",
+     "face": 90
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.2
+    ],
+    [
+     "pop",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "The doors closed...",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "10"
+    ],
+    "open": 0
+   },
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "relieved",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "and opened on *ten*.",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "10"
+    ],
+    "open": 1
+   },
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "relieved",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "She rushed into her apartment.",
+   "set": "room",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      3,
+      3
+     ],
+     "do": "run",
+     "mood": "nervous",
+     "path": [
+      [
+       3,
+       3
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Mom was fast asleep in bed.",
+   "set": "room",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     -1.5,
+     5.5,
+     1.5
+    ],
+    "look": [
+     -6.6,
+     1.6,
+     -4.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "mom",
+     "at": [
+      -6.6,
+      -5.4
+     ],
+     "y": 1.55,
+     "do": "lie",
+     "face": 180,
+     "mood": "sleep"
+    }
+   ],
+   "props": [
+    {
+     "type": "blanket",
+     "at": [
+      -6.6,
+      -4.4
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Mia let out a breath.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      1,
+      1
+     ],
+     "do": "idle",
+     "mood": "relieved"
+    }
+   ]
+  },
+  {
+   "say": "Just a bad dream, right?",
+   "set": "room",
+   "time": "night",
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      1,
+      1
+     ],
+     "do": "idle",
+     "mood": "relieved"
+    }
+   ]
+  },
+  {
+   "say": "Then her phone buzzed.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      1,
+      1
+     ],
+     "do": "hold",
+     "mood": "surprised",
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "One message from Mom:",
+   "set": "room",
+   "time": "night",
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      1,
+      1
+     ],
+     "do": "hold",
+     "mood": "nervous",
+     "hold": "phone"
+    }
+   ]
+  },
+  {
+   "say": "\"Why didn't you come in?\"",
+   "set": "room",
+   "time": "night",
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      1,
+      1
+     ],
+     "do": "hold",
+     "mood": "panic",
+     "hold": "phone",
+     "talk": false
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.4,
+     "dur": 0.4
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.35
+    ]
+   ]
+  },
+  {
+   "say": "Would you press floor eleven?",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Because tonight, I'm telling you:",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "never press floor eleven...",
+   "set": "elevator",
+   "time": "night",
+   "setOpts": {
+    "lit": [
+     "11"
+    ]
+   },
+   "cam": "face:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}

@@ -148,5 +148,15 @@
   "plot": "Rounds: size (Siberian tiger ~300 kg vs lion ~260 kg), swimming (tiger swam 29 km, lions avoid water), teamwork (lion prides up to 30), style (mane). 2-2.",
   "twist": "Biggest cat on Earth is neither – it's the liger (lion dad + tiger mom), up to 450 kg.",
   "file": "episodes/queue/vs_tiger_lion.json"
+ },
+ {
+  "date": "2026-11-21",
+  "series": "DARK STORIES",
+  "title": "Her Building Has 10 Floors… So Why Is There a Button for 11? 🛗😨",
+  "topic": "Elevator shows a glowing red button for a floor that doesn't exist",
+  "hook": "FLOOR 11",
+  "plot": "Mia's building has ten floors. Late at night the elevator shows a glowing red button for floor eleven; she presses it and finds a hallway identical to hers, her own name on the last door and her mom's voice inside. She flees back to floor ten, where her mom is asleep in bed.",
+  "twist": "Her phone buzzes: a text from Mom – 'Why didn't you come in?'",
+  "file": "episodes/queue/dark_floor_eleven.json"
  }
 ]
