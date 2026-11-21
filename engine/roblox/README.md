@@ -193,10 +193,12 @@ Alle Verbesserungen sind jetzt Standard:
 | 08:00 | Weird Towns / In This Town | `mystery` |
 | 10:00 | School Life | `school` (lustig) / `school_emo` (emotional) |
 | 12:30 | X vs Y | `battle` |
-| 15:30 | Virale Trends & Tänze | `trend` (Trend-Sound in der App ergänzen) |
+| 15:30 | Virale Trends (keine Tänze, keine Musik-Trends) | `trend` |
 | 18:30 | Survival & Katastrophen | `epic` |
 | 21:00 | Dark Stories | `dark` |
 
 **Regel 1 – keine Wiederholungen:** `episodes/themen.json` ist das Register aller Folgen. Vor jeder Produktion `python engine/roblox/tools/themen.py check "<Thema, Hook, Handlung, Twist>"` – bei „ZU ÄHNLICH“ verwerfen. Nach dem Push `themen.py add …` und Register mitcommitten.
 
 **Regel 2 – szenenabhängige Musik:** `score.py` erzeugt pro Video eigene Filmmusik (Tonart, Tempo, Akkordfolge, Klangfarben zufällig je Titel; Feld `"seed"` überschreibt). Steigerung bis zum Twist (`"twistAt"` in s, sonst letzter „boom“ im letzten Drittel), Akzente auf jedem Schnitt, große Akzente auf `boom`/`riser`/`tada`, Stille direkt vor dem Twist (dark), Ducking: Musik nie über der Stimme. Die alten Stimmungen (`happy`, `mystery`-Loop …) bleiben verfügbar: `mystery` ist jetzt die neue Filmmusik; alte Loop-Variante über `chill`/`tense`/`happy`.
+
+**Regel 3 – Tiere als echte Tiere (Lukas, 21.11.2026):** Kommt in einem Video (vor allem X vs Y) ein Tier vor, wird es IMMER als Tier-Modell dargestellt (`cast: {"cat": {"animal": "cat"}}`, wie in `episodes/done/vs_cat_dog.json`) – NIE ein Mensch im Kostüm/in Tierfarben als Tier verkaufen. Menschen nur als Moderator/Schiedsrichter. Verfügbar: dog, cat, fox, lion, pig, bear, sheep, cow, penguin, frog, chicken, croc, shark, guineapig. Fehlt ein Tier, entweder ein Duell mit verfügbaren Tieren wählen oder das Tier rückwärtskompatibel als neues Modell in `engine/assets.js` bauen und per Stills prüfen.
