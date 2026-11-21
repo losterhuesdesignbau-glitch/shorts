@@ -219,3 +219,6 @@ Bericht: `Regie: N Korrekturen, M Hinweise, K Fehler`. Aus: `"regie": false`; `"
 - Stille vor/nach jedem Satz wird abgeschnitten (Kokoro hängt ~0,3 s an), Satzpausen 0,22 s (Frage +0,1, „…“ +0,16, Ausruf −0,03), innerhalb eines Satzes 0,06 s. Vorher: Ø 0,76 s Pause, 37 % Stille; jetzt Ø 0,3 s. Alt: `"tts": {"trim": false}`.
 - Tempo je Serie automatisch (wenn `tts.speed` fehlt): dark 0.98, mystery 1.03, epic 1.05, battle 1.08, trend 1.1, school 1.07, school_emo 1.0.
 - Folge: ~2,7 Wörter/s → für ≥ 61 s rund 165–180 Wörter.
+
+## Musik mit echten Instrumenten (ab 21.11.2026)
+`score.py` rendert Klavier, Streicher, Chor, Spieluhr/Celesta, Gitarre/Pizzicato, Bass, Blech, Pfeife, Schlagzeug und Taiko mit der SoundFont-Bank **GeneralUser GS** (Lizenz: frei für eigene Musik, auch kommerziell) über `tinysoundfont`. Jeder Klang wird auf die Lautheit des alten Synth-Klangs kalibriert (gleiche Mischung). Drones, Riser, Booms, Herzschlag bleiben Sounddesign. Bank wird beim ersten Lauf nach `~/.cache/block_studio/sf2/` geladen (CI-Cache). Aus: `VF_SOUNDFONT=0`. Instrumente je Genre: `PROG` in score.py.
