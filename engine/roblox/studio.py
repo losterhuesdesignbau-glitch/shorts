@@ -174,7 +174,7 @@ def _keyround(o):
     return o
 
 
-def post_filter(src, hq, out_k):
+def post_filter(src, hq, out_k, sh=None):
     """Nachbearbeitung je Bild (Grading/Glühen, Nachschärfen + Korn, Bewegungsunschärfe) als ffmpeg-Filterkette.
     Läuft direkt beim Kodieren jedes Shots -> in CI auf alle Render-Teile verteilt, kein extra 4K-Durchlauf am Ende."""
     parts = []
@@ -182,9 +182,13 @@ def post_filter(src, hq, out_k):
     if gr:  # Look: Glühen (bloom, auf 1/4 Größe weichgezeichnet), Vignette, Sättigung/Kontrast, Wärme
         gr = gr if isinstance(gr, dict) else {}
         b, vg = float(gr.get('bloom', 0.35)), float(gr.get('vignette', 0.35)); sat, con = gr.get('sat', 1.08), gr.get('contrast', 1.04); warm = float(gr.get('warm', 0.04))
+        # Kontrast als sanfte S-Kurve (eq contrast drückt dunkle Bilder ins Schwarze); Nacht/Dämmerung: Schatten anheben, damit Gesichter lesbar bleiben
+        dark = sh is not None and (sh.get('time') in ('night', 'dusk', 'sunset') or sh.get('timeTo') in ('night', 'dusk'))
+        k = max(0.0, float(con) - 1.0)
+        curve = "0/0.01 0.08/0.13 0.25/0.33 0.6/0.66 1/1" if dark else f"0/0 0.25/{0.25 - k * 0.25:.3f} 0.75/{0.75 + k * 0.3:.3f} 1/1"
         parts.append(f"format=gbrp,split[ga][gb];[gb]scale=iw/4:ih/4:flags=bilinear,curves=all='0/0 0.62/0 1/1',gblur=sigma={26 / 4:.2f},scale=iw*4:ih*4:flags=bilinear[gg];"
-                     f"[ga][gg]blend=all_mode=screen:all_opacity={b:.2f},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},format=yuv420p,"
-                     f"eq=saturation={sat}:contrast={con},vignette=angle={0.2 + vg:.2f}")
+                     f"[ga][gg]blend=all_mode=screen:all_opacity={b:.2f},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},curves=all='{curve}',format=yuv420p,"
+                     f"eq=saturation={sat},vignette=angle={0.15 + vg * 0.6:.2f}")
     if hq and src.get('post', True) is not False:  # 4K-Look: feines Nachschärfen + leichtes Filmkorn
         parts.append('unsharp=5:5:0.55:5:5:0.0' + ',noise=c0s=5:c0f=t+u')
     mbl = src.get('motionBlur')
@@ -363,11 +367,11 @@ def main():
         for si, sh in enumerate(ep['shots']):
             path = work / f'shot_{si + 1:03d}.mp4'
             key = work / f'shot_{si + 1:03d}.json'
-            cur = json.dumps({'shot': _keyround({k: v for k, v in sh.items() if k not in ('lip', 'lipFps')}), 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs, out_k], 'post': vf}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
+            cur = json.dumps({'shot': _keyround({k: v for k, v in sh.items() if k not in ('lip', 'lipFps')}), 'cast': ep['cast'], 'cap': [ep['capY'], ep['capSize']], 'engine': ENGINE_SIG, 'q': [hq, rs, out_k], 'post': post_filter(src, hq, out_k, sh)}, sort_keys=True)  # Engine-Stand im Cache-Schlüssel: nach Engine-Änderungen wird neu gerendert
             if mine is not None and si not in mine: continue
             if path.exists() and key.exists() and key.read_text() == cur and (only is None or si not in only):
                 continue
-            ts = time.time(); render_shot(eng, ep, si, path, fps, vf); key.write_text(cur)
+            ts = time.time(); render_shot(eng, ep, si, path, fps, post_filter(src, hq, out_k, sh)); key.write_text(cur)
             print(f'Shot {si + 1}/{len(ep["shots"])}: {sh["nf"]} Frames in {time.time() - ts:.0f}s', flush=True)
         print(f'Rendern fertig in {time.time() - t0:.0f}s')
     finally:

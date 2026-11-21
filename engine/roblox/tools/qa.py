@@ -60,11 +60,11 @@ def run(path, expect=None, min_dur=40.0, log=print):
     mean, std = F.mean(axis=(1, 2)), F.std(axis=(1, 2))
     sharp = np.array([lap_var(f) for f in F]) * 1e4
     info.update(luma=round(float(mean.mean()), 3), contrast=round(float(std.mean()), 3), sharpness=round(float(np.median(sharp)), 1))
-    black = mean < 0.035
+    black = (mean < 0.025) & (std < 0.03)  # wirklich schwarz (dunkle Nachtszenen haben noch Struktur)
     run_b, best = 0, 0
     for b in black: run_b = run_b + 1 if b else 0; best = max(best, run_b)
     if best * 0.5 >= 1.0: errs.append(f'Schwarzbild {best * 0.5:.1f}s')
-    if mean.mean() < 0.12: warns.append(f'insgesamt sehr dunkel (Helligkeit {mean.mean():.2f})')
+    if mean.mean() < 0.09: warns.append(f'insgesamt sehr dunkel (Helligkeit {mean.mean():.2f})')
     if mean.mean() > 0.85: warns.append(f'überbelichtet (Helligkeit {mean.mean():.2f})')
     if std.mean() < 0.08: warns.append(f'flaues Bild (Kontrast {std.mean():.2f})')
     soft = np.nonzero(sharp < np.median(sharp) * 0.35)[0]

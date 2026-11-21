@@ -135,6 +135,11 @@ def inhalt(src, info=None):
             if want and (cur is None or (cur in POSITIVE and strong and not posw) or (cur in NEGATIVE and want in POSITIVE and want not in ('think',))):
                 if cur != want:
                     m['mood'] = want; fixes.append(f'Shot {i + 1}: Gesicht von "{m["id"]}" {cur or "-"} -> {want} (Text: "{sh.get("say", "")[:40]}")')
+        # Requisiten-Logik: 'keys' ist eine Klaviertastatur – in der Hand / bei Tür-/Haus-Schlüsseln ist der Schlüsselbund gemeint
+        for a in sh.get('actors') or []:
+            h = a.get('hold')
+            if h == 'keys' or (isinstance(h, dict) and h.get('type') == 'keys'):
+                a['hold'] = 'housekeys' if h == 'keys' else dict(h, type='housekeys'); fixes.append(f'Shot {i + 1}: "{a.get("id")}" hält Schlüssel -> Schlüsselbund statt Keyboard')
         # Dialog in Anführungszeichen: sprechende Figur bewegt den Mund (lippensynchron zur Stimme)
         say = str(sh.get('say', '')).strip()
         prev = _txt(shots[i - 1]) if i else ''
