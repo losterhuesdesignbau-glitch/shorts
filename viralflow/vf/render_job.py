@@ -57,7 +57,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--file')
     ap.add_argument('--episode-id')
-    ap.add_argument('--rs', default=os.environ.get('VF_RENDER_SCALE', '0.75'))
+    ap.add_argument('--rs', default=os.environ.get('VF_RENDER_SCALE'))  # leer = Engine-Standard (4K-Look: 1.25)
     ap.add_argument('--extra', default=os.environ.get('VF_STUDIO_ARGS', ''), help='zusätzliche studio.py-Argumente, z. B. --force')
     ap.add_argument('--part', default=None, help='verteiltes Rendern: K/N – nur Shots rendern, nach --parts-out kopieren (kein Upload/Orchestrator)')
     ap.add_argument('--parts-out', default='parts_out')
@@ -100,7 +100,7 @@ def main():
     ep_path = work / 'episode.json'
     ep_path.write_text(json.dumps(ep, ensure_ascii=False), encoding='utf-8')
     out = work / f'{vid}.mp4'
-    cmd = [sys.executable, str(STUDIO), str(ep_path), '-o', str(out), '--rs', str(a.rs)] + a.extra.split()
+    cmd = [sys.executable, str(STUDIO), str(ep_path), '-o', str(out)] + (['--rs', str(a.rs)] if a.rs else []) + a.extra.split()
     print('Engine 1:', ' '.join(cmd), flush=True)
     try:
         p = subprocess.run(cmd, cwd=STUDIO.parent, capture_output=False)
