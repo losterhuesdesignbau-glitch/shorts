@@ -1,0 +1,1000 @@
+{
+ "title": "Swapton",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "NEW HOUSE\nEVERY WEEK",
+  "series": "WEIRD TOWNS #3",
+  "cta": "YES or NO? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "In This Town You MUST Move Every Sunday 🏠🔄",
+  "description": "In Swapton, every family moves one house to the right every Sunday – 52 houses, 52 weeks. But the new family got house number 53… Would you live here? YES or NO? 👇",
+  "hashtags": [
+   "weirdtowns",
+   "inthistown",
+   "mystery",
+   "story",
+   "animation"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "leo": {
+   "look": "kid",
+   "hair": "messy",
+   "hairColor": "#e2c17c",
+   "shirt": "#06d6a0",
+   "backpack": "#ef476f",
+   "logo": "none"
+  },
+  "mom": {
+   "look": "mom",
+   "hair": "long",
+   "hairColor": "#3b2a1a",
+   "shirt": "#118ab2",
+   "logo": "none"
+  },
+  "mayor": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#d9d9d9",
+   "shirt": "#2b2d42",
+   "tie": "#e63946",
+   "tophat": true,
+   "logo": "none"
+  },
+  "anna": {
+   "look": "woman",
+   "hair": "bun",
+   "hairColor": "#b5651d",
+   "shirt": "#ffd166",
+   "logo": "none"
+  },
+  "max": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#1b1b1b",
+   "shirt": "#ff8c42",
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "In this town,",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "walk",
+     "face": 10,
+     "mood": "neutral"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "walk",
+     "face": -10,
+     "mood": "neutral"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.05
+    ]
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "nobody lives in the *same house*",
+   "cam": "aerial",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "carry",
+     "face": 10,
+     "mood": "surprised"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "carry",
+     "face": -10,
+     "mood": "surprised"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "for more than *one week*.",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "carry",
+     "face": 10,
+     "mood": "shock"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "carry",
+     "face": -10,
+     "mood": "shock"
+    }
+   ],
+   "props": [
+    {
+     "type": "box",
+     "on": "leo"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "Welcome to *Swapton*.",
+   "cam": "medium:mayor",
+   "props": [
+    {
+     "type": "sign",
+     "text": "SWAPTON",
+     "at": [
+      3.2,
+      -2.6
+     ],
+     "fg": "#ff8c42"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "wave",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "Every Sunday at noon,",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      0,
+      -3
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "the town bell *rings*...",
+   "set": "plaza",
+   "time": "day",
+   "cam": "low:mayor",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      0
+     ],
+     "do": "pointup",
+     "face": 0,
+     "mood": "smug"
+    }
+   ],
+   "props": [
+    {
+     "type": "bell",
+     "at": [
+      0.8,
+      0.2
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.15
+    ],
+    [
+     "ding",
+     0.55
+    ]
+   ]
+  },
+  {
+   "say": "and *every* family",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -3,
+      0.5
+     ],
+     "do": "carry",
+     "mood": "happy"
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "carry",
+     "mood": "happy"
+    },
+    {
+     "id": "leo",
+     "at": [
+      3,
+      0.5
+     ],
+     "do": "carry",
+     "mood": "happy"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "moves *one house* to the right.",
+   "cam": "aerial",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -5,
+      0.5
+     ],
+     "path": [
+      [
+       -5,
+       0.5
+      ],
+      [
+       -1,
+       0.5
+      ]
+     ],
+     "do": "walk",
+     "mood": "happy"
+    },
+    {
+     "id": "max",
+     "at": [
+      -1,
+      0.5
+     ],
+     "path": [
+      [
+       -1,
+       0.5
+      ],
+      [
+       3,
+       0.5
+      ]
+     ],
+     "do": "walk",
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.2
+    ]
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "Beds, toys, goldfish.",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "carry",
+     "mood": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "box",
+     "on": "max"
+    }
+   ],
+   "pops": [
+    {
+     "text": "🛏️ 🧸 🐟",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "Everything moves.",
+   "cam": "side:anna",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "carry",
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "box",
+     "on": "anna"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "When the Parkers moved here,",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "walk",
+     "face": 10,
+     "mood": "neutral"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "walk",
+     "face": -10,
+     "mood": "neutral"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "they thought it was a *joke*.",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "laugh",
+     "face": 10,
+     "mood": "laugh"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "laugh",
+     "face": -10,
+     "mood": "laugh"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "Then Sunday came.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      0,
+      -3
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "*Knock knock.*",
+   "set": "house",
+   "time": "day",
+   "setOpts": {
+    "name": "NO. 7"
+   },
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "wave",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.2
+    ],
+    [
+     "pop",
+     0.45
+    ]
+   ]
+  },
+  {
+   "say": "\"Your turn to move!\"",
+   "set": "house",
+   "time": "day",
+   "setOpts": {
+    "name": "NO. 7"
+   },
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "happy"
+    }
+   ]
+  },
+  {
+   "say": "Leo *loved* it.",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.3
+    ]
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "New room every week.",
+   "set": "room",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "jump",
+     "mood": "laugh"
+    }
+   ]
+  },
+  {
+   "say": "New neighbors every week.",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "wave",
+     "face": 20,
+     "mood": "happy"
+    },
+    {
+     "id": "anna",
+     "at": [
+      1.2,
+      0.6
+     ],
+     "do": "wave",
+     "face": -20,
+     "mood": "happy"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "Mom? Not so much.",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:mom",
+   "actors": [
+    {
+     "id": "mom",
+     "at": [
+      0,
+      0
+     ],
+     "do": "facepalm",
+     "mood": "angry"
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "\"Why does this town *do* this?\"",
+   "cam": "close:mom",
+   "actors": [
+    {
+     "id": "mom",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "confused"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "The mayor smiled.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:mayor",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "smile"
+    }
+   ]
+  },
+  {
+   "say": "\"So *nobody* stays a stranger.\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:mayor",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      0
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "smile"
+    }
+   ]
+  },
+  {
+   "say": "Swapton has exactly",
+   "cam": "aerial",
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "*fifty-two* houses.",
+   "cam": "wide",
+   "counter": {
+    "label": "HOUSES",
+    "from": 0,
+    "to": 52,
+    "y": 0.3
+   },
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "One for every week of the year.",
+   "cam": "wide",
+   "pops": [
+    {
+     "text": "📅 52 WEEKS",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "So on New Year's Day,",
+   "set": "plaza",
+   "time": "night",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "*everyone* is finally back home",
+   "set": "plaza",
+   "time": "night",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "anna",
+     "at": [
+      -2,
+      0.5
+     ],
+     "do": "cheer",
+     "mood": "happy"
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      0.8
+     ],
+     "do": "cheer",
+     "mood": "laugh"
+    },
+    {
+     "id": "mayor",
+     "at": [
+      2,
+      0.5
+     ],
+     "do": "cheer",
+     "mood": "happy"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "and the whole town throws a *giant party*.",
+   "set": "plaza",
+   "time": "night",
+   "cam": "aerial",
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Except the Parkers.",
+   "set": "plaza",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "idle",
+     "face": 10,
+     "mood": "confused"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "idle",
+     "face": -10,
+     "mood": "confused"
+    }
+   ]
+  },
+  {
+   "say": "Because their house...",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "look",
+     "face": 10,
+     "mood": "scared"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "look",
+     "face": -10,
+     "mood": "scared"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "is house number *fifty-three*.",
+   "set": "house",
+   "time": "day",
+   "setOpts": {
+    "name": "NO. 53"
+   },
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "freeze",
+     "face": 10,
+     "mood": "shock"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "freeze",
+     "face": -10,
+     "mood": "shock"
+    }
+   ],
+   "fx": [
+    {
+     "type": "zoom",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "They will *never* get it back.",
+   "set": "house",
+   "time": "day",
+   "setOpts": {
+    "name": "NO. 53"
+   },
+   "cam": "close:mom",
+   "actors": [
+    {
+     "id": "mom",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "cry",
+     "face": 0,
+     "mood": "cry"
+    }
+   ]
+  },
+  {
+   "say": "Would you live here?",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "shrug",
+     "face": 10,
+     "mood": "think"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "shrug",
+     "face": -10,
+     "mood": "think"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "Yes or no?",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "point",
+     "face": 0,
+     "mood": "grin"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  },
+  {
+   "say": "Because in this town...",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.2,
+      0.6
+     ],
+     "do": "walk",
+     "face": 10,
+     "mood": "neutral"
+    },
+    {
+     "id": "mom",
+     "at": [
+      1.2,
+      0.4
+     ],
+     "do": "walk",
+     "face": -10,
+     "mood": "neutral"
+    }
+   ],
+   "set": "street",
+   "time": "day"
+  }
+ ]
+}

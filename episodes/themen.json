@@ -131,12 +131,12 @@
  },
  {
   "date": "2026-11-21",
-  "series": "TRENDING NOW",
-  "title": "The Chipmunks Dance Song Is OLDER Than Your Parents 🐿️🌀",
-  "topic": "TikTok Chipmunks Dance trend (trio: jump, kick, spin, hair flip) to sped-up You Spin Me Round",
-  "hook": "OLDER THAN YOUR PARENTS",
-  "plot": "Explains the viral TikTok Chipmunks Dance: groups of three, goofy jumps, kicks, spins and hair flips to a sped-up chipmunk-voiced sound, easy to learn in an afternoon.",
-  "twist": "The sound is Dead or Alive's You Spin Me Round from 1984 (UK No. 1 in 1985) – your parents danced to it first.",
-  "file": "episodes/queue/trend_chipmunks_dance.json"
+  "series": "WEIRD TOWNS",
+  "title": "In This Town You MUST Move Every Sunday 🏠🔄",
+  "topic": "Swapton: every Sunday every family moves one house to the right",
+  "hook": "NEW HOUSE EVERY WEEK",
+  "plot": "New family the Parkers arrive in Swapton, where the bell rings every Sunday at noon and all families move one house over so nobody stays a stranger. 52 houses for 52 weeks – on New Year's Day everyone is back home and the town parties.",
+  "twist": "The Parkers' house is number 53 – they will never get it back.",
+  "file": "episodes/queue/weird_swapton.json"
  }
 ]
