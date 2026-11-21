@@ -1,0 +1,1253 @@
+{
+ "title": "Saturday Test",
+ "music": "school",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "speed": 1.0,
+  "room": 0.04
+ },
+ "viral": {
+  "hook": "THE WRONG\nDAY",
+  "series": "SCHOOL LIFE #1",
+  "cta": "YES or NO? 👇",
+  "loop": true
+ },
+ "meta": {
+  "title": "He Studied ALL Night… Then Went to School on a SATURDAY 📚😱",
+  "description": "Noah crammed all night for the biggest math test of the year – and sprinted into an empty school. Then his teacher walked in… Was it worth it? YES or NO? 👇",
+  "hashtags": [
+   "schoollife",
+   "school",
+   "story",
+   "animation",
+   "funny"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "noah": {
+   "look": "student",
+   "hair": "messy",
+   "hairColor": "#4a2e1a",
+   "shirt": "#3a86ff",
+   "backpack": "#ffbe0b",
+   "logo": "none"
+  },
+  "mom": {
+   "look": "mom",
+   "hair": "bun",
+   "hairColor": "#4a2e1a",
+   "shirt": "#e76f51",
+   "apron": true,
+   "logo": "none"
+  },
+  "clark": {
+   "look": "teacher",
+   "hair": "bob",
+   "hairColor": "#b5651d",
+   "shirt": "#6a4c93",
+   "logo": "none"
+  },
+  "mia": {
+   "look": "girl",
+   "hair": "ponytail",
+   "hairColor": "#e2c17c",
+   "shirt": "#ff5d8f",
+   "logo": "none"
+  },
+  "ben": {
+   "look": "boy",
+   "hair": "spiky",
+   "hairColor": "#1b1b1b",
+   "shirt": "#2a9d8f",
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "He studied *all night*",
+   "set": "room",
+   "time": "night",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "think",
+     "face": 0,
+     "mood": "think"
+    }
+   ],
+   "props": [
+    {
+     "type": "book",
+     "at": [
+      1.2,
+      0.6
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "for the *biggest* test of the year.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "hold",
+     "hold": "book",
+     "mood": "think"
+    }
+   ]
+  },
+  {
+   "say": "Math. Chapter *twelve*.",
+   "set": "room",
+   "time": "night",
+   "cam": "push:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "facepalm",
+     "mood": "confused"
+    }
+   ],
+   "pops": [
+    {
+     "text": "📐 x² + 12 = ?",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "Midnight.",
+   "set": "room",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "yawn",
+     "mood": "yawn"
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      -2,
+      -2.5
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Two a.m.",
+   "set": "room",
+   "time": "night",
+   "cam": "side:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "think",
+     "mood": "sleepy"
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Four a.m.",
+   "set": "room",
+   "time": "night",
+   "cam": "high:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "yawn",
+     "mood": "sleepy",
+     "emote": "zzz"
+    }
+   ],
+   "sfx": [
+    [
+     "snore",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Then his alarm *screams*.",
+   "set": "room",
+   "time": "morning",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "jump",
+     "mood": "shock"
+    }
+   ],
+   "props": [
+    {
+     "type": "alarm",
+     "at": [
+      1.4,
+      0.4
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1,
+     "dur": 0.4
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "He grabs his bag,",
+   "set": "room",
+   "time": "morning",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "carry",
+     "mood": "surprised"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "skips breakfast,",
+   "set": "house",
+   "time": "morning",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "mom",
+     "at": [
+      -1.5,
+      0.5
+     ],
+     "do": "point",
+     "face": "noah",
+     "mood": "surprised"
+    },
+    {
+     "id": "noah",
+     "at": [
+      1.5,
+      0.8
+     ],
+     "do": "run",
+     "face": 90,
+     "mood": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "type": "cup",
+     "at": [
+      -0.5,
+      1.4
+     ]
+    }
+   ]
+  },
+  {
+   "say": "and *sprints* to school.",
+   "set": "street",
+   "time": "morning",
+   "life": false,
+   "cam": "track:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      -6,
+      0
+     ],
+     "path": [
+      [
+       -6,
+       0
+      ],
+      [
+       6,
+       0
+      ]
+     ],
+     "do": "run",
+     "mood": "surprised"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "The street is *empty*.",
+   "set": "street",
+   "time": "morning",
+   "life": false,
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "look",
+     "mood": "confused"
+    }
+   ]
+  },
+  {
+   "say": "No cars. No kids.",
+   "set": "street",
+   "time": "morning",
+   "life": false,
+   "cam": "aerial",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "look",
+     "mood": "confused"
+    }
+   ]
+  },
+  {
+   "say": "Weird.",
+   "set": "street",
+   "time": "morning",
+   "life": false,
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0.5
+     ],
+     "do": "shrug",
+     "mood": "confused"
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "The school gate is open...",
+   "set": "school",
+   "time": "morning",
+   "life": false,
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      2
+     ],
+     "do": "walk",
+     "face": 180,
+     "mood": "neutral"
+    }
+   ]
+  },
+  {
+   "say": "and the halls are *silent*.",
+   "set": "school",
+   "time": "morning",
+   "life": false,
+   "cam": "back:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "sneak",
+     "face": 180,
+     "mood": "scared"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "He opens his classroom...",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3,
+      8
+     ],
+     "do": "walk",
+     "face": 180,
+     "mood": "scared"
+    }
+   ]
+  },
+  {
+   "say": "*Empty.*",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "high:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3,
+      8
+     ],
+     "do": "freeze",
+     "mood": "shock"
+    }
+   ],
+   "fx": [
+    {
+     "type": "zoom",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Every single desk.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     5,
+     12
+    ],
+    "look": [
+     0,
+     1,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Did he *miss* the test?!",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3,
+      8
+     ],
+     "do": "scared",
+     "mood": "scared"
+    }
+   ]
+  },
+  {
+   "say": "He looks at the board...",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "back:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      3
+     ],
+     "do": "look",
+     "face": 180,
+     "mood": "confused"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Math test...",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3,
+     4
+    ],
+    "look": [
+     0,
+     3,
+     -6
+    ]
+   }
+  },
+  {
+   "say": "on *Monday*?",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3,
+     4
+    ],
+    "look": [
+     0,
+     3,
+     -6
+    ]
+   },
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "He checks his phone.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      3
+     ],
+     "do": "hold",
+     "hold": "phone",
+     "mood": "think"
+    }
+   ]
+  },
+  {
+   "say": "It's *Saturday*.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "push:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      3
+     ],
+     "do": "facepalm",
+     "mood": "shock"
+    }
+   ],
+   "pops": [
+    {
+     "text": "SATURDAY 📅",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Then... *footsteps*.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      3
+     ],
+     "do": "scared",
+     "mood": "scared"
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.1
+    ],
+    [
+     "tick",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "It's Mrs. Clark,",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "medium:clark",
+   "actors": [
+    {
+     "id": "clark",
+     "at": [
+      -3,
+      -2
+     ],
+     "do": "walk",
+     "face": "noah",
+     "mood": "surprised"
+    },
+    {
+     "id": "noah",
+     "at": [
+      0,
+      3
+     ],
+     "do": "idle",
+     "face": "clark",
+     "mood": "scared"
+    }
+   ]
+  },
+  {
+   "say": "here to grade papers.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "group",
+   "actors": [
+    {
+     "id": "clark",
+     "at": [
+      -2,
+      0
+     ],
+     "do": "hold",
+     "hold": "book",
+     "face": "noah",
+     "mood": "smile"
+    },
+    {
+     "id": "noah",
+     "at": [
+      0.5,
+      2
+     ],
+     "do": "idle",
+     "face": "clark",
+     "mood": "scared"
+    }
+   ]
+  },
+  {
+   "say": "She smiles and says,",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "close:clark",
+   "actors": [
+    {
+     "id": "clark",
+     "at": [
+      -2,
+      0
+     ],
+     "do": "talk",
+     "face": "cam",
+     "mood": "grin"
+    }
+   ]
+  },
+  {
+   "say": "\"Well... since you're here,",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "medium:clark",
+   "actors": [
+    {
+     "id": "clark",
+     "at": [
+      -2,
+      0
+     ],
+     "do": "talk",
+     "face": "noah",
+     "mood": "smile"
+    },
+    {
+     "id": "noah",
+     "at": [
+      0.5,
+      2
+     ],
+     "do": "idle",
+     "face": "clark",
+     "mood": "confused"
+    }
+   ]
+  },
+  {
+   "say": "take it *now*.\"",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "ots:noah>clark",
+   "actors": [
+    {
+     "id": "clark",
+     "at": [
+      -2,
+      0
+     ],
+     "do": "point",
+     "face": "noah",
+     "mood": "smug"
+    },
+    {
+     "id": "noah",
+     "at": [
+      0.5,
+      2
+     ],
+     "do": "idle",
+     "face": "clark",
+     "mood": "shock"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "He knows *every* answer.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0.2
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "cool"
+    }
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "grade": "",
+     "gradeColor": "#1d3557",
+     "at": [
+      0,
+      -0.5
+     ],
+     "up": false
+    }
+   ]
+  },
+  {
+   "say": "A *plus*!",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "life": false,
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      3
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "grade": "A+",
+     "gradeColor": "#2a9d8f",
+     "at": [
+      0.9,
+      3.4
+     ],
+     "up": true
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "On Monday, the class walks in...",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH TEST\nMONDAY"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     -3
+    ],
+    "look": [
+     0,
+     1,
+     5
+    ]
+   },
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "scared"
+    },
+    {
+     "id": "ben",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "scared"
+    },
+    {
+     "id": "noah",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "cool"
+    }
+   ]
+  },
+  {
+   "say": "and Mrs. Clark says:",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "close:clark",
+   "actors": [
+    {
+     "id": "clark",
+     "at": [
+      0,
+      -2
+     ],
+     "do": "talk",
+     "face": "cam",
+     "mood": "smile"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "\"The test is *cancelled*!\"",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "NO TEST!"
+   },
+   "cam": "group",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "happy"
+    },
+    {
+     "id": "ben",
+     "at": [
+      2,
+      1
+     ],
+     "do": "cheer",
+     "face": 0,
+     "mood": "happy"
+    },
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "freeze",
+     "face": 0,
+     "mood": "shock"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Everyone cheers...",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "jump",
+     "mood": "happy"
+    },
+    {
+     "id": "ben",
+     "at": [
+      2,
+      1
+     ],
+     "do": "dance",
+     "mood": "laugh"
+    },
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "facepalm",
+     "mood": "sad"
+    }
+   ]
+  },
+  {
+   "say": "except the *only kid* who already took it.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "push:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "cry",
+     "face": 0,
+     "mood": "cry"
+    }
+   ],
+   "pops": [
+    {
+     "text": "😭",
+     "x": 0.75,
+     "y": 0.35,
+     "t": 0.4
+    }
+   ]
+  },
+  {
+   "say": "Was it worth it?",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "shrug",
+     "face": 0,
+     "mood": "confused"
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "shrug",
+     "face": 0,
+     "mood": "confused"
+    }
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "grade": "A+",
+     "gradeColor": "#2a9d8f",
+     "at": [
+      0.9,
+      1.9
+     ],
+     "up": true
+    }
+   ]
+  },
+  {
+   "say": "Because he studied",
+   "set": "room",
+   "time": "night",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "think",
+     "mood": "think"
+    }
+   ],
+   "props": [
+    {
+     "type": "book",
+     "at": [
+      1.2,
+      0.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "*all night*...",
+   "set": "room",
+   "time": "night",
+   "cam": "push:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      0
+     ],
+     "do": "think",
+     "mood": "think"
+    }
+   ],
+   "props": [
+    {
+     "type": "book",
+     "at": [
+      1.2,
+      0.6
+     ]
+    }
+   ]
+  }
+ ]
+}

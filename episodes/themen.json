@@ -108,5 +108,15 @@
   "plot": "The whole town checks the sky every morning. Today Mrs. Bell's roof is snowy and she makes 400 cups of cocoa. Leo stays up all night to find out who picks the house.",
   "twist": "The old weather vane on the town hall turns at midnight and points at the next house - tonight it points at the viewer's house",
   "file": "episodes/queue/weird_frostwick.json"
+ },
+ {
+  "date": "2026-11-21",
+  "series": "SCHOOL LIFE",
+  "title": "He Studied ALL Night… Then Went to School on a SATURDAY 📚😱",
+  "topic": "Boy crams all night for the big math test and rushes to an empty school – it's Saturday",
+  "hook": "THE WRONG DAY",
+  "plot": "Noah studies all night for the biggest math test, sprints to school and finds it empty. The board says the test is Monday – it's Saturday. His teacher, there to grade papers, lets him take it early and he gets an A+.",
+  "twist": "On Monday the test is cancelled for everyone – he is the only kid who took it.",
+  "file": "episodes/queue/school_saturday.json"
  }
 ]
