@@ -395,13 +395,16 @@ def sentence_speed(tokens, base, first=False):
     return base * f * (1 + _jit(text, 'v', 0.025))
 
 def sentence_pause(tokens, cfg):
+    """Pause NACH einem Satz (Stille im Audio ist schon abgeschnitten): kurz und natürlich wie ein Sprecher,
+    Frage/… etwas länger, Ausruf kürzer; innerhalb eines Satzes (Komma, Satz läuft über mehrere Shots) fast nahtlos."""
     e, text = _end(tokens), ' '.join(w['raw'] for w in tokens)
-    if not e: return float(cfg.get('gap', 0.08))
-    p = float(cfg.get('pause', 0.3))
-    if '?' in e: p += 0.12
-    elif '…' in e or '...' in e: p += 0.22
+    trim = cfg.get('trim', True)
+    if not e: return float(cfg.get('gap', 0.06 if trim else 0.08))
+    p = float(cfg.get('pause', 0.22 if trim else 0.3))
+    if '?' in e: p += 0.1
+    elif '…' in e or '...' in e: p += 0.16
     elif '!' in e: p -= 0.03
-    return max(0.08, p + _jit(text, 'p', 0.05))
+    return max(0.06, p + _jit(text, 'p', 0.04))
 
 def _biquad(x, kind, f0, gain_db=0.0, q=0.9, sr=AU.SR):
     from scipy.signal import lfilter
@@ -480,7 +483,8 @@ def speak_episode(ep, shots, opts=None):
     cfg = dict(ep['tts']) if isinstance(ep.get('tts'), dict) else {}
     cfg.update({k: v for k, v in (opts or {}).items() if v is not None})
     vdef = cfg.get('voice', DEFAULT_VOICE)
-    speed = float(cfg.get('speed', 1.05)) * float(ep.get('speed', 1.0))
+    GENRE_SPEED = {'dark': 0.98, 'mystery': 1.03, 'epic': 1.05, 'battle': 1.08, 'trend': 1.1, 'school': 1.07, 'school_emo': 1.0}
+    speed = float(cfg.get('speed') or GENRE_SPEED.get(ep.get('music'), 1.05)) * float(ep.get('speed', 1.0))  # Tempo passend zur Serie
     natural = cfg.get('natural', True)
     noise = cfg.get('noise', 0.7 if natural else None)
     noise_w = cfg.get('noiseW', 0.9 if natural else None)
@@ -512,6 +516,15 @@ def speak_episode(ep, shots, opts=None):
         t += u['pre']
         sp = sentence_speed(u['tokens'], speed, first=not parts) if natural else speed
         audio, times, how, hit = synth_utterance(u['voice'], u['tokens'], sp, noise, noise_w)
+        if cfg.get('trim', True):  # Stille vor/nach jedem Satz abschneiden (Kokoro hängt ~0,3 s an) -> flüssige Übergänge
+            env = np.abs(audio); pk = env.max() if len(env) else 0
+            if pk > 0:
+                on = np.nonzero(env > pk * 0.04)[0]
+                a0 = max(0, int(on[0] - 0.025 * AU.SR)); a1 = min(len(audio), int(on[-1] + 0.07 * AU.SR))
+                fade = min(int(0.01 * AU.SR), max(1, a1 - a0) // 4)
+                audio = audio[a0:a1].copy(); audio[:fade] *= np.linspace(0, 1, fade); audio[-fade:] *= np.linspace(1, 0, fade)
+                sh0 = a0 / AU.SR; dmax = len(audio) / AU.SR
+                times = [(min(max(0.0, a - sh0), dmax), min(max(0.0, b - sh0), dmax)) for a, b in times]
         act = np.abs(audio) > 0.02  # jeden Satz auf gleiche Sprechlautstärke
         if act.any(): audio = audio * (0.1 / (np.sqrt(np.mean(audio[act] ** 2)) + 1e-9))
         cached += hit; hows[how] = hows.get(how, 0) + 1
