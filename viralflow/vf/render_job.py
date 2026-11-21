@@ -140,7 +140,7 @@ def render_part(a):
     work = Path(tempfile.mkdtemp(prefix='vf-part-')); ep_path = work / 'episode.json'
     ep_path.write_text(json.dumps(json.loads(raw), ensure_ascii=False), encoding='utf-8')
     out = work / f'{vid}.mp4'
-    cmd = [sys.executable, str(STUDIO), str(ep_path), '-o', str(out), '--rs', str(a.rs), '--part', a.part] + a.extra.split()
+    cmd = [sys.executable, str(STUDIO), str(ep_path), '-o', str(out)] + (['--rs', str(a.rs)] if a.rs else []) + ['--part', a.part] + a.extra.split()
     print('Engine 1 (Teil):', ' '.join(cmd), flush=True)
     p = subprocess.run(cmd, cwd=STUDIO.parent)
     dst = Path(a.parts_out); dst.mkdir(parents=True, exist_ok=True)
