@@ -105,6 +105,24 @@ def main():
     youtube(api, pubs, out); instagram(api, pubs, out); tiktok(api, pubs, out)
     r = api.call('POST', '/api/engine/stats', out)
     print(f"Statistik: {len(out['videos'])} Videos, {len(out['accounts'])} Konten, {len(out['earnings'])} Verdienst-Tage -> {r}")
+    bericht(pubs, out)
+
+
+def bericht(pubs, out):
+    """Leistungsbericht im Log (für die Optimierung): je Plattform alle Videos mit Aufrufen und Interaktionsraten."""
+    pt = {(p['video_id'], p['platform']): p.get('published_at', '') for p in pubs}
+    for a in out['accounts']:
+        print(f"KONTO {a['platform']}: Follower {a.get('followers')} · Videos {a.get('media_count')}")
+    for plat in ('tiktok', 'youtube', 'instagram'):
+        rows = [v for v in out['videos'] if v['platform'] == plat]
+        rows.sort(key=lambda v: -(v.get('views') or 0))
+        print(f'--- BERICHT {plat}: {len(rows)} Videos ---')
+        for v in rows:
+            vw = v.get('views') or 0; lk = v.get('likes') or 0; cm = v.get('comments') or 0; sh = v.get('shares') or 0
+            rate = lambda x: f'{100 * x / vw:.1f}%' if vw else '-'
+            when = (pt.get((v.get('video_id'), plat)) or '')[:16]
+            print(f"BERICHT {plat} | {v.get('video_id') or v.get('remote_id')} | {when} | Aufrufe {vw} | Likes {lk} ({rate(lk)}) | Kommentare {cm} ({rate(cm)}) | Shares {sh} ({rate(sh)})"
+                  + (f" | Ø Wiedergabe {v.get('avg_view_s')}s" if v.get('avg_view_s') is not None else ''))
 
 
 if __name__ == '__main__':
