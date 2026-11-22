@@ -22,6 +22,8 @@ export const DEFAULT_SETTINGS = {
   language: '',                       // leer = automatisch (de/en)
   notify_success: true,
   notify_failure: true,
+  // Plattform-Takt (Lukas 22.11.2026): TikTok nur 3x täglich mit den stärksten Serien – YouTube/Instagram weiter alle Termine.
+  platform_slots: { tiktok: ['08:00', '12:30', '21:00'] },
 };
 
 const BOOL_KEYS = ['engine1_paused', 'engine2_paused', 'notify_success', 'notify_failure'];
@@ -106,15 +108,20 @@ export async function scheduleVideo(env, videoId, settings, from = new Date()) {
   const taken = await takenSlots(env);
   // Render kam zu spät (eigener Termin vor < 60 min verpasst und frei): sofort posten statt einen späteren Termin zu belegen
   const missed = nextFreeSlot({ slots: settings.slots, tz: settings.timezone, taken, from: new Date(from.getTime() - 60 * 60000), leadMinutes: 0 });
-  const slot = Date.parse(missed) <= from.getTime() ? from.toISOString() : nextFreeSlot({ slots: settings.slots, tz: settings.timezone, taken, from });
+  const late = Date.parse(missed) <= from.getTime();
+  const slot = late ? from.toISOString() : nextFreeSlot({ slots: settings.slots, tz: settings.timezone, taken, from });
+  const hhmm = (String(formatLocal(late ? missed : slot, settings.timezone)).match(/(\d{1,2}:\d{2})\s*$/) || [])[1] || '';
   const ts = nowIso();
   const stmts = [env.DB.prepare("UPDATE videos SET slot_at = ?, status = 'scheduled', updated_at = ? WHERE id = ?").bind(slot, ts, videoId)];
   for (const platform of PLATFORMS) {
-    stmts.push(env.DB.prepare(`INSERT INTO publications(id, video_id, platform, scheduled_at, status, created_at, updated_at)
-        VALUES(?, ?, ?, ?, 'queued', ?, ?)
+    // Plattform-Takt: steht der Termin nicht in platform_slots[platform], wird diese Plattform für das Video ausgelassen (Status cancelled)
+    const ps = (settings.platform_slots || {})[platform];
+    const skip = Array.isArray(ps) && ps.length && !ps.map((s) => s.padStart(5, '0')).includes(hhmm.padStart(5, '0'));
+    stmts.push(env.DB.prepare(`INSERT INTO publications(id, video_id, platform, scheduled_at, status, error, created_at, updated_at)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET scheduled_at = excluded.scheduled_at, updated_at = excluded.updated_at
         WHERE publications.status IN ('queued', 'failed')`)
-      .bind(`${videoId}:${platform}`, videoId, platform, slot, ts, ts));
+      .bind(`${videoId}:${platform}`, videoId, platform, slot, skip ? 'cancelled' : 'queued', skip ? `Plattform-Takt: ${platform} nur ${ps.join(', ')}` : null, ts, ts));
   }
   await env.DB.batch(stmts);
   await logEvent(env, 'SCHEDULED', { video_id: videoId, message: `Geplant für ${formatLocal(slot, settings.timezone)}`, data: { slot } });

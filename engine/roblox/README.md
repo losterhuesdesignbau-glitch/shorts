@@ -239,3 +239,4 @@ Episode nach `episodes/tests/<name>.json` legen (nicht queue!), pushen, dann Wor
 - `"viral": {"mid": "Guess the twist 👇", "share": "Send this to a friend who… 📲"}` – Kommentar-Aufforderung bei ~40 % (`midAt`), Teilen-Aufforderung im letzten Shot.
 - Viral-Check prüft zusätzlich: Suchbegriff in den ersten 2 Shots/Hook, mid/share vorhanden, Re-Hook im Mittelteil.
 - Statistik-Job schreibt einen Leistungsbericht je Video ins Log (`BERICHT …`).
+- **TikTok-Takt:** ViralFlow-Einstellung `platform_slots` = `{tiktok: [08:00, 12:30, 21:00]}` – TikTok bekommt nur diese 3 Termine (Weird Town, X vs Y, Dark Stories), YouTube/Instagram alle 6. Die übrigen TikTok-Einträge stehen als „abgebrochen (Plattform-Takt)“ in ViralFlow.

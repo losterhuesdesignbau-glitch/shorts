@@ -42,7 +42,8 @@ AUSFALL-REGEL (Lukas' Wunsch): Scheitert etwas (Render-Fehler, Render > 60 min z
 
 6. BENACHRICHTIGUNG (beim Prüf-Termin; GENAU EINE Push-Nachricht, erst wenn das Video online ist):
 - Publish-Runs „VIRALFLOW · Engine 2 · Publish“ für das Video prüfen (Zeilen „✓ veröffentlicht“ / „✗“ je Plattform; höchstens bis {SLOT} + 60 min warten).
-- Alle 3 online: PushNotification „✅ {SLOT}-Video online auf YouTube, TikTok & Instagram – alles hat geklappt“ (+ Titel).
+- TikTok-Takt (Lukas 22.11.): TikTok bekommt nur die Videos um 08:00, 12:30 und 21:00; bei 10:00, 15:30, 18:30 ist TikTok absichtlich „abgebrochen (Plattform-Takt)“ – das ist KEIN Fehler, „alle“ heißt dann YouTube + Instagram.
+- Alle online: PushNotification „✅ {SLOT}-Video online auf YouTube, TikTok & Instagram – alles hat geklappt“ (+ Titel).
 - Nur teilweise: „⚠️ {SLOT}-Video: online auf <…>, fehlgeschlagen bei <…> (<kurzer Grund>)“.
 - Fällt ganz aus: „⚠️ {SLOT}-Video fällt heute aus: <kurzer Grund>“.
 Danach im Chat kurz: Titel, Links, Status.
