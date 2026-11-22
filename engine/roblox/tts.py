@@ -418,6 +418,23 @@ def _biquad(x, kind, f0, gain_db=0.0, q=0.9, sr=AU.SR):
         a = [(A + 1) - (A - 1) * cw + sq, 2 * ((A - 1) - (A + 1) * cw), (A + 1) - (A - 1) * cw - sq]
     return lfilter(np.array(b) / a[0], np.array(a) / a[0], x)
 
+def pitch_shift(x, semi, formant=1.0, sr=AU.SR):
+    """Stimme höher/tiefer (Halbtöne) mit WORLD-Vokoder: Länge und Wort-Timing bleiben exakt gleich,
+    Formanten leicht mitverschoben (formant > 1 = jünger/heller), klingt natürlicher als einfaches Umsampeln."""
+    try:
+        import pyworld as pw
+    except ImportError:
+        _pip('pyworld'); import pyworld as pw
+    x64 = np.asarray(x, np.float64)
+    f0, t = pw.harvest(x64, sr, f0_floor=60, f0_ceil=500, frame_period=5)
+    sp = pw.cheaptrick(x64, f0, t, sr); ap = pw.d4c(x64, f0, t, sr)
+    if formant != 1.0:
+        n = sp.shape[1]; idx = np.clip(np.arange(n) / formant, 0, n - 1); k = np.arange(n)
+        sp = np.array([np.interp(idx, k, r) for r in sp]); ap = np.array([np.interp(idx, k, r) for r in ap])
+    y = pw.synthesize(f0 * 2 ** (semi / 12), sp, ap, sr, 5)[:len(x)]
+    if len(y) < len(x): y = np.pad(y, (0, len(x) - len(y)))
+    return (y / (np.max(np.abs(y)) + 1e-9) * (np.max(np.abs(x)) + 1e-9)).astype(np.float32)
+
 def polish(x, room=0.12, sr=AU.SR):
     """Sprecher-Klangkette: Trittschall raus, Mulm -2 dB, Präsenz +2.5 dB, Höhen +1.5 dB,
     sanfter Kompressor (gleichmäßige Lautstärke), kleiner Raum (klingt aufgenommen statt 'im Kopf')."""
@@ -553,6 +570,7 @@ def speak_episode(ep, shots, opts=None):
     voice = np.zeros(int((t + 0.4) * AU.SR) + 1, np.float32)
     for t0, a in parts:
         i = int(round(t0 * AU.SR)); n = min(len(a), len(voice) - i); voice[i:i + n] += a[:n]
+    if float(cfg.get('pitch', 0) or 0): voice = pitch_shift(voice, float(cfg['pitch']), float(cfg.get('formant', 1.0 + 0.011 * float(cfg['pitch']))))
     if cfg.get('fx', True): voice = polish(voice, float(cfg.get('room', 0.12)))
     info = f'{len(parts)} Sätze, Timing ' + ', '.join(f'{k} {v}' for k, v in hows.items())
     if cached: info += f', {cached} aus Cache'

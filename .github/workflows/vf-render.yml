@@ -95,6 +95,7 @@ jobs:
         run: |
           pip install -q -r viralflow/requirements-render.txt
           pip install -q --no-deps tinysoundfont
+          pip install -q pyworld  # höhere Erzählerstimme (Pitch-Shift)
           python engine/roblox/studio.py "${{ matrix.file }}" -o /tmp/v.mp4 --stimme --force
           echo "STEM=$(basename "${{ matrix.file }}" .json)" >> "$GITHUB_ENV"
       - uses: actions/upload-artifact@v4
@@ -142,6 +143,7 @@ jobs:
         run: |
           pip install -q -r viralflow/requirements-render.txt
           pip install -q --no-deps tinysoundfont  # echte Instrumente (SoundFont), ohne pyaudio
+          pip install -q pyworld  # höhere Erzählerstimme (Pitch-Shift)
           for i in 1 2 3 4; do
             ok=1
             command -v ffprobe >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; } || ok=0
@@ -216,6 +218,7 @@ jobs:
         run: |
           pip install -q -r viralflow/requirements-render.txt
           pip install -q --no-deps tinysoundfont  # echte Instrumente (SoundFont), ohne pyaudio
+          pip install -q pyworld  # höhere Erzählerstimme (Pitch-Shift)
           pip install -q sherpa-onnx  # Aussprache-Prüfung (Spracherkennung, offline)
           for i in 1 2 3 4; do
             ok=1

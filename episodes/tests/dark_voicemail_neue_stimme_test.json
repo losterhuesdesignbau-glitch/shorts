@@ -3,7 +3,8 @@
  "music": "dark",
  "tts": {
   "voice": "kokoro:am_michael",
-  "room": 0.08
+  "room": 0.08,
+  "pitch": 7
  },
  "viral": {
   "hook": "A VOICEMAIL\nFROM MYSELF",

@@ -3,7 +3,8 @@
  "music": "battle",
  "tts": {
   "voice": "kokoro:am_michael",
-  "room": 0.06
+  "room": 0.06,
+  "pitch": 7
  },
  "viral": {
   "hook": "PIG\nVS DOG",
