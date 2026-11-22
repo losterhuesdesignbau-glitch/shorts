@@ -168,5 +168,15 @@
   "plot": "Sam left his finished homework on a bus stop bench. During the math test a dog scratches at the classroom door and drops the chewed homework. The dog walks to the teacher.",
   "twist": "It is the teacher's dog Biscuit, so a dog really did eat his homework",
   "file": "episodes/queue/school_dog_homework.json"
+ },
+ {
+  "date": "2026-11-22",
+  "series": "VS BATTLE",
+  "title": "Pig vs Dog – Who's SMARTER? 🐷🐶",
+  "topic": "Pig versus dog in five rounds: brains, nose, speed, clean, mirror",
+  "hook": "Pig versus dog. Who is smarter?",
+  "plot": "Pigs learned a joystick video game (2021 study); dogs have up to 300 million scent receptors; greyhounds outrun pigs; pigs can't sweat and roll in mud; pigs use mirrors to find hidden food.",
+  "twist": "The pig wins 3 to 2",
+  "file": "episodes/queue/vs_pig_dog.json"
  }
 ]
