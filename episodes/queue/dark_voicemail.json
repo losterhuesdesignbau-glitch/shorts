@@ -1,0 +1,1131 @@
+{
+ "title": "Voicemail From Myself",
+ "music": "dark",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.08
+ },
+ "viral": {
+  "hook": "A VOICEMAIL\nFROM MYSELF",
+  "series": "DARK STORIES",
+  "cta": "YES or NO? 👇",
+  "mid": "Who's at the door? 👇",
+  "share": "Send this to a friend who never checks voicemail 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "I Got a Voicemail From MYSELF… 📞😨",
+  "description": "\"Don't open the door at 9:14.\" It was my voice – but I never recorded it. Then someone knocked. Would YOU have opened the door? 👇",
+  "hashtags": [
+   "darkstories",
+   "scary",
+   "creepy",
+   "storytime",
+   "horror"
+  ],
+  "keywords": [
+   "scary voicemail",
+   "creepy story",
+   "scary story"
+  ],
+  "question": "Would YOU have opened the door? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "leah": {
+   "look": "woman",
+   "hair": "long",
+   "hairColor": "#2b1b12",
+   "shirt": "#5a4e8c",
+   "glow": true,
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "A voicemail… from *myself*.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "face:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "panic",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "It was nine p.m. when my phone buzzed.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "medium:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "neutral",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "props": [
+    {
+     "type": "lamp",
+     "at": [
+      -2.2,
+      -1.4
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "🕘 9:00",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "One new voicemail.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "confused",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "pops": [
+    {
+     "text": "📞 1",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "The caller? *My own number*.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "push:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "I pressed play.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "nervous",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "pause": 0.3
+  },
+  {
+   "say": "\"Don't open the door at nine fourteen.\"",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "face:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "panic",
+     "face": 0,
+     "hold": "phone",
+     "talk": false
+    }
+   ],
+   "talk": false,
+   "pops": [
+    {
+     "text": "🚪 9:14",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.3,
+     "color": "#ff4d4d"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "It was *my* voice.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "But I never recorded it.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "medium:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "I told myself it was a prank.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Then it got worse.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "At nine thirteen…",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "medium:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🕘 9:13",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.3
+    ],
+    [
+     "tick",
+     0.7
+    ]
+   ]
+  },
+  {
+   "say": "someone *knocked*.",
+   "set": "hallway",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 0
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.4,
+     3.6,
+     -31
+    ],
+    "look": [
+     0,
+     2.2,
+     -42
+    ]
+   },
+   "sfx": [
+    [
+     "tick",
+     0.15
+    ],
+    [
+     "tick",
+     0.4
+    ],
+    [
+     "tick",
+     0.65
+    ]
+   ]
+  },
+  {
+   "say": "Three times.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "face:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "freeze",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "pause": 0.3
+  },
+  {
+   "set": "hallway",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "say": "Slow. Heavy. *Patient*.",
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 0
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.8,
+     3.2,
+     -34
+    ],
+    "look": [
+     0,
+     2.4,
+     -42
+    ]
+   },
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.5
+    ],
+    [
+     "tick",
+     0.8
+    ]
+   ]
+  },
+  {
+   "say": "\"Leah, it's me, Jade! Open up!\"",
+   "set": "hallway",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 0
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.8,
+     3.2,
+     -34
+    ],
+    "look": [
+     0,
+     2.4,
+     -42
+    ]
+   },
+   "talk": false
+  },
+  {
+   "say": "Jade. My best friend.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "relieved",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "say": "I almost laughed.",
+   "cam": "medium:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "laugh",
+     "mood": "relieved",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "My hand was already on the door handle…",
+   "set": "hallway",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 0
+   },
+   "cam": "back:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      -36.5
+     ],
+     "do": "walk",
+     "mood": "nervous",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "when my phone buzzed again.",
+   "set": "hallway",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 0
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      -36.5
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "A text from Jade:",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "confused",
+     "face": 0,
+     "hold": "phone"
+    }
+   ]
+  },
+  {
+   "say": "\"Sorry, I'm sick. Can't come tonight.\"",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "push:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "pops": [
+    {
+     "text": "💬 Jade: sorry, I'm sick 🤒",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "So who was *outside*?",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "face:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "say": "I held my breath.",
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "freeze",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "set": "hallway",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "say": "The handle started to *turn*.",
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 0
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.6,
+     2.8,
+     -37
+    ],
+    "look": [
+     0,
+     2.2,
+     -42
+    ]
+   },
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "The clock turned nine fourteen.",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🕘 9:14",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ff4d4d"
+    }
+   ]
+  },
+  {
+   "say": "The knocking *stopped*.",
+   "set": "hallway",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 0
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.4,
+     3.6,
+     -31
+    ],
+    "look": [
+     0,
+     2.2,
+     -42
+    ]
+   },
+   "pause": 0.5
+  },
+  {
+   "say": "I didn't move until sunrise.",
+   "set": "room",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "say": "I didn't sleep. I didn't even blink.",
+   "cam": "face:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "In the morning, I opened the door.",
+   "set": "hallway",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 1
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.4,
+     3.6,
+     -31
+    ],
+    "look": [
+     0,
+     2.2,
+     -42
+    ]
+   },
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      -37.5
+     ],
+     "do": "look",
+     "mood": "nervous",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Nobody was there.",
+   "set": "hallway",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 1
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      -37.5
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "set": "hallway",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "say": "Just a cold breeze.",
+   "setOpts": {
+    "name": "12",
+    "doorOpen": 1
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.4,
+     3.6,
+     -31
+    ],
+    "look": [
+     0,
+     2.2,
+     -42
+    ]
+   }
+  },
+  {
+   "say": "And the voicemail was *gone*.",
+   "set": "room",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "pops": [
+    {
+     "text": "📞 0",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "That's when I understood.",
+   "set": "room",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "medium:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "determined",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Nobody warned me…",
+   "set": "room",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "close:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "*yet*.",
+   "set": "room",
+   "time": "morning",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "push:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "freeze",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Would YOU have opened the door?",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "face:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "So I picked up my phone… and recorded…",
+   "set": "room",
+   "time": "night",
+   "grade": {
+    "vignette": 0.5,
+    "bloom": 0.25,
+    "tint": "#9fb4ff"
+   },
+   "cam": "medium:leah",
+   "actors": [
+    {
+     "id": "leah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "determined",
+     "face": 0,
+     "hold": "phone"
+    }
+   ]
+  }
+ ]
+}

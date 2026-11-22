@@ -198,5 +198,15 @@
   "plot": "Don't run (sweat), stay put, insulate from the ground (backpack, pine branches), dig a snow cave with an air hole, melt snow instead of eating it, hands in armpits, signal.",
   "twist": "Rescue team finds you in the morning because you stayed calm",
   "file": "episodes/queue/survival_snowstorm.json"
+ },
+ {
+  "date": "2026-11-22",
+  "series": "DARK STORIES",
+  "title": "I Got a Voicemail From MYSELF… 📞😨",
+  "topic": "Voicemail from her own number in her own voice warns: don't open the door at 9:14",
+  "hook": "A voicemail… from myself.",
+  "plot": "At 9:13 someone knocks pretending to be her best friend Jade, then Jade texts she is sick; the handle turns, at 9:14 the knocking stops; next morning nobody is there and the voicemail is gone.",
+  "twist": "Time loop: she realizes nobody warned her yet and records the warning herself",
+  "file": "episodes/queue/dark_voicemail.json"
  }
 ]
