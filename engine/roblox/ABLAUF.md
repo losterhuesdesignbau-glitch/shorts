@@ -1,7 +1,7 @@
 # Ablauf für automatische Shorts (gilt für alle Sendeplätze) – Version 2 (Generalüberholung 21.11.2026)
 
 Der Auftrag (geplante Aufgabe) nennt: {SLOT} Sendezeit, {START} Start, {PUSH} spätester Push, {SERIE}, {THEMA}, {MUSIK}, {HASHTAG}.
-Die Aufgabe wiederholt sich täglich von selbst (fester Zeitplan) – die Aufgabe selbst NICHT umplanen (kein update_trigger).
+Die Läufe kommen als Nachricht in Lukas' Haupt-Chat (send_later-Kette, Lukas 22.11.: „in DIESEM Chat, nicht in einem neuen“). ZUERST Schritt 0 aus engine/roblox/AUFTRAEGE.md (alle 6 nächsten Termine sicherstellen), dann der Auftrag des Slots. Keine wiederkehrenden Aufgaben anlegen/ändern.
 Ziel: nicht einfach 6 Videos am Tag, sondern 6 hochwertige, eigenständige Videos, bei denen jedes Detail stimmt.
 
 0. Repo losterhuesdesignbau-glitch/shorts unter /home/claude/shorts sicherstellen (fehlt es: add_repo mit push, klonen), git pull, CLAUDE.md und engine/roblox/README.md beachten (v. a. „Sendeplan & Regeln“, „Regie- & Physik-Prüfer“, „Mimik“, „Stimme“, „Musik“). Vorschau immer mit der Engine aus dem Repo (engine/roblox).
