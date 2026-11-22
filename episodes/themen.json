@@ -158,5 +158,15 @@
   "plot": "Mia's building has ten floors. Late at night the elevator shows a glowing red button for floor eleven; she presses it and finds a hallway identical to hers, her own name on the last door and her mom's voice inside. She flees back to floor ten, where her mom is asleep in bed.",
   "twist": "Her phone buzzes: a text from Mom – 'Why didn't you come in?'",
   "file": "episodes/queue/dark_floor_eleven.json"
+ },
+ {
+  "date": "2026-11-22",
+  "series": "SCHOOL LIFE",
+  "title": "\"My Dog Ate My Homework\"… But He Doesn't HAVE a Dog 🐶📚",
+  "topic": "Boy without a dog uses the dog-ate-my-homework excuse",
+  "hook": "My dog ate my homework.",
+  "plot": "Sam left his finished homework on a bus stop bench. During the math test a dog scratches at the classroom door and drops the chewed homework. The dog walks to the teacher.",
+  "twist": "It is the teacher's dog Biscuit, so a dog really did eat his homework",
+  "file": "episodes/queue/school_dog_homework.json"
  }
 ]

@@ -1,0 +1,1650 @@
+{
+ "title": "Dog Ate My Homework",
+ "music": "school",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.04
+ },
+ "viral": {
+  "hook": "DOG ATE MY\nHOMEWORK",
+  "series": "SCHOOL LIFE #2",
+  "cta": "YES or NO? 👇",
+  "mid": "Guess who the dog belongs to 👇",
+  "share": "Send this to a friend who ALWAYS forgets homework 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "\"My Dog Ate My Homework\"… But He Doesn't HAVE a Dog 🐶📚",
+  "description": "Sam used the oldest excuse in the book – but he doesn't even have a dog. The next morning, something scratched at the classroom door… What's the worst homework excuse you've ever used? 👇",
+  "hashtags": [
+   "schoollife",
+   "school",
+   "dogatemyhomework",
+   "funny",
+   "story"
+  ],
+  "keywords": [
+   "dog ate my homework",
+   "funny school story",
+   "homework excuse"
+  ],
+  "question": "What's the worst homework excuse you've ever used? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "sam": {
+   "look": "student",
+   "hair": "messy",
+   "hairColor": "#4a2e1a",
+   "shirt": "#2a9d8f",
+   "backpack": "#3a86ff",
+   "logo": "none"
+  },
+  "zoe": {
+   "look": "girl",
+   "hair": "pigtails",
+   "hairColor": "#1b1b1b",
+   "shirt": "#ffbe0b",
+   "logo": "none"
+  },
+  "max": {
+   "look": "boy",
+   "hair": "spiky",
+   "hairColor": "#e2c17c",
+   "shirt": "#8338ec",
+   "logo": "none"
+  },
+  "biscuit": {
+   "animal": "dog"
+  },
+  "parker": {
+   "look": "teacher",
+   "hair": "bun",
+   "hairColor": "#7a4a2a",
+   "shirt": "#e76f51",
+   "glasses": true,
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "My dog ate my homework.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "face:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "shrug",
+     "face": 180,
+     "mood": "nervous"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Sam said it with a *straight face*.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "close:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "face": 180,
+     "mood": "confident"
+    }
+   ]
+  },
+  {
+   "say": "There was just one problem.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "close:parker",
+   "actors": [
+    {
+     "id": "parker",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "think",
+     "face": "cam",
+     "mood": "smug"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Sam doesn't even *have* a dog.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "close:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "scared",
+     "face": 180,
+     "mood": "panic"
+    }
+   ],
+   "pops": [
+    {
+     "text": "🐶❌",
+     "x": 0.75,
+     "y": 0.32,
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "The whole class *laughed*.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "laugh"
+    },
+    {
+     "id": "max",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "laugh"
+    },
+    {
+     "id": "sam",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "disappointed"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Miss Parker wrote his name on the board.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "SAM ✗"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     6.5
+    ],
+    "look": [
+     0,
+     3.4,
+     -6
+    ]
+   },
+   "actors": [
+    {
+     "id": "parker",
+     "at": [
+      -3.2,
+      -3.2
+     ],
+     "do": "point",
+     "face": 180,
+     "mood": "angry"
+    }
+   ],
+   "pops": [
+    {
+     "text": "DETENTION ❌",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.3,
+     "color": "#ff4d4d"
+    }
+   ]
+  },
+  {
+   "say": "\"Detention. *Friday*.\"",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "SAM ✗"
+   },
+   "cam": "close:parker",
+   "actors": [
+    {
+     "id": "parker",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "talk",
+     "face": "cam",
+     "mood": "angry"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Sam sank into his chair.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "SAM ✗"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.8,
+     5.0,
+     -0.8
+    ],
+    "look": [
+     0,
+     3.0,
+     4.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "disappointed"
+    }
+   ]
+  },
+  {
+   "say": "The truth? He *did* his homework.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      0,
+      0
+     ],
+     "do": "hold",
+     "hold": "book",
+     "face": 0,
+     "mood": "determined"
+    }
+   ],
+   "props": [
+    {
+     "type": "lamp",
+     "at": [
+      -2.2,
+      -1.5
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Every single question.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      0,
+      0
+     ],
+     "do": "nod",
+     "face": 0,
+     "mood": "confident"
+    }
+   ],
+   "pops": [
+    {
+     "text": "✅ ✅ ✅",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Next morning, at the bus stop,",
+   "set": "street",
+   "time": "morning",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      -4,
+      0.6
+     ],
+     "path": [
+      [
+       -4,
+       0.6
+      ],
+      [
+       1,
+       0.6
+      ]
+     ],
+     "do": "walk",
+     "mood": "happy"
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      -8,
+      -3
+     ],
+     "do": "idle",
+     "face": 40,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      2.5,
+      -1.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "he sat down to tie his shoe",
+   "set": "street",
+   "time": "morning",
+   "cam": "medium:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      2.5,
+      -1.6
+     ],
+     "do": "sit",
+     "face": 0,
+     "mood": "neutral"
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      -8,
+      -3
+     ],
+     "do": "idle",
+     "face": 40,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      2.5,
+      -1.6
+     ]
+    },
+    {
+     "type": "paper",
+     "at": [
+      4,
+      1.1,
+      -1.6
+     ],
+     "up": false
+    }
+   ]
+  },
+  {
+   "say": "and put his homework next to him.",
+   "set": "street",
+   "time": "morning",
+   "cam": "close:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      2.5,
+      -1.6
+     ],
+     "do": "sit",
+     "face": 0,
+     "mood": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      2.5,
+      -1.6
+     ]
+    },
+    {
+     "type": "paper",
+     "at": [
+      4,
+      1.1,
+      -1.6
+     ],
+     "up": false
+    }
+   ],
+   "pops": [
+    {
+     "text": "📄",
+     "x": 0.72,
+     "y": 0.45,
+     "t": 0.3
+    }
+   ]
+  },
+  {
+   "say": "Then the bus came *early*.",
+   "set": "street",
+   "time": "morning",
+   "cam": "aerial",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      2.5,
+      -1.6
+     ],
+     "do": "jump",
+     "face": 0,
+     "mood": "shock"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      2.5,
+      -1.6
+     ]
+    },
+    {
+     "type": "paper",
+     "at": [
+      4,
+      1.1,
+      -1.6
+     ],
+     "up": false
+    },
+    {
+     "type": "bus",
+     "at": [
+      -30,
+      0,
+      8
+     ],
+     "ry": 90,
+     "fly": {
+      "from": [
+       -30,
+       0,
+       8
+      ],
+      "to": [
+       2,
+       0,
+       8
+      ],
+      "t": [
+       0,
+       0.6
+      ],
+      "arc": 0,
+      "bounce": false
+     }
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "He *ran*… and forgot it.",
+   "set": "street",
+   "time": "morning",
+   "cam": "track:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      2,
+      0.8
+     ],
+     "path": [
+      [
+       2,
+       0.8
+      ],
+      [
+       -6,
+       0.8
+      ]
+     ],
+     "do": "run",
+     "mood": "panic"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      2.5,
+      -1.6
+     ]
+    },
+    {
+     "type": "paper",
+     "at": [
+      4,
+      1.1,
+      -1.6
+     ],
+     "up": false
+    }
+   ],
+   "pops": [
+    {
+     "text": "📄❗",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.5
+    }
+   ]
+  },
+  {
+   "say": "But that's not the weird part.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.8,
+     5.0,
+     -0.8
+    ],
+    "look": [
+     0,
+     3.0,
+     4.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "confused"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "During the math test,",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     5,
+     12
+    ],
+    "look": [
+     0,
+     1,
+     0
+    ]
+   },
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "think"
+    },
+    {
+     "id": "max",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "think"
+    },
+    {
+     "id": "sam",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "think"
+    },
+    {
+     "id": "parker",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "neutral"
+    }
+   ]
+  },
+  {
+   "say": "something *scratched* at the door.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "scared"
+    },
+    {
+     "id": "max",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "nervous"
+    },
+    {
+     "id": "sam",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "nervous"
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.15
+    ],
+    [
+     "tick",
+     0.45
+    ],
+    [
+     "tick",
+     0.75
+    ]
+   ]
+  },
+  {
+   "say": "Miss Parker opened it…",
+   "set": "hallway",
+   "setOpts": {
+    "name": "ROOM 12",
+    "doorOpen": 1
+   },
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.4,
+     3.6,
+     -31
+    ],
+    "look": [
+     0,
+     2.2,
+     -42
+    ]
+   },
+   "actors": [
+    {
+     "id": "parker",
+     "at": [
+      0,
+      -41.2
+     ],
+     "do": "look",
+     "face": 0,
+     "mood": "confused"
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      0,
+      -37.5
+     ],
+     "do": "idle",
+     "face": 180,
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "and a *dog* walked in.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "medium:biscuit",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      6,
+      -2
+     ],
+     "path": [
+      [
+       6.5,
+       -2
+      ],
+      [
+       2.2,
+       -1.4
+      ]
+     ],
+     "do": "walk",
+     "mood": "happy"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Everyone *froze*.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "shock"
+    },
+    {
+     "id": "max",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "shock"
+    },
+    {
+     "id": "sam",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "shock"
+    }
+   ],
+   "fx": [
+    {
+     "type": "zoom",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "The dog dropped a chewed-up paper…",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "close:biscuit",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      2.2,
+      -1.4
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "at": [
+      2.2,
+      0.05,
+      -0.3
+     ],
+     "up": false
+    }
+   ]
+  },
+  {
+   "say": "with Sam's *name* on it.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "push:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "freeze",
+     "face": 180,
+     "mood": "shock"
+    }
+   ],
+   "pops": [
+    {
+     "text": "📄 SAM – HOMEWORK",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Then it got even weirder.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "close:parker",
+   "actors": [
+    {
+     "id": "parker",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "scared",
+     "face": "cam",
+     "mood": "confused"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "The dog walked past Sam…",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "medium:biscuit",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      2.2,
+      -1.4
+     ],
+     "path": [
+      [
+       2.2,
+       -1.4
+      ],
+      [
+       1.8,
+       -3.0
+      ]
+     ],
+     "do": "walk",
+     "mood": "happy"
+    },
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "face": "biscuit",
+     "mood": "confused"
+    },
+    {
+     "id": "parker",
+     "at": [
+      -0.8,
+      -3.4
+     ],
+     "do": "idle",
+     "face": "biscuit",
+     "mood": "nervous"
+    }
+   ]
+  },
+  {
+   "say": "straight to Miss Parker.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "medium:parker",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      1.4,
+      -2.8
+     ],
+     "do": "idle",
+     "face": "parker",
+     "mood": "love"
+    },
+    {
+     "id": "parker",
+     "at": [
+      -0.8,
+      -3.4
+     ],
+     "do": "scared",
+     "face": 0,
+     "mood": "panic"
+    }
+   ]
+  },
+  {
+   "say": "\"*Biscuit*?! What are you doing here?\"",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "face:parker",
+   "actors": [
+    {
+     "id": "parker",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "talk",
+     "face": 0,
+     "mood": "panic"
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "It was *her* dog.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "shock"
+    },
+    {
+     "id": "max",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "laugh"
+    },
+    {
+     "id": "sam",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "excited"
+    }
+   ],
+   "pops": [
+    {
+     "text": "😱",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Biscuit lives next to the bus stop.",
+   "set": "street",
+   "time": "morning",
+   "cam": "medium:biscuit",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      1,
+      -0.5
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      2.5,
+      -1.6
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "👀 Did you spot him earlier?",
+     "x": 0.5,
+     "y": 0.25,
+     "t": 0.15
+    }
+   ]
+  },
+  {
+   "say": "He found the homework on the bench",
+   "set": "street",
+   "time": "morning",
+   "cam": "medium:biscuit",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      4,
+      0.2
+     ],
+     "do": "idle",
+     "face": 180,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      2.5,
+      -1.6
+     ]
+    },
+    {
+     "type": "paper",
+     "at": [
+      4,
+      1.1,
+      -1.6
+     ],
+     "up": false
+    }
+   ]
+  },
+  {
+   "say": "and chewed on it all night.",
+   "set": "backyard",
+   "time": "night",
+   "cam": "medium:biscuit",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      0,
+      0
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "happy"
+    }
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "at": [
+      0.9,
+      0.05,
+      0.9
+     ],
+     "up": false
+    }
+   ],
+   "sfx": [
+    [
+     "snore",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "So technically…",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "close:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "think",
+     "face": 180,
+     "mood": "smug"
+    }
+   ]
+  },
+  {
+   "say": "a dog *really* ate his homework.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "laugh"
+    },
+    {
+     "id": "max",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "laugh"
+    },
+    {
+     "id": "sam",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "face": 180,
+     "mood": "laugh"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Miss Parker just smiled…",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "medium:parker",
+   "actors": [
+    {
+     "id": "parker",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "laugh",
+     "face": 0,
+     "mood": "smile"
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      2.4,
+      -2.2
+     ],
+     "do": "idle",
+     "face": 0,
+     "mood": "happy"
+    }
+   ]
+  },
+  {
+   "say": "and erased his name.",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "SAM ✓"
+   },
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     6.5
+    ],
+    "look": [
+     0,
+     3.4,
+     -6
+    ]
+   },
+   "actors": [
+    {
+     "id": "parker",
+     "at": [
+      -3.2,
+      -3.2
+     ],
+     "do": "point",
+     "face": 180,
+     "mood": "smile"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.4
+    ]
+   ],
+   "pops": [
+    {
+     "text": "NO DETENTION ✅",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.4,
+     "color": "#2a9d8f"
+    }
+   ]
+  },
+  {
+   "say": "No detention!",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "SAM ✓"
+   },
+   "cam": "close:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "jump",
+     "face": 180,
+     "mood": "excited"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Would YOU believe him?",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "SAM ✓"
+   },
+   "cam": "close:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "shrug",
+     "face": 180,
+     "mood": "grin"
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "SAM ✓"
+   },
+   "cam": "face:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "point",
+     "face": 180,
+     "mood": "grin"
+    }
+   ]
+  },
+  {
+   "say": "Because next week, he forgot it again…",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "push:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "facepalm",
+     "face": 180,
+     "mood": "nervous"
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "and said with a straight face:",
+   "set": "classroom",
+   "time": "morning",
+   "setOpts": {
+    "board": "MATH\nTEST"
+   },
+   "cam": "face:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "face": 180,
+     "mood": "confident"
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  }
+ ]
+}
