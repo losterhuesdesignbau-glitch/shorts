@@ -390,6 +390,8 @@ def sentence_speed(tokens, base, first=False):
     if '?' in e: f = 0.97
     elif '…' in e or '...' in e: f = 0.95
     if len(tokens) <= 2: f *= 0.97          # kurze Ausrufe nicht hetzen
+    ws = [re.sub(r'[^a-z]', '', w['raw'].lower()) for w in tokens]
+    if ws and all(w in ('huss', '') for w in ws): f = 1.45   # „Huss, huss, huss!“ (Lukas: Hustler-Ruf) schnell hintereinander
     return base * f * (1 + _jit(text, 'v', 0.012))   # nie schneller als normal (Lukas 22.11.)
 
 def sentence_pause(tokens, cfg):
