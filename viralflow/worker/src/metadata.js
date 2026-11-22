@@ -14,8 +14,9 @@ const STOP = new Set((
 ).split(/\s+/));
 
 const BASE_TAGS = {
-  en: { all: ['shorts', 'story'], youtube: ['shorts'], instagram: ['reels', 'reelsinstagram'], tiktok: ['fyp', 'foryou'] },
-  de: { all: ['shorts', 'geschichte'], youtube: ['shorts'], instagram: ['reels', 'reelsdeutschland'], tiktok: ['fyp', 'fürdich'] },
+  // #fyp/#foryou bringen nachweislich nichts (TikTok sortiert nach Inhalt/Suchbegriffen); #shorts gehört nur zu YouTube
+  en: { all: ['story'], youtube: ['shorts'], instagram: ['reels'], tiktok: [] },
+  de: { all: ['geschichte'], youtube: ['shorts'], instagram: ['reels'], tiktok: [] },
 };
 
 const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
@@ -103,9 +104,15 @@ export function buildMetadata({ meta = {}, script = '', filename = '', settings 
   const instagram = {
     caption: truncate(`${title}\n\n${descText}\n\n${tagStr(uniq([...core, ...base.instagram]).slice(0, 15))}`, 2200),
   };
-  // TikTok: Titel/Caption max. 2200 Zeichen (UTF-16)
+  // TikTok (TikTok ist eine Suchmaschine): 1. Zeile = Suchbegriff so, wie Leute tippen + Hook; 2. Zeile = Frage für Kommentare;
+  // dann 3–5 Hashtags (Nische + Kategorie). Eigene Caption über meta.tiktok.caption möglich.
+  const tt = meta.tiktok || {};
+  const kwl = (Array.isArray(meta.keywords) ? meta.keywords : String(meta.keywords || '').split(/\s*,\s*/)).map(clean).filter(Boolean);
+  const question = clean(meta.question) || ((descText.match(/[^.!?]*\?/g) || []).slice(-1)[0] || '').trim();
+  const ttTags = uniq([...(tt.hashtags || []), ...own, ...kwl.map((k) => k.replace(/\s+/g, '')), ...base.tiktok]).slice(0, 5);
+  const line1 = kwl.length ? `${kwl[0].charAt(0).toUpperCase() + kwl[0].slice(1)}: ${title}` : title;
   const tiktok = {
-    title: truncate(`${title} ${descText ? '– ' + descText : ''} ${tagStr(uniq([...core, ...base.tiktok]).slice(0, 10))}`, 2200),
+    title: (String(tt.caption || '').trim() || [line1, question, tagStr(ttTags)].filter(Boolean).join('\n')).slice(0, 2200),
   };
   return { language, title, description: descText, hashtags, youtube, instagram, tiktok };
 }

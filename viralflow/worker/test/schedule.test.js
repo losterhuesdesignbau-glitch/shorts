@@ -42,7 +42,7 @@ test('Metadaten aus meta haben Vorrang, Plattform-Limits', () => {
   assert.ok(m.youtube.title.includes('#Shorts') && m.youtube.title.length <= 100);
   assert.ok(m.hashtags.includes('horror') && m.hashtags.includes('elevator'));
   assert.ok(!m.description.includes('#'));
-  assert.ok(m.instagram.caption.length <= 2200 && m.tiktok.title.includes('#fyp'));
+  assert.ok(m.instagram.caption.length <= 2200 && m.tiktok.title.length <= 2200 && !m.tiktok.title.includes('#fyp'))  // #fyp bringt nichts (21.11.2026);
 });
 test('Metadaten ohne meta (regelbasiert)', () => {
   const m = buildMetadata({ script: 'In this town yawning is illegal. Every yawn costs twenty dollars. The mayor loves the yawning law. Would you survive here?' });

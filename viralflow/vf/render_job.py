@@ -158,7 +158,7 @@ def main():
             'event': 'VIDEO_READY', 'video_id': vid, 'episode_id': vid, 'idempotency_key': vid,
             'storage_key': key, 'filename': f'{src_name}.mp4', 'duration': round(info['duration'], 2),
             'size_bytes': info['size'], 'sha256': sha256_file(out), 'produced_at': now.isoformat(),
-            'script': script_text(ep), 'meta': {k: meta[k] for k in ('title', 'description', 'hashtags', 'language') if k in meta},
+            'script': script_text(ep), 'meta': {k: meta[k] for k in ('title', 'description', 'hashtags', 'language', 'keywords', 'question', 'tiktok') if k in meta},
         })
         print('Orchestrator:', json.dumps(resp, ensure_ascii=False), flush=True)
         output('status', 'done')

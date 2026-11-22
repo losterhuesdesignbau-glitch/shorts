@@ -268,6 +268,17 @@ def apply_viral(src):
         last = shots[-1]; last.setdefault('pops', [])
         if not any(p.get('_cta') for p in last['pops']):
             last['pops'] = last['pops'] + [{'text': v['cta'], 'x': 0.5, 'y': 0.3, 't': 0.25, 'dur': 30, 'rise': 0, 'size': 96, 'color': '#ffe14d', '_cta': 1}]
+    # TikTok-Wachstum (Kommentare/Shares sind nach Wiedergabezeit die stärksten Signale):
+    # mid   = Kommentar-Aufforderung mitten im Video (z. B. "Guess the twist in the comments 👇") – auf dem Shot bei ~40 %
+    # share = Teilen-Aufforderung im letzten Shot (z. B. "Send this to a friend who'd press it 📲")
+    if v.get('mid') and len(shots) > 4:
+        sh = shots[max(1, int(len(shots) * float(v.get('midAt', 0.4))))]; sh.setdefault('pops', [])
+        if not any(p.get('_mid') for p in sh['pops']):
+            sh['pops'] = sh['pops'] + [{'text': v['mid'], 'x': 0.5, 'y': 0.2, 't': 0.05, 'dur': 2.6, 'rise': 0, 'size': 58, 'color': '#ffffff', '_mid': 1}]
+    if v.get('share'):
+        last = shots[-1]; last.setdefault('pops', [])
+        if not any(p.get('_share') for p in last['pops']):
+            last['pops'] = last['pops'] + [{'text': v['share'], 'x': 0.5, 'y': 0.4, 't': 0.35, 'dur': 30, 'rise': 0, 'size': 54, 'color': '#ffffff', '_share': 1}]
     return v
 
 def viral_check(src, ep, total):
@@ -284,6 +295,20 @@ def viral_check(src, ep, total):
     tags = (src.get('meta') or {}).get('hashtags') or []
     if tags and not 3 <= len(tags) <= 6: tips.append(f'{len(tags)} Hashtags – besser 3–6 passende')
     if not v.get('loop'): tips.append('"viral.loop" aus – Ende nicht nahtlos mit Anfang verbunden')
+    # TikTok-Suche: Suchbegriff muss in den ersten 3 s gesprochen UND als Text zu sehen sein
+    meta = src.get('meta') or {}
+    kws = [k.lower() for k in (meta.get('keywords') or [])]
+    if not kws: tips.append('keine "meta.keywords" (Suchbegriffe, so wie Leute auf TikTok suchen)')
+    else:
+        import re as _re
+        words = lambda s: set(w for w in _re.findall(r"[a-z0-9']+", str(s).lower()) if len(w) > 3)
+        first = words(' '.join(sh.get('say', '') for sh in shots[:2])) | words(v.get('hook', ''))
+        if not any(words(k) & first for k in kws): tips.append(f'Suchbegriff ({kws[0]}) kommt in den ersten 2 Shots/Hook nicht vor')
+    if not v.get('mid'): tips.append('kein "viral.mid" (Kommentar-Aufforderung mitten im Video)')
+    if not v.get('share'): tips.append('kein "viral.share" (Teilen-Aufforderung am Ende)')
+    # Re-Hooks: im Mittelteil braucht es Wendungen ("But…", "Then…", Fragen), sonst springen Zuschauer ab
+    n = len(shots); mid_txt = ' '.join(sh.get('say', '') for sh in shots[n // 4: n * 3 // 4]).lower()
+    if n > 8 and not any(w in mid_txt for w in ('but ', 'then ', 'suddenly', 'wait', '?', 'until ', 'except')): tips.append('Mittelteil ohne Re-Hook („But…“, „Then…“, Frage)')
     print('✓ Viral-Check: alles drin' if not tips else '⚠ Viral-Check: ' + ' · '.join(tips), flush=True)
 
 def loop_end(vid, out_vid, total, fade=0.4):

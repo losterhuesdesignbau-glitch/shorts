@@ -233,3 +233,9 @@ Episode nach `episodes/tests/<name>.json` legen (nicht queue!), pushen, dann Wor
 - **Sitzen nur mit Sitzfläche:** Regie-Prüfer erkennt „sitzt in der Luft“ (sit/sitdesk/sitgame/piano ohne Stuhl/Bank/Bett) und stellt automatisch einen Stuhl darunter; zu hohe Sitzfläche (Bett) → Figur wird draufgesetzt.
 - **Ruhiges Halten:** Hält eine Figur etwas, bleibt der Haltearm ruhig (kein Wackeln). Handy/Buch/Zettel: Lesehaltung (Gerät vor der Brust, Blick nach unten).
 - **Flüssige Stimme:** Kokoro spricht mehrere Sätze am Stück (Blöcke bis ~220 Zeichen) statt jeden Satz einzeln → natürlicher Satzfluss, keine abgehackten Übergänge. Aus: `"tts": {"chunk": false}`.
+
+## TikTok-Reichweite (ab 22.11.2026)
+- Episode: `"meta": {"keywords": ["scary elevator story", "creepy story"], "question": "Would you press floor 11?"}` – ViralFlow baut daraus die TikTok-Caption: 1. Zeile Suchbegriff + Titel, 2. Zeile Frage, dann 3–5 Hashtags (kein #fyp/#foryou/#shorts mehr). Eigene Caption: `"meta": {"tiktok": {"caption": "…"}}`.
+- `"viral": {"mid": "Guess the twist 👇", "share": "Send this to a friend who… 📲"}` – Kommentar-Aufforderung bei ~40 % (`midAt`), Teilen-Aufforderung im letzten Shot.
+- Viral-Check prüft zusätzlich: Suchbegriff in den ersten 2 Shots/Hook, mid/share vorhanden, Re-Hook im Mittelteil.
+- Statistik-Job schreibt einen Leistungsbericht je Video ins Log (`BERICHT …`).

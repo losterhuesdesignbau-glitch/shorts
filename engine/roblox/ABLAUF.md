@@ -15,7 +15,15 @@ ENGINE-REGEL 2 – MUSIK & SOUNDDESIGN: "music": "{MUSIK}" (echte Instrumente, e
 ENGINE-REGEL 3 – TIERE: Tiere IMMER als Tier-Modell ({"animal": "…"}: dog, cat, fox, lion, tiger, pig, bear, sheep, cow, penguin, frog, chicken, croc, shark, guineapig) – NIE Menschen als Tiere. Fehlt ein Tier: anderes Tier wählen oder Modell rückwärtskompatibel bauen.
 PHYSIK (Lukas, 21.11.): Wer sitzt, sitzt auf etwas (Stuhl/Bank/Bett – sonst stellt die Regie automatisch einen Stuhl hin, besser gleich selbst setzen); gehaltene Gegenstände ruhig in der Hand (Handy/Buch: Lesehaltung), nichts schwebt, nichts steckt in Wänden/Möbeln. Stimme: Sätze nicht künstlich zerhacken – kurze Sätze ja, aber keine Ein-Wort-Fetzen hintereinander; die Engine spricht Satzblöcke am Stück.
 SZENEN-LOGIK: Ort passt zur Handlung (Schule sieht aus wie Schule), Licht passt zur Tageszeit (Nacht = "time": "night"), Kleidung passt zu Figur/Ort, nur Requisiten, die dort hingehören, Figuren nicht in Möbeln/Wänden, Hauptfigur gut sichtbar.
-VIRAL-REGELN: alle 1–2 s neues Bild, keine Shots > 3 s; Twist ganz am Ende; letzter Satz führt in den ersten zurück; Ja/Nein-Frage; 3–5 Hashtags inkl. {HASHTAG}. "viral": {"hook": "…", "series": "{SERIE} #<n>", "cta": "…", "loop": true}; n = bisherige {SERIE}-Folgen + 1.
+TIKTOK-WACHSTUM (Daten 22.11.: Tier-Duelle und Dark Stories laufen am besten; Kommentare/Shares fast 0 → das muss steigen):
+- Suchbegriff (TikTok ist eine Suchmaschine): "meta.keywords": 2–3 Suchphrasen, so wie Leute tippen (z. B. "scary elevator story", "lion vs tiger"). Die erste Phrase kommt im ERSTEN gesprochenen Satz UND im "viral.hook" (Text in den ersten 3 s) vor.
+- "meta.question": Frage für die Caption (Kommentare), gern mit Wahl/Meinung statt nur Ja/Nein.
+- Re-Hooks bei ~15 s und ~30 s („But that's not the weird part…“, „Then it got worse.“, eine Frage) – sonst springen Zuschauer ab.
+- "viral.mid": Kommentar-Aufforderung mitten im Video (z. B. "Guess the twist 👇", "What would YOU do? 👇").
+- "viral.share": Teilen-Aufforderung am Ende (z. B. "Send this to a friend who'd press it 📲") – Shares sind nach Wiedergabezeit das stärkste Signal.
+- Rewatch: ein verstecktes Detail einbauen, das erst beim zweiten Ansehen auffällt (z. B. Hinweis im Hintergrund), und am Ende andeuten („Did you spot it?“).
+- Länge 61–70 s (TikTok-Vergütung nur > 1 min; bei längeren Videos zählt die absolute Wiedergabezeit).
+VIRAL-REGELN: alle 1–2 s neues Bild, keine Shots > 3 s; Twist ganz am Ende; letzter Satz führt in den ersten zurück; Ja/Nein-Frage; 3–5 Hashtags inkl. {HASHTAG}. "viral": {"hook": "…", "series": "{SERIE} #<n>", "cta": "…", "mid": "…", "share": "…", "loop": true}; n = bisherige {SERIE}-Folgen + 1.
 
 2. PRÜFEN VOR DEM RENDERN (Pflicht, alles im Repo-Ordner engine/roblox)
 a) `python studio.py <episode.json> -o /tmp/v.mp4 --stills` → Ausgabe lesen:
@@ -25,7 +33,7 @@ a) `python studio.py <episode.json> -o /tmp/v.mp4 --stills` → Ausgabe lesen:
 b) `python tools/aussprache.py <episode.json>` → muss „OK“ sein (≥ 85 % verstanden, kein Satz < 60 %). Unklare Wörter mit "speak" (Lautschrift) im Shot korrigieren und erneut prüfen.
 Zügig arbeiten: Datei muss spätestens {PUSH} gepusht sein (Rendern in echtem 4K dauert ~20–30 min).
 
-3. Mit meta-Block (title mit Emoji, description, hashtags ohne #, language "en") als episodes/queue/<kurzer_name>.json committen; zusätzlich `python engine/roblox/tools/themen.py add --series "{SERIE}" --title "…" --topic "…" --hook "…" --plot "<Handlung in 2–3 Sätzen>" --twist "…" --file episodes/queue/<kurzer_name>.json` und episodes/themen.json im selben Commit; auf main pushen. Keine MP4s, kein ViralSpin.
+3. Mit meta-Block (title mit Emoji, description, hashtags ohne # (3–5: Nische + Kategorie, KEIN #fyp/#foryou), keywords, question, language "en") als episodes/queue/<kurzer_name>.json committen; zusätzlich `python engine/roblox/tools/themen.py add --series "{SERIE}" --title "…" --topic "…" --hook "…" --plot "<Handlung in 2–3 Sätzen>" --twist "…" --file episodes/queue/<kurzer_name>.json` und episodes/themen.json im selben Commit; auf main pushen. Keine MP4s, kein ViralSpin.
 
 4. Mit gh api (REST) prüfen, dass „VIRALFLOW · Engine 1 · Render“ startet. Der Render prüft danach automatisch Bild/Ton (qa.py) und die Aussprache und lädt nur fehlerfreie Videos hoch (YouTube in 4K, Instagram/TikTok in 1080p aus dem 4K-Master). Im Log: scheduled_at = {SLOT} Berlin.
 AUSFALL-REGEL (Lukas' Wunsch): Scheitert etwas (Render-Fehler, Render > 60 min zu spät, Upload-Fehler) → NICHT nachholen. Landet das Video auf einem späteren Termin: Workflow „VIRALFLOW · Veröffentlichungen abbrechen / neu einreihen“ mit ids <video-id>:youtube,<video-id>:tiktok,<video-id>:instagram und requeue=nein (gibt den Termin frei). NIE requeue=ja (veröffentlicht sofort).
