@@ -11,7 +11,7 @@ studio.py – Block-Studio: Episode (JSON) -> 9:16-Video im Roblox-Look.
 
 Episode-Format: siehe README.md
 """
-import argparse, base64, json, math, os, shutil, subprocess, sys, time
+import argparse, base64, json, math, os, re, shutil, subprocess, sys, time
 from pathlib import Path
 import numpy as np
 
@@ -107,7 +107,12 @@ def auto_sfx(ep, shots, outs, events, fps):
         moods = {x.get('mood') for x in acts}; dos = {x.get('do') for x in acts}
         say = (sh.get('say') or '').strip()
         pick = None
-        if genre in DARKG:
+        low = say.lower()
+        if genre not in DARKG and re.search(r'\b(money|cash|dollars?|\$\d|rich|million|billion|paid|bought|buy)\b', low): pick = ('cash', 0.3, 0.6)
+        elif genre in COMEDY and re.search(r'\b(wrong|fail(ed)?|lost|nope|no way|zero)\b', low) and moods & {'disappointed', 'sad', 'cry'}: pick = ('fail', 0.2, 0.7)
+        elif genre in COMEDY and re.search(r'\b(correct|right answer|won|wins|point for)\b', low): pick = ('correct', 0.15, 0.6)
+        if pick: pass
+        elif genre in DARKG:
             if sh.get('pause'): pick = ('drone', 0.0, 0.8)
             elif moods & {'panic', 'scared', 'fear'}: pick = ('heartbeat', 0.05, 0.9)
         elif genre in COMEDY or genre == 'epic':
@@ -206,11 +211,24 @@ def _keyround(o):
     return o
 
 
+GRADE_PRESETS = {   # automatischer Look je Serie (überschreibbar mit "grade" in der episode.json, aus mit "autoGrade": false)
+    'dark':       {'bloom': 0.25, 'vignette': 0.5, 'sat': 0.96, 'contrast': 1.08, 'warm': -0.05, 'vibrance': 0.08, 'split': 0.03, 'clarity': 0.25},
+    'mystery':    {'bloom': 0.3, 'vignette': 0.4, 'sat': 1.05, 'contrast': 1.06, 'warm': -0.02, 'vibrance': 0.15, 'split': 0.025, 'clarity': 0.3},
+    'school':     {'bloom': 0.3, 'vignette': 0.22, 'sat': 1.12, 'contrast': 1.05, 'warm': 0.05, 'vibrance': 0.25, 'clarity': 0.3},
+    'school_emo': {'bloom': 0.35, 'vignette': 0.38, 'sat': 1.02, 'contrast': 1.04, 'warm': 0.06, 'vibrance': 0.15, 'clarity': 0.25},
+    'trend':      {'bloom': 0.3, 'vignette': 0.2, 'sat': 1.14, 'contrast': 1.06, 'warm': 0.04, 'vibrance': 0.28, 'clarity': 0.32},
+    'battle':     {'bloom': 0.35, 'vignette': 0.32, 'sat': 1.1, 'contrast': 1.08, 'warm': 0.02, 'vibrance': 0.22, 'split': 0.035, 'clarity': 0.35},
+    'epic':       {'bloom': 0.35, 'vignette': 0.35, 'sat': 1.08, 'contrast': 1.08, 'warm': 0.03, 'vibrance': 0.2, 'split': 0.04, 'clarity': 0.35},
+    '_':          {'bloom': 0.3, 'vignette': 0.3, 'sat': 1.08, 'contrast': 1.05, 'warm': 0.04, 'vibrance': 0.2, 'clarity': 0.3},
+}
+
 def post_filter(src, hq, out_k, sh=None):
     """Nachbearbeitung je Bild (Grading/Glühen, Nachschärfen + Korn, Bewegungsunschärfe) als ffmpeg-Filterkette.
     Läuft direkt beim Kodieren jedes Shots -> in CI auf alle Render-Teile verteilt, kein extra 4K-Durchlauf am Ende."""
     parts = []
     gr = src.get('grade')
+    if gr is None and src.get('autoGrade', True):   # Lichtstimmung automatisch je Serie (Lukas 22.11.: jede Szene eigene Stimmung)
+        gr = dict(GRADE_PRESETS.get(src.get('music'), GRADE_PRESETS['_']))
     if gr:  # Look: Glühen (bloom, auf 1/4 Größe weichgezeichnet), Vignette, Sättigung/Kontrast, Wärme
         gr = gr if isinstance(gr, dict) else {}
         b, vg = float(gr.get('bloom', 0.35)), float(gr.get('vignette', 0.35)); sat, con = gr.get('sat', 1.08), gr.get('contrast', 1.04); warm = float(gr.get('warm', 0.04))
@@ -221,6 +239,10 @@ def post_filter(src, hq, out_k, sh=None):
         parts.append(f"format=gbrp,split[ga][gb];[gb]scale=iw/4:ih/4:flags=bilinear,curves=all='0/0 0.62/0 1/1',gblur=sigma={26 / 4:.2f},scale=iw*4:ih*4:flags=bilinear[gg];"
                      f"[ga][gg]blend=all_mode=screen:all_opacity={b:.2f},colorbalance=rs={warm:.3f}:bs={-warm:.3f}:rm={warm/2:.3f}:bm={-warm/2:.3f},curves=all='{curve}',format=yuv420p,"
                      f"eq=saturation={sat},vignette=angle={0.15 + vg * 0.6:.2f}")
+        vib, tone = float(gr.get('vibrance', 0.18)), float(gr.get('split', 0.0))
+        if vib > 0: parts.append(f"vibrance=intensity={vib:.2f}")   # schwache Farben kräftiger, Hauttöne/kräftige Farben bleiben
+        if tone: parts.append(f"colorbalance=rs={-tone:.3f}:gs={tone * 0.2:.3f}:bs={tone:.3f}:rh={tone * 0.8:.3f}:gh={tone * 0.2:.3f}:bh={-tone:.3f}")  # Teal & Orange
+        if hq and float(gr.get('clarity', 0.3)) > 0: parts.append(f"unsharp=13:13:{float(gr.get('clarity', 0.3)):.2f}:5:5:0.0")   # lokaler Kontrast (Klarheit)
     if hq and src.get('post', True) is not False:  # 4K-Look: feines Nachschärfen + leichtes Filmkorn
         parts.append('unsharp=5:5:0.55:5:5:0.0' + ',noise=c0s=5:c0f=t+u')
     mbl = src.get('motionBlur')
@@ -352,6 +374,43 @@ def loop_end(vid, out_vid, total, fade=0.4):
                     f'[1:v]format=rgba,fade=in:st={st:.3f}:d={fade}:alpha=1[f];[0:v][f]overlay=shortest=1,format=yuv420p[v]',
                     '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-r', str(30), str(out_vid)], check=True)
 
+# ---------------- Menschenmengen (Lukas 22.11., wie in den Referenzvideos) ----------------
+# Shot-Feld "crowd": {"n": 24, "area": [x0, z0, x1, z1], "teams": ["#1e88e5", "#fb8c00"], "do": "cheer", "face": 0, "mood": "excited"}
+# erzeugt automatisch viele Statisten (eigene Cast-IDs crowd1…), Teams nach Seite eingefärbt (links Team 1, rechts Team 2).
+# Bleiben über Shots gleich (gleiche n/Seed -> gleiche Leute). "seed" ändert die Mischung.
+CROWD_LOOKS = ['boy', 'girl', 'man', 'woman', 'kid', 'student', 'worker', 'gamer']
+CROWD_HAIR = ['short', 'spiky', 'side', 'messy', 'long', 'bob', 'ponytail', 'pigtails', 'bun', 'afro', 'curly', 'buzz', 'cap', 'beanie']
+CROWD_HC = ['#1b1b1b', '#3b2a1a', '#6d4c41', '#c68642', '#e2c17c', '#b23a48', '#d9d9d9']
+CROWD_SKIN = ['#f1c27d', '#e0ac69', '#c68642', '#8d5524', '#ffdbac', '#a0522d']
+CROWD_SHIRT = ['#e63946', '#2a9d8f', '#e9c46a', '#f4a261', '#457b9d', '#8338ec', '#ff006e', '#3a86ff', '#06d6a0', '#ffbe0b']
+def expand_crowd(src):
+    import random
+    cast = src.setdefault('cast', {})
+    for sh in src.get('shots', []):
+        c = sh.get('crowd')
+        if not c: continue
+        c = c if isinstance(c, dict) else {'n': int(c)}
+        n = max(1, min(80, int(c.get('n', 20))))
+        x0, z0, x1, z1 = c.get('area', [-7, -4, 7, 4])
+        teams = c.get('teams') or []
+        R = random.Random(int(c.get('seed', 7)))
+        cols = max(1, int(round(math.sqrt(n * abs(x1 - x0) / max(0.5, abs(z1 - z0))))))
+        rows = int(math.ceil(n / cols))
+        acts = sh.setdefault('actors', [])
+        for k in range(n):
+            i, j = k % cols, k // cols
+            x = x0 + (i + 0.5) * (x1 - x0) / cols + R.uniform(-0.35, 0.35)
+            z = z0 + (j + 0.5) * (z1 - z0) / rows + R.uniform(-0.35, 0.35)
+            cid = f"crowd{int(c.get('seed', 7))}_{k + 1}"
+            if cid not in cast:
+                look = {'look': R.choice(CROWD_LOOKS), 'hair': R.choice(CROWD_HAIR), 'hairColor': R.choice(CROWD_HC),
+                        'skin': R.choice(CROWD_SKIN), 'shirt': R.choice(CROWD_SHIRT), 'logo': 'none'}
+                if teams: look['shirt'] = teams[0] if (len(teams) == 1 or x < (x0 + x1) / 2) else teams[1]
+                cast[cid] = look
+            a = {'id': cid, 'at': [round(x, 2), round(z, 2)], 'do': c.get('do') or R.choice(['cheer', 'idle', 'wave', 'look', 'clap']),
+                 'mood': c.get('mood') or R.choice(['happy', 'excited', 'smile', 'laugh']), 'face': c.get('face', 0), 'extra': True}
+            acts.append(a)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('episode'); ap.add_argument('-o', '--out', default=None)
@@ -366,6 +425,7 @@ def main():
     ap.add_argument('--force', action='store_true', help='auch rendern, wenn die Länge nicht passt')
     a = ap.parse_args()
     src = json.load(open(a.episode, encoding='utf-8'))
+    expand_crowd(src)
     regie_on = src.get('regie', True) is not False
     r_inhalt = None
     if regie_on:  # Regie-Kontrolle 1: Logik der Geschichte (Tier-Regel, Mimik zum Text, Tageszeit, Hook) – korrigiert src

@@ -276,18 +276,40 @@ def sfx(name):
         for k, m in enumerate((84, 88, 91, 96, 100)):
             y = tone(midi(m), 0.35, (1, 0.3), 0.25, 0.001) * 0.25; i = int(k * 0.06 * SR); out[i:i + len(y)] += y[:len(out) - i]
         return out
+    if name == 'fail':       # „Wah-wah-wah-waaah“ (Versager-Posaune, eigene Synthese)
+        out = np.zeros(int(2.2 * SR))
+        for k, (m, d) in enumerate(((58, 0.35), (57, 0.35), (56, 0.35), (55, 1.0))):
+            n = int(d * SR); tt = np.arange(n) / SR; f = midi(m) * (1 + 0.012 * np.sin(2 * np.pi * 5.5 * tt)) * (1 - (0.03 * tt if k == 3 else 0))
+            ph = np.cumsum(f) / SR; y = (2 * (ph % 1) - 1) * env(n, 0.03, 0.08)
+            y = lp(y, 1300) * (0.55 + 0.45 * np.sin(np.pi * tt / d) ** 2) * 0.5
+            i = int(k * 0.4 * SR); out[i:i + n] += y[:len(out) - i]
+        return out / (np.max(np.abs(out)) + 1e-9) * 0.7
+    if name == 'buzzer':     # Falsch-Summer
+        n = int(0.6 * SR); t = np.arange(n) / SR
+        return np.tanh(np.sign(np.sin(2 * np.pi * 110 * t)) * 0.6 + np.sign(np.sin(2 * np.pi * 116 * t)) * 0.4) * env(n, 0.005, 0.05) * 0.35
+    if name == 'correct':    # Richtig-Ding-Ding
+        return np.concatenate([tone(midi(84), 0.12, (1, 0.4), 0.08, 0.001), tone(midi(91), 0.5, (1, 0.4), 0.3, 0.001)]) * 0.55
+    if name == 'cash':       # Kasse „Ka-tsching“
+        n = int(0.7 * SR); t = np.arange(n) / SR
+        bell = sum(tone(midi(m), 0.6, (1, 0.5), 0.4, 0.001) * 0.25 for m in (96, 100, 103))
+        clk = hp(noise(0.7, 27), 2500) * np.exp(-t * 60) * 0.5
+        y = np.zeros(n); b = bell[:n - int(0.08 * SR)]; y[int(0.08 * SR):int(0.08 * SR) + len(b)] += b
+        return y + clk
+    if name == 'whip':       # schneller Peitschen-Swoosh
+        n = int(0.25 * SR); t = np.linspace(0, 1, n)
+        return bp(noise(0.25, 28), 1500, 9000) * (t ** 3) * np.exp(-((t - 0.9) ** 2) * 80) * 1.0
     return np.zeros(10)
 
 # Bibliothek: Kategorie -> Sounds (alle oben selbst erzeugt, Rechte: frei/eigen)
 SFX_LIBRARY = {
-    'funny': ['boing', 'bonk', 'slide', 'pop', 'crickets'],
+    'funny': ['boing', 'bonk', 'slide', 'pop', 'crickets', 'fail'],
     'dramatic': ['dun', 'bassboom', 'boom'],
     'suspense': ['heartbeat', 'drone', 'riser', 'tick'],
-    'reaction': ['scratch', 'error', 'airhorn', 'tada'],
+    'reaction': ['scratch', 'error', 'airhorn', 'tada', 'buzzer', 'correct', 'cash'],
     'impact': ['bassboom', 'boom', 'chop'],
-    'transition': ['whoosh', 'riser', 'glitch'],
+    'transition': ['whoosh', 'riser', 'glitch', 'whip'],
     'cartoon': ['boing', 'slide', 'poof', 'bonk', 'sparkle'],
-    'meme': ['bassboom', 'scratch', 'error', 'airhorn', 'crickets', 'bonk'],
+    'meme': ['bassboom', 'scratch', 'error', 'airhorn', 'crickets', 'bonk', 'fail', 'buzzer'],
 }
 
 def mix(total, events, voice=None, mood='happy', music_on=True, seed=3, music_gain=None, cuts=(), hits=(), twist=None):

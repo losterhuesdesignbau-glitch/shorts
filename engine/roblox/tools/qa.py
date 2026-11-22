@@ -3,7 +3,7 @@
   python tools/qa.py video.mp4 [--expect 2160x3840] [--json]
 
 Prüft: Auflösung/Bildrate/Länge/Tonspur, Schärfe (Laplace-Varianz), Helligkeit & Kontrast, Schwarzbilder,
-eingefrorene Bilder, Bewegung in den ersten 2 s (Hook), Lautheit (LUFS) & Spitzenpegel, Stille.
+eingefrorene Bilder, Bewegung in den ersten 2 s (Hook), Farbigkeit, Bild/Ton-Synchronität, Lautheit (LUFS) & Spitzenpegel, Stille.
 Exit 0 = ok, 1 = Warnungen, 2 = Fehler (Video kaputt -> nicht hochladen).
 """
 import argparse
@@ -75,13 +75,32 @@ def run(path, expect=None, min_dur=40.0, log=print):
     if frozen * 0.5 >= 3.0: warns.append(f'Bild steht {frozen * 0.5:.1f}s still')
     if len(diffs) >= 4 and diffs[:4].mean() < 0.004: warns.append('Hook: in den ersten 2 s kaum Bewegung')
     if mean[:4].mean() < 0.06: warns.append('Hook: erste 2 s fast schwarz')
+    # Farbigkeit (Hasler/Süsstrunk) – Referenzen sind kräftig bunt; flau = Warnung
+    try:
+        raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(path), '-vf', 'fps=1/3,scale=180:320,format=rgb24', '-f', 'rawvideo', '-'], capture_output=True, check=True).stdout
+        C = np.frombuffer(raw, np.uint8).reshape(-1, 320, 180, 3).astype(np.float32)
+        rg = C[..., 0] - C[..., 1]; yb = 0.5 * (C[..., 0] + C[..., 1]) - C[..., 2]
+        colf = float(np.mean(np.sqrt(rg.std(axis=(1, 2)) ** 2 + yb.std(axis=(1, 2)) ** 2) + 0.3 * np.sqrt(rg.mean(axis=(1, 2)) ** 2 + yb.mean(axis=(1, 2)) ** 2)))
+        info['colorfulness'] = round(colf, 1)
+        if colf < 25: warns.append(f'Farben flau (Farbigkeit {colf:.0f}, Ziel > 35)')
+    except Exception as e:
+        info['colorfulness'] = None
+    # Bild/Ton synchron: Ton- und Bildspur gleich lang
+    try:
+        st = json.loads(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,duration', '-of', 'json', str(path)], capture_output=True, text=True, check=True).stdout)['streams']
+        dv = next((float(s['duration']) for s in st if s['codec_type'] == 'video' and s.get('duration')), None); da = next((float(s['duration']) for s in st if s['codec_type'] == 'audio' and s.get('duration')), None)
+        if dv and da:
+            info['av_diff'] = round(abs(dv - da), 2)
+            if abs(dv - da) > 0.3: warns.append(f'Bild und Ton unterschiedlich lang ({dv:.1f}s / {da:.1f}s)')
+    except Exception:
+        pass
     I, P = loudness(path); info.update(lufs=I, peak=P)
     if I is not None and not (-19 <= I <= -11): warns.append(f'Lautheit {I:.1f} LUFS (Ziel -15)')
     if P is not None and P > -0.5: warns.append(f'Spitzenpegel {P:.1f} dBFS (Übersteuerung möglich)')
     sil = silences(path)
     if sil: warns.append(f'{len(sil)} Stille(n) ≥ 1,5 s (längste {max(sil):.1f}s)')
     ok = not errs
-    log(f'QA: {"✓" if ok and not warns else ("⚠" if ok else "✗")} {p["w"]}x{p["h"]} {p["fps"]:.0f}fps {p["dur"]:.1f}s · Schärfe {info["sharpness"]} · Helligkeit {info["luma"]} · Kontrast {info["contrast"]} · {I} LUFS')
+    log(f'QA: {"✓" if ok and not warns else ("⚠" if ok else "✗")} {p["w"]}x{p["h"]} {p["fps"]:.0f}fps {p["dur"]:.1f}s · Schärfe {info["sharpness"]} · Helligkeit {info["luma"]} · Kontrast {info["contrast"]} · Farbe {info.get("colorfulness")} · {I} LUFS')
     for e in errs: log('  ✗ ' + e)
     for w in warns: log('  ⚠ ' + w)
     return {'ok': ok, 'errors': errs, 'warnings': warns, 'info': info}
