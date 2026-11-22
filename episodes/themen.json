@@ -188,5 +188,15 @@
   "plot": "Facts about the #1 Roblox game, then Leo sneaks into the neighbor's yard, grabs a golden egg guarded by a chicken, it hatches a rare pet chick that follows him everywhere.",
   "twist": "Next morning a crowd of chickens comes to steal it back",
   "file": "episodes/queue/genz_steal_an_egg.json"
+ },
+ {
+  "date": "2026-11-22",
+  "series": "SURVIVAL",
+  "title": "What If YOU Got Lost in a Snowstorm? ❄️🥶",
+  "topic": "What if you got lost in a snowstorm - winter survival rules",
+  "hook": "What if YOU got lost in a snowstorm?",
+  "plot": "Don't run (sweat), stay put, insulate from the ground (backpack, pine branches), dig a snow cave with an air hole, melt snow instead of eating it, hands in armpits, signal.",
+  "twist": "Rescue team finds you in the morning because you stayed calm",
+  "file": "episodes/queue/survival_snowstorm.json"
  }
 ]
