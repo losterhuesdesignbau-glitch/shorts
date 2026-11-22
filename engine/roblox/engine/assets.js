@@ -238,6 +238,7 @@ function hairGeo(mb, cfg) {
   if (cfg.eyepatch) { P(0.22, 0.1, 0.68); mb.rbox(0.36, 0.34, 0.06, 0.08, '#111111'); Q(); mb.push(M4.chain(M4.T(0, 0.22, 0.66), M4.RZ(-0.45))); mb.box(1.5, 0.05, 0.03, '#111111'); mb.pop(); }
   if (cfg.beard) { P(0, -0.42, 0.56); mb.rbox(1.34, 0.5, 0.32, 0.14, hc); Q(); P(0, -0.08, 0.69); mb.rbox(0.64, 0.14, 0.12, 0.05, hc); Q(); }
   if (cfg.mustache) { P(0, -0.08, 0.69); mb.rbox(0.66, 0.16, 0.12, 0.05, hc); Q(); }
+  if (cfg.facemask) { const mc = cfg.facemask === true ? '#cfe8f7' : cfg.facemask; P(0, -0.3, 0.68); mb.rbox(1.02, 0.52, 0.12, 0.08, mc); Q(); for (const k of [-0.14, 0.0, 0.14]) { P(0, -0.3 + k, 0.745); mb.box(0.9, 0.025, 0.01, shade(mc, 0.85)); Q(); } for (const s of [-1, 1]) { P(s * 0.62, -0.12, 0.42); mb.box(0.04, 0.04, 0.6, '#f4f4f4'); Q(); } }
   if (cfg.scar) { P(0.2, -0.56, 0.705); mb.push(M4.RZ(0.9)); mb.rbox(0.05, 0.24, 0.03, 0.015, cfg.scarColor || '#e0a092'); for (const k of [-0.07, 0.0, 0.07]) { mb.push(M4.T(0, k, 0.005)); mb.box(0.13, 0.025, 0.03, cfg.scarColor || '#d4887a'); mb.pop(); } mb.pop(); Q(); }
 }
 function shirtTex(cfg) {
@@ -321,7 +322,7 @@ function avatarGeo(cfg) {
     if (!cfg.boots) T_(mb, 0, -0.56, 0.42, () => mb.box(0.4, 0.04, 0.3, '#ffffff'));
   });
   if (cfg.skirt) g.skirt = cgeo(`skirt2|${cfg.skirt}`, mb => { mb.push(M4.T(0, -1.1, 0)); mb.cyl(1.38, 1.04, 1.1, 14, cfg.skirt, { flat: false }); mb.pop(); T_(mb, 0, -1.08, 0, () => mb.cyl(1.4, 1.4, 0.08, 14, shade(cfg.skirt, 0.8), { flat: false })); });
-  const hk = 'hair2|' + JSON.stringify([cfg.hair, cfg.hairColor, cfg.hat, cfg.hatColor, cfg.glasses, cfg.shades, cfg.beard, cfg.mustache, cfg.headphones, cfg.bow, cfg.flower, cfg.earrings, cfg.headband, cfg.eyepatch, cfg.hatLogo, cfg.glassesColor, cfg.scar]);
+  const hk = 'hair2|' + JSON.stringify([cfg.hair, cfg.hairColor, cfg.hat, cfg.hatColor, cfg.glasses, cfg.shades, cfg.beard, cfg.mustache, cfg.facemask, cfg.headphones, cfg.bow, cfg.flower, cfg.earrings, cfg.headband, cfg.eyepatch, cfg.hatLogo, cfg.glassesColor, cfg.scar]);
   g.hair = cgeo(hk, mb => hairGeo(mb, cfg));
   // bewegliche Teile (Sekundärbewegung)
   if (cfg.hair === 'ponytail') g.tail = cgeo('ptail|' + cfg.hairColor, mb => { T_(mb, 0, 0, 0, () => mb.rbox(0.36, 0.26, 0.36, 0.1, '#ff6fa8')); T_(mb, 0, -0.62, -0.08, () => mb.rbox(0.5, 1.2, 0.5, 0.2, cfg.hairColor)); T_(mb, 0, -1.25, -0.1, () => mb.rbox(0.36, 0.3, 0.36, 0.14, shade(cfg.hairColor, 0.88))); });
