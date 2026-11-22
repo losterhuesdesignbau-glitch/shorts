@@ -387,12 +387,10 @@ def sentence_speed(tokens, base, first=False):
     """Fragen etwas langsamer, Ausrufe etwas schneller, '…' gedehnt, Hook zügig."""
     e, text = _end(tokens), ' '.join(w['raw'] for w in tokens)
     f = 1.0
-    if '?' in e: f = 0.96
-    elif '!' in e: f = 1.04
-    elif '…' in e or '...' in e: f = 0.94
-    if first: f *= 1.03
+    if '?' in e: f = 0.97
+    elif '…' in e or '...' in e: f = 0.95
     if len(tokens) <= 2: f *= 0.97          # kurze Ausrufe nicht hetzen
-    return base * f * (1 + _jit(text, 'v', 0.025))
+    return base * f * (1 + _jit(text, 'v', 0.012))   # nie schneller als normal (Lukas 22.11.)
 
 def sentence_pause(tokens, cfg):
     """Pause NACH einem Satz (Stille im Audio ist schon abgeschnitten): kurz und natürlich wie ein Sprecher,
@@ -440,6 +438,15 @@ def polish(x, room=0.12, sr=AU.SR):
         cur += (target[i] - cur) * (ka if target[i] < cur else kr); g[i] = cur
     gs = np.interp(np.arange(len(y)), np.arange(n) * hop + hop / 2, 10 ** (g / 20))
     y = y * gs
+    # De-Esser: Zischlaute (5–9 kHz) dynamisch absenken, wenn sie deutlich über dem Rest liegen
+    from scipy.signal import butter as _b, sosfilt as _sf
+    sib = _sf(_b(4, [5000 / (sr / 2), min(9000, sr / 2 - 100) / (sr / 2)], 'band', output='sos'), y)
+    fr = int(sr * 0.004); m = len(y) // fr
+    if m > 4:
+        es = np.sqrt((sib[:m * fr].reshape(m, fr) ** 2).mean(1) + 1e-12); ef = np.sqrt((y[:m * fr].reshape(m, fr) ** 2).mean(1) + 1e-12)
+        ratio = es / ef; red = np.clip((ratio - 0.35) / 0.35, 0, 1) * 0.6       # bis -8 dB im Zischband
+        gk = np.interp(np.arange(len(y)), np.arange(m) * fr + fr / 2, red)
+        y = y - sib * gk
     if room > 0:  # kleiner Raum: RT60 ~0.28 s, 12 ms Vorverzögerung, dumpf
         rng = np.random.default_rng(7); L = int(0.35 * sr); t = np.arange(L) / sr
         ir = rng.standard_normal(L) * np.exp(-6.9 * t / 0.28)
@@ -483,8 +490,8 @@ def speak_episode(ep, shots, opts=None):
     cfg = dict(ep['tts']) if isinstance(ep.get('tts'), dict) else {}
     cfg.update({k: v for k, v in (opts or {}).items() if v is not None})
     vdef = cfg.get('voice', DEFAULT_VOICE)
-    GENRE_SPEED = {'dark': 0.98, 'mystery': 1.03, 'epic': 1.05, 'battle': 1.08, 'trend': 1.1, 'school': 1.07, 'school_emo': 1.0}
-    speed = float(cfg.get('speed') or GENRE_SPEED.get(ep.get('music'), 1.05)) * float(ep.get('speed', 1.0))  # Tempo passend zur Serie
+    GENRE_SPEED = {'dark': 0.97, 'mystery': 1.0, 'epic': 1.0, 'battle': 1.0, 'trend': 1.0, 'school': 1.0, 'school_emo': 0.98}  # Lukas 22.11.: normales Sprechtempo (1x), nichts beschleunigen
+    speed = float(cfg.get('speed') or GENRE_SPEED.get(ep.get('music'), 1.0)) * float(ep.get('speed', 1.0))  # Tempo passend zur Serie
     natural = cfg.get('natural', True)
     noise = cfg.get('noise', 0.7 if natural else None)
     noise_w = cfg.get('noiseW', 0.9 if natural else None)

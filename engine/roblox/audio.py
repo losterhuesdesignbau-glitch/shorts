@@ -222,7 +222,73 @@ def sfx(name):
     if name == 'snore':
         n = int(1.0 * SR); t = np.arange(n) / SR
         return lp(noise(1.0, 11), 300) * (np.sin(np.pi * t) ** 2) * 1.5
+    # ---- Meme-/Comedy-/Drama-Sounds (Lukas 22.11.) – alle hier selbst synthetisiert, keine fremden Aufnahmen (frei nutzbar) ----
+    if name == 'bassboom':   # tiefer „Vine-Boom“-artiger Einschlag
+        n = int(1.6 * SR); t = np.arange(n) / SR
+        body = np.sin(2 * np.pi * np.cumsum(48 + 70 * np.exp(-t * 9)) / SR) * np.exp(-t * 2.2)
+        click = lp(noise(1.6, 21), 1200) * np.exp(-t * 40)
+        tail = lp(noise(1.6, 22), 180) * np.exp(-t * 3.0) * 0.5
+        return np.tanh((body + click * 0.6 + tail) * 1.8) * 0.8
+    if name == 'scratch':    # Plattenkratzer (vor-zurück)
+        n = int(0.55 * SR); t = np.arange(n) / SR
+        w = np.sin(2 * np.pi * 2.4 * t)
+        y = bp(noise(0.55, 23), 600, 5000) * (0.4 + 0.6 * np.abs(w))
+        y = y * (1 + 0.8 * np.sin(2 * np.pi * np.cumsum(300 + 900 * np.abs(w)) / SR))
+        return y * env(n, 0.003, 0.08) * 0.8
+    if name == 'error':      # eigener „Fehler“-Doppelton (absteigend, kein Betriebssystem-Sound)
+        return np.concatenate([tone(midi(76), 0.13, (1, 0.6, 0.3), 0.08, 0.002), tone(midi(69), 0.32, (1, 0.6, 0.3), 0.2, 0.002)]) * 0.6
+    if name == 'bonk':       # Comedy-Bonk (Holz + Tiefe)
+        n = int(0.35 * SR); t = np.arange(n) / SR
+        return (np.sin(2 * np.pi * 520 * t) * np.exp(-t * 35) + np.sin(2 * np.pi * np.cumsum(160 * np.exp(-t * 4)) / SR) * np.exp(-t * 12) * 0.8 + bp(noise(0.35, 24), 1500, 4000) * np.exp(-t * 80) * 0.4) * 0.8
+    if name == 'slide':      # Zeichentrick-Flöte runter
+        n = int(0.7 * SR); t = np.arange(n) / SR; f = 1400 * np.exp(-t * 2.6) + 300
+        return np.sin(2 * np.pi * np.cumsum(f * (1 + 0.01 * np.sin(2 * np.pi * 6 * t))) / SR) * env(n, 0.01, 0.1) * 0.45
+    if name == 'crickets':   # peinliche Stille
+        n = int(1.4 * SR); t = np.arange(n) / SR
+        chirp = (np.sin(2 * np.pi * 4300 * t) * (np.sin(2 * np.pi * 28 * t) > 0.3)) * (np.sin(2 * np.pi * 1.6 * t) > 0.2)
+        return chirp * env(n, 0.05, 0.3) * 0.12
+    if name == 'dun':        # dramatisches „Dun-dun-DUNN“
+        out = np.zeros(int(2.0 * SR))
+        for k, (m, d) in enumerate(((43, 0.22), (44, 0.22), (40, 1.2))):
+            i = int(k * 0.32 * SR); y = sum(tone(midi(m + o), d, (1, 0.7, 0.45, 0.3), 0.6 if k == 2 else 0.15, 0.004) for o in (0, 12, 19)) * 0.3
+            out[i:i + len(y)] += y[:len(out) - i]
+        return np.tanh(out * 1.4) * 0.8
+    if name == 'airhorn':    # eigener Fanfaren-Stoß (Sägezahn-Stapel)
+        n = int(0.9 * SR); t = np.arange(n) / SR
+        y = sum(((t * f) % 1 * 2 - 1) for f in (466, 554, 698))
+        return lp(y, 3500) * env(n, 0.01, 0.12) * 0.25
+    if name == 'heartbeat':  # Herzschlag (Spannung)
+        out = np.zeros(int(1.6 * SR))
+        for k in range(2):
+            for d, a in ((0.0, 1.0), (0.22, 0.7)):
+                i = int((k * 0.8 + d) * SR); m = int(0.18 * SR); tt = np.arange(m) / SR
+                out[i:i + m] += np.sin(2 * np.pi * 52 * tt) * np.exp(-tt * 22) * a
+        return out * 0.9
+    if name == 'drone':      # dunkles Spannungs-Brummen
+        n = int(2.5 * SR); t = np.arange(n) / SR
+        y = sum(np.sin(2 * np.pi * f * t + 3 * np.sin(2 * np.pi * 0.3 * t)) for f in (55, 58.3, 82.4)) / 3
+        return (y + lp(noise(2.5, 25), 250) * 0.4) * env(n, 0.6, 0.8) * 0.5
+    if name == 'glitch':     # digitaler Störer
+        n = int(0.35 * SR); y = np.sign(np.sin(2 * np.pi * np.repeat(np.random.default_rng(26).uniform(80, 1600, 14), n // 14 + 1)[:n] * np.arange(n) / SR))
+        return y * env(n, 0.001, 0.02) * 0.2
+    if name == 'sparkle':    # Glitzer
+        out = np.zeros(int(0.8 * SR))
+        for k, m in enumerate((84, 88, 91, 96, 100)):
+            y = tone(midi(m), 0.35, (1, 0.3), 0.25, 0.001) * 0.25; i = int(k * 0.06 * SR); out[i:i + len(y)] += y[:len(out) - i]
+        return out
     return np.zeros(10)
+
+# Bibliothek: Kategorie -> Sounds (alle oben selbst erzeugt, Rechte: frei/eigen)
+SFX_LIBRARY = {
+    'funny': ['boing', 'bonk', 'slide', 'pop', 'crickets'],
+    'dramatic': ['dun', 'bassboom', 'boom'],
+    'suspense': ['heartbeat', 'drone', 'riser', 'tick'],
+    'reaction': ['scratch', 'error', 'airhorn', 'tada'],
+    'impact': ['bassboom', 'boom', 'chop'],
+    'transition': ['whoosh', 'riser', 'glitch'],
+    'cartoon': ['boing', 'slide', 'poof', 'bonk', 'sparkle'],
+    'meme': ['bassboom', 'scratch', 'error', 'airhorn', 'crickets', 'bonk'],
+}
 
 def mix(total, events, voice=None, mood='happy', music_on=True, seed=3, music_gain=None, cuts=(), hits=(), twist=None):
     buf = np.zeros((int(total * SR) + 1, 2))

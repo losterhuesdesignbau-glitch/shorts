@@ -86,8 +86,40 @@ def compile_episode(ep, voice_path=None, speed=1.0, tts=None):
         for s in sh.get('sfx', []):
             events.append((s[0], f0 / fps + s[1] * dur, s[2] if len(s) > 2 else 1.0))
         if ep.get('cutSfx') and si: events.append((ep['cutSfx'], f0 / fps, 0.5))
+    if ep.get('autoSfx', True): events += auto_sfx(ep, shots, out['shots'], events, fps)
     total = sum(s['nf'] for s in out['shots']) / fps
     return out, events, voice, total, fps
+
+# ---------------- Automatisches Sounddesign (Lukas 22.11.) ----------------
+# Liest Stimmung/Aktion/Text jedes Shots und legt passende Effekte darunter – sparsam (mind. 5 s Abstand),
+# nie auf Shots, die schon eigene Sounds haben. Comedy-Serien: Meme-Sounds; düstere Serien: Spannungs-Sounds.
+# Abschalten: "autoSfx": false in der episode.json.
+COMEDY = {'school', 'trend', 'battle', 'happy', 'funny'}
+DARKG = {'dark', 'mystery', 'tense'}
+def auto_sfx(ep, shots, outs, events, fps):
+    genre = ep.get('music', ''); res = []; last = -99.0
+    taken = sorted(t for _, t, _ in events)
+    def busy(a, b): return any(a - 0.25 <= x <= b for x in taken)
+    for sh, o in zip(shots, outs):
+        a = o['tg0']; b = a + o['dur']
+        if sh.get('sfx') or busy(a, b) or a - last < 5.0: continue
+        acts = sh.get('actors') or []
+        moods = {x.get('mood') for x in acts}; dos = {x.get('do') for x in acts}
+        say = (sh.get('say') or '').strip()
+        pick = None
+        if genre in DARKG:
+            if sh.get('pause'): pick = ('drone', 0.0, 0.8)
+            elif moods & {'panic', 'scared', 'fear'}: pick = ('heartbeat', 0.05, 0.9)
+        elif genre in COMEDY or genre == 'epic':
+            if 'facepalm' in dos: pick = ('scratch', 0.08, 0.7)
+            elif moods & {'shock', 'panic'} and genre in COMEDY: pick = ('bassboom', 0.06, 0.8)
+            elif 'freeze' in dos: pick = ('error', 0.15, 0.6)
+            elif say.endswith('?') and moods & {'confused'} and genre in COMEDY: pick = ('crickets', 0.55, 0.8)
+            elif dos & {'jump', 'cheer'} and moods & {'excited', 'laugh'}: pick = ('sparkle', 0.1, 0.6)
+        if pick:
+            res.append((pick[0], a + pick[1] * o['dur'], pick[2])); last = a
+    if res: print(f"Auto-Sounddesign: {len(res)} Effekte ({', '.join(sorted({r[0] for r in res}))})", flush=True)
+    return res
 
 # ---------------- Länge (Monetarisierung) ----------------
 # TikTok Creator Rewards: nur Videos ab 1 Minute. YouTube Shorts: bis 3 Minuten.

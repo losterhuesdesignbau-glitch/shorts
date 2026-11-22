@@ -1,0 +1,1267 @@
+{
+ "title": "Pig vs Dog",
+ "music": "battle",
+ "tts": {
+  "voice": "kokoro:am_michael",
+  "room": 0.06
+ },
+ "viral": {
+  "hook": "PIG\nVS DOG",
+  "series": "VS BATTLE #5",
+  "cta": "TEAM PIG or TEAM DOG? 👇",
+  "mid": "Guess the winner 👇",
+  "share": "Send this to a friend who thinks dogs are smarter 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "[TEST neue Stimme] Pig vs Dog – Who's SMARTER? 🐷🐶",
+  "description": "Five rounds: brains, nose, speed, clean… and a final round with a mirror. The winner might surprise you. Team Pig or Team Dog? 👇",
+  "hashtags": [
+   "vsbattle",
+   "pig",
+   "dog",
+   "animals",
+   "facts"
+  ],
+  "keywords": [
+   "pig vs dog",
+   "smartest animal",
+   "animal facts"
+  ],
+  "question": "Would YOU rather have a pet pig or a pet dog? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "pig": {
+   "animal": "pig"
+  },
+  "dog": {
+   "animal": "dog"
+  },
+  "host": {
+   "look": "man",
+   "hair": "cap",
+   "hairColor": "#2b1b12",
+   "hatColor": "#1d3557",
+   "shirt": "#ffd23f",
+   "jacket": "#1d3557",
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "Pig versus dog.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Pig",
+    "away": "Dog",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "look",
+     "mood": "angry",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "confident",
+     "face": -30
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "props": [
+    {
+     "type": "controller",
+     "at": [
+      -1.2,
+      0.05,
+      2.4
+     ],
+     "ry": 30
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Who is *smarter*?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "look",
+     "mood": "confident",
+     "face": -30
+    }
+   ],
+   "cam": "group",
+   "props": [
+    {
+     "type": "controller",
+     "at": [
+      -1.2,
+      0.05,
+      2.4
+     ],
+     "ry": 30
+    }
+   ]
+  },
+  {
+   "say": "Five rounds. One winner.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Pig",
+    "away": "Dog",
+    "a": 0,
+    "b": 0
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "pointup",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host"
+  },
+  {
+   "say": "Round one: *brains*.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 1",
+    "from": 1,
+    "to": 1,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "In 2021,",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host"
+  },
+  {
+   "say": "scientists gave pigs a joystick.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "mood": "think",
+     "face": 20
+    }
+   ],
+   "props": [
+    {
+     "type": "controller",
+     "at": [
+      1.3,
+      0.05,
+      1.6
+     ],
+     "ry": -20
+    }
+   ],
+   "cam": "full:pig"
+  },
+  {
+   "say": "And the pigs learned to play a *video game*",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "excited",
+     "face": 20
+    }
+   ],
+   "pops": [
+    {
+     "text": "🎮",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "cam": "medium:pig"
+  },
+  {
+   "say": "with their *snouts*!",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "jump",
+     "mood": "laugh",
+     "face": 0
+    }
+   ],
+   "cam": "close:pig",
+   "sfx": [
+    [
+     "pop",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Point for the *pig*!",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Pig",
+    "away": "Dog",
+    "a": 1,
+    "b": 0,
+    "from": [
+     0,
+     0
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "cheer",
+     "mood": "happy",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "disappointed",
+     "face": -30
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Round two: the *nose*.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 2",
+    "from": 2,
+    "to": 2,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Dogs have up to *three hundred million* scent receptors.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "dog",
+     "at": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "mood": "confident",
+     "face": 20
+    }
+   ],
+   "counter": {
+    "label": "DOG NOSE",
+    "from": 0,
+    "to": 300,
+    "suffix": " million",
+    "y": 0.3
+   },
+   "cam": "full:dog"
+  },
+  {
+   "say": "Humans? About six million.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "mood": "confused",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "boing",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Point for the *dog*!",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Pig",
+    "away": "Dog",
+    "a": 1,
+    "b": 1,
+    "from": [
+     1,
+     0
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "disappointed",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "cheer",
+     "mood": "happy",
+     "face": -30
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "But wait… round three is *speed*.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 3",
+    "from": 3,
+    "to": 3,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "A pig can run",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -4,
+      1
+     ],
+     "do": "run",
+     "mood": "determined",
+     "path": [
+      [
+       -4,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ]
+    }
+   ],
+   "cam": "track:pig"
+  },
+  {
+   "say": "about seventeen kilometers per hour.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      3,
+      1
+     ],
+     "do": "idle",
+     "mood": "disappointed"
+    }
+   ],
+   "counter": {
+    "label": "PIG",
+    "from": 0,
+    "to": 17,
+    "suffix": " km/h",
+    "y": 0.3
+   },
+   "cam": "full:pig"
+  },
+  {
+   "say": "A greyhound can hold *fifty-five*… for miles!",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "dog",
+     "at": [
+      -5,
+      1
+     ],
+     "do": "run",
+     "mood": "excited",
+     "path": [
+      [
+       -5,
+       1
+      ],
+      [
+       5,
+       1
+      ]
+     ]
+    }
+   ],
+   "counter": {
+    "label": "GREYHOUND",
+    "from": 0,
+    "to": 55,
+    "suffix": " km/h",
+    "y": 0.3
+   },
+   "cam": "track:dog",
+   "sfx": [
+    [
+     "whoosh",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Dog leads, two to one.",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Pig",
+    "away": "Dog",
+    "a": 1,
+    "b": 2,
+    "from": [
+     1,
+     1
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "cry",
+     "mood": "sad",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "cheer",
+     "mood": "laugh",
+     "face": -30
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   }
+  },
+  {
+   "say": "Round four: *clean*.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "ROUND 4",
+    "from": 4,
+    "to": 4,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Pigs can't sweat.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0
+    }
+   ],
+   "cam": "medium:pig",
+   "pops": [
+    {
+     "text": "💧❌",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "So they roll in mud",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "lie",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "cam": "close:pig"
+  },
+  {
+   "say": "to cool down and block the sun.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "confident",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "☀️🛡️",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "cam": "medium:pig"
+  },
+  {
+   "say": "Even baby piglets leave their bed to use the toilet!",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "walk",
+     "mood": "smile",
+     "path": [
+      [
+       -1,
+       1
+      ],
+      [
+       1.5,
+       1
+      ]
+     ],
+     "scale": 0.6
+    }
+   ],
+   "pops": [
+    {
+     "text": "🚽",
+     "x": 0.7,
+     "y": 0.35,
+     "t": 0.4
+    }
+   ],
+   "cam": "full:pig"
+  },
+  {
+   "say": "Point for the *pig*!",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Pig",
+    "away": "Dog",
+    "a": 2,
+    "b": 2,
+    "from": [
+     1,
+     2
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": -30
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Two to two.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "determined",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "determined",
+     "face": -30
+    }
+   ],
+   "cam": "group",
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Final round: the *mirror*.",
+   "set": "stadium",
+   "time": "day",
+   "counter": {
+    "label": "FINAL",
+    "from": 5,
+    "to": 5,
+    "y": 0.32
+   },
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "pointup",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host",
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Scientists hid food that pigs could only see",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "mood": "think",
+     "face": 20
+    }
+   ],
+   "cam": "medium:pig"
+  },
+  {
+   "say": "in a *mirror*.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "confused",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🪞",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "cam": "close:pig"
+  },
+  {
+   "say": "The pigs figured it out",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "walk",
+     "mood": "excited",
+     "path": [
+      [
+       0,
+       1
+      ],
+      [
+       2,
+       0
+      ]
+     ]
+    }
+   ],
+   "cam": "full:pig"
+  },
+  {
+   "say": "and walked *straight* to the food.",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      2,
+      0
+     ],
+     "do": "jump",
+     "mood": "laugh",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "apple",
+     "at": [
+      3,
+      0.3,
+      0.4
+     ]
+    }
+   ],
+   "cam": "medium:pig",
+   "sfx": [
+    [
+     "ding",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Can *your* dog do that?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "dog",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 0
+    }
+   ],
+   "cam": "close:dog",
+   "sfx": [
+    [
+     "boing",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Point for the *pig*!",
+   "set": "stadium",
+   "time": "day",
+   "score": {
+    "home": "Pig",
+    "away": "Dog",
+    "a": 3,
+    "b": 2,
+    "from": [
+     2,
+     2
+    ],
+    "t": 0.3
+   },
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "cheer",
+     "mood": "laugh",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": -30
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "The pig wins, three to two!",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      0,
+      1
+     ],
+     "do": "jump",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "cam": "low:pig",
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Did you spot the controller at the start?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "host",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "cam": "medium:host",
+   "pops": [
+    {
+     "text": "🎮👀",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "So… who's YOUR pick?",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "confident",
+     "face": -30
+    }
+   ],
+   "cam": "group"
+  },
+  {
+   "say": "Because the next round is…",
+   "set": "stadium",
+   "time": "day",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -2.6,
+      1
+     ],
+     "do": "look",
+     "mood": "think",
+     "face": 30
+    },
+    {
+     "id": "dog",
+     "at": [
+      2.6,
+      1
+     ],
+     "do": "look",
+     "mood": "think",
+     "face": -30
+    }
+   ],
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     4.5,
+     15
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ]
+   },
+   "props": [
+    {
+     "type": "controller",
+     "at": [
+      -1.2,
+      0.05,
+      2.4
+     ],
+     "ry": 30
+    }
+   ]
+  }
+ ]
+}
