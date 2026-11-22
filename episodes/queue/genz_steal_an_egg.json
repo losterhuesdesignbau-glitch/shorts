@@ -1,0 +1,1411 @@
+{
+ "title": "Steal An Egg",
+ "music": "trend",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "STEAL AN\nEGG?!",
+  "series": "GENZ TRENDS",
+  "cta": "YES or NO? 👇",
+  "mid": "Guess what hatched 👇",
+  "share": "Send this to your Roblox squad 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "We Tried \"Steal An Egg\" in REAL LIFE 🥚🐔 (Roblox's #1 Game)",
+  "description": "Steal An Egg is the most played game on Roblox right now – so Leo tried it in real life… and the chickens wanted their egg back. What's the rarest pet you ever got in a Roblox game? 👇",
+  "hashtags": [
+   "roblox",
+   "stealanegg",
+   "genztrends",
+   "gaming",
+   "trend"
+  ],
+  "keywords": [
+   "steal an egg roblox",
+   "roblox trend",
+   "rare pets"
+  ],
+  "question": "What's the rarest pet you ever got in a Roblox game? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "leo": {
+   "look": "boy",
+   "hair": "messy",
+   "hairColor": "#2b1b12",
+   "shirt": "#ff6b35",
+   "logo": "none"
+  },
+  "hen": {
+   "animal": "chicken"
+  },
+  "chick": {
+   "animal": "chicken"
+  },
+  "c2": {
+   "animal": "chicken"
+  },
+  "c3": {
+   "animal": "chicken"
+  },
+  "c4": {
+   "animal": "chicken"
+  },
+  "c5": {
+   "animal": "chicken"
+  }
+ },
+ "shots": [
+  {
+   "say": "Steal an egg?!",
+   "set": "room",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "tv",
+     "at": [
+      0,
+      -2.4
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "That's the number one game on Roblox right now.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "excited",
+     "hold": "controller",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "#1 🥚🎮",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Almost a million players at once.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "hold": "controller",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "≈ 1,000,000 👥",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Over eleven billion visits!",
+   "set": "room",
+   "time": "night",
+   "cam": "push:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "11.4 BILLION",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "The idea?",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Steal eggs, collect *rare pets*.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🥚➡️🐣",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Another egg game is in the top ten too.",
+   "set": "room",
+   "time": "night",
+   "cam": "push:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🥚🥚🥚",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "So Leo tried it… in *real life*.",
+   "set": "backyard",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -3,
+      2
+     ],
+     "do": "walk",
+     "mood": "determined",
+     "path": [
+      [
+       -3,
+       2
+      ],
+      [
+       -1,
+       1.5
+      ]
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "At midnight, he sneaked into the neighbor's yard.",
+   "set": "backyard",
+   "time": "night",
+   "cam": "track:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1,
+      1.5
+     ],
+     "do": "walk",
+     "mood": "nervous",
+     "path": [
+      [
+       -1,
+       1.5
+      ],
+      [
+       1,
+       0.5
+      ]
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "crate",
+     "at": [
+      3,
+      -1
+     ]
+    },
+    {
+     "type": "fence",
+     "at": [
+      0,
+      -3
+     ]
+    }
+   ]
+  },
+  {
+   "say": "There it was:",
+   "set": "backyard",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.5
+     ],
+     "do": "look",
+     "mood": "surprised",
+     "face": 180
+    }
+   ],
+   "props": [
+    {
+     "type": "egg",
+     "at": [
+      0,
+      0,
+      -1.2
+     ],
+     "color": "#ffd23f",
+     "spots": "#fff3b0",
+     "glow": 1
+    }
+   ]
+  },
+  {
+   "say": "a *golden* egg.",
+   "set": "backyard",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     1.6,
+     1.4
+    ],
+    "look": [
+     0,
+     0.6,
+     -1.2
+    ]
+   },
+   "props": [
+    {
+     "type": "egg",
+     "at": [
+      0,
+      0,
+      -1.2
+     ],
+     "color": "#ffd23f",
+     "spots": "#fff3b0",
+     "glow": 1
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Guarded by one very angry chicken.",
+   "set": "backyard",
+   "time": "night",
+   "cam": "close:hen",
+   "actors": [
+    {
+     "id": "hen",
+     "at": [
+      1.2,
+      -1.4
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "egg",
+     "at": [
+      0,
+      0,
+      -1.2
+     ],
+     "color": "#ffd23f",
+     "spots": "#fff3b0",
+     "glow": 1
+    }
+   ]
+  },
+  {
+   "say": "The chicken never blinked.",
+   "set": "backyard",
+   "time": "night",
+   "cam": "face:hen",
+   "actors": [
+    {
+     "id": "hen",
+     "at": [
+      1.2,
+      -1.4
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Leo held his breath.",
+   "set": "backyard",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1,
+      2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Leo tiptoed closer…",
+   "set": "backyard",
+   "time": "night",
+   "cam": "full:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1,
+      2
+     ],
+     "do": "walk",
+     "mood": "nervous",
+     "path": [
+      [
+       -1,
+       2
+      ],
+      [
+       -0.4,
+       0.4
+      ]
+     ]
+    },
+    {
+     "id": "hen",
+     "at": [
+      1.2,
+      -1.4
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "egg",
+     "at": [
+      0,
+      0,
+      -1.2
+     ],
+     "color": "#ffd23f",
+     "spots": "#fff3b0",
+     "glow": 1
+    }
+   ]
+  },
+  {
+   "say": "and *grabbed* it!",
+   "set": "backyard",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -0.3,
+      0.2
+     ],
+     "do": "hold",
+     "mood": "excited",
+     "hold": "egg",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "The chicken *screamed*!",
+   "set": "backyard",
+   "time": "night",
+   "cam": "push:hen",
+   "actors": [
+    {
+     "id": "hen",
+     "at": [
+      1.2,
+      -1.4
+     ],
+     "do": "jump",
+     "mood": "angry",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Every light in the yard turned on!",
+   "set": "backyard",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -0.3,
+      0.4
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0,
+     "hold": "egg"
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "He ran all the way home.",
+   "set": "street",
+   "time": "night",
+   "cam": "track:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      5,
+      0.6
+     ],
+     "do": "run",
+     "mood": "panic",
+     "path": [
+      [
+       5,
+       0.6
+      ],
+      [
+       -5,
+       0.6
+      ]
+     ],
+     "hold": "egg"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "and hid the egg under his bed.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "egg",
+     "at": [
+      1.6,
+      0,
+      -0.6
+     ],
+     "color": "#ffd23f",
+     "spots": "#fff3b0",
+     "glow": 1
+    }
+   ]
+  },
+  {
+   "say": "His heart was *pounding*.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "But then it got *weird*.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "The egg started to *shake*.",
+   "set": "room",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     1.8,
+     1.6
+    ],
+    "look": [
+     0,
+     0.7,
+     -0.6
+    ]
+   },
+   "props": [
+    {
+     "type": "egg",
+     "at": [
+      0,
+      0,
+      -0.6
+     ],
+     "color": "#ffd23f",
+     "spots": "#fff3b0",
+     "glow": 1
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.5
+    ],
+    [
+     "tick",
+     0.8
+    ]
+   ]
+  },
+  {
+   "say": "Crack!",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Out came a tiny *chick*.",
+   "set": "room",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     1.5,
+     2.2
+    ],
+    "look": [
+     0,
+     0.5,
+     0
+    ]
+   },
+   "actors": [
+    {
+     "id": "chick",
+     "at": [
+      0,
+      0
+     ],
+     "do": "jump",
+     "mood": "happy",
+     "face": 0,
+     "scale": 0.45
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Rare pet: *unlocked*!",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "cheer",
+     "mood": "laugh",
+     "face": 0
+    },
+    {
+     "id": "chick",
+     "at": [
+      1.2,
+      1.4
+     ],
+     "do": "jump",
+     "mood": "happy",
+     "face": 0,
+     "scale": 0.45
+    }
+   ],
+   "pops": [
+    {
+     "text": "RARE PET ✨",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ]
+  },
+  {
+   "say": "Best. Night. *Ever*.",
+   "set": "room",
+   "time": "night",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "jump",
+     "mood": "excited",
+     "face": 0
+    },
+    {
+     "id": "chick",
+     "at": [
+      1.3,
+      1.6
+     ],
+     "do": "jump",
+     "mood": "happy",
+     "face": 0,
+     "scale": 0.45
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "Leo named it Sunny.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "love",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "hearts",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Sunny followed him everywhere.",
+   "set": "street",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -4,
+      0.6
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "path": [
+      [
+       -4,
+       0.6
+      ],
+      [
+       2,
+       0.6
+      ]
+     ]
+    },
+    {
+     "id": "chick",
+     "at": [
+      -5.4,
+      0.6
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "path": [
+      [
+       -5.4,
+       0.6
+      ],
+      [
+       0.6,
+       0.6
+      ]
+     ],
+     "scale": 0.45
+    }
+   ]
+  },
+  {
+   "say": "To school.",
+   "set": "school",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      2
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "face": 180
+    },
+    {
+     "id": "chick",
+     "at": [
+      1,
+      2.8
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "face": 180,
+     "scale": 0.45
+    }
+   ]
+  },
+  {
+   "say": "To the park.",
+   "set": "park",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "run",
+     "mood": "happy",
+     "path": [
+      [
+       -2,
+       1
+      ],
+      [
+       2,
+       1
+      ]
+     ]
+    },
+    {
+     "id": "chick",
+     "at": [
+      -3,
+      1.4
+     ],
+     "do": "run",
+     "mood": "happy",
+     "path": [
+      [
+       -3,
+       1.4
+      ],
+      [
+       1,
+       1.4
+      ]
+     ],
+     "scale": 0.45
+    }
+   ]
+  },
+  {
+   "say": "To the kitchen.",
+   "set": "kitchen",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      2
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 0
+    },
+    {
+     "id": "chick",
+     "at": [
+      1.2,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0,
+     "scale": 0.45
+    }
+   ]
+  },
+  {
+   "say": "Even into his bed.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "laugh",
+     "face": 0
+    },
+    {
+     "id": "chick",
+     "at": [
+      1.1,
+      1.4
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0,
+     "scale": 0.45
+    }
+   ]
+  },
+  {
+   "say": "But the next morning…",
+   "set": "house",
+   "time": "morning",
+   "cam": "wide",
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "someone knocked at the door.",
+   "set": "house",
+   "time": "morning",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      -0.8
+     ],
+     "do": "look",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.45
+    ],
+    [
+     "tick",
+     0.7
+    ]
+   ],
+   "pause": 0.5
+  },
+  {
+   "say": "Leo opened it…",
+   "set": "house",
+   "time": "morning",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      -0.8
+     ],
+     "do": "scared",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "and saw a *crowd* of chickens.",
+   "set": "house",
+   "time": "morning",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "hen",
+     "at": [
+      0,
+      2
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 180
+    },
+    {
+     "id": "c2",
+     "at": [
+      -1.6,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 180
+    },
+    {
+     "id": "c3",
+     "at": [
+      1.6,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 180
+    },
+    {
+     "id": "c4",
+     "at": [
+      -0.8,
+      3.6
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 180
+    },
+    {
+     "id": "c5",
+     "at": [
+      0.8,
+      3.6
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 180
+    },
+    {
+     "id": "leo",
+     "at": [
+      0,
+      -0.8
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "They came to steal it *back*!",
+   "set": "house",
+   "time": "morning",
+   "cam": "push:hen",
+   "actors": [
+    {
+     "id": "hen",
+     "at": [
+      0,
+      2
+     ],
+     "do": "jump",
+     "mood": "angry",
+     "face": 180
+    },
+    {
+     "id": "c2",
+     "at": [
+      -1.6,
+      2.6
+     ],
+     "do": "jump",
+     "mood": "angry",
+     "face": 180
+    },
+    {
+     "id": "c3",
+     "at": [
+      1.6,
+      2.6
+     ],
+     "do": "jump",
+     "mood": "angry",
+     "face": 180
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Now Leo has one new rule:",
+   "set": "house",
+   "time": "morning",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      -0.8
+     ],
+     "do": "nod",
+     "mood": "determined",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "never steal from a chicken.",
+   "set": "house",
+   "time": "morning",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      -0.8
+     ],
+     "do": "facepalm",
+     "mood": "disappointed",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🐔❌",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Would YOU play Steal An Egg?",
+   "set": "room",
+   "time": "night",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "room",
+   "time": "night",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Because in this game, everyone wants to…",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "smug",
+     "hold": "controller",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}
