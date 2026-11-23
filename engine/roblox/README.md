@@ -253,3 +253,5 @@ Episode nach `episodes/tests/<name>.json` legen (nicht queue!), pushen, dann Wor
   - *Menschenmengen*: Shot-Feld `"crowd": {"n": 24, "area": [x0,z0,x1,z1], "teams": ["#1e88e5","#fb8c00"], "do": "cheer", "face": 0, "seed": 7}` – bis 80 Statisten, zufällige Looks, Teamfarben links/rechts, gleiche Leute bei gleichem Seed.
   - *Mehr Meme-Sounds*: fail (Wah-wah-Posaune), buzzer, correct, cash, whip; Auto-Sounddesign erkennt zusätzlich Geld-Wörter (cash), Fehlschläge (fail), richtige Antworten/Punkte (correct).
   - *QA*: zusätzlich Farbigkeit (Warnung < 25; Referenzen 50–90) und Bild/Ton-Länge.
+- **„Huss“-Rhythmus (Lukas 23.11., nach seiner Vorlage):** Ein Shot nur aus „huss“ wird nicht mehr normal gesprochen, sondern als kurzer Silben-Schlag im 0,2-s-Takt wiederholt (Dreiergruppe, nach drei Schlägen 0,25 s Pause, letzter Schlag betont) – mit der eigenen Erzählstimme, keine fremde Aufnahme. Immer eigener Sprachblock.
+- **Uhrzeiten (Lukas 23.11.):** „p.m.“/„a.m.“ wird mit Pause gesprochen („nine P… M“). Einfach normal schreiben: `at 9 p.m.`

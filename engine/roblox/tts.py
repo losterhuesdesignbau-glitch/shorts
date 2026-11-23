@@ -301,6 +301,9 @@ def _speakable(s):
 def _speech_token(w):
     s = _speakable(w['raw']).lstrip(LEAD_STRIP)
     if not any(c.isalnum() for c in s): return ''
+    # Uhrzeiten (Lukas 23.11.): „9 p.m.“ wird mit hörbarer Pause gesprochen: „P… M“
+    m = re.match(r'^([ap])\.?m\.?([,;:!?…]*)$', s, re.I)
+    if m: return f"{m.group(1).upper()}… M{m.group(2) or ''}"
     if w.get('pause') and not re.search(r'[.,;:!?…]["“”»«)]*$', s): s += ','
     return s
 
@@ -479,7 +482,27 @@ def polish(x, room=0.12, sr=AU.SR):
 def _cache_key(*parts):
     return hashlib.sha1(json.dumps(parts, ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:20]
 
+HUSS_GAP = 0.2   # Abstand der „huss“-Schläge wie in Lukas' Vorlage (23.11.): huss-huss-huss im 0,2-s-Takt, Dreiergruppen
+def synth_huss(spec, tokens):
+    """„Huss, huss, huss!“ rhythmisch wie der Trend-Sound: ein kurzer Silben-Schlag, im 0,2-s-Raster wiederholt,
+    nach jeder Dreiergruppe eine kleine Pause. Nur die eigene Stimme, keine fremde Aufnahme."""
+    one, _, _, _ = synth_kokoro(spec, [{'raw': 'Huss!'}], 1.15) if is_kokoro(spec) else synth_utterance(spec, [{'raw': 'Huss!'}], 1.15, 0.667, 0.8)[:4]
+    sr = AU.SR; e = np.abs(one); thr = e.max() * 0.08
+    nz = np.nonzero(e > thr)[0]; one = one[max(0, nz[0] - int(0.005 * sr)): nz[-1] + 1] if len(nz) else one
+    one = one[:int(0.19 * sr)]; f = int(0.02 * sr); one = one.copy(); one[-f:] *= np.linspace(1, 0, f)
+    times, pos = [], 0.0
+    for k, _ in enumerate(tokens):
+        if k and k % 3 == 0: pos += 0.25
+        times.append((pos, pos + len(one) / sr)); pos += HUSS_GAP
+    out = np.zeros(int((times[-1][1] + 0.05) * sr), np.float32)
+    for (a, _), k in zip(times, range(len(times))):
+        g = 1.0 if k % 3 != 2 else 1.12          # letzter Schlag der Gruppe etwas betonter
+        i = int(a * sr); out[i:i + len(one)] += one[:len(out) - i] * g
+    return out, times, 'huss-rhythm', False
+
 def synth_utterance(spec, tokens, speed, noise, noise_w):
+    ws = [re.sub(r'[^a-z]', '', w['raw'].lower()) for w in tokens]
+    if ws and all(w == 'huss' for w in ws): return synth_huss(spec, tokens)
     if is_kokoro(spec): return synth_kokoro(spec, tokens, speed)
     voice, vname, sid = load(spec)
     spoken = [_speech_token(w) for w in tokens]
@@ -524,10 +547,11 @@ def speak_episode(ep, shots, opts=None):
         if not spk:
             est = sum(0.1 + 0.1 * w['syl'] + 0.035 + w['pause'] for w in sh['_w']) + 0.3
             utts.append({'silence': float(sh.get('dur', est if sh['_w'] else 1.2)), 'shot': si}); cur = None; continue
-        if cur is not None and (cur['voice'] != v or sh.get('pause')): cur = None
+        huss = all(re.sub(r'[^a-z]', '', w['raw'].lower()) in ('huss', '') for w in spk)
+        if cur is not None and (cur['voice'] != v or sh.get('pause') or huss or cur.get('huss')): cur = None   # „Huss“-Shots immer eigener Block (Rhythmus)
         pre = float(sh.get('pause', 0) or 0)
         for w in spk:
-            if cur is None: cur = {'voice': v, 'tokens': [], 'pre': pre}; utts.append(cur); pre = 0.0
+            if cur is None: cur = {'voice': v, 'tokens': [], 'pre': pre, 'huss': huss}; utts.append(cur); pre = 0.0
             cur['tokens'].append(w)
             # Mehrere Sätze am Stück sprechen lassen (natürlicher Satzfluss/Betonung, keine abgehackten Einzelsätze);
             # neuer Block erst nach ~220 Zeichen (Kokoro-Grenze 510 Laute), bei Stimmwechsel, "pause" oder stummem Shot
