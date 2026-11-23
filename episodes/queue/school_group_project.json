@@ -1,0 +1,1166 @@
+{
+ "title": "Group Project",
+ "music": "school",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "GROUP\nPROJECTS 😤",
+  "series": "SCHOOL LIFE #3",
+  "cta": "YES or NO? 👇",
+  "mid": "Tag your lazy group member 👇",
+  "share": "Send this to the one who did NOTHING in your group 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "She Did the WHOLE Group Project Alone… Then This Happened 🌋😤",
+  "description": "Every group project has one person who does everything. Nora's group slept, gamed and forgot – until her last slide. Are YOU the Nora of your group? 👇",
+  "hashtags": [
+   "schoollife",
+   "groupproject",
+   "school",
+   "relatable",
+   "funny"
+  ],
+  "keywords": [
+   "group project",
+   "school story",
+   "relatable"
+  ],
+  "question": "Are YOU the one who does everything in group projects? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "nora": {
+   "look": "girl",
+   "hair": "ponytail",
+   "hairColor": "#6d4c41",
+   "shirt": "#e63946",
+   "glasses": true,
+   "backpack": "#ffbe0b",
+   "logo": "none"
+  },
+  "ben": {
+   "look": "boy",
+   "hair": "messy",
+   "hairColor": "#e2c17c",
+   "shirt": "#3a86ff",
+   "logo": "none"
+  },
+  "max": {
+   "look": "boy",
+   "hair": "spiky",
+   "hairColor": "#3b2a1a",
+   "shirt": "#8338ec",
+   "logo": "none"
+  },
+  "lily": {
+   "look": "girl",
+   "hair": "long",
+   "hairColor": "#1b1b1b",
+   "shirt": "#ff006e",
+   "logo": "none"
+  },
+  "ms": {
+   "look": "teacher",
+   "hair": "bun",
+   "hairColor": "#3b2a1a",
+   "shirt": "#2a9d8f",
+   "glasses": true,
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "Every group project has *one* person",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "face:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "determined",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "GROUP\nPROJECT"
+   },
+   "sfx": [
+    [
+     "bassboom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "who does *everything*.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "close:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "facepalm",
+     "mood": "disappointed",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "GROUP\nPROJECT"
+   }
+  },
+  {
+   "say": "This is Nora.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "medium:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "wave",
+     "mood": "smile",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "GROUP\nPROJECT"
+   }
+  },
+  {
+   "say": "Her group: Ben, Max and Lily.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "smile",
+     "face": 180
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "grin",
+     "face": 180
+    },
+    {
+     "id": "lily",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "smile",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "GROUP\nPROJECT"
+   },
+   "pops": [
+    {
+     "text": "👥 x3",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "The project: build a volcano.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     6.5
+    ],
+    "look": [
+     0,
+     3.4,
+     -6
+    ]
+   },
+   "actors": [
+    {
+     "id": "ms",
+     "at": [
+      -2.2,
+      -3.2
+     ],
+     "do": "point",
+     "mood": "happy",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "VOLCANO\nFRI"
+   },
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Due on Friday.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "close:ms",
+   "actors": [
+    {
+     "id": "ms",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "talk",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "setOpts": {
+    "board": "VOLCANO\nFRI"
+   }
+  },
+  {
+   "set": "classroom",
+   "time": "morning",
+   "say": "Easy, right? *Wrong*.",
+   "cam": "face:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "VOLCANO\nFRI"
+   },
+   "sfx": [
+    [
+     "buzzer",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "Ben said he'd help…",
+   "set": "room",
+   "time": "night",
+   "cam": "close:ben",
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      0,
+      0
+     ],
+     "do": "lie",
+     "mood": "happy",
+     "face": 0,
+     "y": 1.55
+    }
+   ],
+   "props": [
+    {
+     "type": "bed",
+     "at": [
+      0,
+      0
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "snore",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "then slept the whole week.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:ben",
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      0,
+      0
+     ],
+     "do": "lie",
+     "mood": "smile",
+     "face": 0,
+     "y": 1.55
+    }
+   ],
+   "props": [
+    {
+     "type": "bed",
+     "at": [
+      0,
+      0
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "😴",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Max \"did research\"…",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "game",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "tv",
+     "at": [
+      0,
+      -2.4
+     ]
+    }
+   ]
+  },
+  {
+   "say": "by playing video games.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "game",
+     "mood": "laugh",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🎮",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "And Lily *forgot*.",
+   "set": "mall",
+   "time": "day",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "happy",
+     "hold": "phone",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "error",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Every. Single. Day.",
+   "set": "mall",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "So Nora did it alone.",
+   "set": "kitchen",
+   "time": "night",
+   "cam": "medium:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      0,
+      2
+     ],
+     "do": "idle",
+     "mood": "determined",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "set": "kitchen",
+   "time": "night",
+   "say": "She bought the clay, the paint, the baking soda.",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      0,
+      2
+     ],
+     "do": "hold",
+     "mood": "determined",
+     "hold": "paper",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Night after night.",
+   "set": "kitchen",
+   "time": "night",
+   "cam": "close:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      0,
+      2
+     ],
+     "do": "hold",
+     "mood": "determined",
+     "hold": "paper",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.5
+    ]
+   ]
+  },
+  {
+   "set": "kitchen",
+   "time": "night",
+   "say": "No sleep. No breaks.",
+   "cam": "face:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      0,
+      2
+     ],
+     "do": "idle",
+     "mood": "determined",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Huss, huss, huss!",
+   "set": "kitchen",
+   "time": "night",
+   "cam": "push:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      0,
+      2
+     ],
+     "do": "jump",
+     "mood": "determined",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "By Friday, the volcano was *perfect*.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "medium:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      0,
+      2
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🌋✨",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "But that's not the best part.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "face:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "think",
+     "mood": "smug",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "SHOW\nTIME"
+   },
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "At the presentation,",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     6.5
+    ],
+    "look": [
+     0,
+     3.4,
+     -6
+    ]
+   },
+   "actors": [
+    {
+     "id": "ms",
+     "at": [
+      -2.2,
+      -3.2
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0
+    }
+   ],
+   "setOpts": {
+    "board": "SHOW\nTIME"
+   }
+  },
+  {
+   "say": "Ben stood up and said:",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "medium:ben",
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "confident",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "SHOW\nTIME"
+   }
+  },
+  {
+   "say": "\"We *all* worked really hard!\"",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "face:ben",
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "SHOW\nTIME"
+   },
+   "sfx": [
+    [
+     "scratch",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "Max and Lily *nodded*.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "smug",
+     "face": 180
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "smug",
+     "face": 180
+    },
+    {
+     "id": "lily",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "smug",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "SHOW\nTIME"
+   }
+  },
+  {
+   "say": "Nora just smiled.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "close:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "SHOW\nTIME"
+   }
+  },
+  {
+   "set": "classroom",
+   "time": "morning",
+   "say": "Because she had a *plan*.",
+   "cam": "face:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "think",
+     "mood": "smug",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "SHOW\nTIME"
+   }
+  },
+  {
+   "say": "Then she clicked to the last slide.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "medium:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "point",
+     "mood": "confident",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "SLIDE 9"
+   },
+   "sfx": [
+    [
+     "pop",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "A video of Ben… sleeping.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     6.5
+    ],
+    "look": [
+     0,
+     3.4,
+     -6
+    ]
+   },
+   "setOpts": {
+    "board": "BEN 😴"
+   },
+   "actors": [
+    {
+     "id": "ms",
+     "at": [
+      -2.2,
+      -3.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Max… gaming.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     6.5
+    ],
+    "look": [
+     0,
+     3.4,
+     -6
+    ]
+   },
+   "setOpts": {
+    "board": "MAX 🎮"
+   },
+   "sfx": [
+    [
+     "bassboom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Lily… shopping.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     3.4,
+     6.5
+    ],
+    "look": [
+     0,
+     3.4,
+     -6
+    ]
+   },
+   "setOpts": {
+    "board": "LILY 🛍️"
+   },
+   "sfx": [
+    [
+     "bassboom",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "The whole class *exploded*.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "shock",
+     "face": 180
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "panic",
+     "face": 180
+    },
+    {
+     "id": "lily",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "shock",
+     "face": 180
+    }
+   ],
+   "crowd": {
+    "n": 6,
+    "area": [
+     -7,
+     8.6,
+     7,
+     10.2
+    ],
+    "do": "laugh",
+    "face": 180,
+    "seed": 31
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "airhorn",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Nora got an A plus.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "face:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "NORA: A+"
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "correct",
+     0.2
+    ]
+   ]
+  },
+  {
+   "set": "classroom",
+   "time": "morning",
+   "say": "The teacher was *impressed*.",
+   "cam": "close:ms",
+   "actors": [
+    {
+     "id": "ms",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "clap",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "setOpts": {
+    "board": "NORA: A+"
+   }
+  },
+  {
+   "say": "The others got… a *second* project.",
+   "set": "classroom",
+   "time": "morning",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0,
+     7.2,
+     -2.6
+    ],
+    "look": [
+     0,
+     1.6,
+     5.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      -6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "cry",
+     "face": 180
+    },
+    {
+     "id": "max",
+     "at": [
+      0,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "disappointed",
+     "face": 180
+    },
+    {
+     "id": "lily",
+     "at": [
+      6.2,
+      4.8
+     ],
+     "do": "sitdesk",
+     "mood": "sad",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "BEN MAX LILY:\nNEW PROJECT"
+   },
+   "sfx": [
+    [
+     "fail",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Are YOU the Nora of your group?",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "close:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "shrug",
+     "mood": "grin",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "face:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "point",
+     "mood": "smile",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Because trust me, in every class, there's always one person who does…",
+   "set": "classroom",
+   "time": "morning",
+   "cam": "medium:nora",
+   "actors": [
+    {
+     "id": "nora",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "determined",
+     "face": 180
+    }
+   ],
+   "setOpts": {
+    "board": "GROUP\nPROJECT"
+   }
+  }
+ ]
+}

@@ -218,5 +218,15 @@
   "plot": "Kids sell lemonade, grandmas run food trucks, dogs deliver newspapers; only Milo sleeps until noon. At night he secretly builds a chore robot that outworks everyone and makes him a million in bed.",
   "twist": "The town votes Milo mayor and his first law makes naps mandatory",
   "file": "episodes/queue/weird_hustle_hills.json"
+ },
+ {
+  "date": "2026-11-23",
+  "series": "SCHOOL LIFE",
+  "title": "She Did the WHOLE Group Project Alone… Then This Happened 🌋😤",
+  "topic": "Group project where one girl does everything (volcano) while the others slack",
+  "hook": "Every group project has one person who does everything.",
+  "plot": "Ben sleeps, Max games, Lily forgets; Nora builds the volcano alone night after night (huss). At the presentation Ben claims they all worked hard.",
+  "twist": "Nora's last slide shows videos of them sleeping, gaming and shopping; she gets A+, they get a second project",
+  "file": "episodes/queue/school_group_project.json"
  }
 ]
