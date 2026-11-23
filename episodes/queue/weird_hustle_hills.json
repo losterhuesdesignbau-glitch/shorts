@@ -1,0 +1,875 @@
+{
+ "title": "Hustle Hills",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "BEING LAZY\nIS ILLEGAL",
+  "series": "WEIRD TOWNS #4",
+  "cta": "YES or NO? 👇",
+  "mid": "What did Milo build? 👇",
+  "share": "Send this to the laziest friend you have 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "In This Town, Being LAZY Is Illegal 😴🚨",
+  "description": "In Hustle Hills everyone hustles from 5 a.m. – kids, grandmas, even the dogs. Everyone except Milo… Would YOU live in Hustle Hills? 👇",
+  "hashtags": [
+   "weirdtowns",
+   "hustle",
+   "lazy",
+   "story",
+   "funny"
+  ],
+  "keywords": [
+   "weird town",
+   "hustle",
+   "lazy"
+  ],
+  "question": "Are you a hustler or a napper? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "mayor": {
+   "look": "man",
+   "hair": "short",
+   "hairColor": "#6d4c41",
+   "shirt": "#2b2d42",
+   "tie": "#e63946",
+   "mustache": true,
+   "logo": "none"
+  },
+  "zoe": {
+   "look": "girl",
+   "hair": "pigtails",
+   "hairColor": "#1b1b1b",
+   "shirt": "#ffbe0b",
+   "logo": "none"
+  },
+  "granny": {
+   "look": "grandma",
+   "hair": "bun",
+   "hairColor": "#d9d9d9",
+   "shirt": "#9d4edd",
+   "glasses": true,
+   "logo": "none"
+  },
+  "milo": {
+   "look": "boy",
+   "hair": "messy",
+   "hairColor": "#c68642",
+   "shirt": "#06d6a0",
+   "logo": "none"
+  },
+  "rex": {
+   "animal": "dog"
+  },
+  "bot": {
+   "look": "man",
+   "hair": "buzz",
+   "hairColor": "#8d99ae",
+   "skin": "#c0c6cc",
+   "shirt": "#8d99ae",
+   "pants": "#5c677d",
+   "glasses": true,
+   "logo": "none"
+  }
+ },
+ "shots": [
+  {
+   "say": "In this town,",
+   "set": "plaza",
+   "time": "morning",
+   "cam": "aerial",
+   "crowd": {
+    "n": 30,
+    "area": [
+     -9,
+     -6,
+     9,
+     3
+    ],
+    "do": "walk",
+    "seed": 21
+   },
+   "sfx": [
+    [
+     "bassboom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "being lazy is *illegal*.",
+   "set": "plaza",
+   "time": "morning",
+   "cam": "wide",
+   "crowd": {
+    "n": 30,
+    "area": [
+     -9,
+     -6,
+     9,
+     3
+    ],
+    "do": "walk",
+    "seed": 21
+   }
+  },
+  {
+   "say": "Welcome to Hustle Hills.",
+   "set": "plaza",
+   "time": "morning",
+   "cam": "face:mayor",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      1
+     ],
+     "do": "pointup",
+     "mood": "confident",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.4,
+      -1
+     ],
+     "text": "HUSTLE HILLS"
+    }
+   ]
+  },
+  {
+   "say": "At five a.m., a siren wakes everyone up.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "airhorn",
+     0.05
+    ]
+   ],
+   "pops": [
+    {
+     "text": "⏰ 5:00",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "And the whole town *runs* to work.",
+   "set": "street",
+   "time": "morning",
+   "cam": "wide",
+   "crowd": {
+    "n": 22,
+    "area": [
+     -8,
+     -3,
+     8,
+     3
+    ],
+    "do": "run",
+    "face": 90,
+    "seed": 22
+   },
+   "sfx": [
+    [
+     "whoosh",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Huss, huss, huss!",
+   "set": "street",
+   "time": "morning",
+   "cam": "wide",
+   "crowd": {
+    "n": 10,
+    "area": [
+     -4,
+     -1,
+     4,
+     2
+    ],
+    "do": "run",
+    "face": 0,
+    "seed": 22,
+    "mood": "determined"
+   }
+  },
+  {
+   "say": "Kids sell lemonade before school.",
+   "set": "plaza",
+   "time": "morning",
+   "cam": "medium:zoe",
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "excited",
+     "hold": "cup",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Grandmas run food trucks.",
+   "set": "plaza",
+   "time": "morning",
+   "cam": "medium:granny",
+   "actors": [
+    {
+     "id": "granny",
+     "at": [
+      0,
+      1
+     ],
+     "do": "cheer",
+     "mood": "confident",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Even the dogs deliver newspapers.",
+   "set": "street",
+   "time": "morning",
+   "cam": "track:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -4,
+      1
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "path": [
+      [
+       -4,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "📰🐶",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Everyone hustles.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "aerial",
+   "crowd": {
+    "n": 34,
+    "area": [
+     -9,
+     -6,
+     9,
+     3
+    ],
+    "do": "walk",
+    "seed": 23
+   }
+  },
+  {
+   "say": "Everyone… except Milo.",
+   "set": "room",
+   "time": "morning",
+   "cam": "medium:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "lie",
+     "mood": "happy",
+     "face": 0,
+     "y": 1.55
+    }
+   ],
+   "props": [
+    {
+     "type": "bed",
+     "at": [
+      0,
+      0
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "record",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Milo sleeps until noon.",
+   "set": "room",
+   "time": "day",
+   "cam": "close:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "lie",
+     "mood": "smile",
+     "face": 0,
+     "y": 1.55
+    }
+   ],
+   "props": [
+    {
+     "type": "bed",
+     "at": [
+      0,
+      0
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "😴 12:00",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "snore",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "The neighbors call him the town's *only* problem.",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "granny",
+     "at": [
+      -2,
+      1
+     ],
+     "do": "facepalm",
+     "mood": "disappointed",
+     "face": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      0,
+      1.3
+     ],
+     "do": "shrug",
+     "mood": "confused",
+     "face": 0
+    },
+    {
+     "id": "mayor",
+     "at": [
+      2,
+      1
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "But that's not the weird part.",
+   "set": "room",
+   "time": "day",
+   "cam": "face:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Every night, while the town slept,",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "think",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "lamp",
+     "at": [
+      -2,
+      -1.4
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Milo secretly built something.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "determined",
+     "hold": "wrench",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "A robot that does *all* the chores.",
+   "set": "room",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      -1.5,
+      1
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    },
+    {
+     "id": "bot",
+     "at": [
+      1.5,
+      0.6
+     ],
+     "do": "wave",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.2
+    ]
+   ],
+   "pops": [
+    {
+     "text": "🤖",
+     "x": 0.7,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Then it got even weirder.",
+   "set": "street",
+   "time": "morning",
+   "cam": "close:mayor",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      1
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "The robot sold lemonade faster than every kid.",
+   "set": "plaza",
+   "time": "morning",
+   "cam": "medium:bot",
+   "actors": [
+    {
+     "id": "bot",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "happy",
+     "hold": "cup",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🍋 x100",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "It delivered every newspaper by six.",
+   "set": "street",
+   "time": "morning",
+   "cam": "track:bot",
+   "actors": [
+    {
+     "id": "bot",
+     "at": [
+      -4,
+      1
+     ],
+     "do": "run",
+     "mood": "happy",
+     "path": [
+      [
+       -4,
+       1
+      ],
+      [
+       4,
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Milo made a million dollars…",
+   "set": "room",
+   "time": "day",
+   "cam": "push:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "lie",
+     "mood": "laugh",
+     "face": 0,
+     "y": 1.55
+    }
+   ],
+   "props": [
+    {
+     "type": "bed",
+     "at": [
+      0,
+      0
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "💰💰💰",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "without ever getting out of bed.",
+   "set": "room",
+   "time": "day",
+   "cam": "close:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      0
+     ],
+     "do": "lie",
+     "mood": "smug",
+     "face": 0,
+     "y": 1.55
+    }
+   ],
+   "props": [
+    {
+     "type": "bed",
+     "at": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "say": "The town was *furious*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "crowd": {
+    "n": 24,
+    "area": [
+     -8,
+     -4,
+     8,
+     3
+    ],
+    "do": "idle",
+    "mood": "angry",
+    "seed": 24
+   }
+  },
+  {
+   "say": "Then they held a vote.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:mayor",
+   "actors": [
+    {
+     "id": "mayor",
+     "at": [
+      0,
+      1
+     ],
+     "do": "pointup",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "And Milo became the new *mayor*!",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    },
+    {
+     "id": "bot",
+     "at": [
+      1.8,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 20,
+    "area": [
+     -8,
+     -6,
+     8,
+     -2
+    ],
+    "do": "cheer",
+    "face": 0,
+    "seed": 25
+   },
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "His first new law?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Naps are *mandatory*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Would YOU live in Hustle Hills?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:milo",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Because now, in this town, being busy is…",
+   "set": "plaza",
+   "time": "sunset",
+   "cam": "aerial",
+   "crowd": {
+    "n": 30,
+    "area": [
+     -9,
+     -6,
+     9,
+     3
+    ],
+    "do": "idle",
+    "seed": 21
+   }
+  }
+ ]
+}

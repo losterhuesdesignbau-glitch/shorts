@@ -208,5 +208,15 @@
   "plot": "At 9:13 someone knocks pretending to be her best friend Jade, then Jade texts she is sick; the handle turns, at 9:14 the knocking stops; next morning nobody is there and the voicemail is gone.",
   "twist": "Time loop: she realizes nobody warned her yet and records the warning herself",
   "file": "episodes/queue/dark_voicemail.json"
+ },
+ {
+  "date": "2026-11-23",
+  "series": "WEIRD TOWNS",
+  "title": "In This Town, Being LAZY Is Illegal 😴🚨",
+  "topic": "Hustle Hills: a town where being lazy is illegal and everyone hustles from 5 a.m.",
+  "hook": "In this town, being lazy is illegal.",
+  "plot": "Kids sell lemonade, grandmas run food trucks, dogs deliver newspapers; only Milo sleeps until noon. At night he secretly builds a chore robot that outworks everyone and makes him a million in bed.",
+  "twist": "The town votes Milo mayor and his first law makes naps mandatory",
+  "file": "episodes/queue/weird_hustle_hills.json"
  }
 ]
