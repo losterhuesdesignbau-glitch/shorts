@@ -1,0 +1,1171 @@
+{
+ "title": "Stuck In An Elevator",
+ "music": "epic",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "STUCK IN AN\nELEVATOR?!",
+  "series": "SURVIVAL #2",
+  "cta": "YES or NO? 👇",
+  "mid": "What would YOU do? 👇",
+  "share": "Send this to someone who takes the stairs 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "What If YOU Got Stuck In An Elevator? 🛗😱",
+  "description": "Stuck in an elevator in Mii Town – will you run out of air? Can the cables snap? What should you NEVER do? And the twist… nobody pressed a button. Would YOU stay calm? 👇",
+  "hashtags": [
+   "survival",
+   "elevator",
+   "whatif",
+   "miitown",
+   "facts"
+  ],
+  "keywords": [
+   "stuck in an elevator",
+   "what if you got stuck",
+   "elevator facts"
+  ],
+  "question": "Would YOU stay calm stuck in an elevator – or panic? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "finn": "@finn",
+  "grace": "@grace"
+ },
+ "shots": [
+  {
+   "say": "What if YOU got stuck in an elevator?",
+   "set": "elevator",
+   "time": "day",
+   "cam": "face:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "You step in on the ground floor.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0,
+     "hold": "phone"
+    }
+   ]
+  },
+  {
+   "say": "Doors close.",
+   "set": "elevator",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     6.9,
+     6.0
+    ],
+    "look": [
+     0,
+     4.0,
+     -0.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0,
+     "hold": "phone"
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "slide",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Then… *clunk*.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "look",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.05
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "The lights flicker.",
+   "set": "elevator",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     6.9,
+     6.0
+    ],
+    "look": [
+     0,
+     4.0,
+     -0.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "lookup",
+     "mood": "scared",
+     "face": 0
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "lookup",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.2
+    },
+    {
+     "type": "dark",
+     "t": 0.5
+    }
+   ]
+  },
+  {
+   "say": "Nothing moves.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": -20
+    }
+   ],
+   "sfx": [
+    [
+     "crickets",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "You are *stuck*!",
+   "set": "elevator",
+   "time": "day",
+   "cam": "face:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "idle",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "counter": {
+    "label": "STUCK",
+    "from": 0,
+    "to": 1,
+    "suffix": " min"
+   },
+   "sfx": [
+    [
+     "dun",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Your first thought: the air!",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "But here is the good news.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "talk",
+     "mood": "confident",
+     "face": -30
+    }
+   ]
+  },
+  {
+   "say": "Elevators are *not* airtight.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "talk",
+     "mood": "confident",
+     "face": -20
+    }
+   ],
+   "pops": [
+    {
+     "text": "💨 AIR VENTS",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "They have vents, so the air keeps flowing.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "point",
+     "mood": "smile",
+     "face": -20
+    }
+   ]
+  },
+  {
+   "say": "You won't run out of air.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "idle",
+     "mood": "relieved",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Your next thought: the cables!",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "lookup",
+     "mood": "scared",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Most elevators hang on four to eight steel cables.",
+   "set": "elevator",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     6.9,
+     6.0
+    ],
+    "look": [
+     0,
+     4.0,
+     -0.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "lookup",
+     "mood": "nervous",
+     "face": 0
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "idle",
+     "mood": "confident",
+     "face": -30
+    }
+   ],
+   "pops": [
+    {
+     "text": "4–8 CABLES",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ]
+  },
+  {
+   "say": "And *one* cable can hold the whole car.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "talk",
+     "mood": "confident",
+     "face": -20
+    }
+   ],
+   "pops": [
+    {
+     "text": "1 = ENOUGH 💪",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.3
+    }
+   ]
+  },
+  {
+   "say": "Plus, emergency brakes grab the rails.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": -20
+    }
+   ]
+  },
+  {
+   "say": "So no movie-style free fall.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "idle",
+     "mood": "relieved",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "But then it got worse.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "face:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Your phone died.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "hold",
+     "mood": "sad",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "pops": [
+    {
+     "text": "🔋 0%",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ff595e"
+    }
+   ],
+   "sfx": [
+    [
+     "error",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "So you try the doors.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "walk",
+     "mood": "determined",
+     "to": [
+      -0.3,
+      -3.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Big mistake!",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": -60
+    }
+   ],
+   "sfx": [
+    [
+     "buzzer",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Never force the doors open.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "no",
+     "mood": "angry",
+     "face": -40
+    }
+   ],
+   "pops": [
+    {
+     "text": "🚪❌",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "The car could move at any second.",
+   "set": "elevator",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     2.8,
+     5.8,
+     3.0
+    ],
+    "look": [
+     -0.3,
+     4.2,
+     -3.2
+    ]
+   },
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -0.3,
+      -3.2
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Instead: press the alarm button.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "point",
+     "mood": "determined",
+     "face": -40
+    }
+   ],
+   "sfx": [
+    [
+     "bell",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Or the phone button.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "talk",
+     "mood": "smile",
+     "face": -20
+    }
+   ],
+   "pops": [
+    {
+     "text": "☎️ HELP",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Stay calm. Breathe. Wait.",
+   "set": "elevator",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     6.9,
+     6.0
+    ],
+    "look": [
+     0,
+     4.0,
+     -0.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "sit",
+     "mood": "nervous",
+     "face": 0
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": -30
+    }
+   ],
+   "props": [
+    {
+     "type": "box",
+     "at": [
+      -1.3,
+      0,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "say": "One hour passes.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "sit",
+     "mood": "sleepy",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "box",
+     "at": [
+      -1.3,
+      0,
+      0.0
+     ]
+    }
+   ],
+   "counter": {
+    "label": "STUCK",
+    "from": 1,
+    "to": 60,
+    "suffix": " min"
+   },
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "You share snacks with a stranger.",
+   "set": "elevator",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     6.9,
+     6.0
+    ],
+    "look": [
+     0,
+     4.0,
+     -0.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "sit",
+     "mood": "happy",
+     "face": 30
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "hold",
+     "mood": "smile",
+     "face": -40,
+     "hold": "burger"
+    }
+   ],
+   "props": [
+    {
+     "type": "box",
+     "at": [
+      -1.3,
+      0,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "say": "You even become friends.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "laugh",
+     "mood": "laugh",
+     "face": -30
+    }
+   ],
+   "fx": [
+    {
+     "type": "hearts",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Then… a voice!",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "sit",
+     "mood": "surprised",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "box",
+     "at": [
+      -1.3,
+      0,
+      0.0
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "\"Hello? Anyone in there?\"",
+   "set": "elevator",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     6.9,
+     6.0
+    ],
+    "look": [
+     0,
+     4.0,
+     -0.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "sit",
+     "mood": "excited",
+     "face": 180
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "idle",
+     "mood": "excited",
+     "face": 180
+    }
+   ],
+   "props": [
+    {
+     "type": "box",
+     "at": [
+      -1.3,
+      0,
+      0.0
+     ]
+    }
+   ],
+   "speak": "Hello? Anyone in there?"
+  },
+  {
+   "say": "The technician opens the doors.",
+   "set": "elevator",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     0.4,
+     6.9,
+     6.0
+    ],
+    "look": [
+     0,
+     4.0,
+     -0.8
+    ]
+   },
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "idle",
+     "mood": "excited",
+     "face": 180
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "idle",
+     "mood": "excited",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "slide",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "And you see… the *lobby*.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "face:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "idle",
+     "mood": "confused",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "The ground floor.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "idle",
+     "mood": "confused",
+     "face": -20
+    }
+   ]
+  },
+  {
+   "say": "The elevator never moved.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "facepalm",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "scratch",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Because nobody pressed a button.",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      1.3,
+      0.4
+     ],
+     "do": "facepalm",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🔘❓",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "fail",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Would YOU stay calm?",
+   "set": "elevator",
+   "time": "day",
+   "cam": "close:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "shrug",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "elevator",
+   "time": "day",
+   "cam": "face:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Next time, check the buttons… or you might get…",
+   "set": "elevator",
+   "time": "day",
+   "cam": "medium:finn",
+   "actors": [
+    {
+     "id": "finn",
+     "at": [
+      -1.3,
+      0.0
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}

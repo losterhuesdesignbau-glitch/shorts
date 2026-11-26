@@ -238,5 +238,15 @@
   "plot": "Max throws a carrot, pizza and a cake in the park and attracts a frog, a pig, a cow, a sheep and a chicken. Then a legendary lion arrives and Max and Mia freeze.",
   "twist": "The lion walks past them to Grandma Rosa, who had a sandwich the whole time.",
   "file": "episodes/queue/genz_throw_food_animals.json"
+ },
+ {
+  "date": "2026-11-26",
+  "series": "SURVIVAL",
+  "title": "What If YOU Got Stuck In An Elevator? 🛗😱",
+  "topic": "Stuck in an elevator: air vents, 4-8 cables, emergency brakes, never force doors, press alarm/phone",
+  "hook": "What if YOU got stuck in an elevator?",
+  "plot": "Finn gets stuck in an elevator with a stranger, Grace. She explains elevators have vents and multiple cables; he tries forcing the doors (mistake), they press the alarm, wait and become friends.",
+  "twist": "When the technician opens the doors they are still on the ground floor – nobody ever pressed a button.",
+  "file": "episodes/queue/survival_elevator.json"
  }
 ]

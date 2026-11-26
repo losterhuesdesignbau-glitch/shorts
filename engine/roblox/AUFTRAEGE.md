@@ -38,6 +38,8 @@ Danach das Video nicht mehr bauen (Ausfall-Regel: nicht nachholen). Lukas mit **
 - GENAU EINE Push-Nachricht, erst wenn das Video online ist („✅ HH:MM-Video online …“ / „⚠️ …“); danach im Chat kurz Titel, Links, Status
 
 ## 08:00
+**Nur am 27.11. (Lukas hat sie schon gesehen):** keine neue Folge bauen, sondern die fertige `episodes/tests/mii_frowning.json` nach `episodes/queue/mii_frowning.json` kopieren, themen.py add (Serie IN MII TOWN) und pushen. Danach diesen Absatz löschen.
+
 SLOT = 08:00 · START = 06:45 · PUSH = spätestens 07:20 · SERIE = IN MII TOWN · MUSIK = mystery · HASHTAG = miitown (+ weirdtowns)
 
 THEMA = IN MII TOWN (Lukas 26.11.: statt „In this town“ immer „In Mii Town“; Folgen-Zähler neu ab „IN MII TOWN #1“):
