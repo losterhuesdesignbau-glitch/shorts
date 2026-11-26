@@ -540,7 +540,25 @@ const SETS = {
 const SETC = {};
 function getSet(name, o = {}) {
   const key = name + '|' + JSON.stringify(o); if (SETC[key]) return SETC[key];
-  const S = new SB(); (SETS[name] || SETS.street)(S, o);
+  const S = new SB();
+  // Feste Möbel/Blöcke der Kulisse automatisch als Hindernis erfassen (Lukas 26.11.: „nie wieder dürfen Leute in Objekten stehen“):
+  // jedes Kasten-/Zylinderteil, das auf dem Boden steht (Unterkante < 0,35) und 0,9–4,5 hoch ist, wird eine Fläche für die Prüfung.
+  const solids = [], rec = (m, hx, hy, hz, base) => {
+    const cy = base ? hy : 0, P = [];
+    for (const sx of [-1, 1]) for (const sy of [-1, 1]) for (const sz of [-1, 1]) P.push(M4.xp(m, [sx * hx, cy + sy * hy, sz * hz]));
+    const ys = P.map(p => p[1]), y0 = Math.min(...ys), y1 = Math.max(...ys); if (y0 > 0.35 || y1 - y0 < 0.9 || y1 > 4.5) return;
+    const c = M4.xp(m, [0, cy, 0]), ex = M4.xd(m, [1, 0, 0]), ry = Math.atan2(-ex[2], ex[0]);
+    const w = 2 * hx * Math.hypot(ex[0], ex[2]), ez = M4.xd(m, [0, 0, 1]), d = 2 * hz * Math.hypot(ez[0], ez[2]);
+    if (Math.min(w, d) < 0.45 || Math.max(w, d) > 40) return;
+    solids.push({ x: c[0], z: c[2], ry, w, d, top: y1 });
+  };
+  { const mb = S.mb, ob = mb.box.bind(mb), orb = mb.rbox.bind(mb), oc = mb.cyl.bind(mb);
+    mb.box = (sx, sy, sz, C, op = {}) => { rec(mb.m, sx / 2, sy / 2, sz / 2, op.base); return ob(sx, sy, sz, C, op); };
+    mb.rbox = (sx, sy, sz, r, C, op = {}) => { rec(mb.m, sx / 2, sy / 2, sz / 2, op.base); return orb(sx, sy, sz, r, C, op); };
+    mb.cyl = (r1, r2, h, seg, C, op = {}) => { const r = Math.max(r1, r2) * 0.85; rec(M4.mul(mb.m, M4.T(0, h / 2, 0)), r, h / 2, r, false); return oc(r1, r2, h, seg, C, op); };
+    (SETS[name] || SETS.street)(S, o);
+    mb.box = ob; mb.rbox = orb; mb.cyl = oc; }
+  S.surf = (S.surf || []).concat(solids);
   const out = { bg: S.bg, wide: S.wide, indoor: S.indoor, bounds: S.bounds, items: [], surf: S.surf || [] };
   const add = (mb, extra) => { if (mb.a.length) out.items.push({ g: GL.geo(mb), ...extra }); };
   add(S.mb, { grain: 0.16 }); add(S.fol, { sway: 1, spec: 0.08, rim: 0.12 }); add(S.ns, { sh: false, kind: 'ns', grain: 0.05 }); add(S.win, { kind: 'win' }); add(S.lamp, { kind: 'lamp' }); add(S.glow, { e: 1, sh: false, kind: 'glow' }); add(S.neon, { e: 1, sh: false, kind: 'neon' }); add(S.skywin, { kind: 'sky', sh: false });

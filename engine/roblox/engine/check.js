@@ -67,7 +67,7 @@ R.check = function (si) {
       // 2) Raumgrenzen (Innenräume)
       if (set.bounds) { const [x0, x1, z0, z1] = set.bounds; if (s.x < x0 + r || s.x > x1 - r || s.z < z0 + r || s.z > z1 - r) add(u, 'ausserhalb', s.id, `steht in/hinter der Wand (x ${s.x.toFixed(1)}, z ${s.z.toFixed(1)})`, { clamp: [x0 + r + 0.2, x1 - r - 0.2, z0 + r + 0.2, z1 - r - 0.2] }); }
       // 3) Möbel: steht in einem Tisch/Bett/Pult
-      const top = surfTop(s.x, s.z, surfs);
+      const rb = r * 0.55, top = Math.max(surfTop(s.x, s.z, surfs), surfTop(s.x + rb, s.z, surfs), surfTop(s.x - rb, s.z, surfs), surfTop(s.x, s.z + rb, surfs), surfTop(s.x, s.z - rb, surfs));   // Körper, nicht nur Mittelpunkt (Lukas 26.11.: nie in Objekten)
       if (top > 0.5 && !CHK_SIT.has(act) && s.y < top - 0.25) {
         // nächste freie Stelle suchen (Ringe um die Figur): kein Möbel, im Raum, nicht in anderen Figuren
         let best = null;
