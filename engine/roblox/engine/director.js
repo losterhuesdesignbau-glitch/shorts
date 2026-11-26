@@ -38,7 +38,20 @@ const SHIRTS = ['#e63946', '#1e88e5', '#2a9d8f', '#ffb703', '#9b5de5', '#f15bb5'
 const PANTS = ['#22355e', '#2b2b2b', '#3d405b', '#264653', '#5c4033', '#1d3557'];
 const HAIRS = ['short', 'spiky', 'long', 'ponytail', 'bun', 'cap', 'afro', 'beanie', 'side', 'pigtails', 'bob', 'curly', 'buzz'];
 const HAIRC = ['#2b1b12', '#5a3418', '#8b5a2b', '#d4a017', '#111111', '#b5523b'];
-function npcCfg(seed) { const r = rng(seed * 7919 + 13), pk = a => a[Math.floor(r() * a.length)]; return { ...AVDEF, skin: pk(SKINS), shirt: pk(SHIRTS), pants: pk(PANTS), hair: pk(HAIRS), hairColor: pk(HAIRC), hatColor: pk(SHIRTS), logo: r() < 0.35 ? pk(['star', 'heart', 'bolt', 'smile']) : 'none', logoColor: '#ffffff', logoBg: pk(SHIRTS), sleeves: r() < 0.3 ? 'short' : 'long', shoes: pk(['#2b2b2b', '#ffffff', '#e63946', '#1e88e5', '#5c4033']), ...npcAcc(r, pk) }; }
+// Mii Town (Lukas 26.11.): Statisten/Passanten sind auch Mii-Figuren (gleicher Stil wie die Hauptfiguren)
+const MII_SK = ['#ffe4cc', '#f6d2b4', '#ecc3a0', '#ddb08c', '#c99a78', '#a97a5c', '#865c44', '#5e4130'];
+const MII_HC = ['#1b1b1b', '#2b1b12', '#4a2e1a', '#6d4c41', '#8b5a2b', '#b5523b', '#d4a017', '#e2c17c'];
+const MII_SH = ['#e63946', '#fb8500', '#ffd166', '#8ac926', '#2a9d8f', '#1e88e5', '#00bbf9', '#f15bb5', '#9b5de5', '#8d6e63', '#f5f5f5', '#2b2b2b'];
+function miiNpcCfg(seed, o = {}) {
+  const r = rng(seed * 104729 + 7), pk = a => a[Math.floor(r() * a.length)], w = r() < 0.5, kid = o.kid || r() < 0.18, old = !kid && r() < 0.15;
+  const hc = old ? pk(['#c9c9c9', '#e0e0e0', '#9e9e9e']) : pk(MII_HC);
+  return { ...AVDEF, style: 'mii', skin: pk(MII_SK), hair: old ? pk(w ? ['bun', 'bob', 'short'] : ['short', 'side', 'bald']) : pk(w ? ['long', 'ponytail', 'bob', 'bun', 'pigtails', 'side', 'curly'] : ['short', 'side', 'messy', 'buzz', 'curly', 'spiky']),
+    hairColor: hc, eyeColor: pk(['#3b2416', '#2f2f2f', '#2e6db4', '#3f8f5a', '#6c757d']), face: pk(['round', 'oval', 'square', 'wide', 'long']), nose: pk(['button', 'round', 'long', 'wide', 'small']),
+    ears: pk(['normal', 'normal', 'small', 'big']), facekit: { eye: pk(['round', 'oval', 'almond', 'big', 'narrow']), es: 0.9 + r() * 0.25, edx: Math.round(r() * 9 - 4), ey: Math.round(r() * 8 - 4), brow: pk(['thin', 'flat', 'arched', 'thick']), browColor: hc, my: Math.round(r() * 7 - 3) },
+    shirt: pk(MII_SH), pants: pk(['#22355e', '#2b2b2b', '#3d405b', '#264653', '#5c4033', '#1d3557', '#6c757d']), shoes: pk(['#ffffff', '#2b2b2b', '#5c4033', '#e63946', '#1e88e5']), logo: 'none',
+    headScale: kid ? 1.55 : 1.42, scale: kid ? 0.82 : old ? 0.94 : 0.96 + r() * 0.06, lashes: w, glasses: r() < 0.15, beard: !w && !kid && r() < 0.12, hoodie: r() < 0.15 };
+}
+function npcCfg(seed) { if (R.ep && R.ep.miiTown) return miiNpcCfg(seed); const r = rng(seed * 7919 + 13), pk = a => a[Math.floor(r() * a.length)]; return { ...AVDEF, skin: pk(SKINS), shirt: pk(SHIRTS), pants: pk(PANTS), hair: pk(HAIRS), hairColor: pk(HAIRC), hatColor: pk(SHIRTS), logo: r() < 0.35 ? pk(['star', 'heart', 'bolt', 'smile']) : 'none', logoColor: '#ffffff', logoBg: pk(SHIRTS), sleeves: r() < 0.3 ? 'short' : 'long', shoes: pk(['#2b2b2b', '#ffffff', '#e63946', '#1e88e5', '#5c4033']), ...npcAcc(r, pk) }; }
 function npcAcc(r, pk) {
   const o = {}, c = () => pk(SHIRTS);
   if (r() < 0.22) o.backpack = c(); if (r() < 0.15) o.glasses = true; else if (r() < 0.1) o.shades = true;

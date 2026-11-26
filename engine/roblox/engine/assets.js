@@ -231,6 +231,7 @@ function miiHairGeo(mb, cfg) {
   // Haaransatz: vorne hoch (Stirn frei), seitlich bis über die Ohren, hinten tief
   const line = (front, side, back) => d => { const f = d[2]; const w = smooth((f - 0.3) / 0.3); const yc = f > 0 ? front * w + side * (1 - w) : back * -f + side * (1 + f); return d[1] > yc; };   // Stirn frei, Schläfen bis zum Ohr
   const T = (x, y, z, f) => { mb.push(M4.T(x, y, z)); f(); mb.pop(); };
+  if (st === 'bald' || st === 'none') { if (st === 'bald') for (const s of [-1, 1]) T(s * 0.62, 0.0, -0.18, () => mb.sphere(0.24, 2, hc, { sx: 0.5, sy: 0.8 })); return; }
   if (st === 'afro') { T(0, 0.32, -0.1, () => mb.sphere(0.98, 2, hc, { sy: 0.92 })); return; }
   if (st === 'buzz') { miiShell(mb, hc, 0.75, line(0.42, 0.05, -0.3), { sy: 1.04 }); return; }
   if (st === 'cap') { miiShell(mb, hc, 0.77, line(0.3, -0.05, -0.45)); return; }

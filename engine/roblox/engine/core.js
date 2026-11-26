@@ -234,7 +234,10 @@ void main(){vec3 n=normalize(vN);
  vec4 tx=uHT>0.5?texture(uTex,vT):vec4(0.0);vec3 base=uTA>0.5?vc*uTint:vc*uTint*(1.0-tx.a)+tx.rgb;
  vec3 V=normalize(uEye-vW);
 #ifdef GRAIN
- if(n.y>0.8){float g=texture(uNz,vW.xz*0.006).r*0.65+texture(uNz,vW.xz*0.05).g*0.35;base*=1.0+uGrain*1.4*(g-0.5);}
+ if(n.y>0.8){float g=texture(uNz,vW.xz*0.006).r*0.65+texture(uNz,vW.xz*0.05).g*0.35;base*=1.0+uGrain*1.4*(g-0.5);
+  if(base.g>base.r*1.12&&base.g>base.b*1.08){   // Rasen: Farbflecken (sattgrün/gelblich), feine Halm-Struktur, leichte Mähstreifen
+   float p=texture(uNz,vW.xz*0.018).b,f=texture(uNz,vW.xz*0.9).r,s=step(0.0,sin(vW.x*0.32+vW.z*0.05));
+   base*=mix(vec3(0.82,0.95,0.78),vec3(1.08,1.04,0.86),p);base*=0.9+0.2*f;base*=0.965+0.07*s;}}
 #endif
 #ifdef WATER
  {vec2 q=vW.xz;float a=uTime;

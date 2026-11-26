@@ -68,7 +68,7 @@ def compile_episode(ep, voice_path=None, speed=1.0, tts=None):
     end = max((allw[-1]['t1'] if allw else 0) + float(ep.get('tail', 1.0)), prev_end, starts[-1] + 0.5)
     if voice is not None: end = max(end, len(voice) / AU.SR + 0.3)
     fps = ep.get('fps', 30)
-    out = {'cast': ep.get('cast', {}), 'capY': ep.get('capY', 0.64), 'capSize': ep.get('capSize', 104), 'shots': []}
+    out = {'cast': ep.get('cast', {}), 'miiTown': bool(ep.get('miiTown')), 'capY': ep.get('capY', 0.64), 'capSize': ep.get('capSize', 104), 'shots': []}
     events = []
     for si, sh in enumerate(shots):
         t0 = starts[si]; t1 = starts[si + 1] if si + 1 < len(shots) else end
@@ -473,6 +473,20 @@ def mii_check(src):
             acts = [a.get('do')] if isinstance(a.get('do'), str) else [x[0] if isinstance(x, list) else x for x in (a.get('do') or [])]
             if moves and not any(str(x) in MOVE_ACTS for x in acts) and not (src.get('cast', {}).get(a.get('id'), {}) or {}).get('animal') and not a.get('npcCrowd'):
                 out.append(f'Shot {i}: {a.get("id")} bewegt sich mit do={a.get("do")} – Füße würden rutschen (walk/run setzen)')
+    # Bild passt zum Text (Lukas 26.11.: Handlung logisch): genanntes Tier/Ding muss im Shot zu sehen sein
+    ANIM = {'dog', 'cat', 'fox', 'lion', 'tiger', 'pig', 'bear', 'sheep', 'cow', 'penguin', 'frog', 'chicken', 'croc', 'shark'}
+    THING = {'cake', 'pizza', 'burger', 'carrot', 'apple', 'banana', 'egg', 'phone', 'book', 'ball', 'gift', 'trophy', 'umbrella', 'icecream', 'coin', 'flashlight', 'controller', 'crown'}
+    castA = {k: (v or {}).get('animal') for k, v in (src.get('cast') or {}).items() if isinstance(v, dict)}
+    for i, sh in enumerate(src.get('shots') or [], 1):
+        if sh.get('intro'): continue
+        words = set(re.findall(r'[a-z]+', (sh.get('say') or '').lower())); words |= {w[:-1] for w in words if w.endswith('s')}
+        seen = {castA.get(a.get('id')) for a in sh.get('actors') or []} | {a.get('animal') for a in sh.get('actors') or []}
+        for a in sh.get('actors') or []:
+            for k in ('hold', 'throw'):
+                h = a.get(k); seen.add(h if isinstance(h, str) else (h or {}).get('type') or (h or {}).get('item'))
+        seen |= {p.get('type') for p in sh.get('props') or []}
+        for w in sorted((words & ANIM) | (words & THING)):
+            if w not in seen and not sh.get('noCheck'): out.append(f'Shot {i}: Text nennt „{w}“, im Bild fehlt es')
     mii = any(isinstance(v, dict) and v.get('style') == 'mii' for v in (src.get('cast') or {}).values())
     if mii and src.get('intro') is not False and not any(s.get('intro') for s in src.get('shots') or []): out.append('Mii-Town-Folge ohne Intro')
     src['_miiCheck'] = out
@@ -512,6 +526,11 @@ def expand_crowd(src):
             x = x0 + (i + 0.5) * (x1 - x0) / cols + R.uniform(-0.35, 0.35)
             z = z0 + (j + 0.5) * (z1 - z0) / rows + R.uniform(-0.35, 0.35)
             cid = f"crowd{int(c.get('seed', 7))}_{k + 1}"
+            if cid not in cast and src.get('miiTown'):   # Mii Town: Menge aus Mii-Figuren
+                sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools')); import figuren as _fg
+                look = {kk: vv for kk, vv in _fg.generate(cid, age=R.choice(['kid', 'teen', 'adult', 'adult', 'senior'])).items() if kk not in ('name', 'sex', 'age', 'role', 'created')}
+                if teams: look['shirt'] = teams[0] if (len(teams) == 1 or x < (x0 + x1) / 2) else teams[1]
+                cast[cid] = look
             if cid not in cast:
                 look = {'look': R.choice(CROWD_LOOKS), 'hair': R.choice(CROWD_HAIR), 'hairColor': R.choice(CROWD_HC),
                         'skin': R.choice(CROWD_SKIN), 'shirt': R.choice(CROWD_SHIRT), 'logo': 'none'}
@@ -540,6 +559,7 @@ def main():
         src['cast'], _miss = _fig.resolve_cast(src.get('cast'))
         if _miss: print('Neue Figuren automatisch erzeugt (noch nicht in episodes/figuren.json – zum Festschreiben: python tools/figuren.py auto <episode>): ' + ', '.join(_miss), flush=True)
     except Exception as _e: print('Figuren-Datenbank nicht geladen:', _e, flush=True)
+    src['miiTown'] = any(isinstance(v, dict) and v.get('style') == 'mii' for v in (src.get('cast') or {}).values()) or bool(src.get('miiTown'))   # Statisten im Mii-Stil
     mii_intro(src)
     expand_crowd(src)
     mii_check(src)

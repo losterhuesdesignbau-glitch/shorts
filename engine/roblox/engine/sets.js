@@ -13,6 +13,16 @@ class SB {
 }
 const P_ = (mb, x, y, z, f) => { mb.push(M4.T(x, y, z)); f(); mb.pop(); };
 function groundPlane(mb, c = '#7ccf4a', size = 360) { P_(mb, 0, -0.1, 0, () => mb.box(size, 0.2, size, c)); }
+// Grasbüschel + kleine Blumen über die Wiese verteilt (Lukas 26.11.: Szenen sollen voller/hochwertiger wirken). skip(x, z) = Wege/Wasser aussparen
+function grassTufts(S, n, x0, z0, x1, z1, seed = 3, skip = () => false) {
+  const R = rng(seed);
+  for (let i = 0; i < n; i++) {
+    const x = x0 + R() * (x1 - x0), z = z0 + R() * (z1 - z0); if (skip(x, z)) continue;
+    const c = ['#4caf3a', '#5cbf45', '#3f9e34', '#6bc24f'][i % 4], s = 0.6 + R() * 0.6;
+    for (let k = 0; k < 4; k++) { const a = k / 4 * 6.28 + R(); S.fol.push(M4.chain(M4.T(x + Math.sin(a) * 0.09 * s, 0, z + Math.cos(a) * 0.09 * s), M4.RZ((R() - 0.5) * 0.5), M4.RX((R() - 0.5) * 0.5))); S.fol.cyl(0.07 * s, 0.0, (0.35 + R() * 0.25) * s, 4, c, { flat: false }); S.fol.pop(); }
+    if (R() < 0.09) setFlower(S.mb, x + 0.25, z + 0.1, ['#ffffff', '#ffd23f', '#ff7eb6', '#b388ff'][i % 4]);
+  }
+}
 function winPane(S, x, y, z, ww, wh, trim = '#ffffff') {
   P_(S.mb, x, y, z + 0.05, () => S.mb.box(ww + 0.4, wh + 0.4, 0.16, trim));
   P_(S.win, x, y, z + 0.1, () => S.win.box(ww, wh, 0.16, '#ffffff'));
@@ -80,7 +90,7 @@ const SETS = {
   house(S, o) {
     const mb = S.mb; groundPlane(mb);
     house(S, 0, -12, 0, { w: 14, h: 8.5, d: 9, wall: o.color || '#ffd23f', roof: o.roof || '#e74c3c', door: '#d62828', awning: true, chimney: true });
-    if (o.name !== '') { S.at(0, 0, -7.5); S.sign(o.name || 'ELI', 4.2, 1.5, { bg: '#1d1712', fg: '#ffd23f', border: '#ffd23f' }, M4.T(0, 5.55, 0.25)); S.pop(); }
+    if (o.name) { S.at(0, 0, -7.5); S.sign(o.name, 4.2, 1.5, { bg: '#1d1712', fg: '#ffd23f', border: '#ffd23f' }, M4.T(0, 5.55, 0.25)); S.pop(); }
     P_(mb, 0, 0.05, 0.5, () => mb.box(2.6, 0.1, 15, '#d6d9de'));
     for (const x of [-6, -3.4, 3.4, 6]) setBush(S.fol, x, -6.4, 0.85);
     for (let i = 0; i < 10; i++) setFlower(mb, -6.5 + i * 1.45 + (i > 4 ? 1.2 : -1.2), -5.2, ['#ff5c8a', '#ffd23f', '#9b5de5', '#ffffff'][i % 4]);
@@ -94,7 +104,7 @@ const SETS = {
     S.wide = { eye: [7, 6.5, 22], look: [0, 4.5, -4] };
   },
   park(S, o) {
-    const mb = S.mb; groundPlane(mb, '#7fd34e');
+    const mb = S.mb; groundPlane(mb, '#6cc844');
     P_(mb, 0, 0.04, 9, () => mb.box(220, 0.08, 3.2, '#e9d6a6'));
     P_(mb, -16, 0.045, -26, () => mb.box(3.2, 0.09, 70, '#e9d6a6'));
     S.water(m => { m.push(M4.T(18, 0.08, -14)); m.disc(8, 28, '#36b3f0'); m.pop(); }, 0.88);
@@ -117,6 +127,7 @@ const SETS = {
     S.pop();
     for (let x = -60; x <= 60; x += 20) setLampPost(mb, S.lamp, x + 10, 7.0);
     for (let i = 0; i < 16; i++) setFlower(mb, -12 + (i % 8) * 0.9, -6 - Math.floor(i / 8) * 0.9, ['#ff5c8a', '#ffd23f', '#9b5de5', '#ff7f11'][i % 4]);
+    { const sk = (x, z) => Math.abs(z - 9) < 2.2 || Math.abs(x + 16) < 2.2 || Math.hypot(x - 18, z + 14) < 9.5; grassTufts(S, 700, -14, -14, 14, 18, 11, sk); grassTufts(S, 400, -40, -50, 40, 30, 12, sk); }
     S.wide = { eye: [0, 12, 28], look: [0, 2, -6] };
   },
   school(S, o) {
@@ -130,7 +141,7 @@ const SETS = {
     P_(mb, 0, 8.5, 1.0, () => mb.box(12, 0.4, 3.0, '#c0392b'));
     for (const s of [-1, 1]) P_(mb, s * 1.25, 2.1, 2.05, () => mb.box(2.3, 4.2, 0.2, '#1e6fd9'));
     P_(mb, 0, 0.2, 2.9, () => mb.box(9, 0.4, 1.8, '#c9ced6'));
-    S.sign(o.name || 'SCHULE', 8, 1.7, { bg: '#ffffff', fg: '#1e6fd9', border: '#1e6fd9' }, M4.T(0, 6.6, 2.1));
+    S.sign(o.name || 'SCHOOL', 8, 1.7, { bg: '#ffffff', fg: '#1e6fd9', border: '#1e6fd9' }, M4.T(0, 6.6, 2.1));
     S.texq(clockTex(o.time || '08:00'), 2.6, 2.6, M4.T(0, 11.8, 0.25));
     S.pop();
     S.prop('flag', -20, -18, 0, { color: '#e63946' });
@@ -195,7 +206,18 @@ const SETS = {
     P_(ns, 2, 5.2, -8.95, () => ns.box(5.4, 4.4, 0.2, '#ffffff')); P_(S.skywin, 2, 5.2, -8.85, () => S.skywin.box(4.8, 3.8, 0.1, '#ffffff')); P_(ns, 2, 5.2, -8.75, () => { ns.box(0.14, 3.8, 0.08, '#ffffff'); ns.box(4.8, 0.14, 0.08, '#ffffff'); });
     for (const s of [-1, 1]) P_(mb, 2 + s * 3.2, 5.0, -8.6, () => mb.rbox(1.2, 5.4, 0.3, 0.12, o.curtain || '#4f8ef7'));
     S.prop('bed', -6.6, -4.8, 0, { color: o.blanket || '#4f8ef7' });
-    P_(mb, 0, 0.03, 1.8, () => mb.disc(4.2, 24, o.rug || '#ffd23f'));
+    { const rc = o.rug || '#ffd23f'; P_(mb, 0, 0.03, 1.8, () => mb.disc(3.4, 32, shade(rc, 0.85))); P_(mb, 0, 0.035, 1.8, () => mb.disc(3.0, 32, rc)); P_(mb, 0, 0.04, 1.8, () => mb.disc(1.6, 32, '#ffffff')); P_(mb, 0, 0.045, 1.8, () => mb.disc(1.2, 32, rc)); }
+    // Lukas 26.11.: Zimmer voller & wohnlicher – Tapetenstreifen, Fußleisten, Regal mit Büchern, Pflanzen, Stehlampe, Bilder, Sitzsack
+    for (let x = -10.6; x <= 10.6; x += 1.1) P_(ns, x, 4.6, -8.98, () => ns.box(0.42, 9.0, 0.02, shade(wc, 0.95)));
+    P_(mb, 0, 0.22, -8.95, () => mb.box(22, 0.44, 0.12, '#ffffff')); for (const s of [-1, 1]) P_(mb, s * 10.95, 0.22, 1.5, () => mb.box(0.12, 0.44, 21.4, '#ffffff'));
+    S.at(-10.6, 0, 6.5, 90); P_(mb, 0, 2.4, 0, () => mb.box(4.2, 4.8, 1.0, '#c08552'));
+    for (let r = 0; r < 3; r++) { P_(mb, 0, 0.9 + r * 1.5, 0.08, () => mb.box(4.0, 0.12, 0.9, '#a0622d')); const R = rng(31 + r); let x = -1.8;
+      while (x < 1.7) { const w = 0.18 + R() * 0.16, h = 0.8 + R() * 0.45; P_(mb, x + w / 2, 0.96 + r * 1.5 + h / 2, 0.05, () => mb.box(w, h, 0.7, ['#e63946', '#1e88e5', '#ffd23f', '#2a9d8f', '#9b5de5', '#fb8500', '#ffffff'][Math.floor(R() * 7)])); x += w + 0.03; } }
+    S.pop();
+    S.prop('potplant', -9.4, -7.6, 0); S.prop('potplant', 9.8, 9.6, 0);
+    P_(mb, -2.6, 0, -7.8, () => { mb.cyl(0.45, 0.45, 0.12, 14, '#2b2b2b'); mb.cyl(0.07, 0.07, 4.6, 8, '#2b2b2b'); }); P_(S.glow, -2.6, 4.5, -7.8, () => S.glow.cyl(0.75, 0.42, 0.8, 16, '#fff1c9', { flat: false }));
+    for (const [x, y, c, c2] of [[-4.6, 6.0, '#4cc9f0', '#ffd23f'], [-7.4, 5.4, '#06d6a0', '#ffffff']]) { P_(ns, x, y, -8.95, () => ns.box(1.9, 1.5, 0.08, '#ffffff')); P_(ns, x, y, -8.9, () => ns.box(1.6, 1.2, 0.04, c)); P_(ns, x - 0.2, y - 0.15, -8.86, () => ns.sphere(0.32, 1, c2, { sz: 0.2 })); }
+    P_(mb, 5.6, 0.55, 5.6, () => mb.sphere(1.1, 2, o.beanbag || '#ff7eb6', { sy: 0.55 }));
     S.prop('table', 7.4, -6.6, 0, { w: 4.2, d: 2.2, color: '#ffffff' });
     P_(mb, 7.4, 3.3, -7.2, () => mb.rbox(2.4, 1.6, 0.2, 0.08, '#1b1b1b')); P_(S.glow, 7.4, 3.3, -7.08, () => S.glow.box(2.1, 1.3, 0.04, '#7fd1ff'));
     S.prop('chair', 7.4, -4.6, 180, { color: '#e63946' });
@@ -477,7 +499,7 @@ const SETS = {
     P_(mb, 0, 3.2, 0, () => mb.cyl(1.2, 2.2, 0.6, 16, '#cfd5dc', { flat: false }));
     S.water(m => { m.push(M4.T(0, 0.95, 0)); m.disc(4.9, 24, '#36b3f0'); m.pop(); m.push(M4.T(0, 3.75, 0)); m.disc(2.0, 16, '#36b3f0'); m.pop(); }, 0.85);
     S.pop();
-    const shops = [['BÄCKEREI', '#ffd6a5', '#e63946'], ['EIS', '#caffbf', '#f15bb5'], ['KIOSK', '#9bf6ff', '#1e88e5'], ['PIZZA', '#ffc6ff', '#2a9d8f'], ['BLUMEN', '#fdffb6', '#ff7f11']];
+    const shops = [['BAKERY', '#ffd6a5', '#e63946'], ['ICE CREAM', '#caffbf', '#f15bb5'], ['KIOSK', '#9bf6ff', '#1e88e5'], ['PIZZA', '#ffc6ff', '#2a9d8f'], ['FLOWERS', '#fdffb6', '#ff7f11']];
     shops.forEach(([t, w, s], i) => shop(S, -26 + i * 13, -40, 0, { text: (o.shops && o.shops[i]) || t, wall: w, stripe: s }));
     for (const s of [-1, 1]) for (let i = 0; i < 3; i++) house(S, s * 40, -24 + i * 13, s > 0 ? -90 : 90, { w: 12, h: 10, wall: WALLS[(i + (s > 0 ? 3 : 0)) % 8], roof: ROOFS[i % 6], flat: i === 1 });
     S.at(-30, 0, -50); P_(mb, 0, 11, 0, () => mb.box(6, 22, 6, '#d8c3a5')); P_(mb, 0, 22, 0, () => mb.cyl(4.6, 0, 5, 4, '#c0392b', { rot: Math.PI / 4 }));
@@ -507,7 +529,7 @@ const SETS = {
     P_(mb, 0, 0.07, 2, () => mb.disc(3, 24, '#ffd23f')); P_(mb, 0, 0.08, 2, () => mb.disc(2.4, 24, '#ff9f1a'));
     const dist = o.marks || ['10 M', '25 M', '50 M', '100 M'];
     dist.forEach((t, i) => S.prop('sign', 17, -12 - i * 22, -20, { text: t, bg: '#ffffff', fg: '#1d1712', border: '#1d1712', w: 3, h: 1.6 }));
-    if (o.banner !== '') S.prop('banner', 0, -6, 0, { text: o.banner || 'WURF-CHALLENGE', w: 12 });
+    if (o.banner !== '') S.prop('banner', 0, -6, 0, { text: o.banner || 'THROW CHALLENGE', w: 12 });
     for (let i = 0; i < 5; i++) P_(mb, -26, 0.5 + i * 0.9, -10 - i * 1.2, () => mb.box(4, 0.9, 30, i % 2 ? '#d9dde3' : '#c4cad2'));
     const R = rng(31); for (let i = 0; i < 30; i++) { const x = (R() - 0.5) * 140, z = -70 - R() * 50; if (R() < 0.6) setPine(S.fol, x, z, 0.9 + R() * 0.5); else setTree(S.fol, x, z, 1, i % 3); }
     for (const x of [-40, 40]) for (let z = -60; z <= 10; z += 14) setTree(S.fol, x + (z % 3), z, 1, 2);
