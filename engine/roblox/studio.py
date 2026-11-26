@@ -289,7 +289,7 @@ def quality_check(path, total):
         pr = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,width,height', '-show_entries', 'format=duration', '-of', 'json', str(path)], capture_output=True, text=True).stdout
         info = json.loads(pr); vs = [x for x in info.get('streams', []) if x.get('codec_type') == 'video']; aus = [x for x in info.get('streams', []) if x.get('codec_type') == 'audio']
         probs = []
-        if not vs or (vs[0].get('width'), vs[0].get('height')) != (W, H): probs.append(f"Auflösung {vs[0].get('width') if vs else '?'}x{vs[0].get('height') if vs else '?'}")
+        if not vs or (vs[0].get('width'), vs[0].get('height')) not in ((W, H), (2 * W, 2 * H)):   # 1080p oder echtes 4K probs.append(f"Auflösung {vs[0].get('width') if vs else '?'}x{vs[0].get('height') if vs else '?'}")
         if not aus: probs.append('keine Tonspur')
         dur = float(info.get('format', {}).get('duration', 0))
         if abs(dur - total) > 1.0: probs.append(f'Länge {dur:.1f}s statt {total:.1f}s')

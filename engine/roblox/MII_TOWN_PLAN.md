@@ -59,3 +59,10 @@ Die bisherigen Episoden bleiben renderbar: Der alte Block-Stil bleibt als `style
 - Schritt 4 Szenen: Zuhörer reagieren mit Körper, Kopf und Blick (Nicken im Gesprächstakt, Ruck auf betonte Wörter, je Figur versetzt). Neue Figuren aus dem Skript (`"@id"` oder `{"char": "id", "age": …}`) werden automatisch erzeugt – deterministisch aus der id, also immer gleich; festschreiben mit `python tools/figuren.py auto <episode>`.
 - Schritt 5 QA: `mii_check` vor dem Rendern (Identität gegen Datenbank, Fußrutschen = Bewegung ohne walk/run, fehlendes Intro), Qualitätsbericht `<video>_bericht.md` nach dem Rendern. Fix: auto_sfx mit Zeitlisten in `do`/`mood`.
 - Schritt 6: Testvideo `episodes/tests/mii_town_test.json` (24 Shots, 40 s, Kategorie comedy).
+
+## Offene Punkte (26.11.)
+- Testvideo nur über Standbilder + automatische Prüfung kontrolliert; das fertige MP4 kann ich hier nicht herunterladen (Netz-Sperre) → Abnahme durch Lukas.
+- Gruppen-Shots wirken weit weg (Viral-Kamera `camFar 1.4`); evtl. für Mii Town näher.
+- Mias Blockfrisur verdeckt teils die Augen; Rosas Dutt wirkt wie ein Helm.
+- Ladenschilder am Platz sind deutsch (BÄCKEREI, KIOSK) – für englische Videos umstellen.
+- Nach Abnahme: tägliche Läufe neu planen, ABLAUF/AUFTRAEGE auf Mii-Figuren umstellen.
