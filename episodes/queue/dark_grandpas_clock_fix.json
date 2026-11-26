@@ -1,0 +1,1140 @@
+{
+ "title": "Grandpa's Clock",
+ "music": "dark",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "3:33 A.M.\nDON'T TOUCH IT",
+  "series": "DARK STORIES #5",
+  "cta": "LEFT or RIGHT? 👇",
+  "mid": "Guess what happens at 3:34 👇",
+  "share": "Send this to someone awake at 3 a.m. 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "Grandpa's Clock Stops at 3:33 A.M. Every Night… ⏰😨",
+  "description": "Grandpa Oscar had one rule: never touch the old clock. At 3:33 a.m. it always stops – and then the ticking moves into the hallway. Lily turned it to 3:34… Which Grandpa is the real one? 👇",
+  "hashtags": [
+   "darkstories",
+   "scarystory",
+   "3am",
+   "miitown",
+   "horror"
+  ],
+  "keywords": [
+   "3:33 am",
+   "scary story",
+   "grandpa clock"
+  ],
+  "question": "Which Grandpa is the real one – left or right? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "lily": {
+   "char": "lily",
+   "outfit": {
+    "glow": 0.35
+   }
+  },
+  "oscar": "@oscar",
+  "oscar2": "@oscar"
+ },
+ "shots": [
+  {
+   "say": "Grandpa's clock stops at 3:33 a.m.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      -4
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.08
+    ]
+   ],
+   "speak": "Grandpa's clock stops at three thirty-three a.m."
+  },
+  {
+   "say": "Every single night.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      -4
+     ],
+     "do": "look",
+     "mood": "nervous",
+     "face": -90
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "Lily was staying at Grandpa Oscar's house.",
+   "set": "house",
+   "time": "dusk",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -3,
+      4
+     ],
+     "do": "walk",
+     "mood": "smile",
+     "path": [
+      [
+       -3,
+       4
+      ],
+      [
+       -0.8,
+       2
+      ]
+     ]
+    },
+    {
+     "id": "oscar",
+     "at": [
+      1.2,
+      1.5
+     ],
+     "do": "wave",
+     "mood": "smile",
+     "face": -40
+    }
+   ]
+  },
+  {
+   "say": "He had only one rule.",
+   "set": "kitchen",
+   "time": "dusk",
+   "cam": "medium:oscar",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      1,
+      2
+     ],
+     "do": "talk",
+     "mood": "neutral",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "\"Never touch the old clock.\"",
+   "set": "kitchen",
+   "time": "dusk",
+   "cam": "face:oscar",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      1,
+      2
+     ],
+     "do": "talk",
+     "mood": "angry",
+     "face": 0
+    }
+   ],
+   "speak": "Never touch the old clock."
+  },
+  {
+   "say": "Lily laughed. It was just a clock.",
+   "set": "kitchen",
+   "time": "dusk",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -1.6,
+      2.4
+     ],
+     "do": "laugh",
+     "mood": "laugh",
+     "face": 20
+    }
+   ]
+  },
+  {
+   "say": "That night, she could not sleep.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -3.3
+     ],
+     "do": "sit",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Tick. Tock. Tick. Tock.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -3.3
+     ],
+     "do": "sit",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.1
+    ],
+    [
+     "tick",
+     0.35
+    ],
+    [
+     "tick",
+     0.6
+    ],
+    [
+     "tick",
+     0.85
+    ]
+   ]
+  },
+  {
+   "say": "Then, at 3:33 a.m.…",
+   "set": "room",
+   "time": "night",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -3.3
+     ],
+     "do": "sit",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "3:33 AM",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ff595e"
+    }
+   ],
+   "sfx": [
+    [
+     "drone",
+     0.0
+    ]
+   ],
+   "speak": "Then, at three thirty-three a.m.…"
+  },
+  {
+   "say": "the ticking stopped.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -3.3
+     ],
+     "do": "sit",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "pause": 0.4
+  },
+  {
+   "say": "Silence.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -3.3
+     ],
+     "do": "sit",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "blanket",
+     "at": [
+      -6.6,
+      1.2,
+      -4.8
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Then it started again…",
+   "set": "room",
+   "time": "night",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -3.3
+     ],
+     "do": "sit",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.3
+    ],
+    [
+     "tick",
+     0.7
+    ]
+   ]
+  },
+  {
+   "say": "but this time, it came from the hallway.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -3.3
+     ],
+     "do": "sit",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Lily crept outside.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "track:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      3
+     ],
+     "do": "sneak",
+     "mood": "scared",
+     "path": [
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       -2
+      ]
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ]
+  },
+  {
+   "say": "The clock was still frozen at 3:33.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0.6,
+      -5
+     ],
+     "do": "look",
+     "mood": "scared",
+     "face": -90
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ],
+   "pops": [
+    {
+     "text": "3:33",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ff595e"
+    }
+   ],
+   "speak": "The clock was still frozen at three thirty-three."
+  },
+  {
+   "say": "But the ticking was right behind her.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0.6,
+      -5
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.45
+    ],
+    [
+     "tick",
+     0.7
+    ]
+   ]
+  },
+  {
+   "say": "She did the one thing she shouldn't.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0.6,
+      -5
+     ],
+     "do": "idle",
+     "mood": "determined",
+     "face": -90
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ]
+  },
+  {
+   "say": "She turned the clock forward.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      1.6,
+      -6
+     ],
+     "do": "point",
+     "mood": "determined",
+     "face": -90
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ],
+   "sfx": [
+    [
+     "scratch",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "3:34.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      1.6,
+      -6
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": -60
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ],
+   "pops": [
+    {
+     "text": "3:34",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.1,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.1
+    ]
+   ],
+   "speak": "three thirty-four."
+  },
+  {
+   "say": "The ticking behind her stopped.",
+   "set": "hallway",
+   "time": "night",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      1.6,
+      -6
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ]
+  },
+  {
+   "say": "Lily ran back to bed…",
+   "set": "hallway",
+   "time": "night",
+   "cam": "track:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      -4
+     ],
+     "do": "run",
+     "mood": "panic",
+     "path": [
+      [
+       0,
+       -4
+      ],
+      [
+       0,
+       4
+      ]
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "and stayed very, very still.",
+   "set": "room",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     -2.8,
+     5.2,
+     0.5
+    ],
+    "look": [
+     -6.6,
+     1.6,
+     -4.6
+    ]
+   },
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -4.6
+     ],
+     "do": "lie",
+     "mood": "scared",
+     "y": 1.55,
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Nothing happened.",
+   "set": "room",
+   "time": "night",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -6.6,
+      -3.3
+     ],
+     "do": "sit",
+     "mood": "sleepy",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "In the morning, she went down to the kitchen.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -4,
+      4
+     ],
+     "do": "walk",
+     "mood": "sleepy",
+     "path": [
+      [
+       -4,
+       4
+      ],
+      [
+       -1.6,
+       2.4
+      ]
+     ]
+    },
+    {
+     "id": "oscar",
+     "at": [
+      1,
+      2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Grandpa was making pancakes.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "medium:oscar",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      1,
+      2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0,
+     "hold": "tray"
+    }
+   ]
+  },
+  {
+   "say": "\"Good morning, sweetie!\"",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "close:oscar",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      1,
+      2
+     ],
+     "do": "talk",
+     "mood": "happy",
+     "face": -20
+    }
+   ],
+   "speak": "Good morning, sweetie!"
+  },
+  {
+   "say": "Lily smiled. Everything was fine.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -1.6,
+      2.4
+     ],
+     "do": "idle",
+     "mood": "relieved",
+     "face": 20
+    }
+   ]
+  },
+  {
+   "say": "Then footsteps came from behind her.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -1.6,
+      2.4
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 20
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ],
+    [
+     "tick",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "\"Good morning, sweetie!\"",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "medium:oscar2",
+   "actors": [
+    {
+     "id": "oscar2",
+     "at": [
+      -4,
+      5
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "path": [
+      [
+       -4,
+       5
+      ],
+      [
+       -3.6,
+       1.2
+      ]
+     ]
+    },
+    {
+     "id": "lily",
+     "at": [
+      -1.6,
+      2.4
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 180
+    }
+   ],
+   "speak": "Good morning, sweetie!"
+  },
+  {
+   "say": "Two Grandpas.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      1,
+      2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "oscar2",
+     "at": [
+      -3.6,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "lily",
+     "at": [
+      -1.3,
+      3.2
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Same face. Same voice.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "close:oscar",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      1,
+      2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": -20
+    }
+   ]
+  },
+  {
+   "say": "Same smile.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "close:oscar2",
+   "actors": [
+    {
+     "id": "oscar2",
+     "at": [
+      -3.6,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 20
+    }
+   ]
+  },
+  {
+   "say": "One of them came in at 3:34.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -1.3,
+      3.2
+     ],
+     "do": "idle",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "3:34",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ],
+   "speak": "One of them came in at three thirty-four."
+  },
+  {
+   "say": "And Lily has no idea which one.",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -1.3,
+      3.2
+     ],
+     "do": "idle",
+     "mood": "fear",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "\"Pancakes?\"",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      1,
+      2
+     ],
+     "do": "talk",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "oscar2",
+     "at": [
+      -3.6,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "lily",
+     "at": [
+      -1.3,
+      3.2
+     ],
+     "do": "idle",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "speak": "Pancakes?"
+  },
+  {
+   "say": "Which Grandpa is the real one?",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -1.3,
+      3.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Left or right?",
+   "set": "kitchen",
+   "time": "morning",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -1.3,
+      3.2
+     ],
+     "do": "idle",
+     "mood": "scared",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Never forget: Grandpa's clock…",
+   "set": "hallway",
+   "time": "night",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0.6,
+      -5
+     ],
+     "do": "look",
+     "mood": "scared",
+     "face": -90
+    }
+   ],
+   "props": [
+    {
+     "type": "clock",
+     "at": [
+      2.9,
+      2.6,
+      -6
+     ],
+     "ry": -90
+    }
+   ]
+  }
+ ]
+}
