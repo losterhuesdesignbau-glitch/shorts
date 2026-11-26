@@ -123,7 +123,7 @@ Abkürzungen („z.B.“, „Dr.“) und englische Namen ggf. per `speak` aussch
 ## Viral-Werkzeuge (mehr Aufrufe)
 Episode-Feld `"viral"` – wird automatisch in die Shots eingebaut:
 ```json
-"viral": { "hook": "THIS TOWN\nBANS YAWNING", "series": "WEIRD TOWNS #4", "cta": "YES or NO? 👇", "loop": true }
+"viral": { "hook": "MII TOWN\nBANS YAWNING", "series": "IN MII TOWN #1", "cta": "YES or NO? 👇", "loop": true }
 ```
 - `hook` – großer, wackelnder Text ab Frame 1 im ersten Shot (die ersten 2 s entscheiden). Titel erscheint erst danach.
 - `series` – Serien-Abzeichen oben in jedem Shot (Leute folgen für die nächste Folge).
@@ -190,7 +190,7 @@ Alle Verbesserungen sind jetzt Standard:
 ## Sendeplan & Regeln (ab 21.11.2026; Läufe starten 75 min vor dem Termin, Push spätestens 40 min vorher – echtes 4K rendert ~25 min)
 | Zeit | Serie | Musik (`"music"`) |
 |---|---|---|
-| 08:00 | Weird Towns / In This Town | `mystery` |
+| 08:00 | In Mii Town (früher Weird Towns / In This Town) | `mystery` |
 | 10:00 | School Life | `school` (lustig) / `school_emo` (emotional) |
 | 12:30 | X vs Y | `battle` |
 | 15:30 | GenZ Trends (Roblox/Gaming/Internet/Challenges – keine Tänze, keine Musik-Trends, nichts kopieren) | `trend` |

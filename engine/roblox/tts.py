@@ -304,6 +304,7 @@ def _speech_token(w):
     # Uhrzeiten (Lukas 23.11.): „9 p.m.“ wird mit hörbarer Pause gesprochen: „P… M“
     m = re.match(r'^([ap])\.?m\.?([,;:!?…]*)$', s, re.I)
     if m: return f"{m.group(1).upper()}… M{m.group(2) or ''}"
+    s = re.sub(r"(?i)\bmii(s|'s)?\b", lambda m: 'Mee' + (m.group(1) or ''), s)   # „Mii“ wie „Mee“ (nicht „Mithai“)
     if w.get('pause') and not re.search(r'[.,;:!?…]["“”»«)]*$', s): s += ','
     return s
 

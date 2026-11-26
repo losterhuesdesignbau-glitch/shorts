@@ -26,7 +26,7 @@ MODEL_URL = 'https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/
 MDIR = CACHE / 'asr' / 'sherpa-onnx-whisper-tiny.en'
 
 # gleich klingende Wörter (Spracherkennung kann sie nicht unterscheiden)
-HOMO = {'ok': 'okay', 'threw': 'through', 'two': 'to', 'too': 'to', 'their': 'there', "they're": 'there', 'its': "it's", 'right': 'write', 'knew': 'new', 'know': 'no', 'hear': 'here', 'four': 'for', 'one': 'won', 'eight': 'ate', 'whole': 'hole', 'night': 'knight', 'sea': 'see', 'by': 'buy', 'bye': 'buy'}
+HOMO = {'mii': 'me', 'miis': 'mes', 'ok': 'okay', 'threw': 'through', 'two': 'to', 'too': 'to', 'their': 'there', "they're": 'there', 'its': "it's", 'right': 'write', 'knew': 'new', 'know': 'no', 'hear': 'here', 'four': 'for', 'one': 'won', 'eight': 'ate', 'whole': 'hole', 'night': 'knight', 'sea': 'see', 'by': 'buy', 'bye': 'buy'}
 ONES = 'zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split()
 TENS = 'twenty thirty forty fifty sixty seventy eighty ninety'.split()
 

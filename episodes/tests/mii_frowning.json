@@ -1,0 +1,1157 @@
+{
+ "title": "Frowning Is Illegal",
+ "category": "standard",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "NO FROWNING\nIN MII TOWN?!",
+  "series": "IN MII TOWN #1",
+  "cta": "YES or NO? 👇",
+  "mid": "Guess what happens 👇",
+  "share": "Send this to your grumpiest friend 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "In Mii Town, FROWNING Is Illegal 😐🚨",
+  "description": "In Mii Town, frowning is against the law – one frown and you have to tell a joke in front of the whole town. Then shy Lily dropped her ice cream… Would YOU survive in Mii Town? 👇",
+  "hashtags": [
+   "miitown",
+   "weirdtowns",
+   "weirdrules",
+   "funny",
+   "animation"
+  ],
+  "keywords": [
+   "mii town",
+   "weird town rules",
+   "frowning is illegal"
+  ],
+  "question": "Would YOU survive a day in Mii Town – smile or frown? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "lily": "@lily",
+  "rex": "@rex",
+  "max": "@max",
+  "zoe": "@zoe",
+  "oscar": "@oscar"
+ },
+ "shots": [
+  {
+   "say": "In Mii Town, frowning is *illegal*!",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "scared",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ]
+  },
+  {
+   "say": "There's even a sign.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      1,
+      1
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 25
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      -0.6
+     ],
+     "text": "NO FROWNING 🙂"
+    }
+   ]
+  },
+  {
+   "say": "Everyone smiles. All day. Every day.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "grin",
+     "face": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "grin",
+    "face": 0,
+    "seed": 5
+   }
+  },
+  {
+   "say": "Even at the doctor.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:oscar",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "💉😁",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Even in the rain.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "grin",
+     "face": 0,
+     "hold": "umbrella"
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "grin",
+    "face": 0,
+    "seed": 5
+   },
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "The mayor, Rex, checks every single face.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "track:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -4,
+      1.5
+     ],
+     "do": "walk",
+     "mood": "smug",
+     "path": [
+      [
+       -4,
+       1.5
+      ],
+      [
+       1,
+       1.5
+      ]
+     ],
+     "hold": "phone"
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "grin",
+    "face": 0,
+    "seed": 5
+   }
+  },
+  {
+   "say": "\"Smile! Smile! Smile!\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      1,
+      1.5
+     ],
+     "do": "talk",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "speak": "Smile! Smile! Smile!"
+  },
+  {
+   "say": "One frown… and you have to tell a joke.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      1,
+      1.5
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "1 FROWN = 1 JOKE",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.3,
+     "color": "#ffd23f"
+    }
+   ]
+  },
+  {
+   "say": "In front of the *whole* town.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      1,
+      1.5
+     ],
+     "do": "point",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "grin",
+    "face": 0,
+    "seed": 5
+   }
+  },
+  {
+   "say": "Lily is the shyest Mii in town.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "She practices smiling every morning.",
+   "set": "room",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Today, she bought an ice cream.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "happy",
+     "face": 0,
+     "hold": "icecream"
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "grin",
+    "face": 0,
+    "seed": 5
+   }
+  },
+  {
+   "say": "Her favorite: *strawberry*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "love",
+     "face": 0,
+     "hold": "icecream"
+    }
+   ],
+   "fx": [
+    {
+     "type": "hearts",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Then a pigeon zoomed by…",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "look",
+     "mood": "surprised",
+     "face": 0,
+     "hold": "icecream"
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "and *plop*!",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "icecream",
+     "at": [
+      0.5,
+      0,
+      2.0
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "bonk",
+     0.15
+    ]
+   ]
+  },
+  {
+   "say": "Her ice cream hit the ground.",
+   "set": "plaza",
+   "time": "day",
+   "cam": {
+    "type": "free",
+    "eye": [
+     1.2,
+     1.6,
+     4.2
+    ],
+    "look": [
+     0.5,
+     0.2,
+     2.0
+    ]
+   },
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "icecream",
+     "at": [
+      0.5,
+      0,
+      2.0
+     ]
+    }
+   ]
+  },
+  {
+   "say": "And Lily… *frowned*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "The whole plaza *gasped*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "scared",
+    "mood": "shock",
+    "face": 0,
+    "seed": 5
+   },
+   "sfx": [
+    [
+     "scratch",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Mayor Rex came running.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "track:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -5,
+      2.5
+     ],
+     "do": "run",
+     "mood": "angry",
+     "path": [
+      [
+       -5,
+       2.5
+      ],
+      [
+       -1.6,
+       1.6
+      ]
+     ]
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "shock",
+    "face": 0,
+    "seed": 5
+   }
+  },
+  {
+   "say": "\"A frown! Joke. Now!\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -1.6,
+      1.6
+     ],
+     "do": "talk",
+     "mood": "angry",
+     "face": 60
+    }
+   ],
+   "speak": "A frown! Joke. Now!"
+  },
+  {
+   "say": "Lily's knees were shaking.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "full:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Everyone stared at her.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 180
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "look",
+    "mood": "neutral",
+    "face": 0,
+    "seed": 5
+   }
+  },
+  {
+   "say": "She whispered:",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "\"Why did the frown go to school?\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "\"To turn upside down.\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🙃",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.4
+    }
+   ]
+  },
+  {
+   "say": "Silence.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "neutral",
+    "face": 0,
+    "seed": 5
+   },
+   "sfx": [
+    [
+     "crickets",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Nobody laughed.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "neutral",
+    "face": 0,
+    "seed": 5
+   }
+  },
+  {
+   "say": "Then Max started to *frown*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Then Zoe.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:zoe",
+   "actors": [
+    {
+     "id": "zoe",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Then Grandpa Oscar.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:oscar",
+   "actors": [
+    {
+     "id": "oscar",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Soon the *whole town* was frowning!",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "sad",
+    "face": 0,
+    "seed": 5
+   },
+   "sfx": [
+    [
+     "fail",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "The mayor panicked.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -1.6,
+      1.6
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "That's way too many jokes!",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -1.6,
+      1.6
+     ],
+     "do": "facepalm",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "😱 100 JOKES",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ff595e"
+    }
+   ]
+  },
+  {
+   "say": "So he changed the rule.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -1.6,
+      1.6
+     ],
+     "do": "talk",
+     "mood": "determined",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Now every Friday is *Frown Day*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -1.6,
+      1.6
+     ],
+     "do": "point",
+     "mood": "smug",
+     "face": 20
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      1.6,
+      0,
+      -0.6
+     ],
+     "text": "FROWN DAY 😠"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Everyone has to frown. All day.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "angry",
+    "face": 0,
+    "seed": 5
+   }
+  },
+  {
+   "say": "And guess who can't stop smiling?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Lily!",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "laugh",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Would YOU survive in Mii Town?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "wink",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Just remember: in Mii Town, frowning is…",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      -1.6,
+      1.6
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}

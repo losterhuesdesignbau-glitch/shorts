@@ -38,10 +38,10 @@ Danach das Video nicht mehr bauen (Ausfall-Regel: nicht nachholen). Lukas mit **
 - GENAU EINE Push-Nachricht, erst wenn das Video online ist („✅ HH:MM-Video online …“ / „⚠️ …“); danach im Chat kurz Titel, Links, Status
 
 ## 08:00
-SLOT = 08:00 · START = 06:45 · PUSH = spätestens 07:20 · SERIE = WEIRD TOWNS · MUSIK = mystery · HASHTAG = weirdtowns
+SLOT = 08:00 · START = 06:45 · PUSH = spätestens 07:20 · SERIE = IN MII TOWN · MUSIK = mystery · HASHTAG = miitown (+ weirdtowns)
 
-THEMA = WEIRD TOWN / IN THIS TOWN:
-- mysteriöse Geschichten, besondere Ereignisse und ungewöhnliche Situationen in einer ausgedachten Stadt
+THEMA = IN MII TOWN (Lukas 26.11.: statt „In this town“ immer „In Mii Town“; Folgen-Zähler neu ab „IN MII TOWN #1“):
+- mysteriöse Geschichten, besondere Ereignisse und ungewöhnliche Situationen in Mii Town (erster Satz beginnt mit „In Mii Town, …“)
 - skurrile Regel, rätselhaftes Ereignis, seltsame Bewohner
 - Twist am Ende
 - familienfreundlich, keine echten Personen, keine Marken-Figuren
