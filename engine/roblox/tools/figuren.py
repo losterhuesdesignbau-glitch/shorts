@@ -90,8 +90,11 @@ def resolve_cast(cast, db=None):
     for k, v in (cast or {}).items():
         ref = v[1:] if isinstance(v, str) and v.startswith('@') else (v.get('char') if isinstance(v, dict) else None)
         if not ref: out[k] = v; continue
-        if ref not in db: missing.append(ref); out[k] = v; continue
-        c = {kk: vv for kk, vv in db[ref].items() if kk not in ('name', 'sex', 'age', 'role', 'created')}
+        if ref not in db:   # neue Figur aus dem Skript: deterministisch aus der id erzeugen (gleiche id = gleiches Aussehen, auch ohne Speichern)
+            missing.append(ref); h = v if isinstance(v, dict) else {}
+            src = generate(ref, h.get('name'), h.get('sex'), h.get('age', 'adult'), h.get('role', ''))
+        else: src = db[ref]
+        c = {kk: vv for kk, vv in src.items() if kk not in ('name', 'sex', 'age', 'role', 'created')}
         if isinstance(v, dict):
             for kk, vv in (v.get('outfit') or {}).items():
                 if kk not in ('skin', 'face', 'nose', 'ears', 'facekit', 'eyeColor', 'headScale', 'style', 'hairColor'): c[kk] = vv

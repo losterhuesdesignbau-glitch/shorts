@@ -104,7 +104,8 @@ def auto_sfx(ep, shots, outs, events, fps):
         a = o['tg0']; b = a + o['dur']
         if sh.get('sfx') or busy(a, b) or a - last < 5.0: continue
         acts = sh.get('actors') or []
-        moods = {x.get('mood') for x in acts}; dos = {x.get('do') for x in acts}
+        _fl = lambda v: [y[0] if isinstance(y, list) else y for y in v] if isinstance(v, list) else [v]   # auch Zeitlisten [["walk",0,0.5],…]
+        moods = {m for x in acts for m in _fl(x.get('mood'))}; dos = {d for x in acts for d in _fl(x.get('do'))}
         say = (sh.get('say') or '').strip()
         pick = None
         low = say.lower()
@@ -454,6 +455,44 @@ CROWD_HAIR = ['short', 'spiky', 'side', 'messy', 'long', 'bob', 'ponytail', 'pig
 CROWD_HC = ['#1b1b1b', '#3b2a1a', '#6d4c41', '#c68642', '#e2c17c', '#b23a48', '#d9d9d9']
 CROWD_SKIN = ['#f1c27d', '#e0ac69', '#c68642', '#8d5524', '#ffdbac', '#a0522d']
 CROWD_SHIRT = ['#e63946', '#2a9d8f', '#e9c46a', '#f4a261', '#457b9d', '#8338ec', '#ff006e', '#3a86ff', '#06d6a0', '#ffbe0b']
+MOVE_ACTS = {'walk', 'run', 'sneak', 'hop', 'dance', 'spin', 'strut', 'jazzhands', 'salute', 'twist', 'mocap', 'swim', 'fly', 'skate', 'ride', 'drive', 'chase', 'flee'}
+def mii_check(src):
+    """Mii-Town-Prüfung vor dem Rendern: Figuren-Identität gegen die Datenbank, Fußrutschen (Bewegung ohne Lauf-Aktion), Intro."""
+    out = []
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools')); import figuren as _fig
+        db = _fig.load()
+        for k, v in (src.get('cast') or {}).items():
+            if isinstance(v, dict) and v.get('style') == 'mii' and k in db:
+                diff = [f for f in ('skin', 'face', 'nose', 'ears', 'facekit', 'eyeColor', 'headScale', 'hairColor') if f in db[k] and v.get(f) != db[k][f]]
+                if diff: out.append(f'Figur {k}: weicht von der Datenbank ab ({", ".join(diff)}) – Identität muss gleich bleiben')
+    except Exception as e: out.append(f'Figuren-Datenbank nicht prüfbar ({e})')
+    for i, sh in enumerate(src.get('shots') or [], 1):
+        for a in sh.get('actors') or []:
+            moves = a.get('to') or a.get('path')
+            acts = [a.get('do')] if isinstance(a.get('do'), str) else [x[0] if isinstance(x, list) else x for x in (a.get('do') or [])]
+            if moves and not any(str(x) in MOVE_ACTS for x in acts) and not (src.get('cast', {}).get(a.get('id'), {}) or {}).get('animal') and not a.get('npcCrowd'):
+                out.append(f'Shot {i}: {a.get("id")} bewegt sich mit do={a.get("do")} – Füße würden rutschen (walk/run setzen)')
+    mii = any(isinstance(v, dict) and v.get('style') == 'mii' for v in (src.get('cast') or {}).values())
+    if mii and src.get('intro') is not False and not any(s.get('intro') for s in src.get('shots') or []): out.append('Mii-Town-Folge ohne Intro')
+    src['_miiCheck'] = out
+    print('Mii-Town-Prüfung: ' + ('✓ ok' if not out else '⚠ ' + ' · '.join(out)), flush=True)
+    return out
+
+def write_report(out, src, probs, total):
+    """Qualitätsbericht neben dem Video (<name>_bericht.md)."""
+    try:
+        sh = src.get('shots') or []; intro = next((s for s in sh if s.get('intro')), None)
+        L = [f'# Qualitätsbericht – {(src.get("meta") or {}).get("title") or src.get("title") or Path(out).stem}', '',
+             f'- Länge: {total:.1f} s · Shots: {len(sh)} · Kategorie: {src.get("_category", "–")}',
+             f'- Intro: {("„" + intro["say"] + "“, " + str(round(intro.get("dur", 0), 1)) + " s") if intro else "keins"}',
+             f'- Figuren: {", ".join(k for k in (src.get("cast") or {}))}',
+             f'- Mii-Town-Prüfung: {"✓ ok" if not src.get("_miiCheck") else "; ".join(src["_miiCheck"])}',
+             f'- Video-Prüfung (Auflösung, Ton, Länge, schwarz/Standbild): {"✓ ok" if not probs else "; ".join(probs)}']
+        p = Path(str(out)).with_name(Path(str(out)).stem + '_bericht.md'); p.write_text('\n'.join(L) + '\n', encoding='utf-8')
+        print('Qualitätsbericht:', p, flush=True)
+    except Exception as e: print('Qualitätsbericht nicht geschrieben:', e, flush=True)
+
 def expand_crowd(src):
     import random
     cast = src.setdefault('cast', {})
@@ -499,10 +538,11 @@ def main():
     try:   # Mii Town: Figuren aus der zentralen Datenbank (feste Identität über alle Videos)
         sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools')); import figuren as _fig
         src['cast'], _miss = _fig.resolve_cast(src.get('cast'))
-        if _miss: print('WARNUNG: Figuren fehlen in episodes/figuren.json: ' + ', '.join(_miss) + ' (python tools/figuren.py auto <episode>)', flush=True)
+        if _miss: print('Neue Figuren automatisch erzeugt (noch nicht in episodes/figuren.json – zum Festschreiben: python tools/figuren.py auto <episode>): ' + ', '.join(_miss), flush=True)
     except Exception as _e: print('Figuren-Datenbank nicht geladen:', _e, flush=True)
     mii_intro(src)
     expand_crowd(src)
+    mii_check(src)
     regie_on = src.get('regie', True) is not False
     r_inhalt = None
     if regie_on:  # Regie-Kontrolle 1: Logik der Geschichte (Tier-Regel, Mimik zum Text, Tageszeit, Hook) – korrigiert src
@@ -604,7 +644,7 @@ def main():
     tmp = str(out) + '.part.mp4'
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-i', str(wav), '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-af', 'loudnorm=I=-15:TP=-1.5:LRA=11', '-ar', '44100', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], check=True)
     os.replace(tmp, out)
-    quality_check(out, total)
+    write_report(out, src, quality_check(out, total), total)
     print('Fertig:', out)
 
 if __name__ == '__main__':

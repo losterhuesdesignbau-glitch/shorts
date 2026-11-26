@@ -695,6 +695,15 @@ function renderShot(sh, si, tl) {
         let yw = 0, pt = 0, n = 0; for (const dtl of [0, 0.12, 0.25]) { const r = lookRel(s, list, map, cam, clamp((tl - dtl) / D, 0, 1)); if (r) { yw += r.yaw; pt += r.pitch; } n++; }
         yw /= n; pt /= n; if (Math.abs(yw) > 0.5 || Math.abs(pt) > 0.5) { P.hy = (P.hy || 0) * 0.35 + yw * 0.62; P.tw = (P.tw || 0) + yw * 0.18; P.hx = (P.hx || 0) - pt * 0.5; if (Math.abs(yw) > 14) P.gx = Math.sign(yw) * (yw > 0 ? 1 : 1); }
       }
+      // Zuhörer reagieren (Mii Town Schritt 4): leichtes Nicken im Gesprächstakt, auf betonte Wörter des Sprechers
+      // kurzer Ruck mit Kopf + Oberkörper (versetzt 0,15–0,35 s, jede Figur anders) – Körper, Kopf und Blick gemeinsam
+      if (!talkingAt(s, u) && ['idle', 'look', 'hold', 'think', 'sitdesk', 'sit', 'stand', 'wait', 'nervous', 'scared'].includes(s.act) && list.some(o => o !== s && !o.a.npcCrowd && talkingAt(o, u))) {
+        const W = sh.words || [], dl = 0.15 + (s.ph % 1) * 0.2;
+        let r = 0; for (const w of W) if (w.hi) r = Math.max(r, Math.exp(-(((tl - w.t0 - dl - 0.1) / 0.16) ** 2)));
+        const nod = Math.max(0, Math.sin((tl + s.ph) * 2 * Math.PI / 2.3)) ** 6;
+        P.hx = (P.hx || 0) + 5 * nod - 6 * r; P.bx = (P.bx || 0) - 3 * r; P.tb = (P.tb || 0) - 0.03 * r;
+        if (!/^sit/.test(s.act)) { P.aLz = (P.aLz || 0) + 6 * r; P.aRz = (P.aRz || 0) - 6 * r; }
+      }
       // Drehen im Stand: erst Blick/Kopf, dann Oberkörper, zuletzt die Beine (Körper folgt verzögert)
       if (!s.moving && Array.isArray(s.a.face)) {
         const fNow = faceOf(s, map, cam, u), fAhead = faceOf(s, map, cam, clamp((tl + 0.3) / D, 0, 1));

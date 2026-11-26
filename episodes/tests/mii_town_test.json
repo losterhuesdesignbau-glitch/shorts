@@ -1,0 +1,959 @@
+{
+ "title": "The Wish Fountain",
+ "category": "comedy",
+ "music": "happy",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "ONE WISH\nA DAY?!",
+  "series": "MII TOWN",
+  "cta": "WHAT WOULD YOU WISH? 👇",
+  "loop": true,
+  "mid": "Pizza, puppy or nap? 👇"
+ },
+ "meta": {
+  "title": "[TEST Mii Town] The Wish Fountain ⛲",
+  "description": "Mii Town test video – not for upload.",
+  "hashtags": [
+   "miitown",
+   "wishfountain",
+   "funny",
+   "animation",
+   "test"
+  ],
+  "keywords": [
+   "mii town"
+  ],
+  "language": "en"
+ },
+ "cast": {
+  "max": "@max",
+  "mia": "@mia",
+  "ben": "@ben",
+  "rosa": "@rosa"
+ },
+ "shots": [
+  {
+   "say": "This fountain grants *one wish* a day.",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      2.2
+     ],
+     "do": "talk",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.4
+    ]
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "say": "But only if three people wish the *same* thing.",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": 20
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "confused",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": -20
+    }
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "set": "plaza",
+   "time": "day",
+   "say": "Max threw in a *coin*.",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "throw",
+     "mood": "determined",
+     "face": 180,
+     "throw": {
+      "item": "coin",
+      "at": 0.4
+     }
+    }
+   ],
+   "sfx": [
+    [
+     "coin",
+     0.55
+    ]
+   ]
+  },
+  {
+   "set": "plaza",
+   "time": "day",
+   "say": "The fountain *glowed*.",
+   "cam": "aerial",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "look",
+     "mood": "surprised",
+     "face": 180
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "look",
+     "mood": "surprised",
+     "face": 180
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "look",
+     "mood": "surprised",
+     "face": 180
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "I wish for a *puppy*!",
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "talk",
+     "mood": "love",
+     "face": 0
+    },
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 30
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": -30
+    }
+   ],
+   "fx": [
+    {
+     "type": "hearts",
+     "t": 0.4
+    }
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "say": "I wish for a *nap*.",
+   "cam": "medium:ben",
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": [
+      [
+       "talk",
+       0,
+       0.6
+      ],
+      [
+       "yawn",
+       0.6,
+       1
+      ]
+     ],
+     "mood": "sleepy",
+     "face": -10
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "confused",
+     "face": 20
+    }
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "say": "Pizza! Obviously *pizza*!",
+   "cam": "push:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "talk",
+     "mood": "excited",
+     "face": 10
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": -30
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.5
+    ]
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "say": "They argued for *ten minutes*.",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "angry",
+     "mood": "angry",
+     "face": 30
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "no",
+     "mood": "angry",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "facepalm",
+     "mood": "sleepy",
+     "face": -30
+    }
+   ],
+   "sfx": [
+    [
+     "tick",
+     0.2
+    ]
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "set": "plaza",
+   "time": "day",
+   "say": "Mia tried *puppy eyes*.",
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "cry",
+     "face": 0
+    },
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 30
+    }
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.3
+    ]
+   ]
+  },
+  {
+   "set": "plaza",
+   "time": "day",
+   "say": "Max tried *begging*.",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "bow",
+     "mood": "sad",
+     "face": 20
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": -20
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "time": "day",
+   "say": "And Ben… fell *asleep*.",
+   "cam": "medium:ben",
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "yawn",
+     "mood": "sleep",
+     "face": -10
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "facepalm",
+     "mood": "angry",
+     "face": 20
+    }
+   ],
+   "sfx": [
+    [
+     "snore",
+     0.5
+    ]
+   ]
+  },
+  {
+   "set": "plaza",
+   "time": "day",
+   "say": "Nobody would *give up*.",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "cross",
+     "mood": "angry",
+     "face": 30
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "cross",
+     "mood": "angry",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "sleepy",
+     "face": -30
+    }
+   ]
+  },
+  {
+   "say": "Then Grandma Rosa walked by.",
+   "cam": "track:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      7,
+      4
+     ],
+     "do": "walk",
+     "mood": "smile",
+     "to": [
+      3.6,
+      3.6
+     ],
+     "move": [
+      0,
+      0.85
+     ]
+    },
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 60
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 60
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "sleepy",
+     "face": 60
+    }
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "say": "Hmm… looks like *rain*.",
+   "cam": "close:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      3.6
+     ],
+     "do": "lookup",
+     "mood": "think",
+     "face": -30
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 40
+    }
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "set": "plaza",
+   "time": "day",
+   "say": "Max, Mia and Ben *froze*.",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "freeze",
+     "mood": "shock",
+     "face": 40
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "freeze",
+     "mood": "shock",
+     "face": 40
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "freeze",
+     "mood": "shock",
+     "face": 40
+    },
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      3.6
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": -40
+    }
+   ],
+   "sfx": [
+    [
+     "scratch",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Rain?! Rain?! Rain?!",
+   "speak": "Rain? Rain? Rain?",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "talk",
+     "mood": "shock",
+     "face": 20
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "talk",
+     "mood": "shock",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "talk",
+     "mood": "shock",
+     "face": -20
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.1
+    ]
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "say": "Three people. *Same* word.",
+   "cam": "aerial",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    },
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      3.6
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": -40
+    }
+   ],
+   "pops": [
+    {
+     "text": "1… 2… 3 ✅",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2,
+     "color": "#06d6a0"
+    }
+   ],
+   "sfx": [
+    [
+     "correct",
+     0.3
+    ]
+   ],
+   "set": "plaza",
+   "time": "day"
+  },
+  {
+   "say": "The fountain granted the wish.",
+   "cam": "group",
+   "time": "dusk",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 0
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "cry",
+     "mood": "sad",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    },
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      3.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": -30,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0.0
+    },
+    {
+     "type": "flash",
+     "t": 0.05
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.05
+    ]
+   ],
+   "set": "plaza"
+  },
+  {
+   "set": "plaza",
+   "time": "dusk",
+   "say": "Everyone got *soaked*.",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "cry",
+     "mood": "cry",
+     "face": 10
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "cry",
+     "mood": "cry",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": -10
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0.0
+    }
+   ],
+   "sfx": [
+    [
+     "fail",
+     0.4
+    ]
+   ]
+  },
+  {
+   "set": "plaza",
+   "time": "dusk",
+   "say": "Except Grandma Rosa.",
+   "cam": "close:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      3.6
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": -20,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0.0
+    }
+   ]
+  },
+  {
+   "say": "I *love* rain.",
+   "cam": "close:rosa",
+   "time": "dusk",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      3.6
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": -20,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0.0
+    }
+   ],
+   "set": "plaza"
+  },
+  {
+   "set": "plaza",
+   "time": "dusk",
+   "say": "Tomorrow? I wish for *snow*.",
+   "cam": "push:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      3.6
+     ],
+     "do": "talk",
+     "mood": "evil",
+     "face": -20,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0.0
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.7
+    ]
+   ]
+  },
+  {
+   "say": "What would *you* wish for?",
+   "cam": "group",
+   "time": "dusk",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "shrug",
+     "mood": "sad",
+     "face": 20
+    },
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      2.2,
+      2
+     ],
+     "do": "idle",
+     "mood": "sleepy",
+     "face": -20
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0.0
+    }
+   ],
+   "set": "plaza"
+  }
+ ]
+}
