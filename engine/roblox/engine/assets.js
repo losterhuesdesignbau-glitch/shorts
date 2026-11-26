@@ -88,6 +88,8 @@ function faceTex(mood, closed, open, kind = 'human', o = {}) {
         x.beginPath(); x.moveTo(cx - s * 15, by + i0); x.quadraticCurveTo(cx, by + (i0 + o0) / 2 + arch, cx + s * 15, by + o0); x.stroke(); x.restore();
       }
     }
+    if (MF && MF.beard) { x.save(); x.globalAlpha = 0.9; x.fillStyle = MF.beard; x.beginPath(); x.moveTo(52, 132); x.quadraticCurveTo(58, 236, 128, 246); x.quadraticCurveTo(198, 236, 204, 132); x.quadraticCurveTo(190, 196, 128, 200); x.quadraticCurveTo(66, 196, 52, 132); x.fill(); x.restore(); }   // Mii-Bart als Fläche am Kiefer
+    if (MF && (MF.stache || MF.beard)) { x.fillStyle = MF.stache || MF.beard; for (const s of [-1, 1]) { x.save(); x.translate(128 + s * 13, 150); x.rotate(s * 0.22); ell(x, 0, 0, 15, 6); x.fill(); x.restore(); } }
     // Mund (op: 0 zu, 1 halb, 2 weit)
     let m = M.m; if (op) m = (m === 'grin' || m === 'yawn' || m === 'scream') ? m : (m === 'frown' || m === 'wavy' ? 'wavyopen' : 'open');
     const my = kind === 'frog' ? 150 : (MF ? 160 + (+MF.my || 0) : 158); x.strokeStyle = ink; x.lineWidth = 7;
@@ -98,7 +100,7 @@ function faceTex(mood, closed, open, kind = 'human', o = {}) {
       if (m === 'smile' && MF && !op) {   // Mii-Lächeln: offener Mund mit oberen Zähnen
         x.beginPath(); x.moveTo(104, my - 4); x.quadraticCurveTo(128, my + 2, 152, my - 4); x.quadraticCurveTo(128, my + 30, 104, my - 4); x.closePath(); fillM('#7a1f22');
         x.save(); x.clip(); x.fillStyle = '#ffffff'; x.fillRect(96, my - 8, 64, 10); ell(x, 128, my + 20, 14, 7); x.fillStyle = '#e8737a'; x.fill(); x.restore();
-        x.lineWidth = 4; x.strokeStyle = '#5a1a1a'; x.stroke(); }
+        x.beginPath(); x.moveTo(104, my - 4); x.quadraticCurveTo(128, my + 2, 152, my - 4); x.quadraticCurveTo(128, my + 30, 104, my - 4); x.closePath(); x.lineWidth = 4; x.strokeStyle = '#5a1a1a'; x.stroke(); }
       else if (m === 'smile') { x.beginPath(); x.arc(128, my - 22, kind === 'frog' ? 40 : 26, 0.2 * Math.PI, 0.8 * Math.PI); x.stroke(); }
       else if (m === 'flat') { x.beginPath(); x.moveTo(112, my); x.quadraticCurveTo(128, my + 2, 144, my); x.stroke(); }
       else if (m === 'frown') { x.beginPath(); x.arc(128, my + 24, 24, 1.22 * Math.PI, 1.78 * Math.PI); x.stroke(); }
@@ -247,12 +249,13 @@ function miiHairGeo(mb, cfg) {
   const sd = { long: -0.75, bob: -0.6, pigtails: -0.2, ponytail: -0.1 }[st] ?? -0.05;
   const bk = { long: -0.95, bob: -0.75, ponytail: -0.5, bun: -0.5 }[st] ?? -0.42;
   miiShell(mb, hc, R0, line(fr, sd, bk), { sy: st === 'spiky' ? 1.12 : 1.1 });
-  if (st === 'side') { mb.push(M4.chain(M4.T(0.18, 0.5, 0.44), M4.RZ(-0.45))); mb.sphere(0.36, 2, hc, { sx: 1.5, sy: 0.55, sz: 0.75 }); mb.pop(); }
+  if (st === 'side') { mb.push(M4.chain(M4.T(0.22, 0.56, 0.5), M4.RZ(-0.35), M4.RX(-0.3))); mb.sphere(0.26, 3, hc, { sx: 1.45, sy: 0.42, sz: 0.6 }); mb.pop(); }
   if (st === 'long') { T(0, -0.55, -0.32, () => mb.sphere(0.62, 2, hc, { sx: 1.16, sy: 0.95, sz: 0.62 })); }
   if (st === 'bob') for (const s of [-1, 1]) T(s * 0.55, -0.32, 0.02, () => mb.sphere(0.3, 2, hc, { sx: 0.7, sy: 1.15, sz: 1.3 }));
   if (st === 'bun') T(0, 0.98, -0.32, () => mb.sphere(0.38, 2, hc));
-  if (st === 'curly') { for (let i = 0; i < 44; i++) { const ph = i * 2.39996, th = Math.acos(1 - (i + 0.5) / 44 * 1.15), d = [Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph) - 0.05]; if (d[2] > 0.5 && d[1] < 0.55) continue; T(d[0] * 0.72, 0.04 + d[1] * 0.8, -0.03 + d[2] * 0.72, () => mb.sphere(0.13, 2, i % 3 ? hc : hd)); } }
-  if (st === 'messy') { const Rr = rng(hash(cfg.hairColor) + 5); for (let i = 0; i < 14; i++) { const ph = Rr() * 6.28, th = 0.15 + Rr() * 1.05, d = [Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph) - 0.15]; if (d[2] > 0.55 && d[1] < 0.6) continue; T(d[0] * 0.7, 0.04 + d[1] * 0.78, -0.03 + d[2] * 0.7, () => mb.sphere(0.2 + Rr() * 0.06, 2, Rr() > 0.5 ? hc : hd)); } }
+  if (st === 'curly') { for (let i = 0; i < 44; i++) { const ph = i * 2.39996, th = Math.acos(1 - (i + 0.5) / 44 * 1.15), d = [Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph) - 0.05]; if (d[2] > 0.5 && d[1] < 0.55) continue; T(d[0] * 0.72, 0.04 + d[1] * 0.8, -0.03 + d[2] * 0.72, () => mb.sphere(0.105, 2, i % 3 ? hc : hd)); } }
+  if (st === 'messy') { const Rr = rng(hash(cfg.hairColor) + 5); for (let i = 0; i < 6; i++) { const a = i / 6 * 6.28 + Rr() * 0.5; mb.push(M4.chain(M4.T(Math.sin(a) * 0.32, 0.86, Math.cos(a) * 0.3 - 0.08), M4.RY(a), M4.RX(-0.6 - Rr() * 0.4))); mb.cyl(0.16, 0.02, 0.3, 10, i % 2 ? hc : hd, { flat: false }); mb.pop(); } }
+  if (false) { const Rr = rng(hash(cfg.hairColor) + 5); for (let i = 0; i < 14; i++) { const ph = Rr() * 6.28, th = 0.15 + Rr() * 1.05, d = [Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph) - 0.15]; if (d[2] > 0.55 && d[1] < 0.6) continue; T(d[0] * 0.7, 0.04 + d[1] * 0.78, -0.03 + d[2] * 0.7, () => mb.sphere(0.2 + Rr() * 0.06, 2, Rr() > 0.5 ? hc : hd)); } }
   if (st === 'spiky') for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2; mb.push(M4.chain(M4.T(Math.sin(a) * 0.3, 0.78, Math.cos(a) * 0.28 - 0.06), M4.RY(a), M4.RX(-0.5))); mb.cyl(0.2, 0.02, 0.38, 10, hc, { flat: false }); mb.pop(); }
   if (st === 'mohawk') for (let i = 0; i < 5; i++) T(0, 0.82 + Math.sin(i / 4 * Math.PI) * 0.12, 0.5 - i * 0.28, () => mb.sphere(0.2, 2, hc, { sy: 1.3 }));
 }
@@ -278,6 +281,7 @@ function hairGeo(mb, cfg) {
   if (st === 'buzz') { P(0, 0.55, -0.02); mb.rbox(1.38, 0.24, 1.4, 0.1, hc); Q(); P(0, 0.2, -0.6); mb.rbox(1.38, 0.7, 0.2, 0.08, hc); Q(); }
   if (st === 'mohawk') { for (let i = 0; i < 5; i++) { P(0, 0.85 + Math.sin(i / 4 * Math.PI) * 0.15, 0.55 - i * 0.3); mb.rbox(0.3, 0.55, 0.32, 0.1, i % 2 ? hl2 : hc); Q(); } }
   if (MIIH) { mb.push(M4.chain(M4.T(0, 0.08, -0.02), M4.S(1.12, 1.08, 1.12))); }   // Mii: Hüte sitzen auf dem höheren Eierkopf
+  if (MIIH && cfg.hat === 'cap') { const c = cfg.hatColor || '#e63946'; P(0, 0.5, -0.02); mb.sphere(0.8, 3, c, { sy: 0.52, sz: 0.96 }); Q(); mb.push(M4.chain(M4.T(0, 0.45, 0.7), M4.RX(0.12))); mb.rbox(0.9, 0.06, 0.55, 0.03, shade(c, 0.85)); mb.pop(); cfg = { ...cfg, hat: undefined }; }
   if (st === 'cap' || cfg.hat === 'cap') { if (st === 'cap') { P(0, 0.05, -0.6); mb.rbox(1.42, 0.62, 0.3, 0.1, hc); Q(); } P(0, 0.58, 0); mb.rbox(1.48, 0.52, 1.48, 0.24, cfg.hatColor); Q(); P(0, 0.4, 0.95); mb.rbox(1.3, 0.1, 0.8, 0.04, shade(cfg.hatColor, 0.85)); Q(); P(0, 0.86, 0); mb.sphere(0.1, 1, shade(cfg.hatColor, 0.8)); Q(); if (cfg.hatLogo !== false) { P(0, 0.62, 0.75); mb.box(0.36, 0.28, 0.02, '#ffffff'); Q(); } }
   if (st === 'beanie') { P(0, 0.5, 0); mb.rbox(1.5, 0.78, 1.5, 0.32, cfg.hatColor); Q(); P(0, 0.2, 0); mb.rbox(1.54, 0.22, 1.54, 0.1, shade(cfg.hatColor, 0.82)); Q(); P(0, 1.0, 0); mb.sphere(0.25, 1, '#ffffff'); Q(); }
   const hat = cfg.hat, hcol = cfg.hatColor;
@@ -301,11 +305,13 @@ function hairGeo(mb, cfg) {
   if (cfg.bow) { const c = cfg.bow === true ? '#ff4f8b' : cfg.bow; P(0.35, 0.72, 0.2); for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.2, 0, 0), M4.RZ(s * 0.35))); mb.rbox(0.36, 0.3, 0.14, 0.1, c); mb.pop(); } mb.sphere(0.09, 1, shade(c, 0.85)); Q(); }
   if (cfg.flower) { P(-0.55, 0.55, 0.35); for (let i = 0; i < 5; i++) { const a = i / 5 * 6.28; T_(mb, Math.sin(a) * 0.14, Math.cos(a) * 0.14, 0, () => mb.sphere(0.11, 0, cfg.flower === true ? '#ff7eb6' : cfg.flower)); } mb.sphere(0.08, 0, '#ffd23f'); Q(); }
   if (cfg.earrings) for (const s of [-1, 1]) T_(mb, s * 0.68, -0.28, 0.05, () => mb.sphere(0.07, 1, cfg.earrings === true ? GOLD : cfg.earrings));
-  if (cfg.shades) { P(0, 0.08, 0.7); mb.rbox(1.3, 0.34, 0.12, 0.06, '#121212'); Q(); for (const s of [-1, 1]) T_(mb, s * 0.3, 0.14, 0.77, () => mb.box(0.22, 0.05, 0.01, '#4a5568')); }
-  if (cfg.glasses) { const gc = cfg.glassesColor || '#2b2b2b'; for (const s of [-1, 1]) { const cx = s * 0.22; P(cx, 0.26, 0.69); mb.box(0.4, 0.05, 0.05, gc); Q(); P(cx, -0.05, 0.69); mb.box(0.4, 0.05, 0.05, gc); Q(); P(cx - 0.18, 0.105, 0.69); mb.box(0.05, 0.36, 0.05, gc); Q(); P(cx + 0.18, 0.105, 0.69); mb.box(0.05, 0.36, 0.05, gc); Q(); P(s * 0.62, 0.2, 0.36); mb.box(0.05, 0.05, 0.66, gc); Q(); } P(0, 0.2, 0.69); mb.box(0.1, 0.05, 0.05, gc); Q(); }
+  if (cfg.shades && MIIH) { const fk = cfg.facekit || {}, eyy = 0.08 - (+fk.ey || 0) * 0.005; P(0, eyy, 0.63); mb.rbox(0.72, 0.2, 0.06, 0.05, '#121212'); Q(); for (const s of [-1, 1]) T_(mb, s * 0.17, eyy + 0.04, 0.665, () => mb.box(0.14, 0.03, 0.01, '#4a5568')); }
+  else if (cfg.shades) { P(0, 0.08, 0.7); mb.rbox(1.3, 0.34, 0.12, 0.06, '#121212'); Q(); for (const s of [-1, 1]) T_(mb, s * 0.3, 0.14, 0.77, () => mb.box(0.22, 0.05, 0.01, '#4a5568')); }
+  if (cfg.glasses && MIIH) { const gc = cfg.glassesColor || '#2b2b2b', fk = cfg.facekit || {}, ex = 0.155 + (+fk.edx || 0) * 0.004, eyy = 0.08 - (+fk.ey || 0) * 0.005; for (const s of [-1, 1]) { const cx = s * ex; P(cx, eyy + 0.1, 0.63); mb.box(0.27, 0.035, 0.035, gc); Q(); P(cx, eyy - 0.09, 0.63); mb.box(0.27, 0.035, 0.035, gc); Q(); P(cx - 0.135, eyy, 0.63); mb.box(0.035, 0.22, 0.035, gc); Q(); P(cx + 0.135, eyy, 0.63); mb.box(0.035, 0.22, 0.035, gc); Q(); mb.push(M4.chain(M4.T(s * 0.29, eyy + 0.08, 0.57), M4.RY(s * 0.9))); mb.box(0.03, 0.03, 0.12, gc); mb.pop(); } P(0, eyy + 0.05, 0.64); mb.box(0.06, 0.03, 0.03, gc); Q(); }
+  else if (cfg.glasses) { const gc = cfg.glassesColor || '#2b2b2b'; for (const s of [-1, 1]) { const cx = s * 0.22; P(cx, 0.26, 0.69); mb.box(0.4, 0.05, 0.05, gc); Q(); P(cx, -0.05, 0.69); mb.box(0.4, 0.05, 0.05, gc); Q(); P(cx - 0.18, 0.105, 0.69); mb.box(0.05, 0.36, 0.05, gc); Q(); P(cx + 0.18, 0.105, 0.69); mb.box(0.05, 0.36, 0.05, gc); Q(); P(s * 0.62, 0.2, 0.36); mb.box(0.05, 0.05, 0.66, gc); Q(); } P(0, 0.2, 0.69); mb.box(0.1, 0.05, 0.05, gc); Q(); }
   if (cfg.eyepatch) { P(0.22, 0.1, 0.68); mb.rbox(0.36, 0.34, 0.06, 0.08, '#111111'); Q(); mb.push(M4.chain(M4.T(0, 0.22, 0.66), M4.RZ(-0.45))); mb.box(1.5, 0.05, 0.03, '#111111'); mb.pop(); }
-  if (cfg.beard) { if (MIIH) { P(0, -0.52, 0.42); mb.sphere(0.52, 2, hc, { sy: 0.5, sz: 0.5 }); Q(); P(0, -0.16, 0.6); mb.rbox(0.5, 0.12, 0.12, 0.05, hc); Q(); } else { P(0, -0.42, 0.56); mb.rbox(1.34, 0.5, 0.32, 0.14, hc); Q(); P(0, -0.08, 0.69); mb.rbox(0.64, 0.14, 0.12, 0.05, hc); Q(); } }
-  if (cfg.mustache) { if (MIIH) { for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.13, -0.15, 0.6), M4.RZ(s * 0.25))); mb.sphere(0.15, 2, hc, { sy: 0.45, sz: 0.5 }); mb.pop(); } } else { P(0, -0.08, 0.69); mb.rbox(0.66, 0.16, 0.12, 0.05, hc); Q(); } }
+  if (cfg.beard && !MIIH) { if (MIIH) { const bc = shade(hc, 0.8); P(0, -0.56, 0.36); mb.sphere(0.34, 2, bc, { sy: 0.36, sz: 0.42 }); Q(); for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.42, -0.36, 0.36), M4.RZ(s * 0.5))); mb.sphere(0.14, 2, bc, { sy: 1.6, sz: 0.6 }); mb.pop(); } } else { P(0, -0.42, 0.56); mb.rbox(1.34, 0.5, 0.32, 0.14, hc); Q(); P(0, -0.08, 0.69); mb.rbox(0.64, 0.14, 0.12, 0.05, hc); Q(); } }
+  if (cfg.mustache && !MIIH) { if (MIIH) { for (const s of [-1, 1]) { mb.push(M4.chain(M4.T(s * 0.09, -0.19, 0.58), M4.RZ(s * 0.3))); mb.sphere(0.1, 2, shade(hc, 0.8), { sy: 0.4, sz: 0.45 }); mb.pop(); } } else { P(0, -0.08, 0.69); mb.rbox(0.66, 0.16, 0.12, 0.05, hc); Q(); } }
   if (cfg.facemask) { const mc = cfg.facemask === true ? '#cfe8f7' : cfg.facemask; P(0, -0.3, 0.68); mb.rbox(1.02, 0.52, 0.12, 0.08, mc); Q(); for (const k of [-0.14, 0.0, 0.14]) { P(0, -0.3 + k, 0.745); mb.box(0.9, 0.025, 0.01, shade(mc, 0.85)); Q(); } for (const s of [-1, 1]) { P(s * 0.62, -0.12, 0.42); mb.box(0.04, 0.04, 0.6, '#f4f4f4'); Q(); } }
   if (cfg.scar) { P(0.2, -0.56, 0.705); mb.push(M4.RZ(0.9)); mb.rbox(0.05, 0.24, 0.03, 0.015, cfg.scarColor || '#e0a092'); for (const k of [-0.07, 0.0, 0.07]) { mb.push(M4.T(0, k, 0.005)); mb.box(0.13, 0.025, 0.03, cfg.scarColor || '#d4887a'); mb.pop(); } mb.pop(); Q(); }
 }
@@ -354,7 +360,7 @@ function avatarGeo(cfg) {
     g.hs = HS;
     const NS = { button: [0.08, 0.065], round: [0.1, 0.085], long: [0.07, 0.12], wide: [0.12, 0.07], small: [0.06, 0.055], pointy: [0.065, 0.09], big: [0.13, 0.11] }[cfg.nose || 'button'] || [0.08, 0.065];
     g.nose = cgeo('miinose3|' + sk + '|' + (cfg.nose || 'button'), mb => { mb.sphere(NS[0], 2, shade(sk, 0.93), { sy: NS[1] / NS[0] * 1.15, sz: 1.1 }); if (cfg.nose === 'pointy' || cfg.nose === 'long') T_(mb, 0, -NS[1] * 0.3, NS[0] * 0.6, () => mb.sphere(NS[0] * 0.7, 2, shade(sk, 0.93))); });
-    const ER = { normal: 0.13, small: 0.1, big: 0.17 }[cfg.ears || 'normal'] || 0.13;
+    const ER = { normal: 0.11, small: 0.085, big: 0.14 }[cfg.ears || 'normal'] || 0.11;
     g.ear = cgeo('miiear|' + sk + '|' + ER, mb => mb.sphere(ER, 1, shade(sk, 0.94), { sx: 0.55 }));
   } else g.head = cgeo('head2|' + sk, mb => mb.rbox(1.32, 1.32, 1.32, 0.38, sk, { uv: true }));
   // Torso + Accessoires am Oberkörper
@@ -460,11 +466,11 @@ function avatarItems(items, cfg, S, P) {
   const shinL = M4.chain(legL, M4.T(0, -1.0, 0), M4.RX((P.kL || 0) * DEG)), shinR = M4.chain(legR, M4.T(0, -1.0, 0), M4.RX((P.kR || 0) * DEG));
   const HF = cfg.style === 'mii' ? 1.2 * (+cfg.headScale || 1.45) : 1;   // Mii: Kopf ≈ Schulterbreite   // Mii Town: großer Kopf
   const head = M4.chain(torso, M4.T(0, 1.0, 0), M4.RY((P.hy || 0) * DEG), M4.RX((P.hx || 0) * DEG), M4.RZ((P.hz || 0) * DEG), M4.T(0, cfg.style === 'mii' ? -0.02 + 0.74 * HF : 0.04 + 0.66 * HF, 0), M4.S(HF, HF, HF));
-  const ft = faceTex(P.mood || 'happy', P.closed, P.open, 'human', { gx: P.gx || 0, lashes: cfg.lashes, freckles: cfg.freckles, eye: cfg.eyeColor, mii: cfg.style === 'mii' ? (cfg.facekit || {}) : null });
+  const ft = faceTex(P.mood || 'happy', P.closed, P.open, 'human', { gx: P.gx || 0, lashes: cfg.lashes, freckles: cfg.freckles, eye: cfg.eyeColor, mii: cfg.style === 'mii' ? { ...(cfg.facekit || {}), beard: cfg.beard ? (cfg.hairColor || '#3b2416') : null, stache: cfg.mustache ? (cfg.hairColor || '#3b2416') : null } : null });
   const add = (gg, m, o = {}) => items.push({ g: gg, m, sh, ...chr, ...o });
   add(g.torso, torso, { tex: g.tex }); add(g.uarm, armL); add(g.uarm, armR); add(g.larmL, foreL); add(g.larmR, foreR);
   add(g.thigh, legL); add(g.thigh, legR); add(g.shin, shinL); add(g.shin, shinR); add(g.head, head, { tex: ft }); add(g.hair, g.hs ? M4.mul(head, M4.S(g.hs.fx, g.hs.fy * 1.04, g.hs.fz)) : head);
-  if (g.nose) { const fk = cfg.facekit || {}; const hs = g.hs || { sx: 0.66, sz: 0.64 }; add(g.nose, M4.chain(head, M4.T(0, -0.1 - (+fk.ny || 0) * 0.004, hs.sz * 0.97))); for (const s of [-1, 1]) add(g.ear, M4.chain(head, M4.T(s * hs.sx * 1.02, -0.05, -0.02))); }
+  if (g.nose) { const fk = cfg.facekit || {}; const hs = g.hs || { sx: 0.66, sz: 0.64 }; add(g.nose, M4.chain(head, M4.T(0, -0.1 - (+fk.ny || 0) * 0.004, hs.sz * 0.97))); for (const s of [-1, 1]) add(g.ear, M4.chain(head, M4.T(s * hs.sx * 0.97, -0.04, -0.02))); }
   add(g.neck, M4.chain(torso, M4.T(0, 1.0, 0), M4.RY((P.hy || 0) * 0.5 * DEG), M4.RX((P.hx || 0) * 0.5 * DEG)));
   add(g.pelvis, M4.chain(root, M4.T(0, 0, 0), M4.RY((P.tw || 0) * -0.3 * DEG)), {});
   add(g.cap, M4.chain(armL, M4.T(0, -0.25, 0))); add(g.cap, M4.chain(armR, M4.T(0, -0.25, 0)));

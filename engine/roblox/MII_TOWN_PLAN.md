@@ -128,3 +128,8 @@ Die bisherigen Episoden bleiben renderbar: Der alte Block-Stil bleibt als `style
 | `milo` | Milo | kid | shy | quiet, kind, blushes easily |
 | `nora` | Nora | adult | scientist | genius, forgetful, explodes things |
 | `rex` | Rex | adult | extrovert | loud, funny, life of the party |
+
+## 26.11. Jede Figur einzeln geprüft (Lukas: „nach dem vorgegebenen Aussehen verbessern“)
+- Gesichtskamera für Mii-Köpfe neu (ganzer Kopf im Bild statt abgeschnitten).
+- Mii-Lächeln mit Zähnen ohne falschen Ring, Ohren kleiner und am Kopf, Brillen in Mii-Größe vor den Augen (auch bei verschobenen Augen), Sonnenbrille schmal.
+- Bart/Schnurrbart als Fläche im Gesicht (wie bei Mii) statt Klumpen; Kappe als runde Mütze mit Schirm; „messy“ = glatte Haare mit kleinen Spitzen; Seitenscheitel kleiner; Locken feiner.

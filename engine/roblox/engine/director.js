@@ -387,7 +387,7 @@ function camera(sh, si, tl, D, set, map) {
   const around = (dist, ey, ly, a = ang + 0) => { dist *= DM; eye = [f[0] + Math.sin(a) * dist, f[1] + ey, f[2] + Math.cos(a) * dist]; look = [f[0], f[1] + ly, f[2]]; };
   switch (c.type) {
     case 'close': around((c.dist || 7.0) * fs * push, hy - f[1] - 0.15 * fs, hy - f[1] - 0.95 * fs); fov = 37.5; break;
-    case 'face': around((c.dist || 5.0) * fs * push, hy - f[1] + 0.05 * fs, hy - f[1] - 0.32 * fs); fov = 34; break; // Großaufnahme Gesicht (Emotionen)
+    case 'face': { const MI = A && A.cfg && A.cfg.style === 'mii'; around((c.dist || (MI ? 7.0 : 5.0)) * fs * push, hy - f[1] + (MI ? -0.25 : 0.05) * fs, hy - f[1] - (MI ? 0.5 : 0.32) * fs); fov = 34; break; } // Großaufnahme Gesicht (Emotionen)
     case 'medium': around((c.dist || 10.5) * fs * push, 3.9 * fs, 3.0 * fs); break;
     case 'full': around((c.dist || 14) * push, 4.8 * fs, 2.7 * fs); break;
     case 'low': around((c.dist || 6.5) * fs * push, 0.9, A ? A.h * 0.75 : 3); fov = 52; break;
