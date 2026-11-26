@@ -101,6 +101,7 @@ def main():
     ep_path = work / 'episode.json'
     ep_path.write_text(json.dumps(ep, ensure_ascii=False), encoding='utf-8')
     out = work / f'{vid}.mp4'
+    thumb = work / f'{vid}_thumb.jpg'   # Vorschaubild von studio.py (Lukas 26.11.)
     cmd = [sys.executable, str(STUDIO), str(ep_path), '-o', str(out)] + (['--rs', str(a.rs)] if a.rs else []) + a.extra.split()
     print('Engine 1:', ' '.join(cmd), flush=True)
     try:
@@ -133,6 +134,9 @@ def main():
                 subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(out), '-vf', 'scale=1080:1920:flags=lanczos', '-c:v', 'libx264', '-preset', 'medium',
                                 '-crf', '17', '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', str(small)], check=True)
                 variants = [(tid, small), (tid + '-4k', out)]
+            if thumb.exists():
+                try: Storage().upload(thumb, f'tests/{tid}_thumb.jpg'); print(f'THUMBLINK {tid}: {Storage().url(f"tests/{tid}_thumb.jpg", expires=7 * 24 * 3600)}', flush=True)
+                except Exception as e: print('Vorschaubild-Upload übersprungen:', e, flush=True)
             for v_id, f in variants:
                 k = f'tests/{v_id}.mp4'; Storage().upload(f, k)
                 api.call('POST', '/api/engine/videos/test', {'video_id': v_id, 'storage_key': k, 'filename': f.name, 'duration': q['info'].get('dur'), 'size_bytes': f.stat().st_size})
@@ -153,6 +157,13 @@ def main():
         for w in warns:
             api.log('VALIDATION_WARNING', w, video_id=vid, level='warn')
         Storage().upload(out, key)
+        if thumb.exists():   # Vorschaubild + Zeitpunkt (für Instagram/TikTok-Cover) neben das Video
+            try:
+                Storage().upload(thumb, key.replace('.mp4', '_thumb.jpg'))
+                tj = thumb.with_suffix('.json')
+                if tj.exists(): Storage().upload(tj, key.replace('.mp4', '_thumb.json'))
+                print('Vorschaubild hochgeladen:', key.replace('.mp4', '_thumb.jpg'), flush=True)
+            except Exception as e: print('Vorschaubild-Upload übersprungen:', e, flush=True)
         meta = dict(ep.get('meta') or {})
         resp = api.video_ready({
             'event': 'VIDEO_READY', 'video_id': vid, 'episode_id': vid, 'idempotency_key': vid,

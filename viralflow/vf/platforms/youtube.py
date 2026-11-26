@@ -36,6 +36,20 @@ def find_existing(token, mark):
     return None
 
 
+def set_thumbnail(token, video_id, meta):
+    """Eigenes Vorschaubild (Lukas 26.11.). Braucht einen bestätigten YouTube-Kanal; Fehler brechen den Upload nicht ab."""
+    p = meta.get('_thumb_path')
+    if not p:
+        return None
+    try:
+        with open(p, 'rb') as f:
+            r = http('POST', f'{API}/upload/youtube/v3/thumbnails/set?videoId={video_id}&uploadType=media',
+                     headers={'authorization': f'Bearer {token}', 'content-type': 'image/jpeg'}, data=f.read(), retries=2)
+        return 'Vorschaubild gesetzt' if r.status_code in (200, 201) else f'Vorschaubild nicht gesetzt: {err_text(r)}'
+    except Exception as e:
+        return f'Vorschaubild nicht gesetzt: {e}'
+
+
 def publish(path, size, tok, meta, settings, pub_id, attempt):
     token = tok['access_token']
     md = meta['youtube']
@@ -71,9 +85,9 @@ def publish(path, size, tok, meta, settings, pub_id, attempt):
             end = offset + len(chunk) - 1
             r = http('PUT', loc, headers={'content-length': str(len(chunk)), 'content-range': f'bytes {offset}-{end}/{size}'}, data=chunk, retries=2)
             if r.status_code in (200, 201):
-                v = r.json()
+                v = r.json(); note = set_thumbnail(token, v['id'], meta)
                 return {'remote_id': v['id'], 'remote_url': f'https://youtube.com/shorts/{v["id"]}',
-                        'privacy': v.get('status', {}).get('privacyStatus')}
+                        'privacy': v.get('status', {}).get('privacyStatus'), **({'note': note} if note else {})}
             if r.status_code == 308:
                 rng = r.headers.get('range')
                 offset = int(rng.split('-')[1]) + 1 if rng else 0
@@ -84,7 +98,7 @@ def publish(path, size, tok, meta, settings, pub_id, attempt):
                 raise PublishError(f'YouTube Upload abgebrochen: {err_text(r)}')
             q = http('PUT', loc, headers={'content-length': '0', 'content-range': f'bytes */{size}'})
             if q.status_code in (200, 201):
-                v = q.json()
-                return {'remote_id': v['id'], 'remote_url': f'https://youtube.com/shorts/{v["id"]}', 'privacy': v.get('status', {}).get('privacyStatus')}
+                v = q.json(); note = set_thumbnail(token, v['id'], meta)
+                return {'remote_id': v['id'], 'remote_url': f'https://youtube.com/shorts/{v["id"]}', 'privacy': v.get('status', {}).get('privacyStatus'), **({'note': note} if note else {})}
             rng = q.headers.get('range')
             offset = int(rng.split('-')[1]) + 1 if rng else 0

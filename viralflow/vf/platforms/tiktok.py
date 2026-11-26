@@ -83,7 +83,7 @@ def publish(path, size, tok, meta, settings, pub_id, attempt):
                 'post_info': {
                     'title': meta['tiktok']['title'][:2200], 'privacy_level': privacy,
                     'disable_comment': bool(d.get('comment_disabled')), 'disable_duet': bool(d.get('duet_disabled')),
-                    'disable_stitch': bool(d.get('stitch_disabled')), 'video_cover_timestamp_ms': 1000,
+                    'disable_stitch': bool(d.get('stitch_disabled')), 'video_cover_timestamp_ms': int(meta.get('_thumb_ms') or 1000),
                 },
                 'source_info': source,
             }

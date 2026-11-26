@@ -6,6 +6,7 @@ Pro Veröffentlichung: Claim (Idempotenz) -> Download aus R2 -> Prüfung -> Uplo
 Plattformen sind voneinander unabhängig: ein Fehler bei TikTok stoppt YouTube/Instagram nicht.
 """
 import argparse
+import json
 import os
 import sys
 import tempfile
@@ -55,6 +56,17 @@ def run(ids, api=None, storage=None, run_id=None):
                     api.log('VALIDATION_WARNING', w, video_id=video['id'], level='warn')
                 files[key] = (dst, info)
             path, info = files[key]
+            # Vorschaubild (Lukas 26.11.): liegt als <video>_thumb.jpg/.json neben dem Video in R2
+            tkey = video['storage_key'].replace('.mp4', '_thumb.jpg')
+            if tkey not in files:
+                try:
+                    if storage.exists(tkey):
+                        tdst = tmp / Path(tkey).name; storage.download(tkey, tdst); files[tkey] = tdst
+                        jk = tkey.replace('.jpg', '.json')
+                        if storage.exists(jk): jd = tmp / Path(jk).name; storage.download(jk, jd); files[jk] = json.loads(jd.read_text())
+                except Exception as e:
+                    print(f'[{pid}] Vorschaubild nicht geladen: {e}', flush=True)
+            if files.get(tkey): meta = dict(meta, _thumb_path=str(files[tkey]), _thumb_ms=(files.get(tkey.replace('.jpg', '.json')) or {}).get('ms'))
             tok = api.token(platform)
             print(f'[{pid}] Upload startet ({info["duration"]:.1f}s, {info["size"] / 1e6:.1f} MB)', flush=True)
             mod = PLATFORMS[platform]

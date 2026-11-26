@@ -493,6 +493,54 @@ def mii_check(src):
     print('Mii-Town-Prüfung: ' + ('✓ ok' if not out else '⚠ ' + ' · '.join(out)), flush=True)
     return out
 
+THUMB_MOODS = ('shock', 'panic', 'scared', 'surprised', 'angry', 'excited', 'cry', 'fear', 'laugh', 'evil', 'love')
+def pick_thumb(src, ep):
+    """(Shot-Index, Zeit im Shot, Zeit im Video) des stärksten Gesichts in der ersten Hälfte."""
+    shots, comp = src.get('shots') or [], ep.get('shots') or []
+    total = sum(s.get('dur', 0) for s in comp) or 1
+    best, bs = (0, 0.5, 1.0), -1e9
+    for i, (s, c) in enumerate(zip(shots, comp)):
+        if s.get('intro'): continue
+        t0 = c.get('tg0', 0)
+        if t0 > total * 0.6: break
+        cam = s.get('cam') if isinstance(s.get('cam'), str) else ''
+        moods = [str(a.get('mood')) for a in s.get('actors') or []]
+        sc = (3 if cam.startswith('face:') else 2 if cam.startswith('close:') else 0) + (3 if any(m in THUMB_MOODS for m in moods) else 0) + (1 if s.get('hook') else 0) - t0 / total
+        if sc > bs: bs, best = sc, (i, c.get('dur', 1) * 0.55, t0 + c.get('dur', 1) * 0.55)
+    return best
+
+def make_thumbnail(out, src, ep, clean=None):
+    """Vorschaubild (Lukas 26.11.): stärkstes Gesicht aus der ersten Hälfte (face:/close:-Kamera, starke Mimik), groß der Hook-Text.
+    Schreibt <video>_thumb.jpg (1080x1920, < 2 MB) und <video>_thumb.json {"ms": Zeitpunkt} für Instagram/TikTok-Cover."""
+    try:
+        from PIL import Image, ImageDraw, ImageFont, ImageFilter
+        si, tl, tt = pick_thumb(src, ep)
+        jpg = Path(str(out)).with_name(Path(str(out)).stem + '_thumb.jpg'); raw = jpg.with_suffix('.raw.png')
+        if clean and Path(clean).exists(): subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(clean), '-vf', 'scale=1080:1920', str(raw)], check=True)   # sauberes Bild ohne Untertitel
+        else: subprocess.run(['ffmpeg', '-y', '-v', 'error', '-ss', f'{tt:.2f}', '-i', str(out), '-frames:v', '1', '-vf', 'scale=1080:1920', str(raw)], check=True)
+        im = Image.open(raw).convert('RGB'); W, H = im.size
+        hook = ((src.get('viral') or {}).get('hook') or (src.get('meta') or {}).get('title') or '').upper()
+        hook = ''.join(ch for ch in hook if ord(ch) < 0x2000 or ch in '…–—').replace('…', '...').strip()
+        lines = [l.strip() for l in hook.split('\n') if l.strip()] or [hook]
+        font_p = Path(__file__).resolve().parent / 'fonts' / 'Poppins-Bold.ttf'
+        sz = 150
+        while sz > 70:
+            F = ImageFont.truetype(str(font_p), sz)
+            if all(F.getlength(l) <= W * 0.9 for l in lines): break
+            sz -= 8
+        shade = Image.new('L', (W, H), 0); ImageDraw.Draw(shade).rectangle([0, 0, W, int(H * 0.42)], fill=150)
+        shade = shade.filter(ImageFilter.GaussianBlur(120)); im = Image.composite(Image.new('RGB', (W, H), (0, 0, 0)), im, shade.point(lambda v: v * 0.55))
+        d = ImageDraw.Draw(im); y = int(H * 0.11)
+        cols = ['#ffe14d', '#ffffff']
+        for k, l in enumerate(lines[:3]):
+            w = F.getlength(l); d.text(((W - w) / 2, y), l, font=F, fill=cols[k % 2], stroke_width=max(8, sz // 11), stroke_fill='#111111'); y += int(sz * 1.12)
+        im.save(jpg, 'JPEG', quality=88, optimize=True); raw.unlink(missing_ok=True)
+        jpg.with_suffix('.json').write_text(json.dumps({'ms': int(tt * 1000)}))
+        print(f'Vorschaubild: {jpg} (Bild bei {tt:.1f}s)', flush=True)
+        return jpg
+    except Exception as e:
+        print('Vorschaubild übersprungen:', e, flush=True); return None
+
 def write_report(out, src, probs, total):
     """Qualitätsbericht neben dem Video (<name>_bericht.md)."""
     try:
@@ -594,7 +642,7 @@ def main():
     rs = a.rs if a.rs is not None else (float(os.environ.get('VF_RS', 1.25)) if hq else 0.75)
     out_k = 1 if (a.stills or a.frames) else int(float(os.environ.get('VF_OUT', src.get('out', 1)) or 1))  # 2 = echtes 4K (2160x3840)
     print(f'Qualität: {"4K-Look (HQ)" if hq else "klassisch"}, Render-Skala {rs}, Ausgabe {W * out_k}x{H * out_k}')
-    eng = Engine(ep, rs, hq, out_k)
+    eng = Engine(ep, rs, hq, out_k); thumb_clean = None
     try:
         if regie_on:  # Regie-Kontrolle 2: Physik/Bild mit der echten Engine (Kollisionen, Wände, Schweben, Bildausschnitt) – korrigiert ep
             import regie; rep = regie.bericht(r_inhalt, regie.physik(eng, ep)); eng.pg.evaluate('ep => R.load(ep)', ep)
@@ -628,6 +676,16 @@ def main():
             ts = time.time(); render_shot(eng, ep, si, path, fps, post_filter(src, hq, out_k, sh)); key.write_text(cur)
             print(f'Shot {si + 1}/{len(ep["shots"])}: {sh["nf"]} Frames in {time.time() - ts:.0f}s', flush=True)
         print(f'Rendern fertig in {time.time() - t0:.0f}s')
+        if not a.part and src.get('thumbnail', True) is not False:   # sauberes Bild (ohne Untertitel/Text) fürs Vorschaubild
+            try:
+                si_t, tl_t, _ = pick_thumb(src, ep); eng.pg.evaluate('R.clean = true')
+                cl = work / 'thumb_clean.jpg'; cl.write_bytes(eng.frame(si_t, tl_t, 0.95)); eng.pg.evaluate('R.clean = false')
+                thumb_clean = cl
+                try:
+                    vf_t = post_filter(src, hq, out_k, ep['shots'][si_t])
+                    if vf_t: subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(cl), '-vf', vf_t, str(work / 'thumb_clean_g.jpg')], check=True); thumb_clean = work / 'thumb_clean_g.jpg'
+                except Exception as e: print('Vorschaubild ohne Farb-Look:', e, flush=True)
+            except Exception as e: print('Vorschaubild-Rohbild übersprungen:', e, flush=True)
     finally:
         eng.close()
     if a.part:
@@ -665,6 +723,7 @@ def main():
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-i', str(wav), '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-af', 'loudnorm=I=-15:TP=-1.5:LRA=11', '-ar', '44100', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], check=True)
     os.replace(tmp, out)
     write_report(out, src, quality_check(out, total), total)
+    if src.get('thumbnail', True) is not False: make_thumbnail(out, src, ep, locals().get('thumb_clean'))
     print('Fertig:', out)
 
 if __name__ == '__main__':

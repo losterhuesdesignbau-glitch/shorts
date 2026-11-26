@@ -25,6 +25,7 @@ def publish(path, size, tok, meta, settings, pub_id, attempt):
             raise PublishError('Instagram-Tageslimit für API-Posts erreicht')
 
     base = {'media_type': 'REELS', 'caption': meta['instagram']['caption'][:2200], 'share_to_feed': 'true', 'access_token': token}
+    if meta.get('_thumb_ms') is not None: base['thumb_offset'] = str(int(meta['_thumb_ms']))   # Cover = Vorschaubild-Moment (Lukas 26.11.)
     if meta.get('_media_url'):
         # Instagram holt das Video selbst über den signierten Orchestrator-Link
         r = http('POST', f'{g}/{ig_id}/media', data=dict(base, video_url=meta['_media_url']))

@@ -767,7 +767,7 @@ function renderShot(sh, si, tl) {
   GL.render(items, cam, E);
   OX.setTransform(1, 0, 0, 1, 0, 0); OX.drawImage(CV, 0, 0, OC.width, OC.height); OX.setTransform(R.K || 1, 0, 0, R.K || 1, 0, 0);
   bloom(sh.bloom ?? (set.indoor ? 0.16 : lerp(0.09, 0.6, E.night)));
-  drawOverlay(sh, tl, D, map, list);
+  if (!R.clean) drawOverlay(sh, tl, D, map, list);   // R.clean: Bild ohne Untertitel/Text (Vorschaubild)
 }
 
 R.init = async function (W = 1080, H = 1920, rs = 0.75, out = 1) {
