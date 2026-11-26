@@ -206,7 +206,40 @@ const AVC = {};
 const GOLD = '#f5c518';
 const T_ = (mb, x, y, z, f) => { mb.push(M4.T(x, y, z)); f(); mb.pop(); };
 const TR_ = (mb, m, f) => { mb.push(m); f(); mb.pop(); };
+// Mii Town: glatte Haar-Schale über dem runden Kopf (Kopf ±0.66). keep(d) entscheidet je Richtung, ob dort Haar ist.
+function miiShell(mb, C, R, keep, o = {}) {
+  const NU = 120, NV = 56, sy = o.sy || 1.08, sz = o.sz || 1, cy = o.cy || 0.04, cz = o.cz || -0.03;
+  const D = (i, j) => { const th = j / NV * Math.PI, ph = i / NU * Math.PI * 2; return [Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph)]; };
+  const Pt = d => [d[0] * R, cy + d[1] * R * sy, cz + d[2] * R * sz], Nn = d => V3.norm([d[0], d[1] / sy, d[2] / sz]);
+  for (let j = 0; j < NV; j++) for (let i = 0; i < NU; i++) {
+    const a = D(i, j), b = D(i + 1, j), c = D(i + 1, j + 1), d = D(i, j + 1), m = V3.norm(V3.add(V3.add(a, b), V3.add(c, d)));
+    if (!keep(m)) continue;
+    mb.triN(Pt(a), Pt(d), Pt(c), Nn(a), Nn(d), Nn(c), C); mb.triN(Pt(a), Pt(c), Pt(b), Nn(a), Nn(c), Nn(b), C);
+  }
+}
+function miiHairGeo(mb, cfg) {
+  const hc = col(cfg.hairColor), st = cfg.hair || 'short', hd = shade(cfg.hairColor, 0.9);
+  // Haaransatz: vorne hoch (Stirn frei), seitlich bis über die Ohren, hinten tief
+  const line = (front, side, back) => d => { const f = d[2]; const w = smooth((f - 0.3) / 0.3); const yc = f > 0 ? front * w + side * (1 - w) : back * -f + side * (1 + f); return d[1] > yc; };   // Stirn frei, Schläfen bis zum Ohr
+  const T = (x, y, z, f) => { mb.push(M4.T(x, y, z)); f(); mb.pop(); };
+  if (st === 'afro') { T(0, 0.32, -0.1, () => mb.sphere(0.98, 2, hc, { sy: 0.92 })); return; }
+  if (st === 'buzz') { miiShell(mb, hc, 0.75, line(0.42, 0.05, -0.3), { sy: 1.04 }); return; }
+  if (st === 'cap') { miiShell(mb, hc, 0.77, line(0.3, -0.05, -0.45)); return; }
+  const R0 = st === 'long' || st === 'bob' ? 0.8 : 0.78;   // deutlich über der Kopfhaut (kein Flimmern)
+  const fr = { side: 0.22, bob: 0.18, long: 0.24, messy: 0.2, spiky: 0.3, curly: 0.26 }[st] ?? 0.3;
+  const sd = { long: -0.75, bob: -0.6, pigtails: -0.2, ponytail: -0.1 }[st] ?? -0.05;
+  const bk = { long: -0.95, bob: -0.75, ponytail: -0.5, bun: -0.5 }[st] ?? -0.42;
+  miiShell(mb, hc, R0, line(fr, sd, bk), { sy: st === 'spiky' ? 1.12 : 1.1 });
+  if (st === 'side') { mb.push(M4.chain(M4.T(0.18, 0.5, 0.44), M4.RZ(-0.45))); mb.sphere(0.36, 2, hc, { sx: 1.5, sy: 0.55, sz: 0.75 }); mb.pop(); }
+  if (st === 'long') { T(0, -0.55, -0.32, () => mb.sphere(0.62, 2, hc, { sx: 1.16, sy: 0.95, sz: 0.62 })); }
+  if (st === 'bob') for (const s of [-1, 1]) T(s * 0.55, -0.32, 0.02, () => mb.sphere(0.3, 2, hc, { sx: 0.7, sy: 1.15, sz: 1.3 }));
+  if (st === 'bun') T(0, 0.98, -0.32, () => mb.sphere(0.38, 2, hc));
+  if (st === 'curly' || st === 'messy') { const Rr = rng(hash(cfg.hairColor) + 5); for (let i = 0; i < 14; i++) { const ph = Rr() * 6.28, th = 0.15 + Rr() * 1.05, d = [Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph) - 0.15]; if (d[2] > 0.55 && d[1] < 0.6) continue; T(d[0] * 0.7, 0.04 + d[1] * 0.78, -0.03 + d[2] * 0.7, () => mb.sphere(0.2 + Rr() * 0.06, 2, Rr() > 0.5 ? hc : hd)); } }
+  if (st === 'spiky') for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2; mb.push(M4.chain(M4.T(Math.sin(a) * 0.3, 0.78, Math.cos(a) * 0.28 - 0.06), M4.RY(a), M4.RX(-0.5))); mb.cyl(0.2, 0.02, 0.38, 10, hc, { flat: false }); mb.pop(); }
+  if (st === 'mohawk') for (let i = 0; i < 5; i++) T(0, 0.82 + Math.sin(i / 4 * Math.PI) * 0.12, 0.5 - i * 0.28, () => mb.sphere(0.2, 2, hc, { sy: 1.3 }));
+}
 function hairGeo(mb, cfg) {
+  if (cfg.style === 'mii') { miiHairGeo(mb, cfg); cfg = { ...cfg, hair: 'none' }; }
   const hc = cfg.hairColor, st = cfg.hair, P = (x, y, z) => mb.push(M4.T(x, y, z)), Q = () => mb.pop(), hd = shade(hc, 0.86), hl2 = shade(hc, 1.12);
   const base = () => {
     P(0, 0.55, 0); mb.rbox(1.46, 0.44, 1.46, 0.17, hc); Q(); P(0, 0.16, -0.58); mb.rbox(1.46, 1.0, 0.36, 0.13, hc); Q();
@@ -283,7 +316,7 @@ function avatarGeo(cfg) {
   const gk = cfg.gloves ? (cfg.gloves === true ? '#ffffff' : cfg.gloves) : sk; // Handschuhe färben die Hände
   const hand = MII ? ((mb, y) => { T_(mb, 0, y + 0.02, 0, () => mb.sphere(0.5, 2, gk, { sy: 0.95 })); T_(mb, 0, y + 0.08, 0.36, () => mb.sphere(0.2, 1, shade(gk, 0.96))); }) : (mb, y) => { T_(mb, 0, y + 0.04, 0, () => mb.rbox(0.84, 0.4, 0.84, 0.16, gk)); for (let i = 0; i < 4; i++) T_(mb, -0.3 + i * 0.2, y - 0.2, 0.04, () => mb.rbox(0.18, 0.24, 0.62, 0.08, i % 2 ? shade(gk, 0.96) : gk)); T_(mb, 0, y + 0.02, 0.38, () => mb.rbox(0.26, 0.32, 0.2, 0.1, shade(gk, 0.95))); if (cfg.gloves) T_(mb, 0, y + 0.3, 0, () => mb.rbox(0.96, 0.22, 0.96, 0.08, shade(gk, 0.9))); };
   if (MII) {   // Kopfform: round | oval | square | wide | long (eigener Stil, keine Nintendo-Assets)
-    const FS = { round: [1.32, 1.32, 1.32, 0.6], oval: [1.24, 1.42, 1.3, 0.56], square: [1.36, 1.3, 1.32, 0.36], wide: [1.46, 1.26, 1.32, 0.56], long: [1.22, 1.5, 1.3, 0.5] }[cfg.face || 'round'] || [1.32, 1.32, 1.32, 0.6];
+    const FS = { round: [1.32, 1.36, 1.3, 0.64], oval: [1.26, 1.44, 1.3, 0.62], square: [1.34, 1.32, 1.3, 0.48], wide: [1.42, 1.3, 1.3, 0.62], long: [1.24, 1.5, 1.3, 0.6] }[cfg.face || 'round'] || [1.32, 1.36, 1.3, 0.64];
     g.head = cgeo('miihead|' + sk + '|' + (cfg.face || 'round'), mb => mb.rbox(FS[0], FS[1], FS[2], FS[3], sk, { uv: true }));
     const NS = { button: [0.075, 0.06], round: [0.095, 0.08], long: [0.065, 0.11], wide: [0.11, 0.065], small: [0.055, 0.05] }[cfg.nose || 'button'] || [0.13, 0.1];
     g.nose = cgeo('miinose|' + sk + '|' + (cfg.nose || 'button'), mb => mb.sphere(NS[0], 1, shade(sk, 0.92), { sy: NS[1] / NS[0] * 1.2, sz: 0.8 }));
@@ -300,10 +333,12 @@ function avatarGeo(cfg) {
       T_(mb, 0, -1 + ch - 0.02, 0, () => mb.rbox(1.9, 0.06, 0.93, 0.03, shade(sk, 0.86)));                // Schatten unter dem Saum
       T_(mb, 0, -1 + ch * 0.42, 0.44, () => mb.sphere(0.045, 1, shade(sk, 0.62), { sz: 0.35, sy: 1.4 }));   // Bauchnabel
     } else {
-      if (MII) mb.rbox(1.88, 2, 1.08, 0.5, sh, { uv: true }); else mb.rbox(2, 2, 1, 0.16, sh, { uv: true });
-      T_(mb, 0, -0.9, 0, () => mb.rbox(MII ? 1.9 : 2.03, 0.2, MII ? 1.1 : 1.03, MII ? 0.1 : 0.08, shade(sh, 0.9)));          // Saum
+      if (MII) {   // Mii: schmale Schultern, nach unten weiter (Glocke), keine Ecken
+        mb.push(M4.S(1, 1, 0.74)); T_(mb, 0, -1.0, 0, () => mb.cyl(1.0, 0.8, 1.86, 28, sh, { flat: false, cap: false })); T_(mb, 0, 0.86, 0, () => mb.sphere(0.8, 2, sh, { sy: 0.32 })); T_(mb, 0, -1.0, 0, () => mb.cyl(1.0, 1.0, 0.02, 28, shade(sh, 0.9))); mb.pop();
+      } else { mb.rbox(2, 2, 1, 0.16, sh, { uv: true });
+      T_(mb, 0, -0.9, 0, () => mb.rbox(2.03, 0.2, 1.03, 0.08, shade(sh, 0.9))); }          // Saum
     }
-    if (cfg.collar !== false && !cfg.hoodie) T_(mb, 0, 0.97, 0.1, () => mb.rbox(0.9, 0.1, 0.62, 0.05, shade(sh, 0.88)));
+    if (cfg.collar !== false && !cfg.hoodie && !MII) T_(mb, 0, 0.97, 0.1, () => mb.rbox(0.9, 0.1, 0.62, 0.05, shade(sh, 0.88)));
     if (cfg.buttons) for (let i = 0; i < 4; i++) T_(mb, 0, 0.7 - i * 0.45, 0.51, () => mb.sphere(0.06, 0, shade(sh, 0.7)));
     if (cfg.belt) { T_(mb, 0, -0.86, 0, () => mb.rbox(2.05, 0.22, 1.05, 0.05, cfg.belt)); T_(mb, 0, -0.86, 0.53, () => mb.box(0.32, 0.2, 0.04, GOLD)); }
     if (cfg.jacket || cfg.vest) { const c = cfg.jacket || cfg.vest, d = shade(c, 0.85); T_(mb, 0, 0, -0.53, () => mb.box(2.1, 2.06, 0.1, c)); for (const s of [-1, 1]) { T_(mb, s * 1.03, 0, 0, () => mb.box(0.1, 2.06, 1.1, c)); T_(mb, s * 0.68, 0.72, 0.53, () => mb.box(0.72, 0.62, 0.08, c)); } if (cfg.jacket) T_(mb, 0, 1.0, -0.35, () => mb.rbox(1.4, 0.24, 0.45, 0.08, d)); }
@@ -316,15 +351,17 @@ function avatarGeo(cfg) {
     if (cfg.scarf) { const c = cfg.scarf === true ? '#e63946' : cfg.scarf; T_(mb, 0, 0.98, 0, () => mb.rbox(1.7, 0.36, 1.18, 0.16, c)); }
     if (cfg.backpack) { const c = cfg.backpack === true ? '#e63946' : cfg.backpack; for (const s of [-1, 1]) { T_(mb, s * 0.55, 1.02, -0.05, () => mb.box(0.24, 0.08, 1.12, shade(c, 0.75))); T_(mb, s * 0.55, 0.32, 0.525, () => mb.box(0.24, 1.35, 0.05, shade(c, 0.75))); } }
   });
-  g.tex = shirtTex(cfg);
+  g.tex = MII ? null : shirtTex(cfg);   // Mii: einfarbiges Oberteil
   // Arme: Oberarm (Schulter) + Unterarm (Ellbogen bei y=-0.95)
   const shortS = cfg.sleeves === 'short' && !cfg.jacket, noS = cfg.sleeves === 'skin' || cfg.sleeves === 'none';
   g.uarm = cgeo(`uarm|${sleeve}|${sk}|${cfg.sleeves}|${!!cfg.jacket}|${MII ? 1 : 0}`, mb => {
+    if (MII) { const c = noS ? sk : sleeve; T_(mb, 0, -0.5, 0, () => mb.rbox(0.54, 1.1, 0.54, 0.26, c)); if (shortS) T_(mb, 0, -0.86, 0, () => mb.rbox(0.5, 0.38, 0.5, 0.24, sk)); return; }
     if (noS) T_(mb, 0, -0.47, 0, () => mb.rbox(0.92, 1.02, 0.92, 0.14, sk));
     else if (shortS) { T_(mb, 0, -0.3, 0, () => mb.rbox(1.0, 0.72, 1.0, 0.13, sleeve)); T_(mb, 0, -0.75, 0, () => mb.rbox(0.88, 0.5, 0.88, 0.12, sk)); }
     else T_(mb, 0, -0.47, 0, () => mb.rbox(0.96, 1.04, 0.96, MII ? 0.42 : 0.13, sleeve));
   });
   const larm = watch => mb => {
+    if (MII) { T_(mb, 0, -0.3, 0, () => mb.rbox(0.5, 0.7, 0.5, 0.24, (noS || shortS) ? sk : sleeve)); T_(mb, 0, -0.78, 0, () => mb.sphere(0.32, 2, gk)); if (watch) T_(mb, 0, -0.55, 0, () => mb.rbox(0.54, 0.12, 0.54, 0.05, '#2b2b2b')); return; }
     if (noS || shortS) T_(mb, 0, -0.26, 0, () => mb.rbox(0.86, 0.6, 0.86, 0.12, sk));
     else { T_(mb, 0, -0.25, 0, () => mb.rbox(0.94, 0.56, 0.94, MII ? 0.4 : 0.12, sleeve)); T_(mb, 0, -0.5, 0, () => mb.rbox(0.98, 0.14, 0.98, 0.05, shade(sleeve, 0.85))); }
     hand(mb, -0.78);
@@ -334,9 +371,10 @@ function avatarGeo(cfg) {
   g.larmR = cgeo(`larm|${sleeve}|${sk}|${cfg.gloves || ''}|${cfg.sleeves}|${!!cfg.jacket}||${MII ? 1 : 0}`, larm(false));
   // Beine: Oberschenkel (Hüfte) + Unterschenkel mit Schuh (Knie bei y=-1.0)
   const shorts = cfg.shorts;
-  g.thigh = cgeo(`thigh|${cfg.pants}|${sk}|${shorts ? 1 : 0}|${MII ? 1 : 0}`, mb => { T_(mb, 0, -0.5, 0, () => mb.rbox(0.98, 1.06, 0.98, MII ? 0.42 : 0.1, cfg.pants)); if (shorts) T_(mb, 0, -0.98, 0, () => mb.rbox(0.9, 0.2, 0.9, 0.08, sk)); });
+  g.thigh = cgeo(`thigh|${cfg.pants}|${sk}|${shorts ? 1 : 0}|${MII ? 1 : 0}`, mb => { if (MII) { T_(mb, 0, -0.5, 0, () => mb.rbox(0.74, 1.12, 0.74, 0.3, shorts ? sk : cfg.pants)); if (shorts) T_(mb, 0, -0.22, 0, () => mb.rbox(0.78, 0.56, 0.78, 0.36, cfg.pants)); return; } T_(mb, 0, -0.5, 0, () => mb.rbox(0.98, 1.06, 0.98, 0.1, cfg.pants)); if (shorts) T_(mb, 0, -0.98, 0, () => mb.rbox(0.9, 0.2, 0.9, 0.08, sk)); });
   g.shin = cgeo(`shin|${cfg.pants}|${cfg.shoes}|${cfg.sole}|${sk}|${shorts ? 1 : 0}|${cfg.boots ? 1 : 0}|${cfg.flare ? 1 : 0}|${MII ? 1 : 0}`, mb => {
-    T_(mb, 0, -0.3, 0, () => mb.rbox(shorts ? 0.86 : 0.96, 0.64, shorts ? 0.86 : 0.96, MII ? 0.38 : 0.1, shorts ? sk : cfg.pants));
+    if (MII) { T_(mb, 0, -0.28, 0, () => mb.rbox(0.7, 0.84, 0.7, 0.3, shorts ? sk : cfg.pants)); T_(mb, 0, -0.8, 0.12, () => mb.rbox(0.8, 0.38, 1.04, 0.18, cfg.shoes)); return; }
+    T_(mb, 0, -0.3, 0, () => mb.rbox(shorts ? 0.86 : 0.96, 0.64, shorts ? 0.86 : 0.96, 0.1, shorts ? sk : cfg.pants));
     if (cfg.flare && !shorts) T_(mb, 0, -0.6, 0.02, () => mb.rbox(1.22, 0.34, 1.26, 0.1, cfg.pants)); // Schlaghose
     if (cfg.boots) T_(mb, 0, -0.45, 0, () => mb.rbox(1.0, 0.5, 1.0, 0.1, cfg.shoes));
     T_(mb, 0, -0.77, 0.08, () => mb.rbox(1.02, 0.4, 1.16, MII ? 0.19 : 0.15, cfg.shoes));
@@ -353,11 +391,11 @@ function avatarGeo(cfg) {
   if (cfg.wings) { const c = cfg.wings === true ? '#ffffff' : cfg.wings; g.wing = cgeo('wing|' + c, mb => { for (let i = 0; i < 4; i++) T_(mb, 0.45 + i * 0.35, 0.3 - i * 0.28, 0, () => mb.rbox(0.5, 1.4 - i * 0.22, 0.12, 0.06, shade(c, 1 - i * 0.04))); }); }
   if (cfg.hat === 'halo') g.halo = cgeo('halo', mb => { for (let i = 0; i < 20; i++) { const a = i / 20 * 6.28; T_(mb, Math.sin(a) * 0.7, 1.15, Math.cos(a) * 0.7, () => { mb.push(M4.RY(a)); mb.box(0.25, 0.1, 0.12, '#fff3a0'); mb.pop(); }); } });
   // Körper-Details: Hals, Becken, Schulter-/Ellbogen-/Kniekappen (schließen Lücken bei gebeugten Gelenken)
-  g.neck = cgeo('neck|' + sk, mb => T_(mb, 0, 0.1, 0, () => mb.cyl(0.42, 0.46, 0.32, 12, shade(sk, 0.93), { flat: false })));
-  g.pelvis = cgeo('pelvis|' + cfg.pants, mb => T_(mb, 0, 2.0, 0, () => mb.rbox(1.98, 0.42, 0.98, 0.14, cfg.pants)));
-  g.cap = cgeo('scap|' + (noS ? sk : sleeve), mb => mb.sphere(0.5, 2, noS ? sk : sleeve));
-  g.elbow = cgeo('elb|' + ((noS || shortS) ? sk : sleeve), mb => mb.sphere(0.45, 1, (noS || shortS) ? sk : sleeve));
-  g.knee = cgeo('knee|' + (shorts ? sk : cfg.pants), mb => mb.sphere(0.48, 1, shorts ? sk : cfg.pants));
+  g.neck = cgeo('neck|' + sk + (MII ? '|m' : ''), mb => T_(mb, 0, MII ? 0.0 : 0.1, 0, () => mb.cyl(MII ? 0.3 : 0.42, MII ? 0.3 : 0.46, MII ? 0.36 : 0.32, 12, shade(sk, 0.93), { flat: false })));
+  g.pelvis = cgeo('pelvis|' + cfg.pants + (MII ? '|m' : ''), mb => T_(mb, 0, 2.0, 0, () => MII ? mb.rbox(1.7, 0.5, 1.1, 0.24, cfg.pants) : mb.rbox(1.98, 0.42, 0.98, 0.14, cfg.pants)));
+  g.cap = cgeo('scap|' + (noS ? sk : sleeve) + (MII ? '|m' : ''), mb => mb.sphere(MII ? 0.29 : 0.5, 2, noS ? sk : sleeve));
+  g.elbow = cgeo('elb|' + ((noS || shortS) ? sk : sleeve) + (MII ? '|m' : ''), mb => mb.sphere(MII ? 0.26 : 0.45, 1, (noS || shortS) ? sk : sleeve));
+  g.knee = cgeo('knee|' + (shorts ? sk : cfg.pants) + (MII ? '|m' : ''), mb => mb.sphere(MII ? 0.36 : 0.48, 1, shorts ? sk : cfg.pants));
   // Kleidung mit Physik (hängt an Drehpunkten, wird von der Stoff-Simulation bewegt)
   if (cfg.tie) { const c = cfg.tie === true ? '#c0392b' : cfg.tie; g.tie = cgeo('tie|' + c, mb => { T_(mb, 0, 0.0, 0.01, () => mb.box(0.3, 0.22, 0.08, shade(c, 0.85))); T_(mb, 0, -0.55, 0, () => mb.box(0.28, 1.0, 0.06, c)); TR_(mb, M4.chain(M4.T(0, -1.05, 0), M4.RZ(Math.PI / 4)), () => mb.box(0.2, 0.2, 0.06, c)); }); }
   if (cfg.jacket || cfg.vest) { const c = cfg.jacket || cfg.vest, d = shade(c, 0.85); g.jflap = cgeo('jflap|' + c, mb => { T_(mb, 0, -0.68, 0, () => mb.box(0.72, 1.36, 0.08, c)); TR_(mb, M4.chain(M4.T(-0.22, -0.12, 0.05), M4.RZ(0.35)), () => mb.box(0.24, 0.8, 0.05, d)); for (let i = 0; i < 2; i++) T_(mb, -0.25, -0.55 - i * 0.45, 0.05, () => mb.sphere(0.06, 0, shade(c, 0.6))); }); }
@@ -373,8 +411,9 @@ function avatarItems(items, cfg, S, P) {
   const root = M4.chain(M4.T(S.x + (P.dx || 0), S.y + (P.y || 0) * sc, S.z + (P.dz || 0)), M4.RY(S.face + (P.spin || 0) * DEG), M4.RZ((P.rz || 0) * DEG), M4.RX((P.rx || 0) * DEG), M4.S(sc * (1 + sq * 0.5) * (cfg.slim || 1), sc * (1 - sq) * (cfg.tall || 1), sc * (1 + sq * 0.5) * (cfg.slim || 1))); // slim/tall: schlankere, größere Figur
   const tb = P.tb || 0, sh = S.sh, chr = cfg.glow ? { spec: 0.3, rim: 0.9, ao: 0, e: Math.min(1, +cfg.glow || 0.6) } : { spec: 0.3, rim: 0.32, ao: 0 };  // glow: leuchtende Figur (z. B. Hauptfigur im Dunkeln)
   const torso = M4.chain(root, M4.T(0, 3 + tb, 0), M4.RY((P.tw || 0) * DEG), M4.RX((P.bx || 0) * DEG), M4.RZ((P.wz || 0) * DEG)); // wz = seitliche Taillenbeugung
-  const armL = M4.chain(torso, M4.T(1.5, 0.88, 0), M4.RZ((P.aLz || 0) * DEG), M4.RX((P.aLx || 0) * DEG), M4.RY((P.aLy || 0) * DEG));
-  const armR = M4.chain(torso, M4.T(-1.5, 0.88, 0), M4.RZ((P.aRz || 0) * DEG), M4.RX((P.aRx || 0) * DEG), M4.RY((P.aRy || 0) * DEG));
+  const SHX = cfg.style === 'mii' ? 1.06 : 1.5;   // Mii: schmale Schultern, dünne Arme
+  const armL = M4.chain(torso, M4.T(SHX, 0.82 + (cfg.style === 'mii' ? 0 : 0.06), 0), M4.RZ((P.aLz || 0) * DEG), M4.RX((P.aLx || 0) * DEG), M4.RY((P.aLy || 0) * DEG));
+  const armR = M4.chain(torso, M4.T(-SHX, 0.82 + (cfg.style === 'mii' ? 0 : 0.06), 0), M4.RZ((P.aRz || 0) * DEG), M4.RX((P.aRx || 0) * DEG), M4.RY((P.aRy || 0) * DEG));
   const foreL = M4.chain(armL, M4.T(0, -0.95, 0), M4.RX(-(P.eL || 0) * DEG)), foreR = M4.chain(armR, M4.T(0, -0.95, 0), M4.RX(-(P.eR || 0) * DEG));
   const legL = M4.chain(root, M4.T(0.5, 2, 0), M4.RZ((P.lLz || 0) * DEG), M4.RX((P.lLx || 0) * DEG));
   const legR = M4.chain(root, M4.T(-0.5, 2, 0), M4.RZ((P.lRz || 0) * DEG), M4.RX((P.lRx || 0) * DEG));

@@ -66,3 +66,9 @@ Die bisherigen Episoden bleiben renderbar: Der alte Block-Stil bleibt als `style
 - Mias Blockfrisur verdeckt teils die Augen; Rosas Dutt wirkt wie ein Helm.
 - Ladenschilder am Platz sind deutsch (BÄCKEREI, KIOSK) – für englische Videos umstellen.
 - Nach Abnahme: tägliche Läufe neu planen, ABLAUF/AUFTRAEGE auf Mii-Figuren umstellen.
+
+## 26.11. Mii-Look nachgeschärft (Lukas: „mehr wie originale Mii“)
+- Kopf fast kugelrund, glatte Haar-Schalen statt Klötzchen (Haaransatz: Stirn frei, Schläfen bis zum Ohr), Dutt/Locken/Zöpfe rund.
+- Körper: glockenförmiger Oberkörper mit schmalen Schultern, einfarbiges Oberteil (keine Muster/Logos), dünne Arme, Kugelhände, schlanke Beine, runde Schuhe.
+- Regenschirm wird am Griff gehalten (`hold.off`).
+- Offen: Haaransatz an den Schläfen noch leicht stufig.
