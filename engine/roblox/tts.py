@@ -395,6 +395,56 @@ def sentence_speed(tokens, base, first=False):
     if len(tokens) <= 2: f *= 0.97          # kurze Ausrufe nicht hetzen
     return base * f * (1 + _jit(text, 'v', 0.012))   # nie schneller als normal (Lukas 22.11.)
 
+def tighten(audio, times, tokens, maxp=0.3, keep=0.2, sr=AU.SR):
+    """Lange Pausen INNERHALB eines Blocks kürzen (Kokoro macht nach jedem Punkt ~0,4–0,6 s Stille -> wirkt abgehackt).
+    Nach „…“ bleibt mehr Pause (dramatisch). Wortzeiten werden mitverschoben (Timing bleibt exakt)."""
+    hop = int(0.01 * sr); n = len(audio) // hop
+    if n < 10: return audio, times
+    env = np.sqrt(np.mean(audio[:n * hop].reshape(n, hop) ** 2, axis=1)); thr = env.max() * 0.03
+    sil = env < thr; cuts = []; i = 0
+    while i < n:
+        if sil[i]:
+            j = i
+            while j < n and sil[j]: j += 1
+            a, b = i * hop / sr, j * hop / sr
+            if i > 0 and j < n and b - a > maxp:
+                prev = [k for k, (x0, x1) in enumerate(times) if x1 <= a + 0.02]
+                kp = keep + (0.22 if prev and re.search(r'(…|\.\.\.)["”»]*$', tokens[prev[-1]]['raw']) else 0)
+                if b - a > kp: cuts.append((a + kp / 2, b - kp / 2))
+            i = j
+        else: i += 1
+    if not cuts: return audio, times
+    out, pos = [], 0
+    for a, b in cuts: out.append(audio[pos:int(a * sr)]); pos = int(b * sr)
+    out.append(audio[pos:]); y = np.concatenate(out)
+    def mp(x):
+        s = 0.0
+        for a, b in cuts:
+            if x >= b: s += b - a
+            elif x > a: return a - s
+        return x - s
+    return y, [(mp(a), mp(b)) for a, b in times]
+
+def expressive(audio, k=1.35, sr=AU.SR):
+    """Weniger monoton: Tonhöhen-Bewegung um den Mittelwert verstärkt (PSOLA, Praat) – Dauer/Timing bleiben gleich."""
+    if not k or abs(k - 1) < 0.01 or len(audio) < sr * 0.3: return audio
+    try:
+        import parselmouth
+    except ImportError:
+        _pip('praat-parselmouth'); import parselmouth
+    from parselmouth.praat import call
+    try:
+        s = parselmouth.Sound(np.asarray(audio, np.float64), sr)
+        p = s.to_pitch(time_step=0.01, pitch_floor=75, pitch_ceiling=600).selected_array['frequency']; v = p[p > 0]
+        if len(v) < 10: return audio
+        med = float(np.median(v)); m = call(s, "To Manipulation", 0.01, 75, 600); pt = call(m, "Extract pitch tier")
+        call(pt, "Formula", f"{med} * (self / {med}) ^ {k}"); call([pt, m], "Replace pitch tier")
+        y = call(m, "Get resynthesis (overlap-add)").values[0][:len(audio)]
+        if len(y) < len(audio): y = np.pad(y, (0, len(audio) - len(y)))
+        return (y / (np.abs(y).max() + 1e-9) * (np.abs(audio).max() + 1e-9)).astype(np.float32)
+    except Exception as e:
+        print('Ausdruck übersprungen:', e, flush=True); return audio
+
 def sentence_pause(tokens, cfg):
     """Pause NACH einem Satz (Stille im Audio ist schon abgeschnitten): kurz und natürlich wie ein Sprecher,
     Frage/… etwas länger, Ausruf kürzer; innerhalb eines Satzes (Komma, Satz läuft über mehrere Shots) fast nahtlos."""
@@ -555,6 +605,8 @@ def speak_episode(ep, shots, opts=None):
                 audio = audio[a0:a1].copy(); audio[:fade] *= np.linspace(0, 1, fade); audio[-fade:] *= np.linspace(1, 0, fade)
                 sh0 = a0 / AU.SR; dmax = len(audio) / AU.SR
                 times = [(min(max(0.0, a - sh0), dmax), min(max(0.0, b - sh0), dmax)) for a, b in times]
+        if cfg.get('tighten', True): audio, times = tighten(audio, times, u['tokens'], float(cfg.get('maxPause', 0.3)), float(cfg.get('keepPause', 0.26)))
+        audio = expressive(audio, float(cfg.get('expr', 1.35)))   # Lukas 26.11.: weniger monoton
         act = np.abs(audio) > 0.02  # jeden Satz auf gleiche Sprechlautstärke
         if act.any(): audio = audio * (0.1 / (np.sqrt(np.mean(audio[act] ** 2)) + 1e-9))
         cached += hit; hows[how] = hows.get(how, 0) + 1
