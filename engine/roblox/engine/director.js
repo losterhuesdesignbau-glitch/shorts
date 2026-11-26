@@ -519,7 +519,8 @@ function propLayout(sh, si, set) {
     const free = !p.fly && !p.on && !p.head && p.natural !== false && !FIXP[p.type];
     let y = q[1]; if (free && p.at && p.at.length === 2 && small && p.y === undefined) y = surfTop(q[0], q[2], surfs);
     const jit = (p.ry === undefined && !NOJIT[p.type] && !FIXP[p.type] && p.natural !== false) ? ((hash(p.type + '|' + i + '|' + si) % 1000) / 1000 - 0.5) * (small ? 50 : 18) * DEG : 0;
-    return { x: q[0], y, z: q[2], r, jit, push: free && !SEATP[p.type] && p.pin !== true, small };
+    const seatOf = (sh.actors || []).some(a => { const ds = Array.isArray(a.do) ? a.do.map(x => Array.isArray(x) ? x[0] : x) : [a.do]; if (!ds.some(d => String(d).startsWith('sit'))) return false; const ap = pt3(a.at); return Math.hypot(ap[0] - q[0], ap[2] - q[2]) < 1.6; });   // Sitzplatz einer sitzenden Figur bleibt, wo er ist (Lukas 26.11.)
+    return { x: q[0], y, z: q[2], r, jit, push: free && !SEATP[p.type] && p.pin !== true && !seatOf, small };
   });
   // Abstoßen: von Figuren-Positionen/Wegen und voneinander (wenige Relaxations-Schritte, max. 3 Einheiten)
   for (let it = 0; it < 6; it++) for (let i = 0; i < L.length; i++) {

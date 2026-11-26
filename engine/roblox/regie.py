@@ -211,7 +211,22 @@ def _cam_far(sh, f):
     return c['far']
 
 
-def physik(eng, ep, runden=3):
+SEAT_PROPS = ('chair', 'bench', 'stool', 'box', 'sofa', 'couch', 'bed', 'lounger', 'toilet', 'bleachers')
+def _sits(a):
+    d = a.get('do'); ds = [d] if isinstance(d, str) else [x[0] if isinstance(x, list) else x for x in (d or [])]
+    return any(str(x).startswith('sit') for x in ds)
+def _move(sh, a, new):
+    """Figur umstellen; sitzt sie, wandert ihr Sitz (Stuhl/Bank/Kiste) mit – nie neben dem Stuhl in der Luft (Lukas 26.11.)."""
+    old = a.get('at'); a['at'] = new
+    if old and _sits(a):
+        dx, dz = new[0] - old[0], new[-1] - old[-1]
+        for p in sh.get('props') or []:
+            if p.get('type') in SEAT_PROPS and p.get('at'):
+                pa = p['at']; px, pz = pa[0], pa[-1]
+                if (px - old[0]) ** 2 + (pz - old[-1]) ** 2 < 1.6 ** 2:
+                    p['at'] = [round(px + dx, 2), pa[1], round(pz + dz, 2)] if len(pa) == 3 else [round(px + dx, 2), round(pz + dz, 2)]
+
+def physik(eng, ep, runden=4):
     """Geometrie-Prüfung mit der Engine; korrigiert Kollisionen, Wände, Schweben, Bildausschnitt. ep wird geändert."""
     fixes, warns = [], []
     for rnd in range(runden):
@@ -228,17 +243,19 @@ def physik(eng, ep, runden=3):
                     dx, dz = bx - ax, bz - az; d = (dx * dx + dz * dz) ** 0.5
                     if d < 1e-3: dx, dz, d = 1.0, 0.0, 1.0
                     nx, nz = dx / d, dz / d; p = fx['push']
-                    wa, wb = (0.0, 1.0) if A.get('path') else (1.0, 0.0) if B.get('path') else (0.5, 0.5)
-                    A['at'] = [round(ax - nx * p * wa, 2), round(az - nz * p * wa, 2)]; B['at'] = [round(bx + nx * p * wb, 2), round(bz + nz * p * wb, 2)]
+                    wa, wb = (0.0, 1.0) if (A.get('path') or _sits(A)) and not _sits(B) else (1.0, 0.0) if (B.get('path') or _sits(B)) and not _sits(A) else (0.5, 0.5)   # wer sitzt, bleibt sitzen
+                    _move(sh, A, [round(ax - nx * p * wa, 2), round(az - nz * p * wa, 2)]); _move(sh, B, [round(bx + nx * p * wb, 2), round(bz + nz * p * wb, 2)])
                     fixes.append(label + ' -> auseinandergestellt'); changed = True; continue
             if typ == 'ausserhalb' and fx and acts.get(b['id']) and acts[b['id']].get('at') and not acts[b['id']].get('path'):
                 a = acts[b['id']]; x0, x1, z0, z1 = fx['clamp']
-                a['at'] = [round(min(max(a['at'][0], x0), x1), 2), round(min(max(a['at'][-1], z0), z1), 2)]
+                _move(sh, a, [round(min(max(a['at'][0], x0), x1), 2), round(min(max(a['at'][-1], z0), z1), 2)])
                 fixes.append(label + ' -> in den Raum gestellt'); changed = True; continue
             if typ == 'in_moebel' and fx.get('to') and acts.get(b['id']) and not acts[b['id']].get('path'):
-                acts[b['id']]['at'] = fx['to']; fixes.append(label + f' -> umgestellt auf {fx["to"]}'); changed = True; continue
+                _move(sh, acts[b['id']], fx['to']); fixes.append(label + f' -> umgestellt auf {fx["to"]}'); changed = True; continue
             if typ == 'verdeckt_figur' and acts.get(b['id']) and acts[b['id']].get('at') and not acts[b['id']].get('path'):
-                a = acts[b['id']]; a['at'] = [round(a['at'][0] + fx['dx'], 2), round(a['at'][-1] + fx['dz'], 2)]
+                a = acts[b['id']]
+                if _sits(a): warns.append(label); continue   # sitzende Figur nicht vom Stuhl schieben
+                _move(sh, a, [round(a['at'][0] + fx['dx'], 2), round(a['at'][-1] + fx['dz'], 2)])
                 fixes.append(label + ' -> seitlich versetzt'); changed = True; continue
             if typ == 'verdeckt' and 'ang' in fx:
                 c = sh.get('cam'); _cam_far(sh, 1.0); sh['cam']['ang'] = fx['ang']; fixes.append(label + f' -> Kamerawinkel {fx["ang"]}°'); changed = True; continue
