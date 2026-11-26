@@ -248,5 +248,15 @@
   "plot": "Finn gets stuck in an elevator with a stranger, Grace. She explains elevators have vents and multiple cables; he tries forcing the doors (mistake), they press the alarm, wait and become friends.",
   "twist": "When the technician opens the doors they are still on the ground floor – nobody ever pressed a button.",
   "file": "episodes/queue/survival_elevator.json"
+ },
+ {
+  "date": "2026-11-26",
+  "series": "DARK STORIES",
+  "title": "Grandpa's Clock Stops at 3:33 A.M. Every Night… ⏰😨",
+  "topic": "Grandpa's old clock stops at 3:33 a.m. every night; rule: never touch it",
+  "hook": "Grandpa's clock stops at 3:33 a.m.",
+  "plot": "Lily stays at Grandpa Oscar's house; at 3:33 a.m. the clock stops and the ticking moves into the hallway behind her. She turns the clock forward to 3:34 and the ticking stops.",
+  "twist": "Next morning there are two identical Grandpas at breakfast – one came in at 3:34.",
+  "file": "episodes/queue/dark_grandpas_clock.json"
  }
 ]
