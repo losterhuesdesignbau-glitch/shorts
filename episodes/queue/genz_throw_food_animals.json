@@ -1,0 +1,1287 @@
+{
+ "title": "Throw Food For Animals",
+ "music": "trend",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "THROW FOOD\nFOR ANIMALS?!",
+  "series": "GENZ TRENDS #2",
+  "cta": "YES or NO? 👇",
+  "mid": "Guess the rarest animal 👇",
+  "share": "Send this to your Roblox squad 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "We Tried \"Throw Food For Animals\" in REAL LIFE 🦁🥕 (Roblox Trend)",
+  "description": "Throw Food For Animals is the fastest growing game on Roblox – so Max tried it in real life in Mii Town… but Grandma Rosa got the legendary pet. Which animal would YOU want to catch? 👇",
+  "hashtags": [
+   "roblox",
+   "throwfoodforanimals",
+   "genztrends",
+   "gaming",
+   "miitown"
+  ],
+  "keywords": [
+   "throw food for animals",
+   "roblox trend",
+   "legendary pet"
+  ],
+  "question": "Which animal would YOU want to catch – frog, pig, cow or lion? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "max": "@max",
+  "mia": "@mia",
+  "rosa": "@rosa",
+  "frog": {
+   "animal": "frog"
+  },
+  "pig": {
+   "animal": "pig"
+  },
+  "cow": {
+   "animal": "cow"
+  },
+  "sheep": {
+   "animal": "sheep"
+  },
+  "chicken": {
+   "animal": "chicken"
+  },
+  "lion": {
+   "animal": "lion"
+  }
+ },
+ "shots": [
+  {
+   "say": "Throw Food For Animals *exploded*!",
+   "set": "room",
+   "time": "day",
+   "cam": "face:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "tv",
+     "at": [
+      0,
+      -2.4
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ]
+  },
+  {
+   "say": "It's the fastest growing game on Roblox.",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "excited",
+     "face": 0,
+     "hold": "controller"
+    }
+   ],
+   "pops": [
+    {
+     "text": "#1 📈",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "From thirteen thousand players…",
+   "set": "room",
+   "time": "day",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "13K 👥",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "to over *two million* at once!",
+   "set": "room",
+   "time": "day",
+   "cam": "push:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "2.4 MILLION 🔥",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "The idea is simple.",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Throw food as far as you can.",
+   "set": "room",
+   "time": "day",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🥕 ➡️ ➡️ ➡️",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Whatever animal eats it… is *yours*.",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "laugh",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🐸✅",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.4
+    }
+   ]
+  },
+  {
+   "say": "So Max tried it… in *real life*.",
+   "set": "park",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -3,
+      1
+     ],
+     "do": "walk",
+     "mood": "determined",
+     "path": [
+      [
+       -3,
+       1
+      ],
+      [
+       -0.6,
+       1
+      ]
+     ]
+    },
+    {
+     "id": "mia",
+     "at": [
+      -4.2,
+      1.6
+     ],
+     "do": "walk",
+     "mood": "excited",
+     "path": [
+      [
+       -4.2,
+       1.6
+      ],
+      [
+       1.2,
+       1.6
+      ]
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      3.6,
+      0,
+      2.4
+     ],
+     "ry": -90
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Mia brought the food.",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      1.8,
+      1.6
+     ],
+     "do": "hold",
+     "mood": "excited",
+     "face": -20,
+     "hold": "carrot"
+    },
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 30
+    }
+   ]
+  },
+  {
+   "say": "Throw number one: a *carrot*.",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "throw",
+     "mood": "determined",
+     "face": 180,
+     "throw": {
+      "item": "carrot",
+      "at": 0.55
+     }
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.55
+    ]
+   ]
+  },
+  {
+   "say": "And a *frog* hopped out!",
+   "set": "park",
+   "time": "day",
+   "cam": "close:frog",
+   "actors": [
+    {
+     "id": "frog",
+     "at": [
+      0,
+      -5
+     ],
+     "do": "hop",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "COMMON 🐸",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#b0b0b0"
+    }
+   ],
+   "sfx": [
+    [
+     "boing",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Common. Boring.",
+   "set": "park",
+   "time": "day",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "shrug",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "crickets",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Throw number two: *pizza*!",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "throw",
+     "mood": "determined",
+     "face": 180,
+     "throw": {
+      "item": "pizza",
+      "at": 0.55
+     }
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.55
+    ]
+   ]
+  },
+  {
+   "say": "Farther… and a *pig* came running!",
+   "set": "park",
+   "time": "day",
+   "cam": "track:pig",
+   "actors": [
+    {
+     "id": "pig",
+     "at": [
+      -4,
+      -6
+     ],
+     "do": "run",
+     "mood": "happy",
+     "path": [
+      [
+       -4,
+       -6
+      ],
+      [
+       1,
+       -3
+      ]
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "UNCOMMON 🐷",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.3,
+     "color": "#4cc9f0"
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "In the game, farther means *rarer*.",
+   "set": "park",
+   "time": "day",
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      1.8,
+      1.6
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": -10
+    }
+   ],
+   "pops": [
+    {
+     "text": "FARTHER = RARER",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#ffd23f"
+    }
+   ]
+  },
+  {
+   "say": "So he trained.",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "kneelift",
+     "mood": "determined",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Huss, huss, huss!",
+   "set": "park",
+   "time": "day",
+   "cam": "push:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "kneelift",
+     "mood": "determined",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "But that's not the weird part…",
+   "set": "park",
+   "time": "day",
+   "cam": "close:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      1.8,
+      1.6
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 50
+    }
+   ],
+   "sfx": [
+    [
+     "riser",
+     0.0
+    ]
+   ]
+  },
+  {
+   "say": "Grandma Rosa was watching from a bench.",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      2.4
+     ],
+     "do": "sit",
+     "mood": "smug",
+     "face": -90,
+     "hold": "burger"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      3.6,
+      0,
+      2.4
+     ],
+     "ry": -90
+    }
+   ]
+  },
+  {
+   "say": "Throw number three: a whole *cake*!",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "throw",
+     "mood": "determined",
+     "face": 180,
+     "throw": {
+      "item": "cake",
+      "at": 0.6
+     }
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "Max threw it with *everything*.",
+   "set": "park",
+   "time": "day",
+   "cam": "low:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "cheer",
+     "mood": "determined",
+     "face": 180
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.1
+    }
+   ]
+  },
+  {
+   "say": "It flew over the trees…",
+   "set": "park",
+   "time": "day",
+   "cam": "wide",
+   "props": [
+    {
+     "type": "cake",
+     "at": [
+      0,
+      1.5,
+      0
+     ],
+     "fly": {
+      "to": [
+       2,
+       0,
+       -16
+      ],
+      "t": [
+       0,
+       0.9
+      ],
+      "arc": 7
+     }
+    },
+    {
+     "type": "bench",
+     "at": [
+      3.6,
+      0,
+      2.4
+     ],
+     "ry": -90
+    }
+   ]
+  },
+  {
+   "say": "and landed next to a *cow*.",
+   "set": "park",
+   "time": "day",
+   "cam": "close:cow",
+   "actors": [
+    {
+     "id": "cow",
+     "at": [
+      0,
+      -6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "RARE 🐄",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.2,
+     "color": "#9b5de5"
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Then a sheep… and a chicken came too!",
+   "set": "park",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "cow",
+     "at": [
+      -1.5,
+      -6
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "path": [
+      [
+       -1.5,
+       -6
+      ],
+      [
+       -1.5,
+       -2.5
+      ]
+     ]
+    },
+    {
+     "id": "sheep",
+     "at": [
+      1,
+      -7
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "path": [
+      [
+       1,
+       -7
+      ],
+      [
+       1,
+       -3
+      ]
+     ]
+    },
+    {
+     "id": "chicken",
+     "at": [
+      2.6,
+      -6.5
+     ],
+     "do": "run",
+     "mood": "happy",
+     "path": [
+      [
+       2.6,
+       -6.5
+      ],
+      [
+       2.6,
+       -2.8
+      ]
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Max had a whole *farm*!",
+   "set": "park",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "cheer",
+     "mood": "laugh",
+     "face": 0
+    },
+    {
+     "id": "cow",
+     "at": [
+      -2.2,
+      -1
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "sheep",
+     "at": [
+      1,
+      -1.2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "chicken",
+     "at": [
+      2.4,
+      -0.4
+     ],
+     "do": "jump",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "tada",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Then it got *worse*.",
+   "set": "park",
+   "time": "day",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Something big was coming.",
+   "set": "park",
+   "time": "day",
+   "cam": "wide",
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "A *lion*!",
+   "set": "park",
+   "time": "day",
+   "cam": "push:lion",
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      0,
+      -8
+     ],
+     "do": "walk",
+     "mood": "angry",
+     "path": [
+      [
+       0,
+       -8
+      ],
+      [
+       0,
+       -6
+      ]
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "LEGENDARY 🦁",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.1,
+     "color": "#ffd23f"
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Max and Mia *froze*.",
+   "set": "park",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "freeze",
+     "mood": "panic",
+     "face": 180
+    },
+    {
+     "id": "mia",
+     "at": [
+      1.8,
+      1.6
+     ],
+     "do": "freeze",
+     "mood": "scared",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "scratch",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "But the lion walked right past them…",
+   "set": "park",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "lion",
+     "at": [
+      -2.5,
+      -4
+     ],
+     "do": "walk",
+     "mood": "happy",
+     "path": [
+      [
+       -2.5,
+       -4
+      ],
+      [
+       0.2,
+       4.0
+      ]
+     ]
+    },
+    {
+     "id": "max",
+     "at": [
+      -0.6,
+      1
+     ],
+     "do": "scared",
+     "mood": "panic",
+     "face": 150
+    },
+    {
+     "id": "mia",
+     "at": [
+      1.8,
+      1.6
+     ],
+     "do": "scared",
+     "mood": "scared",
+     "face": 200
+    }
+   ]
+  },
+  {
+   "say": "straight to Grandma Rosa.",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      2.4
+     ],
+     "do": "sit",
+     "mood": "smile",
+     "face": -90,
+     "hold": "burger"
+    },
+    {
+     "id": "lion",
+     "at": [
+      0.2,
+      4.0
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 60
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      3.6,
+      0,
+      2.4
+     ],
+     "ry": -90
+    }
+   ]
+  },
+  {
+   "say": "She had a *sandwich* the whole time.",
+   "set": "park",
+   "time": "day",
+   "cam": "close:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      2.4
+     ],
+     "do": "sit",
+     "mood": "smug",
+     "face": -90,
+     "hold": "burger"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      3.6,
+      0,
+      2.4
+     ],
+     "ry": -90
+    }
+   ],
+   "pops": [
+    {
+     "text": "🥪",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.3
+    }
+   ]
+  },
+  {
+   "say": "Legendary pet: *Grandma's*.",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:lion",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      2.4
+     ],
+     "do": "sit",
+     "mood": "laugh",
+     "face": -90,
+     "hold": "burger"
+    },
+    {
+     "id": "lion",
+     "at": [
+      0.2,
+      4.0
+     ],
+     "do": "idle",
+     "mood": "love",
+     "face": 60
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      3.6,
+      0,
+      2.4
+     ],
+     "ry": -90
+    }
+   ],
+   "fx": [
+    {
+     "type": "hearts",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Grandma just *sat there*.",
+   "set": "park",
+   "time": "day",
+   "cam": "close:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      2.4
+     ],
+     "do": "sit",
+     "mood": "wink",
+     "face": -90,
+     "hold": "burger"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      3.6,
+      0,
+      2.4
+     ],
+     "ry": -90
+    }
+   ]
+  },
+  {
+   "say": "Did you spot her sandwich earlier?",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:rosa",
+   "actors": [
+    {
+     "id": "rosa",
+     "at": [
+      3.6,
+      2.4
+     ],
+     "do": "sit",
+     "mood": "grin",
+     "face": -90,
+     "hold": "burger"
+    }
+   ],
+   "props": [
+    {
+     "type": "bench",
+     "at": [
+      3.6,
+      0,
+      2.4
+     ],
+     "ry": -90
+    }
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Would YOU play this in real life?",
+   "set": "room",
+   "time": "day",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Yes or no?",
+   "set": "room",
+   "time": "day",
+   "cam": "face:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Because one tiny carrot… and it all just…",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "smug",
+     "face": 0,
+     "hold": "controller"
+    }
+   ]
+  }
+ ]
+}
