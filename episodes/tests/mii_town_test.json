@@ -716,6 +716,46 @@
    "time": "day"
   },
   {
+   "say": "Ding! Wish *accepted*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:mia",
+   "actors": [
+    {
+     "id": "mia",
+     "at": [
+      0,
+      2.6
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 0
+    },
+    {
+     "id": "max",
+     "at": [
+      -2.2,
+      2
+     ],
+     "do": "scared",
+     "mood": "shock",
+     "face": 20
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.05
+    ]
+   ]
+  },
+  {
    "say": "The fountain granted the wish.",
    "cam": "group",
    "time": "dusk",
