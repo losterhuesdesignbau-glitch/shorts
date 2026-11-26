@@ -255,3 +255,9 @@ Episode nach `episodes/tests/<name>.json` legen (nicht queue!), pushen, dann Wor
   - *QA*: zusätzlich Farbigkeit (Warnung < 25; Referenzen 50–90) und Bild/Ton-Länge.
 - **„Huss“-Rhythmus (Lukas 23.11., nach seiner Vorlage):** Ein Shot nur aus „huss“ wird nicht mehr normal gesprochen, sondern als kurzer Silben-Schlag im 0,2-s-Takt wiederholt (Dreiergruppe, nach drei Schlägen 0,25 s Pause, letzter Schlag betont) – mit der eigenen Erzählstimme, keine fremde Aufnahme. Immer eigener Sprachblock.
 - **Uhrzeiten (Lukas 23.11.):** „p.m.“/„a.m.“ wird mit Pause gesprochen („nine P… M“). Einfach normal schreiben: `at 9 p.m.`
+
+## Mii Town (ab 26.11.2026)
+- **Figuren aus der Datenbank** `episodes/figuren.json`: im `cast` nur `"max": "@max"` oder `{"char": "max", "outfit": {"shirt": "#ff0000"}}` (Outfit änderbar, Gesicht/Haut/Haarfarbe nie). Neue id → Figur wird automatisch und immer gleich erzeugt; festschreiben: `python tools/figuren.py auto <episode>` (auch `neu`, `zeige`, `liste`).
+- **Intro** (1–2 s) automatisch bei Mii-Figuren: Kategorie aus `"category"` (standard, battle, horror, comedy, mystery, survival, challenge) oder aus Musik/Serie/Titel. Satz + „MII TOWN“-Logo + Motiv `sfx motif_<kategorie>`. Aus: `"intro": false`. Hook (`viral.hook`) liegt auf dem ersten echten Shot.
+- **Bewegung:** Schritte passend zur Figurgröße, Gesten auf Wortgrenzen, Betonung auf `*Wort*`, Kopf dreht vor dem Körper, Zuhörer nicken/reagieren.
+- **Prüfung:** `Mii-Town-Prüfung` im Log (Identität, Fußrutschen, Intro) + `<video>_bericht.md`.
