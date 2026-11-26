@@ -78,3 +78,53 @@ Die bisherigen Episoden bleiben renderbar: Der alte Block-Stil bleibt als `style
 - Schlanker Körper: Schultern ±0,9, dünne Arme/Beine, kleine Kugelhände, kleine Füße; Jacke/Weste ohne Kastenteile.
 - Hautfarben weich und wenig gesättigt (Palette in figuren.py, bestehende Figuren umgestellt).
 - Haaransatz glatt (Grenze je Längengrad per Bisektion).
+
+
+## 26.11. Neues Figuren-System (nach Lukas' 3D-Modell, ersetzt alle alten Figuren)
+- Proportionen wie im Modell: großer Eierkopf (~40 % der Höhe, Gesicht vorne aufprojiziert), schmaler glockenförmiger Oberkörper, runde Hosen-Schale, dünne Arme/Beine, Kugelhände, Arme leicht vom Körper.
+- Vielfalt: 9 Kopfformen (egg, round, oval, square, wide, long, heart, pear, bean), 7 Nasen, 5 Augenformen + Größe/Abstand/Höhe, 5 Brauen, Mundbreite, Leberfleck, 5 Körperbauten (slim, average, athletic, stocky, chubby), Größe/Kopfgröße variabel.
+- 20 Charakter-Typen (`figuren.py --kind`): nerd, athlete, business, student, gamer, musician, troublemaker, shy, extrovert, senior, chef, artist, scientist, teacher, farmer, influencer, skater, gymbro, kid, everyday – mit passender Kleidung/Accessoires und Standard-Mimik.
+- Sammlung (episodes/figuren.json, 40 Figuren):
+
+| id | Name | Alter | Typ | Persönlichkeit |
+|---|---|---|---|---|
+| `max` | Max | kid | kid | hyper, asks "why" all the time |
+| `mia` | Mia | teen | student | curious, a bit lazy, loves snacks |
+| `ben` | Ben | adult | gamer | competitive, night owl, talks in gamer slang |
+| `rosa` | Rosa | senior | senior | wise, slow, surprisingly savage |
+| `leo` | Leo | kid | troublemaker | mischievous, loud, pranks everyone |
+| `zoe` | Zoe | teen | extrovert | loud, funny, life of the party |
+| `noah` | Noah | teen | nerd | smart, nervous laugh, knows every fact |
+| `ava` | Ava | teen | athlete | competitive, energetic, never sits still |
+| `ethan` | Ethan | adult | business | serious, always on the phone, secretly funny |
+| `grace` | Grace | adult | business | serious, always on the phone, secretly funny |
+| `oscar` | Oscar | senior | senior | wise, slow, surprisingly savage |
+| `lily` | Lily | teen | shy | quiet, kind, blushes easily |
+| `jake` | Jake | adult | gymbro | flexes, drinks protein, very supportive |
+| `chloe` | Chloe | adult | influencer | always filming, says "guys" a lot |
+| `sam` | Sam | adult | musician | chill, creative, always humming |
+| `nina` | Nina | adult | artist | dreamy, messy, sees art everywhere |
+| `kim` | Dr. Kim | adult | scientist | genius, forgetful, explodes things |
+| `carlos` | Carlos | adult | chef | loud, passionate about food |
+| `tom` | Tom | adult | farmer | hardworking, early riser, talks to animals |
+| `ruby` | Ruby | teen | skater | relaxed, daring, falls a lot |
+| `reed` | Mr. Reed | adult | teacher | strict, loves rules, secretly proud |
+| `ivy` | Ivy | teen | gamer | competitive, night owl, talks in gamer slang |
+| `finn` | Finn | teen | student | curious, a bit lazy, loves snacks |
+| `maya` | Maya | kid | kid | hyper, asks "why" all the time |
+| `toby` | Toby | kid | kid | hyper, asks "why" all the time |
+| `hugo` | Hugo | senior | senior | wise, slow, surprisingly savage |
+| `olivia` | Olivia | adult | teacher | strict, loves rules, secretly proud |
+| `victor` | Victor | adult | troublemaker | mischievous, loud, pranks everyone |
+| `ella` | Ella | kid | kid | hyper, asks "why" all the time |
+| `omar` | Omar | adult | everyday | normal Mii Town neighbor |
+| `sofia` | Sofia | adult | everyday | normal Mii Town neighbor |
+| `kai` | Kai | teen | skater | relaxed, daring, falls a lot |
+| `luna` | Luna | teen | musician | chill, creative, always humming |
+| `gus` | Gus | adult | chef | loud, passionate about food |
+| `pearl` | Pearl | senior | senior | wise, slow, surprisingly savage |
+| `dev` | Dev | teen | nerd | smart, nervous laugh, knows every fact |
+| `bella` | Bella | adult | athlete | competitive, energetic, never sits still |
+| `milo` | Milo | kid | shy | quiet, kind, blushes easily |
+| `nora` | Nora | adult | scientist | genius, forgetful, explodes things |
+| `rex` | Rex | adult | extrovert | loud, funny, life of the party |

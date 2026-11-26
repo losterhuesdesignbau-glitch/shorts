@@ -161,12 +161,15 @@ class MB {
   sphere(r, det, C, o = {}) { return this.fixMat(C, () => this._sphere(r, det, C, o)); }
   _sphere(r, det, C, o = {}) {
     C = col(C); const sx = (o.sx || 1) * r, sy = (o.sy || 1) * r, sz = (o.sz || 1) * r; const { V, F } = ICO(det); const R = o.jit ? rng(o.seed || 7) : null;
-    const P = V.map(v => { const k = R ? 1 + (R() - 0.5) * o.jit : 1; return [v[0] * sx * k, v[1] * sy * k, v[2] * sz * k]; });
+    let P = V.map(v => { const k = R ? 1 + (R() - 0.5) * o.jit : 1; return [v[0] * sx * k, v[1] * sy * k, v[2] * sz * k]; });
+    const P0 = P; if (o.warp) P = P.map(p => o.warp(p.slice()));
+    // uvFront: Gesicht/Textur von vorne aufprojizieren (z > 0), Rückseite bekommt die transparente Ecke
+    const uv = o.uvFront ? (i => { const v = 0.5 - P0[i][1] / (2 * sy); return P0[i][2] > -0.3 * sz ? [P0[i][0] / (2 * sx) + 0.5, v] : [P0[i][0] > 0 ? 0.999 : 0.001, v]; }) : (() => undefined);
     for (const f of F) {
       const a = P[f[0]], b = P[f[1]], c = P[f[2]];
       let cc = C; if (o.colFn) cc = col(o.colFn(a, b, c));
       if (o.flat) this.tri(a, b, c, cc);
-      else { const n = i => V3.norm([P[i][0] / (sx * sx), P[i][1] / (sy * sy), P[i][2] / (sz * sz)]); this.triN(a, b, c, n(f[0]), n(f[1]), n(f[2]), cc); }
+      else { const n = i => V3.norm([P0[i][0] / (sx * sx), P0[i][1] / (sy * sy), P0[i][2] / (sz * sz)]); this.triN(a, b, c, n(f[0]), n(f[1]), n(f[2]), cc, uv(f[0]), uv(f[1]), uv(f[2])); }
     }
     return this;
   }

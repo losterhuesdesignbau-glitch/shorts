@@ -306,7 +306,7 @@ function clothSim(s, si, sh, tl, D, map) {
 }
 
 // ---------- Figuren-Zustand ----------
-function actorTop(cfg) { if (cfg.animal) { const A = ANIMALS[cfg.animal] || {}; return (A.biped ? 3.6 : 4.0) * (A.s || 1) * (cfg.scale || 1); } return (cfg.style === 'mii' ? 4.04 + 1.32 * 0.82 * (+cfg.headScale || 1.45) : 5.4) * (cfg.scale || 1); }   // Mii Town: großer Kopf -> größere Figur
+function actorTop(cfg) { if (cfg.animal) { const A = ANIMALS[cfg.animal] || {}; return (A.biped ? 3.6 : 4.0) * (A.s || 1) * (cfg.scale || 1); } return (cfg.style === 'mii' ? 3.98 + 1.94 * (+cfg.headScale || 1.45) : 5.4) * (cfg.scale || 1); }   // Mii Town: großer Kopf -> größere Figur
 const angLerp = (a, b, t) => { const d = ((b - a + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI; return a + d * t; };
 // Weg (Polylinie) → Position nach Strecke d
 function polyAt(pts, L, d) {
