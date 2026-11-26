@@ -77,7 +77,7 @@ def run(ids, api=None, storage=None, run_id=None):
                 print(f'[{pid}] TikTok über Buffer', flush=True)
             res = mod.publish(path, info['size'], tok, meta, settings, pid, pub['attempts'])
             api.report(pid, status='published', run_id=run_id, **res)
-            print(f'[{pid}] ✓ veröffentlicht: {res.get("remote_url") or res.get("remote_id")} ({res.get("privacy")})', flush=True)
+            print(f'[{pid}] ✓ veröffentlicht: {res.get("remote_url") or res.get("remote_id")} ({res.get("privacy")})' + (f' – {res["note"]}' if res.get('note') else ''), flush=True)
             results[pid] = 'published'
         except (PublishError, InvalidVideo, OrchestratorError) as e:
             retryable = getattr(e, 'retryable', True) and not isinstance(e, InvalidVideo)

@@ -197,6 +197,7 @@ class Engine:
         if hq: self.pg.evaluate('window._hq = true')
         self.pg.evaluate(f'R.init({W},{H},{rs},{out})')
         self.pg.evaluate('ep => R.load(ep)', ep)
+        if os.environ.get('VF_CLEAN'): self.pg.evaluate('R.clean = true')   # Bilder ohne Untertitel/Text (Vorschaubild-Tests)
     def frame(self, si, t, q=0.92):
         d = self.pg.evaluate('([s,t,q]) => R.frame(s,t,q)', [si, t, q])
         if self.errs: raise RuntimeError('Engine-Fehler: ' + ' | '.join(self.errs[:3]))
