@@ -315,7 +315,7 @@ def apply_viral(src):
     v = src.get('viral') or {}
     shots = src.get('shots') or []
     if not shots or not v: return v
-    if v.get('hook'): shots[0]['hook'] = v['hook']
+    if v.get('hook'): next((s for s in shots if not s.get('intro')), shots[0])['hook'] = v['hook']   # Hook nie auf das Mii-Town-Intro
     if v.get('series'):
         for sh in shots: sh['badge'] = v['series']
     if v.get('cta'):
@@ -340,8 +340,9 @@ def viral_check(src, ep, total):
     tips, shots = [], ep['shots']
     v = src.get('viral') or {}
     if not v.get('hook'): tips.append('kein "viral.hook" (großer Text in den ersten 2 s)')
-    if shots and shots[0].get('pause'): tips.append('erster Shot hat eine Pause – sofort mit dem Hook starten')
-    if shots and shots[0].get('dur', 0) > 2.2: tips.append(f'erster Shot {shots[0]["dur"]:.1f}s – Hook-Shot ≤ 2 s halten')
+    h0 = next((s for s in shots if not s.get('intro')), shots[0]) if shots else None
+    if h0 and h0.get('pause'): tips.append('erster Shot hat eine Pause – sofort mit dem Hook starten')
+    if h0 and h0.get('dur', 0) > 2.2: tips.append(f'erster Shot {h0["dur"]:.1f}s – Hook-Shot ≤ 2 s halten')
     long_ = [i + 1 for i, sh in enumerate(shots) if sh.get('dur', 0) > 3.0]
     if long_: tips.append(f'lange Shots (> 3 s, besser teilen): {long_[:8]}')
     lastsay = ' '.join(sh.get('say', '') for sh in shots[-2:])
@@ -373,6 +374,76 @@ def loop_end(vid, out_vid, total, fade=0.4):
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(vid), '-loop', '1', '-t', f'{total:.3f}', '-i', first, '-filter_complex',
                     f'[1:v]format=rgba,fade=in:st={st:.3f}:d={fade}:alpha=1[f];[0:v][f]overlay=shortest=1,format=yuv420p[v]',
                     '-map', '[v]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-r', str(30), str(out_vid)], check=True)
+
+# ---------------- Mii Town: Kategorie + Intro (Lukas 26.11.) ----------------
+# Jede Folge beginnt mit einem 1–2-s-Intro aus IHREN eigenen Figuren und Orten (nie derselbe Clip),
+# Kategorie-Satz, „MII TOWN“-Logo in der Kategorie-Farbe und eigenem Sound-Motiv.
+# Steuerung: "category": "battle" (überschreibt die Erkennung), "intro": false (kein Intro).
+MII_CAT = {
+    'standard':  ('Welcome to Mii Town…', '#ffd23f'),
+    'battle':    ('Mii Town battle! Who will win?', '#ff4d4d'),
+    'horror':    ("It's haunting Mii Town again…", '#9b5de5'),
+    'comedy':    ('Another crazy day in Mii Town…', '#ffb703'),
+    'mystery':   ("Something isn't right in Mii Town…", '#4cc9f0'),
+    'survival':  ('Can anyone survive Mii Town?', '#fb8500'),
+    'challenge': ('One challenge. One winner. Mii Town.', '#06d6a0'),
+}
+def mii_category(src):
+    if src.get('category') in MII_CAT: return src['category']
+    ser = ((src.get('viral') or {}).get('series') or '').upper(); mu = src.get('music', ''); title = ((src.get('meta') or {}).get('title') or src.get('title') or '').lower()
+    if 'challenge' in title: return 'challenge'
+    if 'VS' in ser or mu == 'battle' or ' vs ' in title: return 'battle'
+    if 'DARK' in ser or mu == 'dark': return 'horror'
+    if 'SURVIV' in ser or 'what if you' in title: return 'survival'
+    if 'WEIRD' in ser or mu == 'mystery': return 'mystery'
+    if mu in ('school', 'trend', 'funny', 'happy') or 'SCHOOL' in ser or 'TREND' in ser: return 'comedy'
+    return 'standard'
+
+def mii_intro(src):
+    if src.get('intro') is False or src.get('_introDone'): return
+    if not any(isinstance(v, dict) and v.get('style') == 'mii' for v in (src.get('cast') or {}).values()) and not src.get('intro'): return   # nur Mii-Town-Folgen
+    shots = src.get('shots') or []
+    if not shots: return
+    cat = mii_category(src); line, colr = MII_CAT[cat]
+    first = next((s for s in shots if s.get('set')), {}); sset, stime = first.get('set', 'plaza'), first.get('time', 'day')
+    humans = [k for k, v in src['cast'].items() if isinstance(v, dict) and not v.get('animal')]
+    seen = []
+    for s in shots:
+        for a in s.get('actors') or []:
+            if a.get('id') in src['cast'] and a['id'] not in seen and not str(a['id']).startswith('crowd'): seen.append(a['id'])
+    main = seen or humans
+    first_at = {}
+    for s in shots:   # wo/wie steht die Figur in ihrem ersten echten Shot? (Innenräume: Möbel!)
+        for a in s.get('actors') or []:
+            if a.get('id') in main and a['id'] not in first_at and s.get('set', sset) == sset: first_at[a['id']] = a
+    def A(i, at, do, mood, **k):
+        f = first_at.get(i)
+        if f and (re.search('sit|lie', str(f.get('do', ''))) or sset in ('classroom', 'room', 'kitchen', 'office')):
+            k = {kk: vv for kk, vv in k.items() if kk != 'path'}   # sitzt/liegt oder Innenraum -> Platz und Haltung aus dem ersten Shot
+            keep = {kk: f[kk] for kk in ('at', 'y', 'face', 'hold') if kk in f}
+            return dict({'id': i, 'do': f.get('do', 'idle') if re.search('sit|lie', str(f.get('do', ''))) else 'idle', 'mood': mood}, **dict(k, **keep))
+        return dict({'id': i, 'at': at, 'do': do, 'mood': mood}, **k)
+    sh = {'say': line, 'set': sset, 'time': stime, 'intro': True, 'sfx': [['motif_' + cat, 0.0]],
+          'pops': [{'text': 'MII TOWN', 'x': 0.5, 'y': 0.2, 't': 0.05, 'dur': 3, 'rise': 0, 'size': 130, 'color': colr}]}
+    if cat == 'battle' and len(main) >= 2:
+        sh.update(cam='group', actors=[A(main[0], [-1.8, 1], 'idle', 'angry', face=45), A(main[1], [1.8, 1], 'idle', 'angry', face=-45)], fx=[{'type': 'flash', 't': 0.05}])
+    elif cat == 'horror':
+        sh.update(time='night', cam='dolly', fx=[{'type': 'dark', 't': 0.0}], grade={'bloom': 0.2, 'vignette': 0.6, 'sat': 0.85, 'contrast': 1.1, 'warm': -0.08})
+        if main: sh['actors'] = [A(main[0], [0, 1], 'look', 'scared', face=0)]
+    elif cat == 'comedy' and main:
+        sh.update(cam='medium:' + main[0], actors=[A(main[0], [0, 1], 'jump', 'laugh', face=0)], fx=[{'type': 'confetti', 't': 0.1}])
+    elif cat == 'mystery':
+        sh.update(time='dusk' if stime in ('day', 'morning') else stime, cam='reveal' if main else 'aerial')
+        if main: sh['actors'] = [A(main[0], [0, 1], 'look', 'confused', face=15)]
+    elif cat == 'survival':
+        sh.update(cam='track:' + main[0] if main else 'wide', fx=[{'type': 'shake', 't': 0.1}])
+        if main: sh['actors'] = [A(main[0], [-3, 1], 'run', 'panic', path=[[-3, 1], [3, 1]])]
+    elif cat == 'challenge' and main:
+        sh.update(cam='group', actors=[A(m, [(i - (min(4, len(main)) - 1) / 2) * 2.2, 1], 'cheer', 'excited', face=0) for i, m in enumerate(main[:4])])
+    else:
+        sh.update(cam='aerial', life=True)
+    src['shots'] = [sh] + shots; src['_introDone'] = True; src['_category'] = cat
+    print(f"Mii-Town-Intro: Kategorie {cat} – „{line}“", flush=True)
 
 # ---------------- Menschenmengen (Lukas 22.11., wie in den Referenzvideos) ----------------
 # Shot-Feld "crowd": {"n": 24, "area": [x0, z0, x1, z1], "teams": ["#1e88e5", "#fb8c00"], "do": "cheer", "face": 0, "mood": "excited"}
@@ -430,6 +501,7 @@ def main():
         src['cast'], _miss = _fig.resolve_cast(src.get('cast'))
         if _miss: print('WARNUNG: Figuren fehlen in episodes/figuren.json: ' + ', '.join(_miss) + ' (python tools/figuren.py auto <episode>)', flush=True)
     except Exception as _e: print('Figuren-Datenbank nicht geladen:', _e, flush=True)
+    mii_intro(src)
     expand_crowd(src)
     regie_on = src.get('regie', True) is not False
     r_inhalt = None

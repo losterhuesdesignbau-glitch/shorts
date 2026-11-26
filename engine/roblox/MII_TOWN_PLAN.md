@@ -49,3 +49,8 @@
 6. **Komplettes Testvideo (35–40 s)**, danach Doku, Abnahme durch Lukas und erst dann Umstellung der täglichen Läufe.
 
 Die bisherigen Episoden bleiben renderbar: Der alte Block-Stil bleibt als `style: "block"` erhalten.
+
+## Stand 26.11. (Schritte 2+3)
+- Schritt 2 Bewegung: Schrittlänge passt zur Figurgröße (kein Fußrutschen), Gesten wechseln an Wortgrenzen (alle 3 Wörter, nie 2× gleich), Betonungsgeste auf `*Wort*`, Kopf dreht vor dem Körper. Test 2 (Gehen/Rennen/Reden/Drehen/Warten) gerendert, QA ✓.
+- Schritt 3 Universum: `sfx motif_<kategorie>` (7 eigene Motive), `mii_intro()` in studio.py – Kategorie aus `category` oder Musik/Serie/Titel, Intro-Satz, „MII TOWN“-Logo in Kategorie-Farbe, Bild aus eigenen Figuren/Orten der Folge. Aus mit `"intro": false`. Nur bei Mii-Figuren (`style: mii`) automatisch. Hook/Viral-Check/Regie zählen ab dem ersten echten Shot.
+- Test 5: 7 Intros als Standbilder geprüft (Innenräume: Figur bleibt auf ihrem Platz aus Shot 1).

@@ -190,9 +190,10 @@ def inhalt(src, info=None):
             break
     # Hook: die ersten 2 Sekunden
     if shots:
-        t0 = _txt(shots[0])
-        if re.search(BORING_START, t0): errors.append(f'Hook: Einstieg "{shots[0].get("say")}" ist eine Begrüßung/Einleitung – direkt in die Handlung!')
-        if shots[0].get('pause'): fixes.append('Hook: Pause vor Shot 1 entfernt'); shots[0].pop('pause')
+        h0 = next((s for s in shots if not s.get('intro')), shots[0])   # Mii-Town-Intro zählt nicht als Hook
+        t0 = _txt(h0)
+        if re.search(BORING_START, t0): errors.append(f'Hook: Einstieg "{h0.get("say")}" ist eine Begrüßung/Einleitung – direkt in die Handlung!')
+        if h0.get('pause'): fixes.append('Hook: Pause vor dem Hook-Shot entfernt'); h0.pop('pause')
         if len(t0.split()) > 7: warns.append('Hook: erster Satz > 7 Wörter (passt kaum in 2 s)')
         if not (src.get('viral') or {}).get('hook'): warns.append('Hook: kein großer Hook-Text (viral.hook)')
     return {'fixes': fixes, 'warns': warns, 'errors': errors}

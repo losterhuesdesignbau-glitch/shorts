@@ -97,7 +97,10 @@ function pose(act, t, k, A) {
     case 'hop': { const j = jumpArc(((t + ph * 0.1) / 0.5) % 1, 1.1); P.y = j.y; P.kL = P.kR = j.k; P.lLx = P.lRx = -j.k * 0.45; P.sq = j.sq; P.aLz = 30 + 20 * j.air; P.aRz = -P.aLz; P.eL = P.eR = 30; P.lift = Math.max(0, j.y); break; }
     case 'point': idle(0.5); P.aRx = -88; P.aRz = -4; P.eR = 4; P.hy = 0; break;
     case 'pointup': idle(0.5); P.aRx = -170; P.aRz = -10; P.eR = 5; P.hx = -12; break;
-    case 'talk': { idle(0.7); const G = gestureP(t, ph, sd), beat = Math.max(0, s(t * 7.3 + ph)) ** 2; Object.assign(P, G); P.eR = (P.eR || 0) + 10 * beat; P.eL = (P.eL || 0) + 7 * beat; P.aRx = (P.aRx || 0) - 4 * beat; P.hx += 3 * beat + 2; P.hz = 3 * s(t * 2.1); P.tb += 0.02 * beat; break; }
+    case 'talk': { idle(0.7); const W = (A.shot && A.shot.words) || []; const G = gestureP(t, ph, sd, W), beat = Math.max(0, s(t * 7.3 + ph)) ** 2; Object.assign(P, G);
+      // Betonung: auf hervorgehobenen Wörtern (*Wort*) eine deutliche Geste + Kopfnicken, genau zum Wort
+      let em = 0; for (const w of W) if (w.hi) em = Math.max(em, Math.exp(-(((t - w.t0 - 0.06) / 0.17) ** 2)));
+      if (em > 0.02) { const E = GEST[(hash('e' + sd + Math.round(t)) % 2) ? 2 : 0]; Object.assign(P, blendP(P, E, em * 0.85)); P.hx += 7 * em; } P.eR = (P.eR || 0) + 10 * beat; P.eL = (P.eL || 0) + 7 * beat; P.aRx = (P.aRx || 0) - 4 * beat; P.hx += 3 * beat + 2; P.hz = 3 * s(t * 2.1); P.tb += 0.02 * beat; break; }
     case 'turnaround': { const w = smooth(k); P.spin = 360 * w; const q = s(w * Math.PI); P.aLz = 40 + 50 * q; P.aRz = -40 - 50 * q; P.eL = P.eR = 20; P.kL = P.kR = 15 + 25 * q; P.y = 0.25 * q - 0.05; P.lLz = 10 * q; break; }
     case 'finale': { const w = smooth(Math.min(1, k * 3)); P.aRz = -140 * w; P.aRx = -20 * w; P.eR = 10; P.aRy = -60; P.aLz = 55 * w; P.aLx = -15 * w; P.eL = 25; P.aLy = 70; P.lLx = (A.a.finaleKnee ? -95 : -8) * w; P.lLz = (A.a.finaleKnee ? 10 : 18) * w; P.kL = (A.a.finaleKnee ? 115 : 14) * w; P.rz = -6 * w; P.hz = 8 * w; P.hx = -6 * w; P.y = 0.08 * w; break; }
     // Motion-Capture: Winkel pro Frame aus tools/mocap_retarget.py (actor.mocap = {fps, keys, frames, start?, gain?})
@@ -226,7 +229,15 @@ const GEST = [
   { aLz: 18, aRz: -18, aLx: -15, aRx: -15, eL: 80, eR: 80, aLy: 55, aRy: -55 },              // kleines Achselzucken
   { aRx: -40, aRz: -5, eR: 75, aLz: -20, aLy: 30, eL: 30 },                                  // erklären, andere Hand in der Tasche
 ];
-function gestureP(t, ph, sd) {
+function gestureP(t, ph, sd, W) {
+  // Gesten wechseln an Wortgrenzen (alle 3 Wörter), sonst im Zeittakt; nie zweimal dieselbe hintereinander
+  if (W && W.length > 2) {
+    let n = 0; for (const w of W) if (w.t0 <= t) n++;
+    const i = Math.floor(n / 3), wb = W[Math.min(W.length - 1, (i + 1) * 3)], wa = W[Math.min(W.length - 1, i * 3)];
+    const g0 = GEST[(hash('g' + sd + '|' + i) + (i % 2)) % GEST.length], g1 = GEST[(hash('g' + sd + '|' + (i + 1)) + ((i + 1) % 2)) % GEST.length];
+    const f = wb.t0 > wa.t0 ? clamp((t - wa.t0) / (wb.t0 - wa.t0), 0, 1) : 0;
+    return blendP(g0 === g1 ? GEST[(GEST.indexOf(g0) + 1) % GEST.length] : g0, g1, smooth((f - 0.7) / 0.3));
+  }
   const segL = 1.35 + (sd % 5) * 0.12, k = (t + ph) / segL, i = Math.floor(k), f = k - i;
   const g0 = GEST[hash('g' + sd + '|' + i) % GEST.length], g1 = GEST[hash('g' + sd + '|' + (i + 1)) % GEST.length];
   return blendP(g0, g1, smooth((f - 0.72) / 0.28));
@@ -311,7 +322,8 @@ function actorState(a, tl, D, idx, sh) {
   }
   let [act, k] = timed(a.do, u, 'idle');
   if (st.moving && !MOVERS[act]) act = st.speed > 8 ? 'run' : 'walk';
-  if (st.d !== undefined) st.cyc = st.d / (act === 'run' ? 6.4 : act === 'sneak' ? 3.4 : 4.2) * Math.PI * 2 + st.ph;
+  st.shot = sh;   // für wortgenaue Gesten
+  if (st.d !== undefined) st.cyc = st.d / ((act === 'run' ? 6.4 : act === 'sneak' ? 3.4 : 4.2) * (cfg.scale || 1) * st.scale) * Math.PI * 2 + st.ph;   // Schrittlänge passt zur Beinlänge -> Füße rutschen nicht
   if (!st.moving) st.cyc = (st.cyc || 0) + 0;
   st.idleStyle = a.idle !== undefined ? ({ relaxed: 0, hips: 1, pockets: 2, pocket: 3 }[a.idle] ?? 0) : (cfg.animal ? 0 : [0, 0, 0, 1, 2, 3, 0, 2][hash(id) % 8]);
   st.act = act; st.k = k; st.rel = a.throw ? (a.throw.at ?? 0.5) : 0.5;
@@ -682,6 +694,12 @@ function renderShot(sh, si, tl) {
       if (s.act !== 'sleep' && s.act !== 'lie' && s.act !== 'fall' && s.act !== 'faint' && s.act !== 'spin') {
         let yw = 0, pt = 0, n = 0; for (const dtl of [0, 0.12, 0.25]) { const r = lookRel(s, list, map, cam, clamp((tl - dtl) / D, 0, 1)); if (r) { yw += r.yaw; pt += r.pitch; } n++; }
         yw /= n; pt /= n; if (Math.abs(yw) > 0.5 || Math.abs(pt) > 0.5) { P.hy = (P.hy || 0) * 0.35 + yw * 0.62; P.tw = (P.tw || 0) + yw * 0.18; P.hx = (P.hx || 0) - pt * 0.5; if (Math.abs(yw) > 14) P.gx = Math.sign(yw) * (yw > 0 ? 1 : 1); }
+      }
+      // Drehen im Stand: erst Blick/Kopf, dann Oberkörper, zuletzt die Beine (Körper folgt verzögert)
+      if (!s.moving && Array.isArray(s.a.face)) {
+        const fNow = faceOf(s, map, cam, u), fAhead = faceOf(s, map, cam, clamp((tl + 0.3) / D, 0, 1));
+        let df = ((fAhead - fNow + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI; df /= DEG;
+        if (Math.abs(df) > 4) { P.hy = (P.hy || 0) + clamp(df * 0.7, -55, 55); P.tw = (P.tw || 0) + clamp(df * 0.25, -20, 20); P.gx = Math.sign(df); }
       }
     }
     const blink = ((tg + s.ph) % 3.4) < 0.12 || ((tg + s.ph * 3) % 7.3) < 0.1;

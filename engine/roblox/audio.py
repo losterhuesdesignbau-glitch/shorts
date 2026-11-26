@@ -298,6 +298,30 @@ def sfx(name):
     if name == 'whip':       # schneller Peitschen-Swoosh
         n = int(0.25 * SR); t = np.linspace(0, 1, n)
         return bp(noise(0.25, 28), 1500, 9000) * (t ** 3) * np.exp(-((t - 0.9) ** 2) * 80) * 1.0
+    if name.startswith('motif'):   # Mii-Town-Sound-Motiv (eigene Melodie: Quinte hoch, Terz, Oktave) – Variante je Kategorie
+        cat = name.split('_', 1)[1] if '_' in name else 'standard'
+        MEL = {'standard': ((72, 0.0), (79, 0.14), (76, 0.28), (84, 0.42)), 'comedy': ((72, 0.0), (79, 0.11), (76, 0.22), (84, 0.33)),
+               'battle': ((60, 0.0), (67, 0.12), (64, 0.24), (72, 0.36)), 'challenge': ((72, 0.0), (79, 0.1), (76, 0.2), (84, 0.3)),
+               'horror': ((60, 0.0), (67, 0.3), (63, 0.6), (66, 0.9)), 'mystery': ((72, 0.0), (79, 0.22), (75, 0.44), (78, 0.66)),
+               'survival': ((55, 0.0), (62, 0.18), (58, 0.36), (67, 0.54))}.get(cat, ((72, 0.0), (79, 0.14), (76, 0.28), (84, 0.42)))
+        out = np.zeros(int(2.2 * SR))
+        for i, (m, st) in enumerate(MEL):
+            last = i == len(MEL) - 1
+            if cat in ('battle', 'survival'):
+                y = sum(((np.arange(int((0.9 if last else 0.18) * SR)) / SR * midi(m + o)) % 1 * 2 - 1) for o in (0, 7, 12)) / 3
+                y = lp(y, 2600) * env(len(y), 0.01, 0.25 if last else 0.06) * 0.45
+            elif cat in ('horror', 'mystery'):
+                y = tone(midi(m), 1.1 if last else 0.4, (1, 0.35, 0.2, 0.1), 0.6 if last else 0.3, 0.004) * 0.5
+            elif cat == 'comedy':
+                y = tone(midi(m), 0.18 if not last else 0.5, (1, 0.5, 0.2), 0.1 if not last else 0.35, 0.001) * 0.55
+            else:
+                d = 0.5 if last else 0.3; y = (tone(midi(m), d, (1, 0.45, 0.25, 0.1), 0.35 if last else 0.18, 0.002) + tone(midi(m + 12), d, (1, 0.3), 0.15, 0.001) * 0.3) * 0.5
+            a = int(st * SR); out[a:a + len(y)] += y[:len(out) - a]
+        if cat in ('battle', 'survival', 'challenge'):
+            for k in range(4): b = sfx('boom') * 0.35; a = int(MEL[k][1] * SR); out[a:a + len(b)] += b[:len(out) - a]
+        if cat == 'horror': out += lp(noise(2.2, 30), 300) * env(len(out), 0.3, 1.0) * 0.12
+        if cat == 'comedy': b = sfx('boing') * 0.4; a = int(MEL[-1][1] * SR); out[a:a + len(b)] += b[:len(out) - a]
+        return np.tanh(out * 1.2) * 0.8
     return np.zeros(10)
 
 # Bibliothek: Kategorie -> Sounds (alle oben selbst erzeugt, Rechte: frei/eigen)
@@ -309,6 +333,7 @@ SFX_LIBRARY = {
     'impact': ['bassboom', 'boom', 'chop'],
     'transition': ['whoosh', 'riser', 'glitch', 'whip'],
     'cartoon': ['boing', 'slide', 'poof', 'bonk', 'sparkle'],
+    'branding': ['motif_standard', 'motif_battle', 'motif_horror', 'motif_comedy', 'motif_mystery', 'motif_survival', 'motif_challenge'],
     'meme': ['bassboom', 'scratch', 'error', 'airhorn', 'crickets', 'bonk', 'fail', 'buzzer'],
 }
 
