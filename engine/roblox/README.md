@@ -192,7 +192,7 @@ Alle Verbesserungen sind jetzt Standard:
 |---|---|---|
 | 08:00 | In Mii Town (früher Weird Towns / In This Town) | `mystery` |
 | 10:00 | School Life | `school` (lustig) / `school_emo` (emotional) |
-| 12:30 | X vs Y | `battle` |
+| 12:30 | Mii Town Mystery (ersetzt VS Battle, 26.11.) | `mystery` |
 | 15:30 | GenZ Trends (Roblox/Gaming/Internet/Challenges – keine Tänze, keine Musik-Trends, nichts kopieren) | `trend` |
 | 18:30 | Survival & Katastrophen – „What if YOU …?“ | `epic` |
 | 21:00 | Dark Stories | `dark` |

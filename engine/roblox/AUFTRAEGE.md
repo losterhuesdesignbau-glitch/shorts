@@ -45,6 +45,9 @@ SLOT = 08:00 · START = 06:45 · PUSH = spätestens 07:20 · SERIE = IN MII TOWN
 THEMA = IN MII TOWN (Lukas 26.11.: statt „In this town“ immer „In Mii Town“; Folgen-Zähler neu ab „IN MII TOWN #1“):
 - mysteriöse Geschichten, besondere Ereignisse und ungewöhnliche Situationen in Mii Town (erster Satz beginnt mit „In Mii Town, …“)
 - skurrile Regel, rätselhaftes Ereignis, seltsame Bewohner
+- KREATIV (Lukas 26.11.: „bessere und kreative Sachen“): jede Folge eine wirklich absurde, NEUE Idee mit Kettenreaktion – nicht nur „X ist verboten“. Beispiele für das Niveau: „the moon is on a schedule“, „every pet can vote“, „the mayor got replaced by a toaster“, „gravity takes Sundays off“, „your shadow goes to work for you“, „the town has one shared umbrella“. Regel → wie die Stadt damit lebt (3–4 witzige Folgen) → eine Figur bricht sie → Chaos → überraschender Twist, der die Regel neu erklärt.
+- feste Mii-Town-Gesichter mit Wiedererkennung: Bürgermeister Rex (Ansagen), Oma Pearl (weiß immer mehr), Prankster Leo, schüchterne Lily, Nerd Noah – plus jeweils neue Figuren aus der Sammlung
+- Twist darf man nicht kommen sehen; Schluss-Frage mit Meinung („Would YOU …?“)
 - Twist am Ende
 - familienfreundlich, keine echten Personen, keine Marken-Figuren
 
@@ -57,18 +60,16 @@ THEMA = SCHOOL LIFE & SCHULGESCHICHTEN:
 - Schule muss wie Schule aussehen: Sets classroom/hallway/school, Requisit paper für Noten
 
 ## 12:30
-SLOT = 12:30 · START = 11:15 · PUSH = spätestens 11:50 · SERIE = VS BATTLE · MUSIK = battle · HASHTAG = vsbattle
+SLOT = 12:30 · START = 11:15 · PUSH = spätestens 11:50 · SERIE = MII TOWN MYSTERY · MUSIK = mystery · HASHTAG = miitownmystery (+ mystery)
 
-THEMA = X VS Y:
-- spannende Vergleiche, direkte Duelle und Gegenüberstellungen (Tiere, Rollen, Alltag, Natur/Technik)
-- Runde für Runde vergleichen, echte Fakten per Websuche prüfen, überraschender Sieger als Twist
-- Anzeigetafel (Shot "score"), Set "stadium"; "cta": "TEAM X or TEAM Y? 👇"
-- kein Blut/keine Gewaltdetails, keine echten Personen, keine Marken-Figuren
-
-LUKAS' REGEL (ganz wichtig):
-- Tiere IMMER als echte Tier-Modelle (cast {"animal": "…"}, wie episodes/done/vs_cat_dog.json und vs_tiger_lion.json), NIEMALS Menschen als Tiere. Menschen nur als Moderator.
-- Verfügbar: dog, cat, fox, lion, tiger, pig, bear, sheep, cow, penguin, frog, chicken, croc, shark, guineapig.
-- Fehlt ein Tier: anderes Duell wählen oder Modell rückwärtskompatibel in engine/assets.js bauen und per Stills prüfen.
+THEMA = MII TOWN MYSTERY (Lukas 26.11., ersetzt „X vs Y“): Krimi zum Mitraten
+- Etwas verschwindet oder passiert in Mii Town (z. B. der Kuchen vom Stadtfest, Rex' goldene Krawatte, alle Socken der Stadt, die Uhr vom Rathaus)
+- Detektiv-Figur (z. B. Noah oder Dr. Kim) befragt GENAU 3 Verdächtige aus der Figuren-Sammlung, jeder mit Motiv und Alibi
+- 2–3 faire Hinweise im Bild (Requisiten, Fußspuren, Farbe, Uhrzeit-Pop) – der Täter muss sich aus den Hinweisen erraten lassen
+- Ab ~40 s: „Who did it? Comment 1, 2 or 3 👇“ (viral.mid) + kurze Pause, dann Auflösung mit Rückblende auf die Hinweise
+- Twist erlaubt (z. B. es war gar kein Verbrechen), muss aber zu den Hinweisen passen
+- familienfreundlich, keine Gewalt; Tiere als echte Tier-Modelle
+- "cta": "Did you guess it? 👇", "meta.question": "Who did YOU suspect – 1, 2 or 3? 👇"
 
 ## 15:30
 SLOT = 15:30 · START = 14:15 · PUSH = spätestens 14:50 · SERIE = GENZ TRENDS · MUSIK = trend · HASHTAG = der passende Trend-Hashtag (+ genztrends)
