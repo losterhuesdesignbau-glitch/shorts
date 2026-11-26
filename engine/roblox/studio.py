@@ -425,6 +425,11 @@ def main():
     ap.add_argument('--force', action='store_true', help='auch rendern, wenn die Länge nicht passt')
     a = ap.parse_args()
     src = json.load(open(a.episode, encoding='utf-8'))
+    try:   # Mii Town: Figuren aus der zentralen Datenbank (feste Identität über alle Videos)
+        sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools')); import figuren as _fig
+        src['cast'], _miss = _fig.resolve_cast(src.get('cast'))
+        if _miss: print('WARNUNG: Figuren fehlen in episodes/figuren.json: ' + ', '.join(_miss) + ' (python tools/figuren.py auto <episode>)', flush=True)
+    except Exception as _e: print('Figuren-Datenbank nicht geladen:', _e, flush=True)
     expand_crowd(src)
     regie_on = src.get('regie', True) is not False
     r_inhalt = None
