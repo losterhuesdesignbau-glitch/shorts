@@ -425,7 +425,7 @@ def mii_intro(src):
             return dict({'id': i, 'do': f.get('do', 'idle') if re.search('sit|lie', str(f.get('do', ''))) else 'idle', 'mood': mood}, **dict(k, **keep))
         return dict({'id': i, 'at': at, 'do': do, 'mood': mood}, **k)
     sh = {'say': line, 'set': sset, 'time': stime, 'intro': True, 'sfx': [['motif_' + cat, 0.0]],
-          'pops': [{'text': 'MII TOWN', 'x': 0.5, 'y': 0.2, 't': 0.05, 'dur': 3, 'rise': 0, 'size': 130, 'color': colr}]}
+          'pops': [{'text': 'MII TOWN', 'x': 0.5, 'y': 0.12, 't': 0.05, 'dur': 3, 'rise': 0, 'size': 130, 'color': colr}]}
     if cat == 'battle' and len(main) >= 2:
         sh.update(cam='group', actors=[A(main[0], [-1.8, 1], 'idle', 'angry', face=45), A(main[1], [1.8, 1], 'idle', 'angry', face=-45)], fx=[{'type': 'flash', 't': 0.05}])
     elif cat == 'horror':

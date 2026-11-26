@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 DB = ROOT / 'episodes' / 'figuren.json'
 
-SKINS = ['#ffdbac', '#f5c79a', '#f1c27d', '#e0a878', '#c68642', '#a0663c', '#8d5524', '#6b3e26']
+SKINS = ['#ffe4cc', '#f6d2b4', '#ecc3a0', '#ddb08c', '#c99a78', '#a97a5c', '#865c44', '#5e4130']   # Mii-ähnlich: weich, wenig gesättigt
 HAIRC = ['#1b1b1b', '#2b1b12', '#4a2e1a', '#6d4c41', '#8b5a2b', '#b5523b', '#d4a017', '#e2c17c', '#c9c9c9']
 EYEC = ['#5b3a21', '#3b2a1a', '#2e6db4', '#3f8f5a', '#6c757d', '#7b4a2e', '#4a90c2', '#2f2f2f']
 SHIRTS = ['#e63946', '#1e88e5', '#2a9d8f', '#ffb703', '#9b5de5', '#f15bb5', '#00bbf9', '#fb8500', '#06d6a0', '#ef476f', '#118ab2', '#ffd166', '#8ac926', '#ff595e']

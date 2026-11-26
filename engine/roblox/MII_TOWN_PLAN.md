@@ -72,3 +72,9 @@ Die bisherigen Episoden bleiben renderbar: Der alte Block-Stil bleibt als `style
 - Körper: glockenförmiger Oberkörper mit schmalen Schultern, einfarbiges Oberteil (keine Muster/Logos), dünne Arme, Kugelhände, schlanke Beine, runde Schuhe.
 - Regenschirm wird am Griff gehalten (`hold.off`).
 - Offen: Haaransatz an den Schläfen noch leicht stufig.
+
+## 26.11. Mii-Look v2 (Referenzbild von Lukas: klassische Mii-Menge)
+- Kopf kleiner (×0,82, ≈ Schulterbreite), kleine natürliche Augen (großer dunkler Iris-Anteil), dünne kurze Brauen, kleiner Mund, keine Dauer-Röte, kleinere Ohren.
+- Schlanker Körper: Schultern ±0,9, dünne Arme/Beine, kleine Kugelhände, kleine Füße; Jacke/Weste ohne Kastenteile.
+- Hautfarben weich und wenig gesättigt (Palette in figuren.py, bestehende Figuren umgestellt).
+- Haaransatz glatt (Grenze je Längengrad per Bisektion).
