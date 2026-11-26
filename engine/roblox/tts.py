@@ -181,7 +181,7 @@ def _lexicon(lang):
     if lang not in _LEX:
         d = CACHE / 'kokoro' / KOKORO_PKG; L = {}
         _custom_lex_path(lang).touch()
-        for f in (d / ('lexicon-gb-en.txt' if lang == 'en-gb' else 'lexicon-us-en.txt'), _custom_lex_path(lang)):
+        for f in (Path(__file__).resolve().parent / 'lexicon_en.txt', d / ('lexicon-gb-en.txt' if lang == 'en-gb' else 'lexicon-us-en.txt'), _custom_lex_path(lang)):   # Repo-Wörterbuch zuerst (feste Aussprachen, auch in GitHub Actions)
             if f.exists():
                 for line in open(f, encoding='utf-8'):
                     parts = line.split()

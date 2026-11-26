@@ -351,8 +351,17 @@ def mix(total, events, voice=None, mood='happy', music_on=True, seed=3, music_ga
             ref = np.percentile(e[e > 1e-4], 90) if np.any(e > 1e-4) else 1.0
             m = m * (1 - (0.55 if cine else 0.4) * np.clip(e / (0.5 * ref + 1e-9), 0, 1))[:, None]  # Musik nie über der Stimme
         buf[: len(m)] += m * g
+    # Soundeffekte (Lukas 26.11.: zu laut) – Grundpegel halbiert, unter der Stimme zusätzlich leiser; Intro-Motiv etwas lauter
+    ve = None
+    if voice is not None and len(voice):
+        from scipy.ndimage import uniform_filter1d
+        ve = uniform_filter1d(np.abs(voice), int(0.25 * SR)); vr = np.percentile(ve[ve > 1e-4], 90) if np.any(ve > 1e-4) else 1.0
     for name, t, g in events:
-        add(buf, sfx(name), t, 0, 0.5 * g)
+        x = sfx(name); k = 0.4 if str(name).startswith('motif_') else 0.25
+        if ve is not None and len(x):
+            i0 = int(t * SR); seg = ve[i0:i0 + len(x)]
+            if len(seg): k *= 1 - 0.4 * min(1.0, float(np.mean(seg)) / (0.5 * vr + 1e-9))
+        add(buf, x, t, 0, k * g)
     if voice is not None:
         v = hp(voice, 80)
         rms = np.sqrt(np.mean(v[np.abs(v) > 1e-4] ** 2) + 1e-9)
