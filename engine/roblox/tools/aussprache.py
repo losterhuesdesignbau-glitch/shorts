@@ -54,7 +54,7 @@ def norm_words(text):
     out = []
     for w in t.split():
         w = w.strip("'")
-        if w and w != 'huss': out.append(HOMO.get(w, w))   # „huss“ (Kunstwort, Lukas) kennt die Erkennung nicht – nicht werten
+        if w: out.append(HOMO.get(w, w))
     return out
 
 
@@ -113,7 +113,7 @@ def check(src, voice=None, ep=None, rec=None, log=print):
         # gesprochener Text (speak) der beteiligten Shots als zweite gültige Lesart
         alt = ' '.join(spoken[i] for i in s['shots'] if 'speak' in src['shots'][i])
         E, H = norm_words(exp_txt), norm_words(heard)
-        if not E: continue   # z. B. nur „Huss, huss, huss!“
+        if not E: continue
         E2 = norm_words(alt) if alt else None
         def score(E, H):
             sm = difflib.SequenceMatcher(None, E, H, autojunk=False)

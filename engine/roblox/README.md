@@ -246,14 +246,12 @@ Episode nach `episodes/tests/<name>.json` legen (nicht queue!), pushen, dann Wor
 - **Ei-Requisit:** `{"type": "egg", "color": "#ffd23f", "spots": "#fff3b0", "glow": 1}` (auch als `hold: "egg"`).
 - **Stimme (Lukas 22.11.):** Erzählerin `kokoro:af_heart` (Lukas 22.11., nach Test mit am_michael zurück), Tempo 1x für alle Serien (Dark 0.97). Sprecher-Kette: EQ, Kompressor, neu De-Esser (Zischlaute 5–9 kHz dynamisch bis −8 dB), kleiner Raum; Mix mit Ducking + Lautheit −15 LUFS.
 - **Sound-Bibliothek:** `audio.SFX_LIBRARY` (funny, dramatic, suspense, reaction, impact, transition, cartoon, meme). Neu: bassboom, scratch, error, bonk, slide, crickets, dun, airhorn, heartbeat, drone, glitch, sparkle – alle selbst synthetisiert (keine fremden Aufnahmen, keine Rechteprobleme). **Auto-Sounddesign** (`studio.auto_sfx`): Comedy-Serien bekommen Meme-Sounds bei Schock/Facepalm/Freeze/peinlichen Fragen, düstere Serien Herzschlag/Drone; sparsam, nie auf Shots mit eigenen Sounds; aus mit `"autoSfx": false`.
-- **Wortschatz „huss“ (Lukas 22.11.):** Ein Satz nur aus „huss“ (z. B. `"say": "Huss, huss, huss!"`) wird automatisch mit 1,45-fachem Tempo gesprochen; die Aussprache-Prüfung wertet „huss“ nicht. Qualitätsmaßstab: `REFERENZEN.md`.
 - **Stimmhöhe:** `"tts": {"pitch": 7}` = 7 Halbtöne höher (WORLD-Vokoder, Timing bleibt exakt, Formanten +1,1 %/Halbton, eigener Wert per `"formant"`). Optional – Standard ist wieder af_heart ohne Pitch (Lukas 22.11.).
 - **Engine v3 (Lukas 22.11.):** 
   - *Lichtstimmung automatisch* (`studio.GRADE_PRESETS`): jede Serie bekommt ohne eigenes `grade` einen passenden Look – Glühen, Vignette, Kontrast-Kurve, Wärme, **Vibrance** (schwache Farben kräftiger), **Teal & Orange** (`split`, bei battle/epic/dark/mystery), **Klarheit** (lokaler Kontrast in 4K). Eigene Werte per `grade`, aus mit `"autoGrade": false`. Vorhanden schon vorher: Schattenwurf, SSAO (Kontaktschatten), Tiefenunschärfe, Glanzlichter, Randlicht, Nebel.
   - *Menschenmengen*: Shot-Feld `"crowd": {"n": 24, "area": [x0,z0,x1,z1], "teams": ["#1e88e5","#fb8c00"], "do": "cheer", "face": 0, "seed": 7}` – bis 80 Statisten, zufällige Looks, Teamfarben links/rechts, gleiche Leute bei gleichem Seed.
   - *Mehr Meme-Sounds*: fail (Wah-wah-Posaune), buzzer, correct, cash, whip; Auto-Sounddesign erkennt zusätzlich Geld-Wörter (cash), Fehlschläge (fail), richtige Antworten/Punkte (correct).
   - *QA*: zusätzlich Farbigkeit (Warnung < 25; Referenzen 50–90) und Bild/Ton-Länge.
-- **„Huss“-Rhythmus (Lukas 23.11., nach seiner Vorlage):** Ein Shot nur aus „huss“ wird nicht mehr normal gesprochen, sondern als kurzer Silben-Schlag im 0,2-s-Takt wiederholt (Dreiergruppe, nach drei Schlägen 0,25 s Pause, letzter Schlag betont) – mit der eigenen Erzählstimme, keine fremde Aufnahme. Immer eigener Sprachblock.
 - **Uhrzeiten (Lukas 23.11.):** „p.m.“/„a.m.“ wird mit Pause gesprochen („nine P… M“). Einfach normal schreiben: `at 9 p.m.`
 
 ## Mii Town (ab 26.11.2026)

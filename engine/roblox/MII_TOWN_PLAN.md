@@ -17,7 +17,7 @@
 | Gesicht | Auf den Kopf gemalte Textur: Augen, Brauen, Mund, 20+ Stimmungen. Blinzeln vorhanden. Lippen-Bewegung aus der Lautstärke der Stimme. | `engine/assets.js`, `director.js` |
 | Welt | 23 Sets (street, house, school, classroom, plaza, stadium, snow …) mit Tageszeiten und Wetter. Statisten (`life`), Menschenmengen (`crowd`). | `engine/sets.js`, `life.js`, `studio.py` |
 | Licht | Schatten, Kontaktschatten (SSAO), Tiefenunschärfe, Glanzlichter, Randlicht, Nebel. Danach Farblook je Serie über ffmpeg. | `engine/core.js`, `studio.py` |
-| Stimme | Kokoro (`af_heart`), normales Tempo, De-Esser, Huss-Rhythmus, Pause bei Uhrzeiten. | `tts.py` |
+| Stimme | Kokoro (`af_heart`), normales Tempo, De-Esser, Pause bei Uhrzeiten. | `tts.py` |
 | Musik/Sound | Eigene Synthese (SoundFont), 30+ eigene Effekte und Meme-Sounds, automatisches Sounddesign. | `score.py`, `audio.py` |
 | Regie/QA | Inhalts- und Physikprüfung vor dem Render, Bild/Ton-QA danach, Aussprache-Prüfung. | `regie.py`, `engine/check.js`, `tools/qa.py`, `tools/aussprache.py` |
 | Veröffentlichung | ViralFlow (Engine 2): Render → Cloudflare R2 → Zeitplan → YouTube/Instagram/TikTok. | `viralflow/` |
