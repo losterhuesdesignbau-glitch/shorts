@@ -68,7 +68,7 @@ def compile_episode(ep, voice_path=None, speed=1.0, tts=None):
     end = max((allw[-1]['t1'] if allw else 0) + float(ep.get('tail', 1.0)), prev_end, starts[-1] + 0.5)
     if voice is not None: end = max(end, len(voice) / AU.SR + 0.3)
     fps = ep.get('fps', 30)
-    out = {'cast': ep.get('cast', {}), 'miiTown': bool(ep.get('miiTown')), 'capY': ep.get('capY', 0.64), 'capSize': ep.get('capSize', 104), 'shots': []}
+    out = {'cast': ep.get('cast', {}), 'miiTown': bool(ep.get('miiTown')), 'miiScale': ep.get('miiScale', 0.8), 'capY': ep.get('capY', 0.64), 'capSize': ep.get('capSize', 104), 'shots': []}
     events = []
     for si, sh in enumerate(shots):
         t0 = starts[si]; t1 = starts[si + 1] if si + 1 < len(shots) else end
@@ -420,23 +420,24 @@ def snap_beds(src):
         if not beds: continue
         def bed_of(x, z): return next(((bx, bz, ry) for bx, bz, ry in beds if abs(x - bx) <= 1.9 and abs(z - bz) <= 3.3), None)
         for a in s.get('actors') or []:
-            b = bed_of(a['at'][0], a['at'][-1]) if a.get('at') and str(a.get('do', '')) in ('lie', 'sleep') else None
+            b = bed_of(a['at'][0], a['at'][-1]) if a.get('at') and str(a.get('do', '')) in ('lie', 'sleep') and not src.get('_noBedSnap') else None
             if not b: continue
-            a['y'] = BED_LIE_Y; n += 1
+            mk = float(src.get('miiScale', 0.8)); ly = round(BED_LIE_Y + (1 - mk), 2)   # kleinere Miis (0.8) -> 1.30, gemessen 27.11.
+            a['y'] = ly; n += 1
             if not b[2]:   # Bett ohne Drehung: Kopfende bei -z -> Füße auf Matratze, Kopf direkt vor dem Kissen, Gesicht nach oben (gemessen 27.11.)
                 cf = (src.get('cast') or {}).get(a.get('id')) or {}
-                hs, sc = float(cf.get('headScale', 1.3) or 1.3), float(cf.get('scale', 1.0) or 1.0)
+                hs, sc = float(cf.get('headScale', 1.3) or 1.3), float(cf.get('scale', 1.0) or 1.0) * (float(src.get('miiScale', 0.8)) if cf.get('style') == 'mii' else 1.0)
                 hz = b[1] - 1.5                                    # Kopf liegt direkt vor dem Kissen
                 a['at'] = [b[0], round(hz + 0.84 * (3.98 + 0.74 * hs) * sc, 2)]; a['face'] = 0   # Abstand Füße->Kopf je nach Größe (gemessen 27.11.)
                 if s.get('bedCam', True) is not False:   # Kamera schräg von oben aufs Gesicht (sonst sieht man nur Haare/Decke)
                     s['cam'] = {'type': 'free', 'eye': [b[0] + 0.9, 7.4, hz + 1.5], 'look': [b[0], 1.8, hz - 0.1]}
                 for p in s.get('props') or []:
                     if p.get('type') == 'blanket' and p.get('at') and len(p['at']) == 3 and bed_of(p['at'][0], p['at'][2]):
-                        p['at'] = [b[0], BED_BLANKET_Y, round(hz + hs * sc + 2.3, 2)]   # Decke bis zum Hals, Gesicht frei
+                        p['at'] = [b[0], round(ly + 0.5, 2), round(hz + hs * sc + 2.3, 2)]; p['_snap'] = True   # Decke bis zum Hals, Gesicht frei
         for p in s.get('props') or []:
-            if p.get('type') == 'blanket' and p.get('at') and len(p['at']) == 3 and bed_of(p['at'][0], p['at'][2]):
-                p['at'] = [p['at'][0], BED_BLANKET_Y, p['at'][2]]
-    if n: print(f'Bett: {n}× Liegehöhe auf {BED_LIE_Y} gesetzt (Figur liegt auf der Matratze)', flush=True)
+            if p.get('type') == 'blanket' and p.get('at') and len(p['at']) == 3 and bed_of(p['at'][0], p['at'][2]) and not p.get('_snap'):
+                p['at'] = [p['at'][0], round(BED_BLANKET_Y + (1 - float(src.get('miiScale', 0.8))), 2), p['at'][2]]
+    if n: print(f'Bett: {n}× Liegehöhe angepasst (Figur liegt auf der Matratze)', flush=True)
 
 def mii_intro(src):
     if src.get('intro') is False or src.get('_introDone'): return

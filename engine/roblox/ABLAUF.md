@@ -34,6 +34,7 @@ VIRAL-REGELN: alle 1–2 s neues Bild, keine Shots > 3 s; Twist ganz am Ende; le
 a) `python studio.py <episode.json> -o /tmp/v.mp4 --stills` → Ausgabe lesen:
    - **LÄNGE (27.11.):** Zeile „Länge …“ bzw. „❌❌ ACHTUNG“ prüfen – unter 40 s bricht der echte Render ab (passiert am 27.11., 08:00 ausgefallen). Ziel ≥ 45 s.
 
+- **PROPORTIONEN (27.11.):** Mii-Figuren werden automatisch auf 0.8 skaliert (director.js MII_K, pro Folge "miiScale"), damit Mensch zu Bett/Tür/Haus passt (Erwachsene ≈ Türhöhe, Bett deutlich länger als die Figur). Nicht von Hand vergrößern; in den Stills Mensch-zu-Objekt prüfen.
 - **BETT (27.11.):** Liegende Figuren (do lie/sleep) im Bett werden AUTOMATISCH richtig gelegt (studio.py `snap_beds`): Höhe 1.10 auf der Matratze, Kopf vor dem Kissen, Decke bis zum Hals, Kamera schräg von oben aufs Gesicht. Kein y/at/cam von Hand setzen. Nur abschalten mit "bedCam": false.
 - **INTRO-KAMERA (27.11.):** Das Mii-Town-Intro fährt immer langsam auf die Hauptfigur zu (Innenräume kurze Distanz) – keine Seitenschwenks/Luftbilder mehr. Erste 3 Shots in den Stills prüfen: Gesichter ganz im Bild, nicht abgeschnitten, keine Wand vor der Figur.
    - „Regie: … Fehler“ muss 0 sein (Tier-Regel, Hook-Einstieg …). ✎-Korrekturen macht die Engine selbst; ⚠-Hinweise ansehen und beheben, wo sinnvoll.

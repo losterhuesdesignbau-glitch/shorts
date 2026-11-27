@@ -59,12 +59,16 @@ function npcAcc(r, pk) {
   if (r() < 0.1) o.hoodie = true; if (r() < 0.1) o.pattern = pk(['stripes', 'dots']); if (r() < 0.08) o.chain = true; if (r() < 0.12) o.shorts = true;
   if (r() < 0.07) o.hat = pk(['cowboy', 'beret', 'bandana']); return o;
 }
+// Mii-Proportionen (Lukas 27.11.: „Person darf nicht so groß wie Bett oder Haus sein“): Miis waren ~6.6–7 Einheiten groß,
+// Möbel/Häuser sind für ~5.4 gebaut (Bett 6.2 lang ≈ 2 m). Faktor 0.8 -> Erwachsene ≈ 5.3–5.6, Kinder ≈ 4.2. Pro Folge änderbar: "miiScale".
+const MII_K = 0.8;
+function miiK(o) { return o && o.style === 'mii' ? { ...o, scale: (o.scale || 1) * (R.ep.miiScale ?? MII_K) } : o; }
 function cfgFor(id, a) {
   const c = (R.ep.cast && R.ep.cast[id]) || {};
   const animal = a.animal || c.animal; if (animal) return { animal, scale: a.scale || c.scale || 1 };
-  if (a.npc !== undefined) return { ...npcCfg(a.npc), ...(a.look || {}) };
+  if (a.npc !== undefined) return miiK({ ...npcCfg(a.npc), ...(a.look || {}) });
   const base = c.look ? (LOOKS[c.look] || {}) : (Object.keys(c).length ? {} : npcCfg(hash(id)));
-  const o = { ...AVDEF, ...base, ...c, ...(a.look && typeof a.look === 'object' ? a.look : {}) }; delete o.look; delete o.name; return o;
+  const o = { ...AVDEF, ...base, ...c, ...(a.look && typeof a.look === 'object' ? a.look : {}) }; delete o.look; delete o.name; return miiK(o);
 }
 const MOVERS = { walk: 1, run: 1, sneak: 1, hop: 1, dance: 1, spin: 1, strut: 1, jazzhands: 1, salute: 1, twist: 1, mocap: 1 };
 const DEFMOOD = { yawn: 'yawn', sleep: 'sleep', lie: 'sleep', cheer: 'grin', laugh: 'laugh', cry: 'cry', scared: 'scared', angry: 'angry', talk: 'talk', think: 'think', dance: 'grin', jump: 'grin', spin: 'grin', fall: 'shock', facepalm: 'sad', shrug: 'confused', wave: 'happy', clap: 'grin' };
