@@ -258,5 +258,15 @@
   "plot": "Lily stays at Grandpa Oscar's house; at 3:33 a.m. the clock stops and the ticking moves into the hallway behind her. She turns the clock forward to 3:34 and the ticking stops.",
   "twist": "Next morning there are two identical Grandpas at breakfast – one came in at 3:34.",
   "file": "episodes/queue/dark_grandpas_clock.json"
+ },
+ {
+  "date": "2026-11-27",
+  "series": "IN MII TOWN",
+  "title": "In Mii Town, Everyone Shares ONE Umbrella ☂️🌧️",
+  "topic": "one shared umbrella for the whole town",
+  "hook": "ONE UMBRELLA FOR EVERYONE",
+  "plot": "umbrella schedule, Leo hides it, rains 3 days",
+  "twist": "the cloud has a crush on the umbrella",
+  "file": "episodes/queue/mii_umbrella.json"
  }
 ]
