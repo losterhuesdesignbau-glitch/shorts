@@ -628,6 +628,8 @@ def main():
             ep, events, voice, total, fps = compile_episode(src, a.voice, tts=tts)
             print(f'Länge: Schluss-Shot um {short + 0.4:.1f}s verlängert')
         ok, msg = length_report(ep, total, L); print(msg, flush=True)
+        if not ok and (a.stills or a.frames):
+            print('❌❌ ACHTUNG: Der echte Render (GitHub Actions) bricht wegen der Länge ab – Skript vor dem Einreihen verlängern/kürzen!', flush=True)
         if not ok and not (a.force or a.stimme or a.stills or a.frames):
             sys.exit('Abbruch: Länge passt nicht (Skript anpassen oder --force).')
     viral_check(src, ep, total)

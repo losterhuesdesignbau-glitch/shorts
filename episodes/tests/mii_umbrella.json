@@ -192,6 +192,77 @@
    ]
   },
   {
+   "say": "She *always* brings it back late.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "The late fee? One *cookie*.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "🍪",
+     "x": 0.5,
+     "y": 0.26,
+     "t": 0.3,
+     "size": 150
+    }
+   ]
+  },
+  {
+   "say": "Pearl has paid four thousand cookies.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1
+     ],
+     "do": "laugh",
+     "mood": "laugh",
+     "face": 0
+    }
+   ],
+   "speak": "Pearl has paid four thousand cookies."
+  },
+  {
    "say": "Everyone else just gets *wet*.",
    "set": "plaza",
    "time": "day",
@@ -362,6 +433,30 @@
      "dun",
      0.6
     ]
+   ]
+  },
+  {
+   "say": "Lily asked everyone. Nobody knew.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
    ]
   },
   {
