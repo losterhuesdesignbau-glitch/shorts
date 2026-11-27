@@ -1,0 +1,716 @@
+{
+ "title": "Name Swap",
+ "music": "school",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "NAME SWAP\nGONE WRONG 😱",
+  "series": "SCHOOL LIFE #4",
+  "cta": "YES or NO? 👇",
+  "mid": "What would you do? 👇",
+  "share": "Send this to the one who copies your homework 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "He Swapped Names on a TEST… and It Went Horribly Wrong 📝😱",
+  "description": "Leo didn't study, so he put his name on Noah's test. He got 100%… and a ticket to the Math Championship on live TV. Would YOU swap names on a test? 👇",
+  "hashtags": [
+   "schoollife",
+   "school",
+   "relatable",
+   "funny",
+   "miitown"
+  ],
+  "keywords": [
+   "school story",
+   "test swap",
+   "math test"
+  ],
+  "question": "Would YOU swap names on a test? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "leo": "@leo",
+  "noah": "@noah",
+  "lily": "@lily",
+  "olivia": "@olivia",
+  "zoe": "@zoe"
+ },
+ "shots": [
+  {
+   "say": "Leo *swapped* names on a test…",
+   "set": "classroom",
+   "time": "day",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "evil",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ]
+  },
+  {
+   "say": "and it went *horribly* wrong.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "facepalm",
+     "mood": "panic",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Leo is the class prankster.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "wave",
+     "mood": "grin",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Noah is the class genius.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "confident",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "He has never missed a single question.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "nod",
+     "mood": "smug",
+     "face": 180
+    }
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "grade": "A+",
+     "gradeColor": "#2e7d32",
+     "marks": "v",
+     "at": [
+      3.9,
+      2.6,
+      2.6
+     ],
+     "up": true,
+     "ry": 180
+    }
+   ]
+  },
+  {
+   "say": "Friday: the big math test.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "medium:olivia",
+   "actors": [
+    {
+     "id": "olivia",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "point",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "at": [
+      0,
+      3.2,
+      -4.6
+     ],
+     "text": "MATH TEST\n2 + 2 × 3 = ?"
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Leo didn't study. Not one minute.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "shrug",
+     "mood": "cool",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "So he had a *plan*.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "think",
+     "mood": "evil",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "When the teacher looked away…",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:olivia",
+   "actors": [
+    {
+     "id": "olivia",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "he erased Noah's name…",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "point",
+     "mood": "evil",
+     "face": 180
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "✏️ NOAH ❌",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "and wrote his own.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 180
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "✏️ LEO ✅",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Perfect crime.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "cool",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Monday, the results came back.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:olivia",
+   "actors": [
+    {
+     "id": "olivia",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "grade": "A+",
+     "gradeColor": "#2e7d32",
+     "marks": "v",
+     "at": [
+      1.4,
+      2.6,
+      -2.9
+     ],
+     "up": true,
+     "ry": 180
+    }
+   ]
+  },
+  {
+   "say": "Noah got… an *F*.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "face:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 180
+    }
+   ],
+   "pause": 0.3,
+   "sfx": [
+    [
+     "dun",
+     0.4
+    ]
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "grade": "F",
+     "gradeColor": "#d32f2f",
+     "marks": "x",
+     "at": [
+      3.9,
+      2.6,
+      2.6
+     ],
+     "up": true,
+     "ry": 180
+    }
+   ]
+  },
+  {
+   "say": "Leo got 100 percent.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 180
+    }
+   ],
+   "props": [
+    {
+     "type": "paper",
+     "grade": "100%",
+     "gradeColor": "#2e7d32",
+     "marks": "v",
+     "at": [
+      3.9,
+      2.6,
+      2.6
+     ],
+     "up": true,
+     "ry": 180
+    }
+   ]
+  },
+  {
+   "say": "The whole class was *shocked*.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      -1.7,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 180
+    },
+    {
+     "id": "noah",
+     "at": [
+      0,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 180
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.7,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Then the teacher *smiled*.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:olivia",
+   "actors": [
+    {
+     "id": "olivia",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "\"Leo, you're our *best* student now!\"",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:olivia",
+   "actors": [
+    {
+     "id": "olivia",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "talk",
+     "mood": "excited",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "\"So *you* go to the Math Championship.\"",
+   "set": "classroom",
+   "time": "day",
+   "cam": "medium:olivia",
+   "actors": [
+    {
+     "id": "olivia",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "point",
+     "mood": "happy",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "\"Tomorrow. On live TV.\"",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:olivia",
+   "actors": [
+    {
+     "id": "olivia",
+     "at": [
+      0.5,
+      -3.1
+     ],
+     "do": "talk",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "pause": 0.2
+  },
+  {
+   "say": "Leo's face went *white*.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "freeze",
+     "mood": "panic",
+     "face": 180
+    }
+   ],
+   "sfx": [
+    [
+     "scratch",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Noah just leaned back… and smiled.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "He had *seen* everything.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "face:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "idle",
+     "mood": "wink",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Every. Single. Second.",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "nod",
+     "mood": "smug",
+     "face": 180
+    }
+   ]
+  },
+  {
+   "say": "Next day, on stage.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "noCheck": true,
+   "props": [
+    {
+     "type": "banner",
+     "at": [
+      0,
+      0,
+      -2.5
+     ],
+     "text": "MATH CHAMPIONSHIP"
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -4
+    ],
+    "do": "cheer",
+    "mood": "happy",
+    "face": 0,
+    "seed": 3
+   }
+  },
+  {
+   "say": "First question: \"What is two plus two?\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "speak": "First question: what is two plus two?",
+   "props": [
+    {
+     "type": "board",
+     "at": [
+      0,
+      3.2,
+      -4.6
+     ],
+     "text": "2 + 2 = ?"
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Leo said… \"Twenty-two.\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "pause": 0.3
+  },
+  {
+   "say": "Would YOU swap names on a test?",
+   "set": "classroom",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      3.1,
+      3.5
+     ],
+     "do": "shrug",
+     "mood": "laugh",
+     "face": 180
+    }
+   ]
+  }
+ ]
+}

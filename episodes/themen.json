@@ -268,5 +268,15 @@
   "plot": "umbrella schedule, Leo hides it, rains 3 days",
   "twist": "the cloud has a crush on the umbrella",
   "file": "episodes/queue/mii_umbrella.json"
+ },
+ {
+  "date": "2026-11-27",
+  "series": "SCHOOL LIFE",
+  "title": "He Swapped Names on a TEST… and It Went Horribly Wrong 📝😱",
+  "topic": "prankster swaps names on the genius's test",
+  "hook": "NAME SWAP GONE WRONG",
+  "plot": "Leo puts his name on Noah's test, gets 100%",
+  "twist": "he must go to the Math Championship on live TV, answers 22",
+  "file": "episodes/queue/school_name_swap.json"
  }
 ]
