@@ -389,10 +389,15 @@ MII_CAT = {
     'mystery':   ("Something isn't right in Mii Town…", '#4cc9f0'),
     'survival':  ('Can anyone survive Mii Town?', '#fb8500'),
     'challenge': ('One challenge. One winner. Mii Town.', '#06d6a0'),
+    'movie':     ('Lights, camera… Mii Town!', '#ff5d8f'),
+    'empire':    ('Big dreams in Mii Town…', '#ffd23f'),
 }
+MII_MOTIF = {'movie': 'comedy', 'empire': 'standard'}   # neue Kategorien nutzen vorhandene Erkennungs-Sounds
 def mii_category(src):
     if src.get('category') in MII_CAT: return src['category']
     ser = ((src.get('viral') or {}).get('series') or '').upper(); mu = src.get('music', ''); title = ((src.get('meta') or {}).get('title') or src.get('title') or '').lower()
+    if 'MOVIE' in ser: return 'movie'
+    if 'EMPIRE' in ser: return 'empire'
     if 'challenge' in title: return 'challenge'
     if 'VS' in ser or mu == 'battle' or ' vs ' in title: return 'battle'
     if 'DARK' in ser or mu == 'dark': return 'horror'
@@ -400,6 +405,38 @@ def mii_category(src):
     if 'WEIRD' in ser or mu == 'mystery': return 'mystery'
     if mu in ('school', 'trend', 'funny', 'happy') or 'SCHOOL' in ser or 'TREND' in ser: return 'comedy'
     return 'standard'
+
+# ---------------- Liegen im Bett (Lukas 27.11.) ----------------
+# Mii-Figuren lagen mit dem alten Wert y 1.55 sichtbar ÜBER der Matratze. Gemessen (Seitenansicht, 27.11.):
+# Figur y 1.10 liegt flach auf der Matratze, Decke ("blanket") y 1.60 deckt sie zu. Gilt für das Bett im Set "room"
+# und für jedes "bed"-Requisit; wird automatisch gesetzt, egal was im Skript steht.
+BED_LIE_Y, BED_BLANKET_Y = 1.10, 1.60
+def snap_beds(src):
+    n = 0
+    for s in src.get('shots') or []:
+        beds = [(-6.6, -4.8, 0)] if s.get('set') == 'room' else []
+        for p in s.get('props') or []:
+            if p.get('type') == 'bed' and p.get('at'): beds.append((p['at'][0], p['at'][-1], p.get('ry', 0) or 0))
+        if not beds: continue
+        def bed_of(x, z): return next(((bx, bz, ry) for bx, bz, ry in beds if abs(x - bx) <= 1.9 and abs(z - bz) <= 3.3), None)
+        for a in s.get('actors') or []:
+            b = bed_of(a['at'][0], a['at'][-1]) if a.get('at') and str(a.get('do', '')) in ('lie', 'sleep') else None
+            if not b: continue
+            a['y'] = BED_LIE_Y; n += 1
+            if not b[2]:   # Bett ohne Drehung: Kopfende bei -z -> Füße auf Matratze, Kopf direkt vor dem Kissen, Gesicht nach oben (gemessen 27.11.)
+                cf = (src.get('cast') or {}).get(a.get('id')) or {}
+                hs, sc = float(cf.get('headScale', 1.3) or 1.3), float(cf.get('scale', 1.0) or 1.0)
+                hz = b[1] - 1.5                                    # Kopf liegt direkt vor dem Kissen
+                a['at'] = [b[0], round(hz + 0.84 * (3.98 + 0.74 * hs) * sc, 2)]; a['face'] = 0   # Abstand Füße->Kopf je nach Größe (gemessen 27.11.)
+                if s.get('bedCam', True) is not False:   # Kamera schräg von oben aufs Gesicht (sonst sieht man nur Haare/Decke)
+                    s['cam'] = {'type': 'free', 'eye': [b[0] + 0.9, 7.4, hz + 1.5], 'look': [b[0], 1.8, hz - 0.1]}
+                for p in s.get('props') or []:
+                    if p.get('type') == 'blanket' and p.get('at') and len(p['at']) == 3 and bed_of(p['at'][0], p['at'][2]):
+                        p['at'] = [b[0], BED_BLANKET_Y, round(hz + hs * sc + 2.3, 2)]   # Decke bis zum Hals, Gesicht frei
+        for p in s.get('props') or []:
+            if p.get('type') == 'blanket' and p.get('at') and len(p['at']) == 3 and bed_of(p['at'][0], p['at'][2]):
+                p['at'] = [p['at'][0], BED_BLANKET_Y, p['at'][2]]
+    if n: print(f'Bett: {n}× Liegehöhe auf {BED_LIE_Y} gesetzt (Figur liegt auf der Matratze)', flush=True)
 
 def mii_intro(src):
     if src.get('intro') is False or src.get('_introDone'): return
@@ -425,14 +462,14 @@ def mii_intro(src):
             keep = {kk: f[kk] for kk in ('at', 'y', 'face', 'hold') if kk in f}
             return dict({'id': i, 'do': f.get('do', 'idle') if re.search('sit|lie', str(f.get('do', ''))) else 'idle', 'mood': mood}, **dict(k, **keep))
         return dict({'id': i, 'at': at, 'do': do, 'mood': mood}, **k)
-    sh = {'say': line, 'set': sset, 'time': stime, 'intro': True, 'sfx': [['motif_' + cat, 0.0]],
+    sh = {'say': line, 'set': sset, 'time': stime, 'intro': True, 'sfx': [['motif_' + MII_MOTIF.get(cat, cat), 0.0]],
           'pops': [{'text': 'MII TOWN', 'x': 0.5, 'y': 0.12, 't': 0.05, 'dur': 3, 'rise': 0, 'size': 130, 'color': colr}]}
     if cat == 'battle' and len(main) >= 2:
         sh.update(cam='group', actors=[A(main[0], [-1.8, 1], 'idle', 'angry', face=45), A(main[1], [1.8, 1], 'idle', 'angry', face=-45)], fx=[{'type': 'flash', 't': 0.05}])
     elif cat == 'horror':
-        sh.update(time='night', cam='dolly', fx=[{'type': 'dark', 't': 0.0}], grade={'bloom': 0.2, 'vignette': 0.6, 'sat': 0.85, 'contrast': 1.1, 'warm': -0.08})
+        sh.update(time='night', cam='aerial', fx=[{'type': 'dark', 't': 0.0}], grade={'bloom': 0.2, 'vignette': 0.6, 'sat': 0.85, 'contrast': 1.1, 'warm': -0.08})
         if main: sh['actors'] = [A(main[0], [0, 1], 'look', 'scared', face=0)]
-    elif cat == 'comedy' and main:
+    elif cat in ('comedy', 'movie', 'empire') and main:
         sh.update(cam='medium:' + main[0], actors=[A(main[0], [0, 1], 'jump', 'laugh', face=0)], fx=[{'type': 'confetti', 't': 0.1}])
     elif cat == 'mystery':
         sh.update(time='dusk' if stime in ('day', 'morning') else stime, cam='reveal' if main else 'aerial')
@@ -444,6 +481,14 @@ def mii_intro(src):
         sh.update(cam='group', actors=[A(m, [(i - (min(4, len(main)) - 1) / 2) * 2.2, 1], 'cheer', 'excited', face=0) for i, m in enumerate(main[:4])])
     else:
         sh.update(cam='aerial', life=True)
+    # Kamera fürs Intro (Lukas 27.11.: „am Anfang sind die komisch“): Hauptfigur IMMER ganz im Bild –
+    # langsame Fahrt auf die Figur zu statt seitlicher Schwenks/Luftbild; Innenräume kurze Distanz (keine Wände im Bild).
+    acts = sh.get('actors') or []
+    if acts and cat != 'battle' and cat != 'challenge':
+        tgt = acts[0]['id']
+        if cat == 'survival' and sset not in ('classroom', 'room', 'kitchen', 'office', 'hallway', 'elevator'): sh['cam'] = 'track:' + tgt
+        elif sset in ('classroom', 'room', 'kitchen', 'office', 'hallway', 'elevator'): sh['cam'] = {'type': 'push', 'target': tgt, 'from': 9.5, 'to': 7.4}
+        else: sh['cam'] = {'type': 'push', 'target': tgt, 'from': 12.5, 'to': 8.5}
     src['shots'] = [sh] + shots; src['_introDone'] = True; src['_category'] = cat
     print(f"Mii-Town-Intro: Kategorie {cat} – „{line}“", flush=True)
 
@@ -610,6 +655,7 @@ def main():
     except Exception as _e: print('Figuren-Datenbank nicht geladen:', _e, flush=True)
     src['miiTown'] = any(isinstance(v, dict) and v.get('style') == 'mii' for v in (src.get('cast') or {}).values()) or bool(src.get('miiTown'))   # Statisten im Mii-Stil
     mii_intro(src)
+    if src['miiTown']: snap_beds(src)
     expand_crowd(src)
     mii_check(src)
     regie_on = src.get('regie', True) is not False
