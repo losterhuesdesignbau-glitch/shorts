@@ -1,0 +1,1028 @@
+{
+ "title": "Guess the Movie",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "GUESS THE\nMOVIE 🎬",
+  "series": "GUESS THE MII TOWN MOVIE #1",
+  "cta": "Did you get it? 👇",
+  "mid": "Which movie is it? 👇",
+  "midAt": 0.9,
+  "share": "Send this to your movie buddy 🍿",
+  "loop": true
+ },
+ "meta": {
+  "title": "Can YOU Guess This Movie? 🎬🎄 (Mii Town Edition)",
+  "description": "The Miis of Mii Town re-enact a famous movie. Can YOU guess which one it is before the reveal? 👇",
+  "hashtags": [
+   "guessthemovie",
+   "miitown",
+   "movie",
+   "quiz",
+   "funny"
+  ],
+  "keywords": [
+   "guess the movie",
+   "mii town movie",
+   "movie quiz"
+  ],
+  "question": "Did you guess the movie? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "max": "@max",
+  "grace": "@grace",
+  "ben": "@ben",
+  "mia": "@mia",
+  "toby": "@toby",
+  "ava": "@ava",
+  "sam": "@sam",
+  "jake": "@jake"
+ },
+ "shots": [
+  {
+   "say": "Can YOU guess this movie?",
+   "set": "room",
+   "time": "dusk",
+   "cam": "face:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ]
+  },
+  {
+   "say": "A *huge* family packs for a Christmas trip.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      -3.0,
+      1.6
+     ],
+     "do": "point",
+     "mood": "angry",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      -1.0,
+      1.0
+     ],
+     "do": "carry",
+     "mood": "panic",
+     "face": 0,
+     "hold": "box"
+    },
+    {
+     "id": "mia",
+     "at": [
+      1.0,
+      1.4
+     ],
+     "do": "wavearms",
+     "mood": "excited",
+     "face": 0
+    },
+    {
+     "id": "toby",
+     "at": [
+      3.0,
+      1.8
+     ],
+     "do": "jump",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      2.6,
+      0,
+      -1.2
+     ],
+     "color": "#e63946"
+    },
+    {
+     "type": "gift",
+     "at": [
+      4.4,
+      0,
+      -1.0
+     ],
+     "color": "#1e88e5"
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Too many people. Too much chaos.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      -3.0,
+      1.6
+     ],
+     "do": "point",
+     "mood": "angry",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      -1.0,
+      1.0
+     ],
+     "do": "carry",
+     "mood": "panic",
+     "face": 0,
+     "hold": "box"
+    },
+    {
+     "id": "mia",
+     "at": [
+      1.0,
+      1.4
+     ],
+     "do": "wavearms",
+     "mood": "excited",
+     "face": 0
+    },
+    {
+     "id": "toby",
+     "at": [
+      3.0,
+      1.8
+     ],
+     "do": "jump",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "ava",
+     "at": [
+      0,
+      3.4
+     ],
+     "do": "wavearms",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "At dawn they rush to the airport…",
+   "set": "street",
+   "time": "dusk",
+   "cam": "track:ben",
+   "actors": [
+    {
+     "id": "ben",
+     "at": [
+      -1.5,
+      1.2
+     ],
+     "do": "run",
+     "mood": "panic",
+     "face": 0,
+     "path": [
+      [
+       -1.5,
+       1.2
+      ],
+      [
+       4,
+       1.2
+      ]
+     ]
+    },
+    {
+     "id": "grace",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "run",
+     "mood": "panic",
+     "face": 0,
+     "path": [
+      [
+       0,
+       1.2
+      ],
+      [
+       5,
+       1.2
+      ]
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "but one kid is still *asleep* upstairs.",
+   "set": "room",
+   "time": "dusk",
+   "cam": {
+    "type": "free",
+    "eye": [
+     -2.8,
+     5.2,
+     0.5
+    ],
+    "look": [
+     -6.6,
+     1.6,
+     -4.6
+    ]
+   },
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -6.6,
+      -4.6
+     ],
+     "do": "lie",
+     "mood": "sleepy",
+     "face": 0,
+     "y": 1.55
+    }
+   ],
+   "props": [
+    {
+     "type": "blanket",
+     "at": [
+      -6.6,
+      1.6,
+      -4.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "He wakes up. The house is *empty*.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "look",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "He thinks he wished his family away.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "At first? Best day *ever*.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "jump",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "🍕🍦🎮",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.2,
+     "size": 120
+    }
+   ],
+   "sfx": [
+    [
+     "cheer",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Ice cream for dinner. Movies all night.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "laugh",
+     "mood": "laugh",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Meanwhile, in Paris…",
+   "set": "paris",
+   "time": "night",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      -1.2,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "ben",
+     "at": [
+      1.2,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Mom suddenly realizes…",
+   "set": "paris",
+   "time": "night",
+   "cam": "face:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      -1.2,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "pause": 0.2
+  },
+  {
+   "say": "she *forgot* someone!",
+   "set": "paris",
+   "time": "night",
+   "cam": "close:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      -1.2,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "She tries *everything* to get back home.",
+   "set": "paris",
+   "time": "night",
+   "cam": "track:grace",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      -3,
+      1.2
+     ],
+     "do": "run",
+     "mood": "panic",
+     "face": 0,
+     "path": [
+      [
+       -3,
+       1.2
+      ],
+      [
+       3,
+       1.2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Back home, two burglars watch the house.",
+   "set": "street",
+   "time": "night",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "sneak",
+     "mood": "evil",
+     "face": 0
+    },
+    {
+     "id": "jake",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "look",
+     "mood": "evil",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "They think it's *empty*.",
+   "set": "street",
+   "time": "night",
+   "cam": "close:sam",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "laugh",
+     "mood": "evil",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "snow",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "So the kid makes a *plan*.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "evil",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Marbles all over the floor.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      1.4,
+      1.6
+     ],
+     "do": "point",
+     "mood": "evil",
+     "face": 250
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    },
+    {
+     "type": "marbles",
+     "at": [
+      -0.6,
+      0,
+      1.4
+     ],
+     "n": 22
+    }
+   ]
+  },
+  {
+   "say": "A paint can on a rope.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      1.6,
+      1.6
+     ],
+     "do": "point",
+     "mood": "grin",
+     "face": 250
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    },
+    {
+     "type": "paintcan",
+     "at": [
+      -0.4,
+      2.6,
+      1.2
+     ],
+     "rope": 3.0
+    }
+   ]
+  },
+  {
+   "say": "And a *very* hot door handle.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      1.6,
+      1.6
+     ],
+     "do": "laugh",
+     "mood": "evil",
+     "face": 250
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "🔥🚪🔥",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ]
+  },
+  {
+   "say": "Christmas Eve. The burglars sneak in…",
+   "set": "room",
+   "time": "dusk",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      -1.0,
+      1.4
+     ],
+     "do": "sneak",
+     "mood": "evil",
+     "face": 0,
+     "path": [
+      [
+       -3,
+       1.4
+      ],
+      [
+       -1,
+       1.4
+      ]
+     ]
+    },
+    {
+     "id": "jake",
+     "at": [
+      1.0,
+      1.4
+     ],
+     "do": "sneak",
+     "mood": "evil",
+     "face": 0,
+     "path": [
+      [
+       -1,
+       1.4
+      ],
+      [
+       1,
+       1.4
+      ]
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "and fall for *every single trap*.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "sam",
+     "at": [
+      -1.0,
+      1.4
+     ],
+     "do": "fall",
+     "mood": "shock",
+     "face": 0
+    },
+    {
+     "id": "jake",
+     "at": [
+      1.0,
+      1.4
+     ],
+     "do": "faint",
+     "mood": "dizzy",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    },
+    {
+     "type": "marbles",
+     "at": [
+      0,
+      0,
+      1.6
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "crash",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Christmas morning: Mom finally makes it home.",
+   "set": "room",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "grace",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "run",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "max",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    },
+    {
+     "type": "gift",
+     "at": [
+      2.6,
+      0,
+      -1.2
+     ],
+     "color": "#e63946"
+    },
+    {
+     "type": "gift",
+     "at": [
+      4.4,
+      0,
+      -1.0
+     ],
+     "color": "#1e88e5"
+    }
+   ]
+  },
+  {
+   "say": "Which movie is it?",
+   "set": "room",
+   "time": "day",
+   "cam": "face:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "It's… *Home Alone*!",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.8
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "pause": 0.9,
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "HOME ALONE 🎄",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.05,
+     "size": 120
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Did you get it? Which movie should we do next?",
+   "set": "room",
+   "time": "day",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.8
+     ],
+     "do": "laugh",
+     "mood": "laugh",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "xmastree",
+     "at": [
+      3.6,
+      0,
+      -2.6
+     ]
+    }
+   ]
+  }
+ ]
+}
