@@ -1,0 +1,672 @@
+{
+ "title": "One Umbrella",
+ "category": "standard",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "ONE UMBRELLA\nFOR EVERYONE?!",
+  "series": "IN MII TOWN #1",
+  "cta": "YES or NO? 👇",
+  "mid": "Where did Leo hide it? 👇",
+  "share": "Send this to someone who never shares 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "In Mii Town, Everyone Shares ONE Umbrella ☂️🌧️",
+  "description": "In Mii Town, the whole town shares one umbrella – with a schedule. Then Prankster Leo hid it and it rained for three days… but the cloud had a secret. Would YOU give the umbrella back? 👇",
+  "hashtags": [
+   "miitown",
+   "weirdtowns",
+   "weirdrules",
+   "funny",
+   "animation"
+  ],
+  "keywords": [
+   "mii town",
+   "weird town rules",
+   "one umbrella"
+  ],
+  "question": "Would YOU give the umbrella back? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "lily": "@lily",
+  "rex": "@rex",
+  "gus": "@gus",
+  "pearl": "@pearl",
+  "max": "@max",
+  "zoe": "@zoe",
+  "leo": "@leo",
+  "noah": "@noah"
+ },
+ "shots": [
+  {
+   "say": "In Mii Town, there's only *ONE* umbrella.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "face": 0,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ]
+  },
+  {
+   "say": "For the *whole* town.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "nervous",
+     "face": 0,
+     "hold": "umbrella"
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "sad",
+    "face": 0,
+    "seed": 8
+   },
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "And it has a schedule.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      1,
+      1.2
+     ],
+     "do": "point",
+     "mood": "smug",
+     "face": 25
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      -0.6
+     ],
+     "text": "UMBRELLA SCHEDULE"
+    }
+   ]
+  },
+  {
+   "say": "Monday? Gus the baker.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "happy",
+     "face": 0,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "Tuesday? Grandma Pearl.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "smug",
+     "face": 0,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "Everyone else just gets *wet*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "shrug",
+     "mood": "disappointed",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "sad",
+    "face": 0,
+    "seed": 8
+   },
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "Mayor Rex says: \"Sharing is caring!\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      1,
+      1.5
+     ],
+     "do": "talk",
+     "mood": "excited",
+     "face": 0,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "But Prankster Leo had an idea.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "evil",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "He *hid* the umbrella.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "track:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -3,
+      1.5
+     ],
+     "do": "sneak",
+     "mood": "evil",
+     "face": 0,
+     "hold": "umbrella",
+     "path": [
+      [
+       -3,
+       1.5
+      ],
+      [
+       2,
+       1.5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "And then… it rained. For three days.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "shock",
+    "face": 0,
+    "seed": 8
+   },
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ],
+   "pause": 0.3,
+   "sfx": [
+    [
+     "dun",
+     0.6
+    ]
+   ]
+  },
+  {
+   "say": "Nobody could find it.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      -1.4,
+      1
+     ],
+     "do": "look",
+     "mood": "confused",
+     "face": 0
+    },
+    {
+     "id": "pearl",
+     "at": [
+      1.4,
+      1
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "sad",
+    "face": 0,
+    "seed": 8
+   },
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "So Noah checked the rain data.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "think",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "📊🌧️",
+     "x": 0.5,
+     "y": 0.28,
+     "t": 0.3
+    }
+   ]
+  },
+  {
+   "say": "The cloud wasn't raining.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1
+     ],
+     "do": "lookup",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ],
+   "pause": 0.3
+  },
+  {
+   "say": "It was *crying*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      2,
+      2
+     ],
+     "do": "lookup",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "☁️😭",
+     "x": 0.5,
+     "y": 0.22,
+     "t": 0.2,
+     "size": 150
+    }
+   ],
+   "sfx": [
+    [
+     "scratch",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Lily found it under Leo's bed.",
+   "set": "room",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "surprised",
+     "face": 25,
+     "hold": "umbrella"
+    }
+   ]
+  },
+  {
+   "say": "She opened it… and the rain stopped.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "happy",
+     "face": 0,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.5
+    }
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "Grandma Pearl just smiled. She knew.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "wink",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "The cloud has a crush… on the umbrella.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "noCheck": true,
+   "fx": [
+    {
+     "type": "hearts",
+     "t": 0.4
+    }
+   ],
+   "pops": [
+    {
+     "text": "☁️❤️☂️",
+     "x": 0.5,
+     "y": 0.24,
+     "t": 0.4,
+     "size": 140
+    }
+   ],
+   "pause": 0.2
+  },
+  {
+   "say": "It only rains… so it can see it again.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "love",
+     "face": 0,
+     "hold": "umbrella"
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "surprised",
+    "face": 0,
+    "seed": 8
+   },
+   "fx": [
+    {
+     "type": "hearts",
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Would YOU give the umbrella back?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "shrug",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "noCheck": true
+  }
+ ]
+}
