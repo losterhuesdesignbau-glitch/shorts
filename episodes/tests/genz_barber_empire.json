@@ -1,0 +1,1101 @@
+{
+ "title": "Barber Empire",
+ "music": "trend",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "BARBER\nWITH 0 SKILLS 💈",
+  "series": "GENZ TRENDS",
+  "cta": "1, 2 or 3? 👇",
+  "mid": "Would you sit in his chair? 👇",
+  "share": "Send this to your barber 💈",
+  "loop": true
+ },
+ "meta": {
+  "title": "We Tried \"Barber Empire\" in REAL LIFE 💈✂️ (New Roblox Trend)",
+  "description": "Leo opened a barber shop with zero experience – just like the new Roblox trend Barber Empire. A mohawk, a bald mayor and pink grandma curls later… Which haircut would YOU pick? 👇",
+  "hashtags": [
+   "barberempire",
+   "roblox",
+   "genztrends",
+   "miitown",
+   "funny"
+  ],
+  "keywords": [
+   "barber empire roblox",
+   "roblox trend",
+   "barber shop"
+  ],
+  "question": "Which haircut would YOU pick – 1, 2 or 3? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "leo": "@leo",
+  "max": "@max",
+  "rex": "@rex",
+  "pearl": "@pearl",
+  "max_m": {
+   "style": "mii",
+   "name": "Max",
+   "sex": "m",
+   "age": "kid",
+   "role": "main kid hero",
+   "kind": "kid",
+   "personality": "hyper, asks \"why\" all the time",
+   "mood": "excited",
+   "skin": "#5e4130",
+   "hair": "mohawk",
+   "hairColor": "#b5523b",
+   "eyeColor": "#7b4a2e",
+   "face": "square",
+   "nose": "wide",
+   "ears": "normal",
+   "build": "average",
+   "facekit": {
+    "eye": "oval",
+    "es": 0.88,
+    "edx": -1,
+    "ey": 5,
+    "brow": "thin",
+    "browColor": "#b5523b",
+    "my": -4,
+    "mw": 0.91,
+    "cheeks": false
+   },
+   "shirt": "#f5f5f5",
+   "pants": "#1d3557",
+   "shoes": "#1e88e5",
+   "logo": "none",
+   "headScale": 1.58,
+   "scale": 0.74,
+   "backpack": "#ff595e"
+  },
+  "rex_b": {
+   "style": "mii",
+   "name": "Rex",
+   "sex": "m",
+   "age": "adult",
+   "role": "show host",
+   "kind": "extrovert",
+   "personality": "loud, funny, life of the party",
+   "mood": "excited",
+   "skin": "#a97a5c",
+   "hair": "bald",
+   "hairColor": "#2b1b12",
+   "eyeColor": "#6c757d",
+   "face": "long",
+   "nose": "pointy",
+   "ears": "normal",
+   "build": "average",
+   "facekit": {
+    "eye": "big",
+    "es": 1.19,
+    "edx": 3,
+    "ey": 0,
+    "brow": "thin",
+    "browColor": "#2b1b12",
+    "my": 0,
+    "mw": 0.82,
+    "cheeks": false
+   },
+   "shirt": "#ffd166",
+   "pants": "#2b2b2b",
+   "shoes": "#2b2b2b",
+   "logo": "none",
+   "headScale": 1.34,
+   "scale": 1.04
+  },
+  "pearl_a": {
+   "style": "mii",
+   "name": "Pearl",
+   "sex": "w",
+   "age": "senior",
+   "role": "grandma",
+   "kind": "senior",
+   "personality": "wise, slow, surprisingly savage",
+   "mood": "smile",
+   "skin": "#ecc3a0",
+   "hair": "curly",
+   "hairColor": "#ff4fbf",
+   "eyeColor": "#7b4a2e",
+   "face": "heart",
+   "nose": "button",
+   "ears": "normal",
+   "build": "chubby",
+   "facekit": {
+    "eye": "oval",
+    "es": 0.9,
+    "edx": -5,
+    "ey": -6,
+    "brow": "flat",
+    "browColor": "#9e9e9e",
+    "my": 0,
+    "mw": 1.14,
+    "cheeks": false
+   },
+   "shirt": "#f5f5f5",
+   "pants": "#5c4033",
+   "shoes": "#1e88e5",
+   "logo": "none",
+   "headScale": 1.39,
+   "scale": 0.97,
+   "lashes": true,
+   "jacket": "#cdb4db"
+  },
+  "leo_b": {
+   "style": "mii",
+   "name": "Leo",
+   "sex": "m",
+   "age": "kid",
+   "role": "prankster kid",
+   "kind": "troublemaker",
+   "personality": "mischievous, loud, pranks everyone",
+   "mood": "evil",
+   "skin": "#a97a5c",
+   "hair": "bald",
+   "hairColor": "#b5523b",
+   "eyeColor": "#2e6db4",
+   "face": "egg",
+   "nose": "big",
+   "ears": "big",
+   "build": "average",
+   "facekit": {
+    "eye": "round",
+    "es": 1.16,
+    "edx": 2,
+    "ey": 0,
+    "brow": "flat",
+    "browColor": "#b5523b",
+    "my": 5,
+    "mw": 1.2,
+    "cheeks": true
+   },
+   "shirt": "#e63946",
+   "pants": "#2b2b2b",
+   "shoes": "#2b2b2b",
+   "logo": "none",
+   "headScale": 1.57,
+   "scale": 0.79
+  },
+  "leo_c": {
+   "style": "mii",
+   "name": "Leo",
+   "sex": "m",
+   "age": "kid",
+   "role": "prankster kid",
+   "kind": "troublemaker",
+   "personality": "mischievous, loud, pranks everyone",
+   "mood": "evil",
+   "skin": "#a97a5c",
+   "hair": "cap",
+   "hairColor": "#b5523b",
+   "eyeColor": "#2e6db4",
+   "face": "egg",
+   "nose": "big",
+   "ears": "big",
+   "build": "average",
+   "facekit": {
+    "eye": "round",
+    "es": 1.16,
+    "edx": 2,
+    "ey": 0,
+    "brow": "flat",
+    "browColor": "#b5523b",
+    "my": 5,
+    "mw": 1.2,
+    "cheeks": true
+   },
+   "shirt": "#e63946",
+   "pants": "#2b2b2b",
+   "shoes": "#2b2b2b",
+   "logo": "none",
+   "headScale": 1.57,
+   "scale": 0.79
+  }
+ },
+ "shots": [
+  {
+   "say": "Leo opened a *barber shop*…",
+   "set": "street",
+   "time": "day",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "evil",
+     "face": 0
+    }
+   ],
+   "speak": "Leo opened up a barber shop…",
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ]
+  },
+  {
+   "say": "with *zero* experience.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "shrug",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      0.2
+     ],
+     "text": "LEO'S BARBER"
+    }
+   ]
+  },
+  {
+   "say": "It's the new Roblox trend: Barber Empire.",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      1.5,
+      0.4
+     ],
+     "do": "point",
+     "mood": "excited",
+     "face": 330
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    },
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      0.2
+     ],
+     "text": "LEO'S BARBER"
+    }
+   ]
+  },
+  {
+   "say": "First customer: Max.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    },
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      0.2
+     ],
+     "text": "LEO'S BARBER"
+    }
+   ]
+  },
+  {
+   "say": "\"Just a little trim, please.\"",
+   "set": "street",
+   "time": "day",
+   "cam": "close:max",
+   "actors": [
+    {
+     "id": "max",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ]
+  },
+  {
+   "say": "Leo said: \"Trust me.\"",
+   "set": "street",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      1.5,
+      0.4
+     ],
+     "do": "talk",
+     "mood": "evil",
+     "face": 330
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "✂️✂️",
+     "x": 0.6,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.4
+    ]
+   ]
+  },
+  {
+   "say": "Max got… a *mohawk*.",
+   "set": "street",
+   "time": "day",
+   "cam": "face:max_m",
+   "actors": [
+    {
+     "id": "max_m",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ],
+   "pause": 0.3,
+   "sfx": [
+    [
+     "dun",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Next: Mayor Rex.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    },
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      0.2
+     ],
+     "text": "LEO'S BARBER"
+    }
+   ]
+  },
+  {
+   "say": "\"Make me look *important*.\"",
+   "set": "street",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "confident",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ]
+  },
+  {
+   "say": "Leo got a little *too* excited.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      1.5,
+      0.4
+     ],
+     "do": "laugh",
+     "mood": "excited",
+     "face": 330
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "✂️✂️",
+     "x": 0.6,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Rex is now… *bald*.",
+   "set": "street",
+   "time": "day",
+   "cam": "face:rex_b",
+   "actors": [
+    {
+     "id": "rex_b",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "angry",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ],
+   "pause": 0.3,
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.5
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.5
+    ]
+   ]
+  },
+  {
+   "say": "Then Grandma Pearl sat down.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    },
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      0.2
+     ],
+     "text": "LEO'S BARBER"
+    }
+   ]
+  },
+  {
+   "say": "\"Make me look *young* again!\"",
+   "set": "street",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ]
+  },
+  {
+   "say": "Leo gave her… bright *pink* curls.",
+   "set": "street",
+   "time": "day",
+   "cam": "face:pearl_a",
+   "actors": [
+    {
+     "id": "pearl_a",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "surprised",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "✂️✂️",
+     "x": 0.6,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Mii Town was *furious*.",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max_m",
+     "at": [
+      -1.6,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "angry",
+     "face": 0
+    },
+    {
+     "id": "rex_b",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "angry",
+     "face": 0
+    },
+    {
+     "id": "pearl_a",
+     "at": [
+      1.6,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Leo was sure he was finished.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "But the next morning…",
+   "set": "street",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      0.2
+     ],
+     "text": "LEO'S BARBER"
+    }
+   ],
+   "crowd": {
+    "n": 10,
+    "area": [
+     -9,
+     -11,
+     9,
+     -4
+    ],
+    "do": "idle",
+    "mood": "excited",
+    "face": 0,
+    "seed": 11
+   },
+   "pause": 0.2
+  },
+  {
+   "say": "there was a *line* around the block.",
+   "set": "street",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      0.2
+     ],
+     "text": "LEO'S BARBER"
+    }
+   ],
+   "crowd": {
+    "n": 16,
+    "area": [
+     -9,
+     -11,
+     9,
+     -4
+    ],
+    "do": "idle",
+    "mood": "excited",
+    "face": 0,
+    "seed": 11
+   }
+  },
+  {
+   "say": "Everyone wanted the \"Mayor Rex.\"",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:rex_b",
+   "actors": [
+    {
+     "id": "rex_b",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 10,
+    "area": [
+     -9,
+     -11,
+     9,
+     -4
+    ],
+    "do": "idle",
+    "mood": "excited",
+    "face": 0,
+    "seed": 11
+   }
+  },
+  {
+   "say": "Pearl's pink curls went *viral*.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:pearl_a",
+   "actors": [
+    {
+     "id": "pearl_a",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "love",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "pops": [
+    {
+     "text": "❤️ 1.2M",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "say": "Leo had built a *Barber Empire*.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.6,
+      0,
+      0.2
+     ],
+     "text": "LEO'S BARBER"
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "cheer",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Just one problem…",
+   "set": "street",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "pause": 0.2
+  },
+  {
+   "say": "who cuts the *barber's* hair?",
+   "set": "street",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "confused",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Leo tried it himself.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:leo_b",
+   "actors": [
+    {
+     "id": "leo_b",
+     "at": [
+      0,
+      1.0
+     ],
+     "do": "sit",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "chair",
+     "at": [
+      0,
+      0,
+      1.0
+     ],
+     "ry": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "✂️✂️",
+     "x": 0.6,
+     "y": 0.3,
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "scratch",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Now he only works in a *cap*.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:leo_c",
+   "actors": [
+    {
+     "id": "leo_c",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "embarrassed",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Which haircut would YOU pick? 1, 2 or 3?",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "max_m",
+     "at": [
+      -1.6,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "rex_b",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "smug",
+     "face": 0
+    },
+    {
+     "id": "pearl_a",
+     "at": [
+      1.6,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "speak": "Which haircut would you pick? One, two, or three?",
+   "pops": [
+    {
+     "text": "1        2        3",
+     "x": 0.5,
+     "y": 0.62,
+     "t": 0.1,
+     "size": 110
+    }
+   ]
+  }
+ ]
+}
