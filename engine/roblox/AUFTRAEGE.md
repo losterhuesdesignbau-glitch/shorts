@@ -50,12 +50,16 @@ THEMA = IN MII TOWN (Lukas 26.11.: statt „In this town“ immer „In Mii Town
 - familienfreundlich, keine echten Personen, keine Marken-Figuren
 
 ## 10:00
-SLOT = 10:00 · START = 08:45 · PUSH = spätestens 09:20 · SERIE = SCHOOL LIFE · MUSIK = school (lustig) oder school_emo (emotional/dramatisch) · HASHTAG = schoollife
+SLOT = 10:00 · START = 08:45 · PUSH = spätestens 09:20 · SERIE = BUILD AN EMPIRE (Zähler „BUILD AN EMPIRE #n“, ab 28.11. bei #1) · MUSIK = epic · HASHTAG = buildanempire (+ business)
 
-THEMA = SCHOOL LIFE & SCHULGESCHICHTEN:
-- lustige, peinliche, dramatische und unerwartete Situationen aus dem Schulalltag (Klassenzimmer, Pause, Prüfung, Lehrer, Klassenfahrt …)
-- familienfreundlich, kein Mobbing verherrlichen, keine echten Personen/Schulen
-- Schule muss wie Schule aussehen: Sets classroom/hallway/school, Requisit paper für Noten
+THEMA = BUILD AN EMPIRE – vom kleinen Geschäft zur Weltfirma (seit 27.11., ersetzt SCHOOL LIFE):
+- JEDES MAL EINE ANDERE ECHTE FIRMA, wie sie aus dem Nichts groß wurde (z. B. Garage, Küchentisch, Imbissbude). Titel-Muster: „From Zero to the World's Biggest ___ Company“ / „How ONE ___ Became a Billion-Dollar Empire“.
+- Die Gründer-Geschichte mit Mii-Figuren nachspielen: Start → Rückschläge → Durchbruch → Imperium. Zahlen per „counter“ (Jahr, Umsatz, Läden, Nutzer). Twist: ein überraschender, ECHTER Fakt (z. B. fast pleite, verrückter erster Name).
+- ALLE Fakten (Jahr, Ort, Zahlen, Namen) per Websuche prüfen; nichts erfinden. Firmennamen dürfen genannt werden.
+- KEINE Logos, Markenmaskottchen, Original-Produktdesigns oder Werbesprüche nachbauen; Schilder nur mit Firmenname in neutraler Schrift.
+- Gründer werden als Mii-Figuren dargestellt (generisch, kein Promi-Doppelgänger); keine Politik, kein Skandal-Fokus.
+- Sets: street/plaza/room/kitchen/bakery …; Schluss-Frage z. B. „Which company should we do next? 👇“.
+- Wiederholungen: Firma nie doppelt (themen.py check).
 
 ## 12:30
 SLOT = 12:30 · START = 11:15 · PUSH = spätestens 11:50 · SERIE = MII TOWN MYSTERY · MUSIK = mystery · HASHTAG = miitownmystery (+ mystery)
@@ -70,20 +74,15 @@ THEMA = MII TOWN MYSTERY (Lukas 26.11., ersetzt „X vs Y“): Krimi zum Mitrate
 - "cta": "Did you guess it? 👇", "meta.question": "Who did YOU suspect – 1, 2 or 3? 👇"
 
 ## 15:30
-SLOT = 15:30 · START = 14:15 · PUSH = spätestens 14:50 · SERIE = GENZ TRENDS · MUSIK = trend · HASHTAG = der passende Trend-Hashtag (+ genztrends)
+SLOT = 15:30 · START = 14:15 · PUSH = spätestens 14:50 · SERIE = GUESS THE MII TOWN MOVIE (Zähler „GUESS THE MII TOWN MOVIE #n“, ab 28.11. bei #1) · MUSIK = mystery · HASHTAG = guessthemovie (+ miitown)
 
-THEMA = GENZ TRENDS:
-- aktuelle Trends der jungen Generation: Roblox-Trends, Gaming-Trends, aktuelle Internet-Trends, GenZ-Themen, virale Situationen und Challenges, interessante Entwicklungen aus der Gaming-Welt
-- Quellen: TikTok/YouTube Shorts/Instagram Reels, TikTok Creative Center, offizielle Spiele-/Roblox-Seiten und Gaming-Seiten (Websuche mode extended, Fakten prüfen)
-- KEINE Nachrichten-/Politik-/Wirtschafts-/Erwachsenen-Themen, keine Zeitungen (Tagesspiegel, Spiegel, Bild …)
-
-LUKAS' REGELN:
-- KEINE Tanzvideos, keine Musik-/Song-Trends, keine urheberrechtlich geschützte Musik, keine kopierten Inhalte.
-- Trends kreativ und eigenständig in unserem Stil nachstellen/neu interpretieren (eigene Geschichte, eigene Figuren).
-- Keine Marken-Figuren, Logos oder Spielfiguren aus fremden Spielen nachbauen; Spielnamen dürfen im Text genannt werden.
-- Sprache locker/jugendlich.
-- Hat Lukas heute im Chat einen Trend genannt, diesen nehmen.
-- Im Chat zusätzlich den Trend (+ Quelle) nennen.
+THEMA = GUESS THE MII TOWN MOVIE (seit 27.11., ersetzt GENZ TRENDS):
+- Die Mii-Town-Figuren spielen die Handlung eines BEKANNTEN Films oder einer bekannten Serie nach – die Zuschauer müssen erraten, welcher es ist.
+- Aufbau: Hook „Can YOU guess this movie?“ → 3–4 Szenen mit typischen Handlungs-Momenten, vom schwersten zum leichtesten Hinweis → Mitte „Which movie is it? 👇“ (viral.mid, midAt ≈ 0.75) → kurze Pause → Auflösung mit Titel → Schluss „Did you get it? 👇“.
+- Lustig und auf Mii-Art (z. B. das Schiff ist eine Badewanne, der Dino ist Gus im Kostüm) – Parodie, eigene Worte.
+- URHEBERRECHT: Titel darf genannt werden, aber KEINE Original-Zitate/Dialoge, keine Filmmusik, keine Logos/Poster, KEINE originalgetreuen Figuren-Kostüme oder -Designs (nur angedeutet über die Handlung). Nur unsere Mii-Figuren.
+- Familienfreundliche, weltweit bekannte Filme/Serien; keine Horror-/Ab-18-Titel. Film nie doppelt (themen.py check).
+- Im Video-Titel den Film NICHT verraten (z. B. „Can YOU Guess This Movie? 🎬 (Mii Town Edition)“).
 
 ## 18:30
 SLOT = 18:30 · START = 17:15 · PUSH = spätestens 17:50 · SERIE = SURVIVAL · MUSIK = epic · HASHTAG = survival
