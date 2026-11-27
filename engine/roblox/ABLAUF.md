@@ -32,6 +32,7 @@ VIRAL-REGELN: alle 1–2 s neues Bild, keine Shots > 3 s; Twist ganz am Ende; le
 
 2. PRÜFEN VOR DEM RENDERN (Pflicht, alles im Repo-Ordner engine/roblox)
 a) `python studio.py <episode.json> -o /tmp/v.mp4 --stills` → Ausgabe lesen:
+   - **LÄNGE (27.11.):** Zeile „Länge …“ bzw. „❌❌ ACHTUNG“ prüfen – unter 40 s bricht der echte Render ab (passiert am 27.11., 08:00 ausgefallen). Ziel ≥ 45 s.
    - „Regie: … Fehler“ muss 0 sein (Tier-Regel, Hook-Einstieg …). ✎-Korrekturen macht die Engine selbst; ⚠-Hinweise ansehen und beheben, wo sinnvoll.
    - „Timing exakt“, Länge ≥ 61 s, „✓ Viral-Check“.
    - Kontaktbogen ansehen: Gesichter sichtbar und passend zur Emotion, nichts verdeckt, Ort/Licht logisch, Hook-Bild stark.
