@@ -1,0 +1,838 @@
+{
+ "title": "Festival Cake",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "WHO STOLE\nTHE CAKE? 🎂",
+  "series": "MII TOWN MYSTERY #1",
+  "cta": "Did you guess it? 👇",
+  "mid": "Who did it? Comment 1, 2 or 3 👇",
+  "midAt": 0.75,
+  "share": "Send this to the best detective you know 🕵️",
+  "loop": true
+ },
+ "meta": {
+  "title": "Who Stole Mii Town's Festival Cake? 🎂🕵️ (Can YOU Solve It?)",
+  "description": "Mii Town's festival cake vanished overnight. Detective Noah found two clues and three suspects: Gus the baker, Prankster Leo and Grandma Pearl. Who did it – 1, 2 or 3? 👇",
+  "hashtags": [
+   "miitownmystery",
+   "mystery",
+   "miitown",
+   "whodunit",
+   "funny"
+  ],
+  "keywords": [
+   "mii town mystery",
+   "who stole the cake",
+   "whodunit"
+  ],
+  "question": "Who did YOU suspect – 1, 2 or 3? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "rex": "@rex",
+  "noah": "@noah",
+  "gus": "@gus",
+  "leo": "@leo",
+  "pearl": "@pearl"
+ },
+ "shots": [
+  {
+   "say": "Someone *stole* Mii Town's festival cake.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 330
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    }
+   ],
+   "noCheck": true,
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ]
+  },
+  {
+   "say": "Last night, it stood right here.",
+   "set": "plaza",
+   "time": "night",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "point",
+     "mood": "sad",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -2.2,
+      1.55,
+      0.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "This morning? *Gone*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "facepalm",
+     "mood": "angry",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "So Rex called Detective Noah.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "hold",
+     "mood": "confident",
+     "face": 330,
+     "hold": "phone"
+    }
+   ]
+  },
+  {
+   "say": "Noah found two clues.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Clue one: white powder… on the table.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "point",
+     "mood": "surprised",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "⚪⚪⚪",
+     "x": 0.3,
+     "y": 0.42,
+     "t": 0.4
+    }
+   ]
+  },
+  {
+   "say": "Clue two: the cake sign was spelled *wrong*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "point",
+     "mood": "confused",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    },
+    {
+     "type": "sign",
+     "at": [
+      -1.0,
+      0,
+      0.0
+     ],
+     "text": "MII TOWN FESTIVLA"
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "FESTIVLA ❌",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.35,
+     "size": 90
+    }
+   ]
+  },
+  {
+   "say": "Three suspects.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      -1.7,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    },
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "grin",
+     "face": 0
+    },
+    {
+     "id": "pearl",
+     "at": [
+      1.7,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "pause": 0.2
+  },
+  {
+   "say": "Number one: Gus the baker.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "wave",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "1",
+     "x": 0.82,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 170
+    }
+   ]
+  },
+  {
+   "say": "\"Me? I *made* that cake!\"",
+   "set": "street",
+   "time": "day",
+   "cam": "close:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "mood": "angry",
+     "face": 0
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "\"I was in my bakery all night.\"",
+   "set": "street",
+   "time": "day",
+   "cam": "close:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Number two: Prankster Leo.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "2",
+     "x": 0.82,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 170
+    }
+   ]
+  },
+  {
+   "say": "He pranks *everyone*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "laugh",
+     "mood": "evil",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "\"I was at a sleepover!\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Number three: Grandma Pearl.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1
+     ],
+     "do": "wave",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "3",
+     "x": 0.82,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 170
+    }
+   ]
+  },
+  {
+   "say": "She *loves* chocolate cake.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "idle",
+     "mood": "love",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -2.2,
+      1.55,
+      0.6
+     ]
+    }
+   ]
+  },
+  {
+   "say": "\"I was asleep by eight!\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Then, at 9 a.m.…",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    }
+   ],
+   "crowd": {
+    "n": 12,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "surprised",
+    "face": 0,
+    "seed": 5
+   },
+   "speak": "Then, at nine a.m.…",
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "🕘",
+     "x": 0.5,
+     "y": 0.25,
+     "t": 0.2,
+     "size": 150
+    }
+   ]
+  },
+  {
+   "say": "a *new* cake appeared.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -2.2,
+      1.55,
+      0.6
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "With the sign spelled *right*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "point",
+     "mood": "surprised",
+     "face": 300
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.6
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -2.2,
+      1.55,
+      0.6
+     ]
+    },
+    {
+     "type": "sign",
+     "at": [
+      -1.0,
+      0,
+      0.0
+     ],
+     "text": "MII TOWN FESTIVAL"
+    }
+   ],
+   "pops": [
+    {
+     "text": "FESTIVAL ✅",
+     "x": 0.5,
+     "y": 0.3,
+     "t": 0.3,
+     "size": 90
+    }
+   ]
+  },
+  {
+   "say": "Who did it? Comment 1, 2 or 3.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 0
+    }
+   ],
+   "speak": "Who did it? Comment one, two, or three."
+  },
+  {
+   "say": "It was… *Gus*!",
+   "set": "street",
+   "time": "day",
+   "cam": "face:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "pause": 0.8,
+   "sfx": [
+    [
+     "dun",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "The white powder? *Flour*.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "facepalm",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "⚪ = FLOUR",
+     "x": 0.5,
+     "y": 0.26,
+     "t": 0.2
+    }
+   ]
+  },
+  {
+   "say": "At midnight, he saw the typo…",
+   "set": "street",
+   "time": "night",
+   "cam": "close:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "and was too embarrassed to tell anyone.",
+   "set": "street",
+   "time": "night",
+   "cam": "close:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "shrug",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "So he baked a new cake. All night.",
+   "set": "street",
+   "time": "night",
+   "cam": "medium:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "hold",
+     "mood": "happy",
+     "face": 0,
+     "hold": "cake"
+    }
+   ]
+  },
+  {
+   "say": "Technically… he *was* in his bakery all night.",
+   "set": "street",
+   "time": "day",
+   "cam": "face:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1
+     ],
+     "do": "idle",
+     "mood": "wink",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Did you guess it?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "shrug",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}

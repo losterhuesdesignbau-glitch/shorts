@@ -278,5 +278,15 @@
   "plot": "Leo puts his name on Noah's test, gets 100%",
   "twist": "he must go to the Math Championship on live TV, answers 22",
   "file": "episodes/queue/school_name_swap.json"
+ },
+ {
+  "date": "2026-11-27",
+  "series": "MII TOWN MYSTERY",
+  "title": "Who Stole Mii Town's Festival Cake? 🎂🕵️ (Can YOU Solve It?)",
+  "topic": "festival cake vanishes overnight",
+  "hook": "WHO STOLE THE CAKE",
+  "plot": "Noah, clues flour + misspelled sign, suspects Gus Leo Pearl",
+  "twist": "Gus took it back to fix the typo and baked a new one",
+  "file": "episodes/queue/mystery_cake.json"
  }
 ]
