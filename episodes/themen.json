@@ -298,5 +298,15 @@
   "plot": "Leo gives Max a mohawk, Rex bald, Pearl pink curls",
   "twist": "styles go viral, but Leo cuts his own hair and wears a cap",
   "file": "episodes/queue/genz_barber_empire.json"
+ },
+ {
+  "date": "2026-11-27",
+  "series": "SURVIVAL",
+  "title": "What If YOUR Town Lost Power for 3 DAYS? 🔦⚡",
+  "topic": "town-wide power outage for three days",
+  "hook": "NO POWER FOR 3 DAYS",
+  "plot": "flashlights not candles, fridge 4h, freezer 48h, hand-crank radio, shared barbecue",
+  "twist": "stars appear; when power returns nobody wants to go inside",
+  "file": "episodes/queue/survival_power_outage.json"
  }
 ]

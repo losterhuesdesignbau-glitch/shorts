@@ -1,0 +1,725 @@
+{
+ "title": "Power Outage",
+ "music": "epic",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "NO POWER\nFOR 3 DAYS?!",
+  "series": "SURVIVAL",
+  "cta": "YES or NO? 👇",
+  "mid": "What would YOU miss most? 👇",
+  "share": "Send this to someone who can't live without Wi-Fi 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "What If YOUR Town Lost Power for 3 DAYS? 🔦⚡",
+  "description": "No Wi-Fi, no TV, the fridge gives up after 4 hours… What really happens when your whole town loses power for three days? Could YOU survive it? 👇",
+  "hashtags": [
+   "survival",
+   "poweroutage",
+   "whatif",
+   "miitown",
+   "facts"
+  ],
+  "keywords": [
+   "power outage survival",
+   "what if no electricity",
+   "blackout"
+  ],
+  "question": "Could YOU survive 3 days without power? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "kai": "@kai",
+  "pearl": "@pearl",
+  "rex": "@rex",
+  "gus": "@gus",
+  "zoe": "@zoe"
+ },
+ "shots": [
+  {
+   "say": "What if *your* whole town…",
+   "set": "room",
+   "time": "dusk",
+   "cam": "face:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "dark",
+     "t": 0
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.08
+    ]
+   ]
+  },
+  {
+   "say": "lost power for *three days*?",
+   "set": "room",
+   "time": "dusk",
+   "cam": "medium:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "look",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.1
+    },
+    {
+     "type": "dark",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "thunder",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Hour one: it's kind of fun.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "medium:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "happy",
+     "face": 0,
+     "hold": "flashlight"
+    }
+   ],
+   "counter": {
+    "label": "HOUR",
+    "from": 1,
+    "to": 1,
+    "y": 0.32
+   }
+  },
+  {
+   "say": "Flashlights, not candles.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "close:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "confident",
+     "face": 0,
+     "hold": "flashlight"
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Candles are a top cause of house fires in outages.",
+   "set": "room",
+   "time": "dusk",
+   "cam": "medium:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "nod",
+     "mood": "confident",
+     "face": 0
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Hour four: the fridge is done.",
+   "set": "kitchen",
+   "time": "dusk",
+   "cam": "close:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "disappointed",
+     "face": 0
+    }
+   ],
+   "counter": {
+    "label": "HOUR",
+    "from": 4,
+    "to": 4,
+    "y": 0.32
+   },
+   "noCheck": true
+  },
+  {
+   "say": "That's how long it keeps food safe, if you keep it *closed*.",
+   "set": "kitchen",
+   "time": "dusk",
+   "cam": "medium:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "confident",
+     "face": 0
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "A full freezer? About *two days*.",
+   "set": "kitchen",
+   "time": "dusk",
+   "cam": "close:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 0
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "🧊 48h",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ]
+  },
+  {
+   "say": "Hour twelve: your phone hits one percent.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "close:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "panic",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "counter": {
+    "label": "HOUR",
+    "from": 12,
+    "to": 12,
+    "y": 0.32
+   },
+   "pops": [
+    {
+     "text": "🪫 1%",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ]
+  },
+  {
+   "say": "Day two: the whole street is *dark*.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "look",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "dark",
+     "t": 0
+    }
+   ],
+   "counter": {
+    "label": "DAY",
+    "from": 2,
+    "to": 2,
+    "y": 0.32
+   }
+  },
+  {
+   "say": "No Wi-Fi. No TV. No games.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "close:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "shrug",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "dark",
+     "t": 0
+    }
+   ],
+   "speak": "No wifi. No TV. No games."
+  },
+  {
+   "say": "So you knock on your neighbor's door.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "medium:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      -1.2,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "nervous",
+     "face": 0
+    },
+    {
+     "id": "pearl",
+     "at": [
+      1.2,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 300
+    }
+   ],
+   "fx": [
+    {
+     "type": "dark",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "Grandma Pearl has a *radio*.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "dark",
+     "t": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "📻",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 140
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "A hand-crank one. No batteries needed.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "nod",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "dark",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "Then Mayor Rex has an idea.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "excited",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Everyone's freezer food is thawing…",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "confident",
+     "face": 0
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "so let's cook it *together*!",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 12,
+    "area": [
+     -10,
+     -11,
+     10,
+     -4
+    ],
+    "do": "idle",
+    "mood": "happy",
+    "face": 0,
+    "seed": 4
+   },
+   "sfx": [
+    [
+     "cheer",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "A giant barbecue in the plaza.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      -1.6,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "laugh",
+     "mood": "laugh",
+     "face": 0
+    },
+    {
+     "id": "zoe",
+     "at": [
+      1.6,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Day three, night.",
+   "set": "park",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "lookup",
+     "mood": "surprised",
+     "face": 0
+    }
+   ],
+   "counter": {
+    "label": "DAY",
+    "from": 3,
+    "to": 3,
+    "y": 0.32
+   }
+  },
+  {
+   "say": "With no city lights…",
+   "set": "park",
+   "time": "night",
+   "cam": "close:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "lookup",
+     "mood": "surprised",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "you see *thousands* of stars.",
+   "set": "park",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "lookup",
+     "mood": "love",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "And then… *click*.",
+   "set": "room",
+   "time": "day",
+   "cam": "face:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "pause": 0.4,
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "The power is back.",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "But here's the weird part…",
+   "set": "room",
+   "time": "day",
+   "cam": "close:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "nobody wanted to go back inside.",
+   "set": "plaza",
+   "time": "dusk",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 12,
+    "area": [
+     -10,
+     -11,
+     10,
+     -4
+    ],
+    "do": "cheer",
+    "mood": "happy",
+    "face": 0,
+    "seed": 4
+   }
+  },
+  {
+   "say": "Could YOU survive three days without power?",
+   "set": "plaza",
+   "time": "dusk",
+   "cam": "close:kai",
+   "actors": [
+    {
+     "id": "kai",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "shrug",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}
