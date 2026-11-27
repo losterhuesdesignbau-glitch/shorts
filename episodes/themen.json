@@ -308,5 +308,15 @@
   "plot": "flashlights not candles, fridge 4h, freezer 48h, hand-crank radio, shared barbecue",
   "twist": "stars appear; when power returns nobody wants to go inside",
   "file": "episodes/queue/survival_power_outage.json"
+ },
+ {
+  "date": "2026-11-27",
+  "series": "DARK STORIES",
+  "title": "My Doorbell Rings at 2:13 A.M. Every Night… 🔔😨",
+  "topic": "doorbell rings at 2:13 every night, nobody there",
+  "hook": "2:13 AM DING-DONG",
+  "plot": "second camera shows herself in pajamas sleepwalking",
+  "twist": "she sleeps at mom's house, and the doorbell camera still shows her ringing and waving",
+  "file": "episodes/queue/dark_doorbell.json"
  }
 ]

@@ -1,0 +1,722 @@
+{
+ "title": "2:13 A.M.",
+ "music": "dark",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "2:13 A.M.\nDING-DONG 🔔",
+  "series": "DARK STORIES #6",
+  "cta": "YES or NO? 👇",
+  "mid": "Who is ringing? 👇",
+  "share": "Send this to someone who sleepwalks 📲",
+  "loop": true
+ },
+ "meta": {
+  "title": "My Doorbell Rings at 2:13 A.M. Every Night… 🔔😨",
+  "description": "Every night at 2:13 a.m. my doorbell rings – and nobody is there. So I set up a second camera… Would YOU open the door? 👇",
+  "hashtags": [
+   "darkstories",
+   "creepy",
+   "scary",
+   "storytime",
+   "miitown"
+  ],
+  "keywords": [
+   "creepy doorbell story",
+   "2am story",
+   "dark story"
+  ],
+  "question": "Would YOU open the door? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "pj": {
+   "char": "nina",
+   "outfit": {
+    "glow": 0.35,
+    "shirt": "#8fb8ff",
+    "pants": "#8fb8ff",
+    "hat": "none"
+   }
+  },
+  "pj2": {
+   "char": "nina",
+   "outfit": {
+    "glow": 0.5,
+    "shirt": "#8fb8ff",
+    "pants": "#8fb8ff",
+    "hat": "none"
+   }
+  },
+  "nina": "@nina",
+  "pearl": "@pearl",
+  "grace": "@grace"
+ },
+ "shots": [
+  {
+   "say": "My doorbell rings at 2:13 a.m.",
+   "set": "room",
+   "time": "night",
+   "cam": "face:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "scared",
+     "face": 0
+    }
+   ],
+   "speak": "My doorbell rings at two thirteen a.m.",
+   "props": [
+    {
+     "type": "motes",
+     "at": [
+      0,
+      2,
+      1
+     ]
+    }
+   ],
+   "sfx": [
+    [
+     "boom",
+     0.08
+    ],
+    [
+     "bell",
+     0.15
+    ]
+   ]
+  },
+  {
+   "say": "Every. Single. Night.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "look",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "motes",
+     "at": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "say": "I run downstairs… and open the door.",
+   "set": "house",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      -3,
+      4
+     ],
+     "do": "walk",
+     "mood": "nervous",
+     "face": 0,
+     "path": [
+      [
+       -3,
+       4
+      ],
+      [
+       -0.8,
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Nobody's there.",
+   "set": "house",
+   "time": "night",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      -0.8,
+      2
+     ],
+     "do": "look",
+     "mood": "scared",
+     "face": 200
+    }
+   ],
+   "pause": 0.3
+  },
+  {
+   "say": "So I check my doorbell camera.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "nervous",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "props": [
+    {
+     "type": "motes",
+     "at": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Nothing. Just *static*.",
+   "set": "room",
+   "time": "night",
+   "cam": "face:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "confused",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "pops": [
+    {
+     "text": "📹 ▒▒▒ 2:13",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.2,
+     "size": 100
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "My neighbor says it's just kids.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "But what kid is awake at 2 a.m.?",
+   "set": "street",
+   "time": "day",
+   "cam": "close:nina",
+   "actors": [
+    {
+     "id": "nina",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "speak": "But what kid is awake at two a.m.?"
+  },
+  {
+   "say": "So I put up a *second* camera.",
+   "set": "house",
+   "time": "dusk",
+   "cam": "medium:nina",
+   "actors": [
+    {
+     "id": "nina",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "confident",
+     "face": 0
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "Night four.",
+   "set": "room",
+   "time": "night",
+   "cam": {
+    "type": "free",
+    "eye": [
+     -2.8,
+     5.2,
+     0.5
+    ],
+    "look": [
+     -6.6,
+     1.6,
+     -4.6
+    ]
+   },
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      -6.6,
+      -4.6
+     ],
+     "do": "lie",
+     "mood": "sleepy",
+     "face": 0,
+     "y": 1.55
+    }
+   ],
+   "props": [
+    {
+     "type": "blanket",
+     "at": [
+      -6.6,
+      1.6,
+      -4.6
+     ]
+    }
+   ],
+   "counter": {
+    "label": "NIGHT",
+    "from": 4,
+    "to": 4,
+    "y": 0.32
+   }
+  },
+  {
+   "say": "*Ding-dong.*",
+   "set": "room",
+   "time": "night",
+   "cam": "face:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.1
+    }
+   ],
+   "sfx": [
+    [
+     "bell",
+     0.15
+    ]
+   ],
+   "noCheck": true,
+   "speak": "Ding dong."
+  },
+  {
+   "say": "This time, I watch the new camera *live*.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "scared",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "props": [
+    {
+     "type": "motes",
+     "at": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Someone is standing at my door.",
+   "set": "house",
+   "time": "night",
+   "cam": "medium:pj2",
+   "actors": [
+    {
+     "id": "pj2",
+     "at": [
+      -0.8,
+      2
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0
+    }
+   ],
+   "pause": 0.2
+  },
+  {
+   "say": "Wearing… *my pajamas*.",
+   "set": "house",
+   "time": "night",
+   "cam": "close:pj2",
+   "actors": [
+    {
+     "id": "pj2",
+     "at": [
+      -0.8,
+      2
+     ],
+     "do": "idle",
+     "mood": "neutral",
+     "face": 0
+    }
+   ],
+   "pause": 0.3
+  },
+  {
+   "say": "It's *me*.",
+   "set": "room",
+   "time": "night",
+   "cam": "face:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "panic",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.1
+    ]
+   ],
+   "pause": 0.4
+  },
+  {
+   "say": "I'd been *sleepwalking*. Every night.",
+   "set": "kitchen",
+   "time": "day",
+   "cam": "medium:nina",
+   "actors": [
+    {
+     "id": "nina",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Ringing my own bell, then going back to bed.",
+   "set": "kitchen",
+   "time": "day",
+   "cam": "close:nina",
+   "actors": [
+    {
+     "id": "nina",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "laugh",
+     "mood": "laugh",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Mystery solved.",
+   "set": "kitchen",
+   "time": "day",
+   "cam": "close:nina",
+   "actors": [
+    {
+     "id": "nina",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "So last night, I slept at my mom's house.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "nina",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "happy",
+     "face": 330
+    }
+   ]
+  },
+  {
+   "say": "Miles away.",
+   "set": "street",
+   "time": "dusk",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "nina",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "grace",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "At 2:13 a.m., my phone buzzed.",
+   "set": "room",
+   "time": "night",
+   "cam": "face:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "shock",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "speak": "At two thirteen a.m., my phone buzzed.",
+   "fx": [
+    {
+     "type": "flash",
+     "t": 0.2
+    }
+   ],
+   "props": [
+    {
+     "type": "motes",
+     "at": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "say": "My doorbell camera.",
+   "set": "room",
+   "time": "night",
+   "cam": "close:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "scared",
+     "face": 0,
+     "hold": "phone"
+    }
+   ],
+   "pops": [
+    {
+     "text": "📹 LIVE 2:13",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.2,
+     "size": 100
+    }
+   ],
+   "noCheck": true,
+   "props": [
+    {
+     "type": "motes",
+     "at": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Someone was ringing… and *waving*.",
+   "set": "house",
+   "time": "night",
+   "cam": "medium:pj2",
+   "actors": [
+    {
+     "id": "pj2",
+     "at": [
+      -0.8,
+      2
+     ],
+     "do": "wave",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "pause": 0.3,
+   "sfx": [
+    [
+     "bell",
+     0.15
+    ]
+   ]
+  },
+  {
+   "say": "Wearing *my pajamas*.",
+   "set": "room",
+   "time": "night",
+   "cam": "face:pj",
+   "actors": [
+    {
+     "id": "pj",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "pause": 0.4,
+   "sfx": [
+    [
+     "boom",
+     0.1
+    ]
+   ],
+   "props": [
+    {
+     "type": "motes",
+     "at": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Would YOU open the door?",
+   "set": "house",
+   "time": "night",
+   "cam": "close:pj2",
+   "actors": [
+    {
+     "id": "pj2",
+     "at": [
+      -0.8,
+      2
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}
