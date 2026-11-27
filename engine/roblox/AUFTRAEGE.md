@@ -79,6 +79,8 @@ SLOT = 15:30 · START = 14:15 · PUSH = spätestens 14:50 · SERIE = GUESS THE M
 THEMA = GUESS THE MII TOWN MOVIE (seit 27.11., ersetzt GENZ TRENDS):
 - Die Mii-Town-Figuren spielen die Handlung eines BEKANNTEN Films oder einer bekannten Serie nach – die Zuschauer müssen erraten, welcher es ist.
 - Aufbau: Hook „Can YOU guess this movie?“ → 3–4 Szenen mit typischen Handlungs-Momenten, vom schwersten zum leichtesten Hinweis → Mitte „Which movie is it? 👇“ (viral.mid, midAt ≈ 0.75) → kurze Pause → Auflösung mit Titel → Schluss „Did you get it? 👇“.
+- REQUISITEN & ORTE MÜSSEN GENAU ZUM FILM PASSEN (Lukas, 27.11.): jede Szene braucht die typischen Gegenstände, Orte, Tageszeiten und Farben des Films (z. B. großes Schiff + Eisberg + Abendrot; Dinos + Dschungel + Jeep; Besen + Zauberstab + Schloss). Fehlt ein Requisit → vorher als generisches Objekt in engine/assets.js bauen (rückwärtskompatibel) und in den Stills prüfen. Lieber einen anderen Film nehmen, als mit unpassenden Ersatz-Requisiten zu drehen.
+- Filme wählen, die man an Handlung, Orten und Gegenständen erkennt – nicht nur an einem geschützten Kostüm (Superhelden-Anzüge u. ä. nicht nachbauen).
 - Lustig und auf Mii-Art (z. B. das Schiff ist eine Badewanne, der Dino ist Gus im Kostüm) – Parodie, eigene Worte.
 - URHEBERRECHT: Titel darf genannt werden, aber KEINE Original-Zitate/Dialoge, keine Filmmusik, keine Logos/Poster, KEINE originalgetreuen Figuren-Kostüme oder -Designs (nur angedeutet über die Handlung). Nur unsere Mii-Figuren.
 - Familienfreundliche, weltweit bekannte Filme/Serien; keine Horror-/Ab-18-Titel. Film nie doppelt (themen.py check).
