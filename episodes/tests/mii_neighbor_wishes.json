@@ -1,0 +1,733 @@
+{
+ "title": "Neighbor Wishes",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "WISHES GO TO\nYOUR NEIGHBOR?!",
+  "series": "IN MII TOWN #2",
+  "cta": "Comment your wish 👇",
+  "mid": "What would YOU wish for? 👇",
+  "share": "Send this to your neighbor 🏠",
+  "loop": true
+ },
+ "meta": {
+  "title": "In Mii Town, Your Wishes Come True… for Your NEIGHBOR 🌠🏠",
+  "description": "In Mii Town every wish comes true – but only for your neighbor. Puppies, a hundred cakes, three days of rain… and then the mayor made a wish. What would YOU wish for your neighbor? 👇",
+  "hashtags": [
+   "miitown",
+   "weirdtowns",
+   "weirdrules",
+   "funny",
+   "animation"
+  ],
+  "keywords": [
+   "mii town",
+   "weird town rules",
+   "wishes"
+  ],
+  "question": "What would YOU wish for your neighbor? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "lily": "@lily",
+  "gus": "@gus",
+  "leo": "@leo",
+  "pearl": "@pearl",
+  "noah": "@noah",
+  "rex": "@rex",
+  "biscuit": {
+   "animal": "dog"
+  }
+ },
+ "shots": [
+  {
+   "say": "In Mii Town, your wishes come *true*…",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.3
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "but only for your *neighbor*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Lily wished for a puppy.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:lily",
+   "actors": [
+    {
+     "id": "lily",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "love",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "🙏🐶",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ]
+  },
+  {
+   "say": "Next door, Gus got the puppy.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 0
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      1.8,
+      1.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 330,
+     "scale": 0.55
+    }
+   ]
+  },
+  {
+   "say": "Gus is allergic to dogs.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "panic",
+     "face": 0
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      1.8,
+      1.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 330,
+     "scale": 0.55
+    }
+   ],
+   "pops": [
+    {
+     "text": "🤧🤧",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ]
+  },
+  {
+   "say": "So Gus wished for a hundred cake orders.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "✨🙏✨",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "say": "Next door, Leo got a hundred cakes.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      1.2,
+      1.4
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.4
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -3.0,
+      2.43,
+      0.10000000000000003
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -2.2,
+      2.43,
+      0.6000000000000001
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -1.4000000000000001,
+      2.43,
+      0.2
+     ]
+    }
+   ],
+   "pops": [
+    {
+     "text": "×100 🎂",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "say": "He ate twelve before lunch.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0.2,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "laugh",
+     "face": 0,
+     "hold": "cake"
+    }
+   ],
+   "props": [
+    {
+     "type": "table",
+     "at": [
+      -2.2,
+      0,
+      0.4
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -3.0,
+      2.43,
+      0.10000000000000003
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -2.2,
+      2.43,
+      0.6000000000000001
+     ]
+    },
+    {
+     "type": "cake",
+     "at": [
+      -1.4000000000000001,
+      2.43,
+      0.2
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Leo wished he'd never have to clean his room.",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "✨🙏✨",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "say": "Next door, Grandma Pearl's room cleaned itself.",
+   "set": "room",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "surprised",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "sparkle",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Pearl wished for rain for her garden.",
+   "set": "park",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "lookup",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "✨🙏✨",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "say": "Next door, Noah got three days of rain.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "sad",
+     "face": 0,
+     "hold": "umbrella"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain",
+     "t": 0
+    }
+   ]
+  },
+  {
+   "say": "Then Mayor Rex got tired of his job.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "disappointed",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "He wished: \"I wish my neighbor was mayor.\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "✨🙏✨",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "say": "Rex's neighbor?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "pause": 0.3
+  },
+  {
+   "say": "Prankster *Leo*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "evil",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.1
+    ]
+   ]
+  },
+  {
+   "say": "Mayor Leo's first law:",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "NEW LAW 📜",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.2,
+     "size": 100
+    }
+   ]
+  },
+  {
+   "say": "\"Every day is *cake day*!\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "cheer",
+    "mood": "happy",
+    "face": 0,
+    "seed": 21
+   },
+   "noCheck": true,
+   "pops": [
+    {
+     "text": "🎂🎂🎂",
+     "x": 0.5,
+     "y": 0.24,
+     "t": 0.2,
+     "size": 120
+    }
+   ],
+   "fx": [
+    {
+     "type": "confetti",
+     "t": 0.2
+    }
+   ],
+   "sfx": [
+    [
+     "cheer",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "So Rex wished to be mayor again.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "✨🙏✨",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "say": "But wishes go to the neighbor…",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "pause": 0.2
+  },
+  {
+   "say": "and his *other* neighbor is Grandma Pearl.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "ding",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Mayor Pearl. Bedtime is now 7 p.m.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "speak": "Mayor Pearl. Bedtime is now seven p.m.",
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      1.6,
+      0,
+      -0.4
+     ],
+     "text": "BEDTIME 7 PM"
+    }
+   ]
+  },
+  {
+   "say": "What would YOU wish for your neighbor?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "shrug",
+     "mood": "grin",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}

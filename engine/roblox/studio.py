@@ -567,6 +567,7 @@ def mii_check(src):
     for i, sh in enumerate(src.get('shots') or [], 1):
         if sh.get('intro') or sh.get('noCheck') or sh.get('noActCheck'): continue
         said = re.sub(r'["“”][^"“”]*["“”]', ' ', sh.get('say') or '')   # wörtliche Rede („I was asleep!“) ist Behauptung, keine Handlung
+        said = re.sub(r'(?i)next[ -]door', ' ', said)   # „next door“ = nebenan, keine Tür
         words = set(re.findall(r"[a-z]+", said.lower().replace("'", '')))
         A = sh.get('actors') or []
         P = {p.get('type') for p in sh.get('props') or []} | {sh.get('set')}

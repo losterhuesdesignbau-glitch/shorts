@@ -318,5 +318,15 @@
   "plot": "second camera shows herself in pajamas sleepwalking",
   "twist": "she sleeps at mom's house, and the doorbell camera still shows her ringing and waving",
   "file": "episodes/queue/dark_doorbell.json"
+ },
+ {
+  "date": "2026-11-28",
+  "series": "IN MII TOWN",
+  "title": "In Mii Town, Your Wishes Come True… for Your NEIGHBOR 🌠🏠",
+  "topic": "wishes come true for your neighbor",
+  "hook": "WISHES GO TO YOUR NEIGHBOR",
+  "plot": "Lily wish puppy -> Gus allergic, Gus cakes -> Leo, Leo clean room -> Pearl, Pearl rain -> Noah",
+  "twist": "Rex wishes neighbor mayor -> Leo; wish back -> other neighbor Pearl becomes mayor, bedtime 7pm",
+  "file": "episodes/queue/mii_neighbor_wishes.json"
  }
 ]
