@@ -1,0 +1,788 @@
+{
+ "title": "McDonald's",
+ "music": "epic",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "THEY LOST\nTHEIR OWN NAME",
+  "series": "BUILD AN EMPIRE #1",
+  "cta": "Which company next? 👇",
+  "mid": "Would YOU have sold? 👇",
+  "share": "Send this to a future billionaire 💰",
+  "loop": true
+ },
+ "meta": {
+  "title": "How Two Brothers Built McDonald's… and Lost Their Own NAME 🍔💰",
+  "description": "1940: two brothers open a barbecue drive-in. 1948: 15-cent hamburgers and the Speedee Service System. Then a milkshake-machine salesman named Ray Kroc showed up… Which company should we do next? 👇",
+  "hashtags": [
+   "buildanempire",
+   "business",
+   "mcdonalds",
+   "history",
+   "miitown"
+  ],
+  "keywords": [
+   "mcdonalds history",
+   "ray kroc",
+   "how mcdonalds started"
+  ],
+  "question": "Which company should we do next? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "dick": "@ben",
+  "mac": "@tom",
+  "ray": "@victor"
+ },
+ "shots": [
+  {
+   "say": "Two brothers invented fast food…",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    },
+    {
+     "id": "mac",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "McDONALD'S"
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "and lost their own *name*.",
+   "set": "street",
+   "time": "day",
+   "cam": "face:dick",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "sfx": [
+    [
+     "dun",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "1940: Dick and Mac open a barbecue drive-in.",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "mac",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "happy",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "BAR-B-Q DRIVE-IN"
+    }
+   ],
+   "counter": {
+    "label": "YEAR",
+    "from": 1940,
+    "to": 1940,
+    "y": 0.32
+   },
+   "speak": "Nineteen forty: Dick and Mac open a barbecue drive-in."
+  },
+  {
+   "say": "Huge menu. Slow service.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:mac",
+   "actors": [
+    {
+     "id": "mac",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "disappointed",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "📋⏳",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ]
+  },
+  {
+   "say": "1948: they shut it down… and try something crazy.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:dick",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "CLOSED"
+    }
+   ],
+   "counter": {
+    "label": "YEAR",
+    "from": 1948,
+    "to": 1948,
+    "y": 0.32
+   },
+   "speak": "Nineteen forty-eight: they shut it down… and try something crazy."
+  },
+  {
+   "say": "A tiny menu. Hamburgers for 15 cents.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:mac",
+   "actors": [
+    {
+     "id": "mac",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "hold",
+     "mood": "happy",
+     "face": 0,
+     "hold": "burger"
+    }
+   ],
+   "speak": "A tiny menu. Hamburgers for fifteen cents.",
+   "pops": [
+    {
+     "text": "15¢",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 130
+    }
+   ]
+  },
+  {
+   "say": "A kitchen built like a car factory.",
+   "set": "kitchen",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "chop",
+     "mood": "confident",
+     "face": 0
+    },
+    {
+     "id": "mac",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "chop",
+     "mood": "happy",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "They named it the Speedee Service System.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:dick",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "point",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "SPEEDEE SERVICE"
+    }
+   ]
+  },
+  {
+   "say": "At first? Their profits *crashed*.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:dick",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "📉",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 140
+    }
+   ]
+  },
+  {
+   "say": "Then the lines started.",
+   "set": "street",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    },
+    {
+     "id": "mac",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "McDONALD'S"
+    }
+   ],
+   "crowd": {
+    "n": 12,
+    "area": [
+     -8,
+     -9,
+     8,
+     -3
+    ],
+    "do": "idle",
+    "mood": "happy",
+    "face": 0,
+    "seed": 31
+   }
+  },
+  {
+   "say": "1954: a milkshake-machine salesman walks in.",
+   "set": "street",
+   "time": "day",
+   "cam": "track:ray",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      -3.5,
+      1.4
+     ],
+     "do": "walk",
+     "mood": "confident",
+     "face": 0,
+     "carry": "box",
+     "path": [
+      [
+       -3.5,
+       1.4
+      ],
+      [
+       0.5,
+       1.4
+      ]
+     ]
+    }
+   ],
+   "counter": {
+    "label": "YEAR",
+    "from": 1954,
+    "to": 1954,
+    "y": 0.32
+   },
+   "speak": "Nineteen fifty-four: a milkshake machine salesman walks in.",
+   "noCheck": true
+  },
+  {
+   "say": "Ray Kroc. Fifty-two years old.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:ray",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "The brothers had bought eight of his mixers.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:ray",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "8 MIXERS",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ],
+   "noCheck": true
+  },
+  {
+   "say": "He saw the lines… and wanted them everywhere.",
+   "set": "street",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      0,
+      1.4
+     ],
+     "do": "point",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "McDONALD'S"
+    }
+   ],
+   "crowd": {
+    "n": 12,
+    "area": [
+     -8,
+     -9,
+     8,
+     -3
+    ],
+    "do": "idle",
+    "mood": "happy",
+    "face": 0,
+    "seed": 31
+   }
+  },
+  {
+   "say": "1955: Ray opens his first McDonald's in Illinois.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:ray",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "McDONALD'S"
+    }
+   ],
+   "counter": {
+    "label": "YEAR",
+    "from": 1955,
+    "to": 1955,
+    "y": 0.32
+   },
+   "speak": "Nineteen fifty-five: Ray opens his first McDonald's in Illinois."
+  },
+  {
+   "say": "1961: he buys out the brothers.",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      -1.2,
+      1.2
+     ],
+     "do": "point",
+     "mood": "smug",
+     "face": 0
+    },
+    {
+     "id": "dick",
+     "at": [
+      1.2,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 330
+    }
+   ],
+   "counter": {
+    "label": "YEAR",
+    "from": 1961,
+    "to": 1961,
+    "y": 0.32
+   },
+   "speak": "Nineteen sixty-one: he buys out the brothers."
+  },
+  {
+   "say": "For 2.7 million dollars.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:ray",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      -1.2,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "speak": "For two point seven million dollars.",
+   "pops": [
+    {
+     "text": "$2.7M",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 130
+    }
+   ]
+  },
+  {
+   "say": "But the deal took their *name*.",
+   "set": "street",
+   "time": "day",
+   "cam": "face:dick",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "pause": 0.3,
+   "sfx": [
+    [
+     "dun",
+     0.2
+    ]
+   ]
+  },
+  {
+   "say": "Their own restaurant became… The Big M.",
+   "set": "street",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      -1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    },
+    {
+     "id": "mac",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "THE BIG M"
+    }
+   ]
+  },
+  {
+   "say": "Six years later, it closed.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:mac",
+   "actors": [
+    {
+     "id": "mac",
+     "at": [
+      1.0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "sad",
+     "face": 0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "at": [
+      2.2,
+      0,
+      -0.4
+     ],
+     "text": "CLOSED"
+    }
+   ]
+  },
+  {
+   "say": "Today: more than 46,000 McDonald's.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      0,
+      1.4
+     ],
+     "do": "cheer",
+     "mood": "excited",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 18,
+    "area": [
+     -8,
+     -9,
+     8,
+     -3
+    ],
+    "do": "cheer",
+    "mood": "happy",
+    "face": 0,
+    "seed": 31
+   },
+   "speak": "Today: more than forty-six thousand McDonald's.",
+   "pops": [
+    {
+     "text": "46,000+",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 130
+    }
+   ]
+  },
+  {
+   "say": "In over 100 countries.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:ray",
+   "actors": [
+    {
+     "id": "ray",
+     "at": [
+      0,
+      1.4
+     ],
+     "do": "idle",
+     "mood": "smug",
+     "face": 0
+    }
+   ],
+   "speak": "In over one hundred countries.",
+   "pops": [
+    {
+     "text": "100+ COUNTRIES",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ]
+  },
+  {
+   "say": "Which company should we do next?",
+   "set": "street",
+   "time": "day",
+   "cam": "close:dick",
+   "actors": [
+    {
+     "id": "dick",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "shrug",
+     "mood": "smile",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}

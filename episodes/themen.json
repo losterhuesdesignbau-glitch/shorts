@@ -328,5 +328,15 @@
   "plot": "Lily wish puppy -> Gus allergic, Gus cakes -> Leo, Leo clean room -> Pearl, Pearl rain -> Noah",
   "twist": "Rex wishes neighbor mayor -> Leo; wish back -> other neighbor Pearl becomes mayor, bedtime 7pm",
   "file": "episodes/queue/mii_neighbor_wishes.json"
+ },
+ {
+  "date": "2026-11-28",
+  "series": "BUILD AN EMPIRE",
+  "title": "How Two Brothers Built McDonald's… and Lost Their Own NAME 🍔💰",
+  "topic": "McDonald's origin: McDonald brothers and Ray Kroc",
+  "hook": "THEY LOST THEIR OWN NAME",
+  "plot": "1940 drive-in, 1948 Speedee 15c burgers, 1954 Kroc, 1955 Des Plaines, 1961 buyout 2.7M",
+  "twist": "brothers lost their name, their restaurant became The Big M and closed",
+  "file": "episodes/queue/empire_mcdonalds.json"
  }
 ]

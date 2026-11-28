@@ -73,6 +73,8 @@ function cfgFor(id, a) {
 const MOVERS = { walk: 1, run: 1, sneak: 1, hop: 1, dance: 1, spin: 1, strut: 1, jazzhands: 1, salute: 1, twist: 1, mocap: 1 };
 const DEFMOOD = { yawn: 'yawn', sleep: 'sleep', lie: 'sleep', cheer: 'grin', laugh: 'laugh', cry: 'cry', scared: 'scared', angry: 'angry', talk: 'talk', think: 'think', dance: 'grin', jump: 'grin', spin: 'grin', fall: 'shock', facepalm: 'sad', shrug: 'confused', wave: 'happy', clap: 'grin' };
 function timed(v, u, def) { if (v === undefined || v === null) return [def, u, 0, 1]; if (!Array.isArray(v)) return [v, u, 0, 1]; let cur = [def, 0, 0, 1]; for (const e of v) { const [a, t0 = 0, t1 = 1] = e; if (u >= t0 && u < t1) cur = [a, (u - t0) / Math.max(0.001, t1 - t0), t0, t1]; } if (u >= 1 && v.length) { const e = v[v.length - 1]; if ((e[2] ?? 1) >= 1) cur = [e[0], 1, e[1] ?? 0, e[2] ?? 1]; } return cur; }
+// Zähler-Zahlen: Videos sind Englisch -> 46,000 statt 46.000; Jahreszahlen (label YEAR/JAHR oder plain:true) ohne Trennzeichen (28.11.)
+function cntFmt(v, c) { return (c.plain || /year|jahr/i.test(c.label || '')) ? String(v) : v.toLocaleString('en-US'); }
 function pt3(p, dy = 0) { if (!p) return [0, dy, 0]; return p.length === 3 ? [p[0], p[1], p[2]] : [p[0], dy, p[1]]; }
 
 // ---------- Posen ----------
@@ -582,7 +584,7 @@ function drawOverlay(sh, tl, D, map, list) {
     else if (A.emote) { const b = Math.sin(tl * 6) * sz * 0.06; x.font = `${sz}px "Noto Color Emoji", ${FONT}`; x.textAlign = 'center'; x.textBaseline = 'middle'; const isEmoji = /\p{Extended_Pictographic}/u.test(A.emote); if (isEmoji) x.fillText(A.emote, p[0], p[1] - sz * 0.5 + b); else outlined(x, A.emote, p[0], p[1] - sz * 0.5 + b, sz * 1.1, '#ffe14d', '#000', 0.2); }
     if (A.a.counter) { // Zahl-Pille über dem Kopf (z. B. Schritte, Punkte): {from, to, t0, t1, suffix, color}
       const c = typeof A.a.counter === 'object' ? A.a.counter : { to: A.a.counter }, q = smooth(clamp((u - (c.t0 ?? 0)) / Math.max(0.01, (c.t1 ?? 1) - (c.t0 ?? 0)), 0, 1));
-      const v = Math.round((c.from ?? c.to ?? 0) + ((c.to ?? 0) - (c.from ?? c.to ?? 0)) * q), txt = v.toLocaleString('de-DE') + (c.suffix || ''), fs2 = 46;
+      const v = Math.round((c.from ?? c.to ?? 0) + ((c.to ?? 0) - (c.from ?? c.to ?? 0)) * q), txt = cntFmt(v, c) + (c.suffix || ''), fs2 = 46;
       x.save(); x.font = `900 ${fs2}px ${FONT}`; const w2 = x.measureText(txt).width + 44, yy = A.bubble ? p[1] - 230 : p[1] - 40;
       x.fillStyle = c.color || '#ffffff'; x.strokeStyle = '#1d1712'; x.lineWidth = 6; rrect(x, p[0] - w2 / 2, yy - 34, w2, 68, 34); x.fill(); x.stroke();
       x.fillStyle = '#1d1712'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(txt, p[0], yy + 2); x.restore();
@@ -624,7 +626,7 @@ function drawOverlay(sh, tl, D, map, list) {
     x.translate(R.W / 2, Y2 + 112); x.scale(pk, pk); x.fillStyle = '#ffffff'; x.font = `900 92px ${FONT}`; x.fillText(`${a} : ${b}`, 0, 0); x.restore(); }
   if (sh.counter) { // großer Zähler: {label, from, to, t0, t1, suffix}
     const c = sh.counter, q = smooth(clamp((u - (c.t0 ?? 0)) / Math.max(0.01, (c.t1 ?? 1) - (c.t0 ?? 0)), 0, 1)), v = Math.round((c.from ?? 0) + ((c.to ?? 0) - (c.from ?? 0)) * q);
-    const txt = v.toLocaleString('de-DE') + (c.suffix || ''), Y3 = (c.y ?? 0.2) * R.H; x.save(); x.textAlign = 'center'; x.textBaseline = 'middle';
+    const txt = cntFmt(v, c) + (c.suffix || ''), Y3 = (c.y ?? 0.2) * R.H; x.save(); x.textAlign = 'center'; x.textBaseline = 'middle';
     if (c.label) { x.font = `bold 40px ${FONT}`; const lw = x.measureText(c.label).width + 40; x.fillStyle = 'rgba(0,0,0,0.6)'; rrect(x, R.W / 2 - lw / 2, Y3 - 110, lw, 56, 28); x.fill(); x.fillStyle = '#ffd23f'; x.fillText(c.label, R.W / 2, Y3 - 82); }
     outlined(x, txt, R.W / 2, Y3, 120, c.color || '#ffffff', '#000', 0.16); x.restore(); }
   if (sh.hook && tl < (sh.hookDur || 2.2)) { const k = backOut(Math.min(1, tl / 0.22)), fade = clamp(((sh.hookDur || 2.2) - tl) / 0.25, 0, 1); x.save(); x.globalAlpha = fade; x.translate(R.W / 2, R.H * 0.34); x.scale(k, k); x.rotate(-2.5 * DEG); const hl = String(sh.hook).split('\n'); x.font = `bold 116px ${FONT}`; const fit = Math.min(116, 116 * (R.W * 0.86) / Math.max(...hl.map(l => x.measureText(l).width))); hl.forEach((l, i, arr) => outlined(x, l, 0, (i - (arr.length - 1) / 2) * fit * 1.1, fit, '#ffe14d', '#000', 0.22)); x.restore(); }
