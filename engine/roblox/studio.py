@@ -11,7 +11,7 @@ studio.py – Block-Studio: Episode (JSON) -> 9:16-Video im Roblox-Look.
 
 Episode-Format: siehe README.md
 """
-import argparse, base64, json, math, os, re, shutil, subprocess, sys, time
+import argparse, base64, hashlib, json, math, os, re, shutil, subprocess, sys, time
 from pathlib import Path
 import numpy as np
 
@@ -392,6 +392,19 @@ MII_CAT = {
     'movie':     ('Lights, camera… Mii Town!', '#ff5d8f'),
     'empire':    ('Big dreams in Mii Town…', '#ffd23f'),
 }
+# Neugier-Sätze fürs Intro (Lukas 28.11.: „an jedem Anfang so ein Satz wie ‚Something isn't right‘, damit die Leute bleiben“).
+# Je Kategorie mehrere Varianten (lang mit „Mii Town“, kurz ohne) – Auswahl fest je Titel, damit es nicht immer gleich klingt.
+MII_HOOKS = {
+    'standard':  [("This town is NOT normal… welcome to Mii Town.", "This town is NOT normal…"), ("You won't believe this rule in Mii Town…", "You won't believe this rule…"), ("Wait until you hear what happens in Mii Town…", "Wait until you hear this…")],
+    'mystery':   [("Something isn't right in Mii Town…", "Something isn't right…"), ("Someone in Mii Town is lying…", "Someone is lying…"), ("Nobody in Mii Town saw this coming…", "Nobody saw this coming…")],
+    'horror':    [("Don't watch this alone… Mii Town after dark.", "Don't watch this alone…"), ("Something is watching Mii Town…", "Something is watching…"), ("This really happened in Mii Town…", "This really happened…")],
+    'comedy':    [("This went horribly wrong in Mii Town…", "This went horribly wrong…"), ("Nobody in Mii Town expected this…", "Nobody expected this…")],
+    'survival':  [("Would YOU survive this in Mii Town?", "Would YOU survive this?"), ("Most people get this wrong…", "Most people get this wrong…"), ("One mistake could cost everything…", "One mistake could cost everything…")],
+    'empire':    [("Nobody believed in them…", "Nobody believed in them…"), ("It started with almost nothing…", "It started with almost nothing…"), ("They almost lost everything…", "They almost lost everything…")],
+    'movie':     [("Only real fans get this one…", "Only real fans get this one…"), ("Bet you can't guess this movie…", "Bet you can't guess this movie…"), ("Can you guess it before the end?", "Can you guess it before the end?")],
+    'battle':    [("Mii Town battle! Who will win?", "Battle time! Who will win?")],
+    'challenge': [("One challenge. One winner. Mii Town.", "One challenge. One winner.")],
+}
 MII_SHORT = {   # Intro-Satz ohne „Mii Town“, wenn der erste Satz es schon sagt (Lukas 28.11.)
     'standard': 'Welcome back…', 'battle': 'Battle time! Who will win?', 'horror': "It's happening again…",
     'comedy': 'Another crazy day…', 'mystery': "Something isn't right…", 'survival': 'Can anyone survive this?',
@@ -402,6 +415,8 @@ def mii_category(src):
     if src.get('category') in MII_CAT: return src['category']
     ser = ((src.get('viral') or {}).get('series') or '').upper(); mu = src.get('music', ''); title = ((src.get('meta') or {}).get('title') or src.get('title') or '').lower()
     if 'MOVIE' in ser: return 'movie'
+    if 'IN MII TOWN' in ser or 'WEIRD' in ser: return 'standard'   # 08:00-Serie: seltsame Stadt-Regel
+    if 'MYSTERY' in ser: return 'mystery'
     if 'EMPIRE' in ser: return 'empire'
     if 'challenge' in title: return 'challenge'
     if 'VS' in ser or mu == 'battle' or ' vs ' in title: return 'battle'
@@ -454,7 +469,11 @@ def mii_intro(src):
     # nennt der erste Satz selbst Mii Town, spricht das Intro die Kurzform; (2) klare Pause nach dem Intro;
     # (3) „In Mii Town,“ am Satzanfang mit hörbarer Pause nach dem Komma.
     s0 = shots[0]; t0 = re.sub(r'[*_]', '', s0.get('say') or '')
-    if re.search(r'mii town', t0[:60], re.I): line = MII_SHORT.get(cat, line)
+    hv = MII_HOOKS.get(cat)
+    if hv:
+        k = int(hashlib.sha1(str(src.get('title') or (src.get('meta') or {}).get('title') or t0).encode()).hexdigest(), 16) % len(hv)
+        line = hv[k][1] if re.search(r'mii town', t0[:60], re.I) else hv[k][0]
+    elif re.search(r'mii town', t0[:60], re.I): line = MII_SHORT.get(cat, line)
     s0['pause'] = max(float(s0.get('pause') or 0), 0.6)
     if not s0.get('speak') and re.match(r'\s*in mii town,', t0, re.I):
         s0['speak'] = re.sub(r'^(\s*in mii town),', r'\1…', t0, flags=re.I)
