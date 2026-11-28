@@ -34,6 +34,9 @@ VIRAL-REGELN: alle 1–2 s neues Bild, keine Shots > 3 s; Twist ganz am Ende; le
 a) `python studio.py <episode.json> -o /tmp/v.mp4 --stills` → Ausgabe lesen:
    - **LÄNGE (27.11.):** Zeile „Länge …“ bzw. „❌❌ ACHTUNG“ prüfen – unter 40 s bricht der echte Render ab (passiert am 27.11., 08:00 ausgefallen). Ziel ≥ 45 s.
 
+- **HANDLUNG = BILD (Lukas 28.11., WICHTIG):** Was gesagt wird, wird GENAU SO gezeigt – im selben Shot. „I run downstairs“ = Figur rennt (do run + path) eine Treppe runter (prop stairs, Weg mit Höhe [x,y,z]: oben [x, steps*0.5, z-steps*0.9] → unten [x,0,z+1]; Kamera track:ID). „opens the door“ = Tür im Bild, „falls asleep“ = liegt im Bett, „calls“ = Handy in der Hand, „cries“ = weint usw.
+  - Beim Schreiben jedes Shots ZUERST festlegen, was man sieht (Ort, Aktion, Requisit), dann den Satz. Fehlt ein Requisit/eine Aktion → bauen oder Satz ändern – nie Text ohne passendes Bild.
+  - Automatische Prüfung: Zeile „❌❌ BILD≠TEXT“ in --stills = vor dem Einreihen beheben. Wörtliche Rede in „…“ zählt nicht als Handlung. `noActCheck: true` nur, wenn das Bild es nachweislich trotzdem zeigt.
 - **PROPORTIONEN (27.11.):** Mii-Figuren werden automatisch auf 0.8 skaliert (director.js MII_K, pro Folge "miiScale"), damit Mensch zu Bett/Tür/Haus passt (Erwachsene ≈ Türhöhe, Bett deutlich länger als die Figur). Nicht von Hand vergrößern; in den Stills Mensch-zu-Objekt prüfen.
 - **BETT (27.11.):** Liegende Figuren (do lie/sleep) im Bett werden AUTOMATISCH richtig gelegt (studio.py `snap_beds`): Höhe 1.10 auf der Matratze, Kopf vor dem Kissen, Decke bis zum Hals, Kamera schräg von oben aufs Gesicht. Kein y/at/cam von Hand setzen. Nur abschalten mit "bedCam": false.
 - **INTRO-KAMERA (27.11.):** Das Mii-Town-Intro fährt immer langsam auf die Hauptfigur zu (Innenräume kurze Distanz) – keine Seitenschwenks/Luftbilder mehr. Erste 3 Shots in den Stills prüfen: Gesichter ganz im Bild, nicht abgeschnitten, keine Wand vor der Figur.

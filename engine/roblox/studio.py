@@ -534,10 +534,51 @@ def mii_check(src):
         seen |= {p.get('type') for p in sh.get('props') or []}
         for w in sorted((words & ANIM) | (words & THING)):
             if w not in seen and not sh.get('noCheck'): out.append(f'Shot {i}: Text nennt „{w}“, im Bild fehlt es')
+    # HANDLUNG = BILD (Lukas 28.11.: „wenn gesagt wird I run downstairs, dann zeigt das Video genau das – immer das zeigen, was gesagt wird“)
+    # Jedes Verb/Orts-Wort im Text braucht die passende Aktion, Bewegung oder das Requisit im SELBEN Shot.
+    def _acts(a):
+        d = a.get('do'); return {d} if isinstance(d, str) else {x[0] if isinstance(x, list) else x for x in (d or [])}
+    def _holds(a):
+        r = set()
+        for k in ('hold', 'throw'):
+            h = a.get(k); r.add(h if isinstance(h, str) else (h or {}).get('type') or (h or {}).get('item'))
+        return r
+    FOOD = {'pizza', 'burger', 'cake', 'apple', 'banana', 'carrot', 'icecream', 'egg', 'cookie', 'donut', 'sandwich'}
+    RULES = [  # (Wörter im Text, Prüfung, was fehlt)
+        ({'run', 'runs', 'ran', 'running', 'rush', 'rushes', 'rushed', 'sprint', 'sprints', 'chase', 'chases', 'chased'}, lambda A, P: any(('run' in _acts(a)) and (a.get('path') or a.get('to')) for a in A), 'Figur rennt wirklich (do run + path)'),
+        ({'walk', 'walks', 'walked', 'walking', 'sneak', 'sneaks', 'sneaked', 'tiptoe', 'tiptoes'}, lambda A, P: any(a.get('path') or a.get('to') for a in A), 'Figur geht wirklich (path/to)'),
+        ({'downstairs', 'upstairs', 'stairs', 'staircase', 'steps'}, lambda A, P: 'stairs' in P, 'Treppe (prop stairs, Weg mit Höhe [x,y,z])'),
+        ({'door', 'doorbell', 'knock', 'knocks', 'knocked'}, lambda A, P: 'door' in P or 'house' in P or any('phone' in _holds(a) for a in A), 'Tür im Bild (prop door / Set house) – bei Türkamera Handy'),
+        ({'sit', 'sits', 'sat', 'seated'}, lambda A, P: any(_acts(a) & {'sit', 'sitdesk', 'sitgame'} for a in A), 'Figur sitzt (sit/sitdesk) auf echtem Sitz'),
+        ({'asleep', 'sleep', 'sleeps', 'sleeping', 'bed'}, lambda A, P: any(_acts(a) & {'lie', 'sleep', 'yawn'} for a in A) or 'bed' in P or 'room' in P, 'Figur liegt/schläft (lie) bzw. Bett im Bild'),
+        ({'jump', 'jumps', 'jumped', 'jumping'}, lambda A, P: any(_acts(a) & {'jump', 'hop'} for a in A), 'Sprung (jump)'),
+        ({'dance', 'dances', 'danced', 'dancing'}, lambda A, P: any(_acts(a) & {'dance', 'shred', 'twist', 'jazzhands'} for a in A), 'Tanz (dance)'),
+        ({'wave', 'waves', 'waved', 'waving'}, lambda A, P: any(_acts(a) & {'wave', 'wavearms'} for a in A), 'Winken (wave)'),
+        ({'cry', 'cries', 'cried', 'crying', 'tears'}, lambda A, P: any('cry' in _acts(a) or a.get('mood') == 'cry' for a in A), 'Weinen (do/mood cry)'),
+        ({'laugh', 'laughs', 'laughed', 'laughing'}, lambda A, P: any('laugh' in _acts(a) or a.get('mood') == 'laugh' for a in A), 'Lachen (laugh)'),
+        ({'fall', 'falls', 'fell', 'trip', 'trips', 'tripped', 'slip', 'slips', 'slipped'}, lambda A, P: any(_acts(a) & {'fall', 'faint'} for a in A), 'Hinfallen (fall)'),
+        ({'throw', 'throws', 'threw', 'throwing'}, lambda A, P: any('throw' in _acts(a) or a.get('throw') for a in A), 'Werfen (throw)'),
+        ({'clap', 'claps', 'clapped'}, lambda A, P: any('clap' in _acts(a) for a in A), 'Klatschen (clap)'),
+        ({'eat', 'eats', 'ate', 'eating', 'bite', 'bites'}, lambda A, P: any(_holds(a) & FOOD for a in A), 'Essen in der Hand (hold Essen)'),
+        ({'call', 'calls', 'called', 'phone', 'texts', 'texted', 'buzzed', 'buzzes', 'voicemail'}, lambda A, P: any('phone' in _holds(a) for a in A) or 'phone' in P, 'Handy in der Hand (hold phone)'),
+        ({'scream', 'screams', 'screamed', 'yell', 'yells', 'yelled'}, lambda A, P: any(a.get('mood') in ('panic', 'scared', 'shock', 'angry', 'fear') for a in A), 'Schrei-Gesicht (mood panic/shock)'),
+        ({'point', 'points', 'pointed'}, lambda A, P: any(_acts(a) & {'point', 'pointup'} for a in A), 'Zeigen (point)'),
+    ]
+    for i, sh in enumerate(src.get('shots') or [], 1):
+        if sh.get('intro') or sh.get('noCheck') or sh.get('noActCheck'): continue
+        said = re.sub(r'["“”][^"“”]*["“”]', ' ', sh.get('say') or '')   # wörtliche Rede („I was asleep!“) ist Behauptung, keine Handlung
+        words = set(re.findall(r"[a-z]+", said.lower().replace("'", '')))
+        A = sh.get('actors') or []
+        P = {p.get('type') for p in sh.get('props') or []} | {sh.get('set')}
+        for ws, ok, need in RULES:
+            hit = sorted(words & ws)
+            if hit and not ok(A, P): out.append(f'Shot {i}: BILD≠TEXT – sagt „{hit[0]}“, fehlt: {need}')
     mii = any(isinstance(v, dict) and v.get('style') == 'mii' for v in (src.get('cast') or {}).values())
     if mii and src.get('intro') is not False and not any(s.get('intro') for s in src.get('shots') or []): out.append('Mii-Town-Folge ohne Intro')
     src['_miiCheck'] = out
     print('Mii-Town-Prüfung: ' + ('✓ ok' if not out else '⚠ ' + ' · '.join(out)), flush=True)
+    bt = [x for x in out if 'BILD≠TEXT' in x]
+    if bt: print(f'❌❌ BILD≠TEXT in {len(bt)} Shot(s) – vor dem Einreihen beheben (Lukas 28.11.)', flush=True)
     return out
 
 THUMB_MOODS = ('shock', 'panic', 'scared', 'surprised', 'angry', 'excited', 'cry', 'fear', 'laugh', 'evil', 'love')

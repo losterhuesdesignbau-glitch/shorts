@@ -313,9 +313,9 @@ function clothSim(s, si, sh, tl, D, map) {
 function actorTop(cfg) { if (cfg.animal) { const A = ANIMALS[cfg.animal] || {}; return (A.biped ? 3.6 : 4.0) * (A.s || 1) * (cfg.scale || 1); } return (cfg.style === 'mii' ? 3.98 + 1.94 * (+cfg.headScale || 1.45) : 5.4) * (cfg.scale || 1); }   // Mii Town: großer Kopf -> größere Figur
 const angLerp = (a, b, t) => { const d = ((b - a + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI; return a + d * t; };
 // Weg (Polylinie) → Position nach Strecke d
-function polyAt(pts, L, d) {
-  for (let i = 0; i < L.length; i++) { if (d <= L[i] || i === L.length - 1) { const f = L[i] ? clamp(d / L[i], 0, 1) : 1; return [lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][2], pts[i + 1][2], f)]; } d -= L[i]; }
-  return [pts[0][0], pts[0][2]];
+function polyAt(pts, L, d) {   // [x, z, y] – y aus 3er-Punkten [x,y,z] (z. B. Treppe), sonst 0
+  for (let i = 0; i < L.length; i++) { if (d <= L[i] || i === L.length - 1) { const f = L[i] ? clamp(d / L[i], 0, 1) : 1; return [lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][2], pts[i + 1][2], f), lerp(pts[i][1], pts[i + 1][1], f)]; } d -= L[i]; }
+  return [pts[0][0], pts[0][2], pts[0][1]];
 }
 function pathOf(a) {
   let pts = [pt3(a.at)]; if (a.to) pts.push(pt3(a.to)); if (a.path) pts = [pts[0], ...a.path.map(p => pt3(p))];
@@ -327,10 +327,10 @@ function actorState(a, tl, D, idx, sh) {
   const u = clamp(tl / D, 0, 1), id = a.id || ('_a' + idx), cfg = cfgFor(id, a);
   const st = { id, a, cfg, ph: (hash(id) % 1000) / 1000 * 6.28, y: a.y || 0, scale: a.scale || 1, sh: a.shadow !== false, D, tl };
   const pa = pathOf(a); st.path = pa;
-  st.x = pa.pts[0][0]; st.z = pa.pts[0][2]; st.moving = false; st.dir = null; st.cyc = 0; st.speed = 0;
+  st.x = pa.pts[0][0]; st.z = pa.pts[0][2]; if (pa.pts[0][1] && !a.y) st.y = pa.pts[0][1]; st.moving = false; st.dir = null; st.cyc = 0; st.speed = 0;
   if (pa.pts.length > 1 && pa.tot > 0.01) {
     const [t0, t1] = a.move || [0, 1]; st.moving = u > t0 && u < t1; st.t0 = t0 * D; st.t1 = t1 * D;
-    const d = pathDist(a, u, pa.tot), p = polyAt(pa.pts, pa.L, d); st.x = p[0]; st.z = p[1]; st.d = d;
+    const d = pathDist(a, u, pa.tot), p = polyAt(pa.pts, pa.L, d); st.x = p[0]; st.z = p[1]; st.d = d; if (pa.pts.some(q => q[1])) st.y = (a.y || 0) + p[2];   // Treppe: Höhe folgt dem Weg
     // geglättete Laufrichtung (Kurven werden weich durchlaufen)
     const pA = polyAt(pa.pts, pa.L, Math.max(0, d - 0.9)), pB = polyAt(pa.pts, pa.L, Math.min(pa.tot, d + 0.9)); st.dir = [pB[0] - pA[0], pB[1] - pA[1]];
     const dt = 0.05, d2 = pathDist(a, clamp((tl - dt) / D, 0, 1), pa.tot); st.speed = (d - d2) / dt;
