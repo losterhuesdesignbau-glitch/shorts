@@ -392,6 +392,11 @@ MII_CAT = {
     'movie':     ('Lights, camera… Mii Town!', '#ff5d8f'),
     'empire':    ('Big dreams in Mii Town…', '#ffd23f'),
 }
+MII_SHORT = {   # Intro-Satz ohne „Mii Town“, wenn der erste Satz es schon sagt (Lukas 28.11.)
+    'standard': 'Welcome back…', 'battle': 'Battle time! Who will win?', 'horror': "It's happening again…",
+    'comedy': 'Another crazy day…', 'mystery': "Something isn't right…", 'survival': 'Can anyone survive this?',
+    'challenge': 'One challenge. One winner.', 'movie': 'Lights, camera…', 'empire': 'Big dreams…',
+}
 MII_MOTIF = {'movie': 'comedy', 'empire': 'standard'}   # neue Kategorien nutzen vorhandene Erkennungs-Sounds
 def mii_category(src):
     if src.get('category') in MII_CAT: return src['category']
@@ -445,6 +450,14 @@ def mii_intro(src):
     shots = src.get('shots') or []
     if not shots: return
     cat = mii_category(src); line, colr = MII_CAT[cat]
+    # Lukas 28.11.: „Something isn't right in Mii Town, in Mii Town …“ klingt kacke -> (1) kein doppeltes „Mii Town“:
+    # nennt der erste Satz selbst Mii Town, spricht das Intro die Kurzform; (2) klare Pause nach dem Intro;
+    # (3) „In Mii Town,“ am Satzanfang mit hörbarer Pause nach dem Komma.
+    s0 = shots[0]; t0 = re.sub(r'[*_]', '', s0.get('say') or '')
+    if re.search(r'mii town', t0[:60], re.I): line = MII_SHORT.get(cat, line)
+    s0['pause'] = max(float(s0.get('pause') or 0), 0.6)
+    if not s0.get('speak') and re.match(r'\s*in mii town,', t0, re.I):
+        s0['speak'] = re.sub(r'^(\s*in mii town),', r'\1…', t0, flags=re.I)
     first = next((s for s in shots if s.get('set')), {}); sset, stime = first.get('set', 'plaza'), first.get('time', 'day')
     humans = [k for k, v in src['cast'].items() if isinstance(v, dict) and not v.get('animal')]
     seen = []

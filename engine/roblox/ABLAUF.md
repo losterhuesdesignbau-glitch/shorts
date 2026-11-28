@@ -34,6 +34,7 @@ VIRAL-REGELN: alle 1–2 s neues Bild, keine Shots > 3 s; Twist ganz am Ende; le
 a) `python studio.py <episode.json> -o /tmp/v.mp4 --stills` → Ausgabe lesen:
    - **LÄNGE (27.11.):** Zeile „Länge …“ bzw. „❌❌ ACHTUNG“ prüfen – unter 40 s bricht der echte Render ab (passiert am 27.11., 08:00 ausgefallen). Ziel ≥ 45 s.
 
+- **INTRO-SPRACHE (28.11.):** Nach dem Intro-Satz automatisch ~1 s Pause; nennt der erste Satz „Mii Town“, sagt das Intro die Kurzform („Something isn't right…“ statt „…in Mii Town“) – nie zweimal „Mii Town“ hintereinander. „In Mii Town,“ am Satzanfang bekommt eine hörbare Pause nach dem Komma.
 - **HANDLUNG = BILD (Lukas 28.11., WICHTIG):** Was gesagt wird, wird GENAU SO gezeigt – im selben Shot. „I run downstairs“ = Figur rennt (do run + path) eine Treppe runter (prop stairs, Weg mit Höhe [x,y,z]: oben [x, steps*0.5, z-steps*0.9] → unten [x,0,z+1]; Kamera track:ID). „opens the door“ = Tür im Bild, „falls asleep“ = liegt im Bett, „calls“ = Handy in der Hand, „cries“ = weint usw.
   - Beim Schreiben jedes Shots ZUERST festlegen, was man sieht (Ort, Aktion, Requisit), dann den Satz. Fehlt ein Requisit/eine Aktion → bauen oder Satz ändern – nie Text ohne passendes Bild.
   - Automatische Prüfung: Zeile „❌❌ BILD≠TEXT“ in --stills = vor dem Einreihen beheben. Wörtliche Rede in „…“ zählt nicht als Handlung. `noActCheck: true` nur, wenn das Bild es nachweislich trotzdem zeigt.
