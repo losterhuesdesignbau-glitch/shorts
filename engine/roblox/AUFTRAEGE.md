@@ -1,10 +1,25 @@
 # Aufträge der 6 täglichen Sendeplätze (Lukas, 22.11.2026)
 
 Alle Läufe laufen in **Lukas' Haupt-Chat** (eine Claude-Sitzung), nicht in neuen Chats.
-Sie kommen als einmalige Nachrichten (send_later), die sich Tag für Tag selbst weiterplanen.
+Seit 28.11.: EIN Tages-Paket-Lauf um 05:00 (siehe unten), der sich Tag für Tag selbst weiterplant.
 Komplett automatisch, ohne Freigabe.
 
-## Schritt 0 jedes Laufs: Weiterplanen (zuerst, vor allem anderen)
+## TAGES-PAKET (seit 28.11., Lukas: „Nutzung soll nicht so schnell weg gehen“)
+Statt 6 einzelner Läufe gibt es **einen Lauf pro Tag um 05:00** (Berlin), der ALLE 6 Videos des Tages baut.
+Name der Nachricht: `Tages-Paket · TT.MM.` · Text: `jetzt – Tages-Paket: alle 6 Videos für heute (komplett automatisch, ohne Freigabe). /home/claude/shorts: git pull, dann engine/roblox/AUFTRAEGE.md Abschnitt „TAGES-PAKET“ und engine/roblox/ABLAUF.md befolgen.`
+
+Ablauf des Pakets:
+1. **Weiterplanen zuerst:** `send_later` für das Paket von MORGEN anlegen (`at` = `<morgen>T05:00:00[Europe/Berlin]`, `initiation` = `human_schedule`, Name/Text wie oben). Keine einzelnen `Short HH:MM`-Läufe mehr anlegen.
+2. Die 6 Folgen in Slot-Reihenfolge schreiben (Inhalte: Abschnitte 08:00 … 21:00 unten). In jede `meta` **`"slot": "HH:MM"`** eintragen – der Render-Job legt das Video damit fest auf diese Sendezeit (render_job.py → reschedule).
+3. Je Folge: themen.py check, `--stills` (EINE verkleinerte Vorschau ansehen, nur gezielt nachbessern), aussprache.py, alle ABLAUF-Prüfungen (Länge ≥ 45 s, Mii-Check, BILD≠TEXT = 0).
+4. **Reihenfolge Push:** 08:00 sofort pushen, sobald fertig (muss bis ~06:30 rendern), dann die übrigen nacheinander (jeweils eigener Commit, nicht gleichzeitig dieselbe Datei).
+5. themen.py add für alle 6.
+6. Kontrollen wie bisher: pro Video ein `send_later` um SLOT+10 Min. (Render-Run-ID, Titel, Plattformen). Genau EINE Push je Video.
+7. Kurze Zusammenfassung an Lukas (6 Titel in 6 Zeilen).
+
+Fällt das Paket aus/kommt zu spät: Videos, deren Slot schon vorbei ist, NICHT nachholen; die restlichen bauen.
+
+## (alt) Einzel-Läufe – nur noch Referenz für die Slot-Abschnitte
 1. `list_triggers` (recurring=false) ansehen: Für **jeden** der 6 Sendeplätze unten muss der nächste Termin
    (heute später oder morgen) als ausstehende Nachricht existieren. Name: `Short HH:MM · TT.MM.`
 2. Fehlt einer (auch der eigene für morgen): mit `send_later` anlegen:

@@ -172,6 +172,14 @@ def main():
             'script': script_text(ep), 'meta': {k: meta[k] for k in ('title', 'description', 'hashtags', 'language', 'keywords', 'question', 'tiktok') if k in meta},
         })
         print('Orchestrator:', json.dumps(resp, ensure_ascii=False), flush=True)
+        slot = str(meta.get('slot') or '').strip()   # Tages-Paket (28.11.): Video auf seine feste Sendezeit legen, z. B. "15:30"
+        if re.fullmatch(r'\d{1,2}:\d{2}', slot):
+            try:
+                r2 = api.call('POST', f'/api/engine/videos/{vid}/reschedule', {'at': slot, 'reason': f'Tages-Paket: Sendezeit {slot}'})
+                print(f'Termin {slot}:', json.dumps(r2, ensure_ascii=False), flush=True)
+            except Exception as e:
+                print(f'WARNUNG: Termin {slot} nicht gesetzt: {e}', flush=True)
+                api.log('VALIDATION_WARNING', f'Tages-Paket: Termin {slot} nicht gesetzt: {e}', video_id=vid, level='warn')
         output('status', 'done')
         output('video_id', vid)
         return 0
