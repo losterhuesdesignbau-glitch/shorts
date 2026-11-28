@@ -1,0 +1,646 @@
+{
+ "title": "Bubble Fountain",
+ "music": "mystery",
+ "tts": {
+  "voice": "kokoro:af_heart",
+  "room": 0.05
+ },
+ "viral": {
+  "hook": "WHO DID\nTHIS?! 🫧",
+  "series": "MII TOWN MYSTERY #2",
+  "cta": "Did you guess it? 👇",
+  "mid": "Who did it? Comment 1, 2 or 3 👇",
+  "midAt": 0.7,
+  "share": "Send this to the best detective you know 🕵️",
+  "loop": true
+ },
+ "meta": {
+  "title": "Who Filled Mii Town's Fountain With BUBBLES? 🫧🕵️ (Can YOU Solve It?)",
+  "description": "Mii Town's fountain is full of bubbles. Detective Noah found two clues and three suspects: Prankster Leo, Gus the baker and Grandma Pearl. Who did it – 1, 2 or 3? 👇",
+  "hashtags": [
+   "miitownmystery",
+   "mystery",
+   "miitown",
+   "whodunit",
+   "funny"
+  ],
+  "keywords": [
+   "mii town mystery",
+   "whodunit",
+   "can you solve it"
+  ],
+  "question": "Who did YOU suspect – 1, 2 or 3? 👇",
+  "language": "en"
+ },
+ "cast": {
+  "rex": "@rex",
+  "noah": "@noah",
+  "leo": "@leo",
+  "gus": "@gus",
+  "pearl": "@pearl",
+  "biscuit": {
+   "animal": "dog"
+  }
+ },
+ "shots": [
+  {
+   "say": "Someone filled Mii Town's fountain with *bubbles*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:rex",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "emojis",
+     "e": "🫧",
+     "n": 12,
+     "dur": 2.6,
+     "t": 0.0
+    }
+   ],
+   "sfx": [
+    [
+     "bassboom",
+     0.05
+    ]
+   ]
+  },
+  {
+   "say": "Bubbles *everywhere*.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "rex",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "wavearms",
+     "mood": "panic",
+     "face": 0
+    }
+   ],
+   "crowd": {
+    "n": 14,
+    "area": [
+     -10,
+     -11,
+     10,
+     -3
+    ],
+    "do": "idle",
+    "mood": "surprised",
+    "face": 0,
+    "seed": 41
+   },
+   "fx": [
+    {
+     "type": "emojis",
+     "e": "🫧",
+     "n": 18,
+     "dur": 2.6,
+     "t": 0.0
+    }
+   ]
+  },
+  {
+   "say": "So Rex called Detective Noah.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "hold",
+     "mood": "confident",
+     "face": 0,
+     "hold": "phone"
+    }
+   ]
+  },
+  {
+   "say": "Noah found two clues.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Clue one: wet paw prints… leading away.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "point",
+     "mood": "surprised",
+     "face": 300
+    }
+   ],
+   "pops": [
+    {
+     "text": "🐾  🐾  🐾",
+     "x": 0.4,
+     "y": 0.62,
+     "t": 0.3,
+     "size": 90
+    }
+   ]
+  },
+  {
+   "say": "Clue two: the bubbles smell like lavender.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "think",
+     "mood": "confused",
+     "face": 0
+    }
+   ],
+   "fx": [
+    {
+     "type": "emojis",
+     "e": "🫧",
+     "n": 8,
+     "dur": 2.6,
+     "t": 0.0
+    }
+   ],
+   "pops": [
+    {
+     "text": "💜 LAVENDER",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 90
+    }
+   ]
+  },
+  {
+   "say": "Three suspects.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "group",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      -1.7,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "grin",
+     "face": 0
+    },
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "nervous",
+     "face": 0
+    },
+    {
+     "id": "pearl",
+     "at": [
+      1.7,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "smile",
+     "face": 0
+    }
+   ],
+   "pause": 0.2
+  },
+  {
+   "say": "Number one: Prankster Leo.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "grin",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "1",
+     "x": 0.82,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 170
+    }
+   ]
+  },
+  {
+   "say": "\"Bubbles? Genius… but it wasn't me!\"",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:leo",
+   "actors": [
+    {
+     "id": "leo",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "laugh",
+     "mood": "laugh",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Number two: Gus the baker.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "nervous",
+     "face": 0
+    }
+   ],
+   "pops": [
+    {
+     "text": "2",
+     "x": 0.82,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 170
+    }
+   ]
+  },
+  {
+   "say": "He scrubs his trays with soap all day.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:gus",
+   "actors": [
+    {
+     "id": "gus",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "shrug",
+     "mood": "nervous",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Number three: Grandma Pearl.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "wave",
+     "mood": "happy",
+     "face": 0
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      1.6,
+      1.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 330,
+     "scale": 0.55
+    }
+   ],
+   "pops": [
+    {
+     "text": "3",
+     "x": 0.82,
+     "y": 0.2,
+     "t": 0.05,
+     "size": 170
+    }
+   ]
+  },
+  {
+   "say": "She just took Gus's puppy, Biscuit.",
+   "set": "street",
+   "time": "day",
+   "cam": "medium:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "love",
+     "face": 0
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      1.6,
+      1.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 330,
+     "scale": 0.55
+    }
+   ]
+  },
+  {
+   "say": "\"I was home, giving my puppy a bath!\"",
+   "set": "street",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "talk",
+     "mood": "smile",
+     "face": 0
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      1.6,
+      1.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 330,
+     "scale": 0.55
+    }
+   ]
+  },
+  {
+   "say": "Who did it? Comment 1, 2 or 3.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "face:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "think",
+     "mood": "think",
+     "face": 0
+    }
+   ],
+   "speak": "Who did it? Comment one, two, or three."
+  },
+  {
+   "say": "It was… Grandma Pearl's *puppy*!",
+   "set": "street",
+   "time": "day",
+   "cam": "face:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "idle",
+     "mood": "shock",
+     "face": 0
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      1.6,
+      1.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 330,
+     "scale": 0.55
+    }
+   ],
+   "pause": 0.8,
+   "sfx": [
+    [
+     "dun",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Pearl used lavender bubble bath.",
+   "set": "street",
+   "time": "day",
+   "cam": "close:pearl",
+   "actors": [
+    {
+     "id": "pearl",
+     "at": [
+      0,
+      1.2
+     ],
+     "do": "facepalm",
+     "mood": "nervous",
+     "face": 0
+    },
+    {
+     "id": "biscuit",
+     "at": [
+      1.6,
+      1.6
+     ],
+     "do": "idle",
+     "mood": "happy",
+     "face": 330,
+     "scale": 0.55
+    }
+   ],
+   "pops": [
+    {
+     "text": "🧴💜",
+     "x": 0.5,
+     "y": 0.27,
+     "t": 0.3,
+     "size": 120
+    }
+   ]
+  },
+  {
+   "say": "Biscuit escaped and ran to the plaza…",
+   "set": "plaza",
+   "time": "day",
+   "cam": "track:biscuit",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      -4,
+      1.4
+     ],
+     "do": "run",
+     "mood": "happy",
+     "face": 90,
+     "scale": 0.55,
+     "path": [
+      [
+       -4,
+       1.4
+      ],
+      [
+       3,
+       1.4
+      ]
+     ]
+    }
+   ],
+   "fx": [
+    {
+     "type": "emojis",
+     "e": "🫧",
+     "n": 8,
+     "dur": 2.6,
+     "t": 0.0
+    }
+   ]
+  },
+  {
+   "say": "and *jumped* right into the fountain.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:biscuit",
+   "actors": [
+    {
+     "id": "biscuit",
+     "at": [
+      1.2,
+      -2.2
+     ],
+     "do": "jump",
+     "mood": "happy",
+     "face": 200,
+     "scale": 0.55
+    }
+   ],
+   "fx": [
+    {
+     "type": "emojis",
+     "e": "🫧",
+     "n": 20,
+     "dur": 2.6,
+     "t": 0.0
+    }
+   ],
+   "sfx": [
+    [
+     "splash",
+     0.3
+    ]
+   ]
+  },
+  {
+   "say": "Wet paw prints. Lavender bubbles. Case closed.",
+   "set": "plaza",
+   "time": "day",
+   "cam": "medium:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "nod",
+     "mood": "smug",
+     "face": 0
+    }
+   ]
+  },
+  {
+   "say": "Did you guess it?",
+   "set": "plaza",
+   "time": "day",
+   "cam": "close:noah",
+   "actors": [
+    {
+     "id": "noah",
+     "at": [
+      0.6,
+      1.4
+     ],
+     "do": "idle",
+     "mood": "wink",
+     "face": 0
+    }
+   ]
+  }
+ ]
+}
